@@ -36,5 +36,17 @@ $ bundle exec rake db:migrate
 
 If the state of your database is out of sync, you can drop it and recreate it as such:
 ```sh
-bundle exec rake db:migrate:reset
+$ bundle exec rake db:migrate:reset
+```
+
+## Linting
+
+To run the linter:
+```sh
+$ bundle exec rubocop
+```
+
+Some lint errors can be auto-corrected:
+```sh
+$ bundle exec rubocop --auto-correct
 ```
