@@ -1,1 +1,16 @@
 require: rubocop-rails
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'tmp/**/*'
+    - '.git/**/*'
+    - 'bin/*'
+
+Rails/FilePath:
+  EnforcedStyle: 'arguments'
+
+Style/Documentation:
+  Enabled: false
