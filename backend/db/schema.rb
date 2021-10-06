@@ -12,7 +12,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20_211_006_181_506) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
+
+  create_table 'categories', force: :cascade do |t|
+    t.string 'title'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
+  create_table 'challenges', force: :cascade do |t|
+    t.bigint 'category_id', null: false
+    t.string 'name'
+    t.string 'description'
+    t.string 'schedule'
+    t.string 'duration'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['category_id'], name: 'index_challenges_on_category_id'
+  end
+
+  add_foreign_key 'challenges', 'categories'
 end
