@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
 import { Box } from './Box';
 
 function Map() {
@@ -24,11 +25,18 @@ function Map() {
   return (
     <Canvas camera={{ zoom: 25 }} orthographic={true}>
       <color attach="background" args={['#3B9494']} />
-      <ambientLight />
-      <pointLight position={[10, 10, 10]} />
+      <directionalLight castShadow position={[0, 10, 0]} intensity={1.5} />
+      <pointLight position={[-10, 0, 10]} intensity={0.8} />
+      <pointLight position={[10, 0, 10]} intensity={0.5} />
       {pos.map((p, index) => {
         return <Box key={index} />;
       })}
+      <OrbitControls
+        addEventListener={undefined}
+        hasEventListener={undefined}
+        removeEventListener={undefined}
+        dispatchEvent={undefined}
+      />
     </Canvas>
   );
 }
