@@ -13,7 +13,7 @@ export interface StatusMessage {
 export interface ApiResponse<D> {
   payload: D;
   messages: StatusMessage[];
-  errors: string;
 }
 
-export type ApiPromise<D> = Promise<ApiResponse<D>>;
+export type EmptyPayload = Record<string, never>;
+export type ApiPromise<D> = Promise<ApiResponse<D> | void>;
