@@ -16,5 +16,4 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     get category_url(@category), as: :json
     assert_response :success
   end
-
 end
