@@ -8,6 +8,20 @@ class ApplicationController < ActionController::API
   before_action :underscore_params!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  protected
+
+  def configure_permitted_parameters
+    added_attrs = [:username, :email, :display_name, :password, :password_confirmation, :remember_me]
+    devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
+    devise_parameter_sanitizer.permit :sign_in, keys: [:login, :password]
+    devise_parameter_sanitizer.permit :account_update, keys: added_attrs
+  end
+
+  def provider
+    super
+    'username'
+  end
+
   private
 
   def underscore_params!
@@ -26,19 +40,5 @@ class ApplicationController < ActionController::API
 
     show_error_message(@errors)
     render 'layouts/empty', status: :unprocessable_entity
-
-
-  protected
-
-  def configure_permitted_parameters
-    added_attrs = [:username, :email, :display_name, :password, :password_confirmation, :remember_me]
-    devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
-    devise_parameter_sanitizer.permit :sign_in, keys: [:login, :password]
-    devise_parameter_sanitizer.permit :account_update, keys: added_attrs
-  end
-
-  def provider
-    super
-    'username'
   end
 end
