@@ -21,7 +21,9 @@ const DEFAULT_API_RESPONSE: ApiResponse<EmptyPayload> = Object.freeze({
   ],
 });
 
-function getResponseMessages<D>(response: ApiResponse<D>): string {
+function getResponseMessages<D>(
+  response: ApiResponse<D> | ApiResponse<EmptyPayload>
+): string {
   return response.messages.map((message) => message.content).join('; ');
 }
 
