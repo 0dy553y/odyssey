@@ -1,0 +1,5 @@
+{
+  "payload": <%= yield %>,
+  "messages": <%= raw(render 'layouts/messages') %>,
+  "errors": <%= raw(@errors.to_json) %>
+}
