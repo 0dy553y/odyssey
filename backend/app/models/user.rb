@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   include DeviseTokenAuth::Concerns::User
 
-  validates :email, uniqueness: { case_sensitive: false }
+  validates :email, uniqueness: { case_sensitive: false, if: -> { provider == 'email'} }
   validates :username, presence: true,
                        uniqueness: { case_sensitive: false },
                        format: {
@@ -19,6 +19,7 @@ class User < ApplicationRecord
 
   before_validation do
     self.uid = username if uid.blank?
+    self.provider = 'username' if provider.blank?
   end
 
   def email_required?
