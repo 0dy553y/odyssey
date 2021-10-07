@@ -11,7 +11,9 @@ export interface StatusMessage {
 }
 
 export interface ApiResponse<D> {
-  payload: D;
+  payload: {
+    data: D;
+  };
   messages: StatusMessage[];
 }
 
