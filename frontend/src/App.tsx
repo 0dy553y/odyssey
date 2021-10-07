@@ -1,8 +1,6 @@
 import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
-import LoginPage from './pages/login';
-import RegistrationPage from './pages/registration';
 import { Route, Switch } from 'react-router-dom';
 import { LOGIN_ROUTE, routes } from './routing/routes';
 import ProtectedRoute, { ProtectedRouteProps } from './routing/ProtectedRoute';
