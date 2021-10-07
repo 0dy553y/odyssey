@@ -4,6 +4,13 @@ class ApplicationController < ActionController::API
   include ::ActionView::Layouts
   include StatusMessages
   layout 'application'
+  before_action :underscore_params!
+
+  private
+
+  def underscore_params!
+    params.deep_transform_keys!(&:underscore)
+  end
 
   rescue_from ActiveRecord::StatementInvalid, ActionController::ParameterMissing do |e|
     @errors = e
