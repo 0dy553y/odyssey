@@ -27,12 +27,19 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.find(params.require(:id))
     @challenge.destroy!
 
-    render status: :no_content
+    render 'layouts/empty', status: :no_content
   end
 
   private
 
   def challenge_params
-    params.require(:data).permit(:name, :description, :schedule, :duration)
+    params.require(:data).permit(:category_id, :name, :description, :schedule, :duration)
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do |e|
+    @errors = e
+
+    show_error_message('Challenge cannot be found')
+    render 'layouts/empty', status: :not_found
   end
 end
