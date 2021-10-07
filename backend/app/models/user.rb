@@ -8,11 +8,11 @@ class User < ApplicationRecord
 
   include DeviseTokenAuth::Concerns::User
 
-  validates :email, uniqueness: { case_sensitive: false, if: -> { provider == 'email'} }
+  validates :email, uniqueness: { case_sensitive: false, if: -> { provider == 'email' } }
   validates :username, presence: true,
                        uniqueness: { case_sensitive: false },
                        format: {
-                         with: /^[a-zA-Z0-9_\.]*$/,
+                         with: /^[a-zA-Z0-9_.]*$/,
                          multiline: true,
                          message: 'only allows letters, numbers, underscore or punctuation'
                        }
