@@ -8,7 +8,8 @@ import Typography from '@mui/material/Typography';
 
 const LoginPage: React.FC = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    console.log('LOG IN', event);
+    event.preventDefault();
+    console.log('LOG IN');
   };
 
   return (
