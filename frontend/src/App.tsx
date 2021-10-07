@@ -1,25 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
+import { Route, Switch } from 'react-router-dom';
+import { LOGIN_ROUTE, routes } from './routing/routes';
+import ProtectedRoute, { ProtectedRouteProps } from './routing/ProtectedRoute';
+
 import './App.css';
 
 function App(): JSX.Element {
+  const defaultProtectedRouteProps: ProtectedRouteProps = {
+    isAuthenticated: false, // TODO: replace this
+    authenticationPath: LOGIN_ROUTE,
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container className="App" component="main" maxWidth="xs">
+      <CssBaseline />
+      <Switch>
+        {routes.map((route) => {
+          if (!route.isPublic) {
+            return (
+              <ProtectedRoute
+                key={route.path}
+                {...defaultProtectedRouteProps}
+                path={route.path}
+              >
+                {route.component}
+              </ProtectedRoute>
+            );
+          } else {
+            return (
+              <Route
+                key={route.path}
+                path={route.path}
+                component={route.component}
+              />
+            );
+          }
+        })}
+      </Switch>
+    </Container>
   );
 }
 
