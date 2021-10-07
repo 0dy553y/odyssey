@@ -8,11 +8,14 @@ class User < ApplicationRecord
 
   include DeviseTokenAuth::Concerns::User
 
-  validates_uniqueness_of :email, case_insensitive: true
-  validates_uniqueness_of :username, case_insensitive: true
-
-  # only allow letter, number, underscore and punctuation.
-  validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, multiline: true
+  validates :email, uniqueness: { case_sensitive: false }
+  validates :username, presence: true,
+                       uniqueness: { case_sensitive: false },
+                       format: {
+                         with: /^[a-zA-Z0-9_\.]*$/,
+                         multiline: true,
+                         message: 'only allows letters, numbers, underscore or punctuation'
+                       }
 
   before_validation do
     self.uid = username if uid.blank?
