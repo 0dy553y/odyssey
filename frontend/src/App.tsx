@@ -9,7 +9,7 @@ import './App.css';
 
 function App(): JSX.Element {
   const defaultProtectedRouteProps: ProtectedRouteProps = {
-    isAuthenticated: true, // TODO: replace this
+    isAuthenticated: false, // TODO: replace this
     authenticationPath: LOGIN_ROUTE,
   };
 
@@ -18,7 +18,7 @@ function App(): JSX.Element {
       <CssBaseline />
       <Switch>
         {routes.map((route) => {
-          if (!!route.isPublic) {
+          if (!route.isPublic) {
             return (
               <ProtectedRoute
                 key={route.path}
@@ -30,9 +30,11 @@ function App(): JSX.Element {
             );
           } else {
             return (
-              <Route key={route.path} path={route.path}>
-                {route.component}
-              </Route>
+              <Route
+                key={route.path}
+                path={route.path}
+                component={route.component}
+              />
             );
           }
         })}
