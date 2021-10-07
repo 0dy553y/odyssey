@@ -12,7 +12,7 @@ import axios, {
 } from 'axios';
 
 const DEFAULT_API_RESPONSE: ApiResponse<EmptyPayload> = Object.freeze({
-  payload: {},
+  payload: { data: {} },
   messages: [
     {
       content: 'Request failed. Please check your Internet connection.',
