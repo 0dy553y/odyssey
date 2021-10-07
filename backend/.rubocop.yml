@@ -8,6 +8,15 @@ AllCops:
     - 'tmp/**/*'
     - '.git/**/*'
     - 'bin/*'
+    - 'db/schema.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'db/**/*'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'db/**/*'
 
 Rails/FilePath:
   EnforcedStyle: 'arguments'
