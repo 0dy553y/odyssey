@@ -8,7 +8,7 @@ import {
   SaveChallengeListAction,
 } from './types';
 
-export function saveChallengesList(
+export function saveChallengeList(
   challengeList: ChallengeListData[]
 ): SaveChallengeListAction {
   return {

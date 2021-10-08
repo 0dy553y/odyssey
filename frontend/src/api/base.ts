@@ -32,22 +32,20 @@ function processRequest<D>(
   endpoint: string,
   promise: AxiosPromise<ApiResponse<D>>
 ): ApiPromise<D> {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore: Catch block does not return any value since it throws an error
   return promise
     .then((response: AxiosResponse<ApiResponse<D>>) => {
       const apiResponse: ApiResponse<D> = response.data;
       if (process.env.NODE_ENV === 'development') {
-        // eslint-disable-next-line no-console
         console.info(`[API] ${endpoint} : ${getResponseMessages(apiResponse)}`);
       }
       return apiResponse;
     })
     .catch((error: AxiosError<ApiResponse<D>>) => {
       const apiResponse: ApiResponse<D> | ApiResponse<EmptyPayload> =
-        error.response && error.response.data
-          ? error.response.data
-          : DEFAULT_API_RESPONSE;
+        error.response?.data ?? DEFAULT_API_RESPONSE;
       if (process.env.NODE_ENV === 'development') {
-        // eslint-disable-next-line no-console
         console.error(
           `[API] ${endpoint} : ${getResponseMessages(apiResponse)}`
         );

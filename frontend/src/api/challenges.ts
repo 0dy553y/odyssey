@@ -8,11 +8,11 @@ import {
 } from '../types/challenges';
 
 class ChallengesAPI extends BaseAPI {
-  protected static getChallengesUrl(): string {
+  public static getChallengesUrl(): string {
     return 'challenges';
   }
 
-  public getChallengesList(): ApiPromise<ChallengeListData[]> {
+  public getChallengeList(): ApiPromise<ChallengeListData[]> {
     return this.get(ChallengesAPI.getChallengesUrl());
   }
 
