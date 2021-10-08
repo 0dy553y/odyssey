@@ -3,7 +3,7 @@
 class Auth::SessionsController < DeviseTokenAuth::SessionsController
   def render_create_success
     render json: {
-      data: resource_data(resource_json: @resource.token_validation_response),
+      payload: { data: resource_data(resource_json: @resource.token_validation_response) },
       messages: [],
       errors: []
     }
@@ -11,7 +11,7 @@ class Auth::SessionsController < DeviseTokenAuth::SessionsController
 
   def render_create_error_bad_credentials
     render json: {
-      data: nil,
+      payload: { data: nil },
       messages: [],
       errors: [ I18n.t('devise_token_auth.sessions.bad_credentials') ]
     }, status: :unauthorized
