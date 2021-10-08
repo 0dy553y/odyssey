@@ -9,13 +9,16 @@ import { setUser } from './actions';
 export function login(loginData: LoginData): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.auth.login(loginData);
+    // TODO: better error handling
     const userData: UserData = response.payload.data;
     dispatch(setUser(userData));
   };
 }
 
 export function registerUser(registerData: RegisterData): OperationResult {
-  return async () => {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    // TODO: better error handling
     await api.auth.registerUser(registerData);
+    dispatch(login({ ...registerData }));
   };
 }

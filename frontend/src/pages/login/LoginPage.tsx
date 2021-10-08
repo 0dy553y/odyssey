@@ -5,8 +5,10 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { REGISTER_ROUTE } from '../../routing/routes';
+import { HOME_ROUTE, REGISTER_ROUTE } from '../../routing/routes';
 import { useHistory } from 'react-router-dom';
+import { login } from '../../store/auth/operations';
+import { useDispatch } from 'react-redux';
 
 interface LoginPageState {
   username: string;
@@ -15,6 +17,7 @@ interface LoginPageState {
 
 const LoginPage: React.FC = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [state, setState] = useReducer(
     (s: LoginPageState, a: Partial<LoginPageState>) => ({
       ...s,
@@ -28,7 +31,8 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('LOG IN');
+    dispatch(login({ ...state }));
+    history.push(HOME_ROUTE);
   };
 
   return (
