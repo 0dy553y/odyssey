@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Auth::SessionsController < DeviseTokenAuth::SessionsController
+module Auth::SessionsController < DeviseTokenAuth::SessionsController
   def render_create_success
     render json: {
       payload: { data: resource_data(resource_json: @resource.token_validation_response) },
@@ -13,7 +13,7 @@ class Auth::SessionsController < DeviseTokenAuth::SessionsController
     render json: {
       payload: { data: nil },
       messages: [],
-      errors: [ I18n.t('devise_token_auth.sessions.bad_credentials') ]
+      errors: [I18n.t('devise_token_auth.sessions.bad_credentials')]
     }, status: :unauthorized
   end
 end

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
-  include StatusMessages
-
+module Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
   def render_create_success
     render json: {
       status: 'success',
