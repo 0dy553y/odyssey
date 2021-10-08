@@ -96,8 +96,9 @@ class BaseAPI {
       baseURL: process.env.REACT_APP_SERVER_BASE_URL,
       transformResponse: [
         ...(axios.defaults.transformResponse as AxiosTransformer[]),
-        // eslint-disable @typescript-eslint/no-explicit-any
-        (data): any =>
+        (
+          data
+        ): any => // eslint-disable-line @typescript-eslint/no-explicit-any
           humps.camelizeKeys(data, function (key, convert) {
             return /^[A-Z0-9_]+$/.test(key) ? key : convert(key);
           }), // takes care of case issues, skips all caps
