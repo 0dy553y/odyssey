@@ -1,4 +1,5 @@
 import BaseAPI from './base';
+import ChallengesAPI from './challenges';
 import { ApiPromise, EmptyPayload } from '../types/api';
 import { TaskData, TaskPostData, TaskPutData } from '../types/tasks';
 
@@ -7,24 +8,47 @@ class TasksAPI extends BaseAPI {
     return 'tasks';
   }
 
-  public getTasksList(): ApiPromise<TaskData[]> {
-    return this.get(TasksAPI.getTasksUrl());
+  public getTasksList(challengeId: number): ApiPromise<TaskData[]> {
+    return this.get(
+      `${ChallengesAPI.getChallengesUrl()}/${challengeId}/${TasksAPI.getTasksUrl()}`
+    );
   }
 
-  public getTask(taskId: number): ApiPromise<TaskData> {
-    return this.get(`${TasksAPI.getTasksUrl()}/${taskId}`);
+  public getTask(challengeId: number, taskId: number): ApiPromise<TaskData> {
+    return this.get(
+      `${ChallengesAPI.getChallengesUrl()}/${challengeId}/${TasksAPI.getTasksUrl()}/${taskId}`
+    );
   }
 
-  public addTask(taskPostData: TaskPostData): ApiPromise<TaskData> {
-    return this.post(`${TasksAPI.getTasksUrl()}`, taskPostData);
+  public addTask(
+    challengeId: number,
+    taskPostData: TaskPostData
+  ): ApiPromise<TaskData> {
+    return this.post(
+      `${ChallengesAPI.getChallengesUrl()}/${challengeId}/${TasksAPI.getTasksUrl()}`,
+      taskPostData
+    );
   }
 
-  public editTask(taskPutData: TaskPutData): ApiPromise<TaskData> {
-    return this.put(`${TasksAPI.getTasksUrl()}/${taskPutData.id}`, taskPutData);
+  public editTask(
+    challengeId: number,
+    taskPutData: TaskPutData
+  ): ApiPromise<TaskData> {
+    return this.put(
+      `${ChallengesAPI.getChallengesUrl()}/${challengeId}/${TasksAPI.getTasksUrl()}/${
+        taskPutData.id
+      }`,
+      taskPutData
+    );
   }
 
-  public deleteTask(taskId: number): ApiPromise<EmptyPayload> {
-    return this.delete(`${TasksAPI.getTasksUrl()}/${taskId}`);
+  public deleteTask(
+    challengeId: number,
+    taskId: number
+  ): ApiPromise<EmptyPayload> {
+    return this.delete(
+      `${ChallengesAPI.getChallengesUrl()}/${challengeId}/${TasksAPI.getTasksUrl()}/${taskId}`
+    );
   }
 }
 
