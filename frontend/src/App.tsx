@@ -27,20 +27,12 @@ function App(): JSX.Element {
             return (
               <ProtectedRoute
                 key={route.path}
+                {...route}
                 {...defaultProtectedRouteProps}
-                path={route.path}
-              >
-                {route.component}
-              </ProtectedRoute>
-            );
-          } else {
-            return (
-              <Route
-                key={route.path}
-                path={route.path}
-                component={route.component}
               />
             );
+          } else {
+            return <Route key={route.path} {...route} />;
           }
         })}
       </Switch>
