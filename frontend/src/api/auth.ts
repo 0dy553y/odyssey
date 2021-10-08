@@ -7,7 +7,6 @@ class AuthAPI extends BaseAPI {
     return 'auth';
   }
 
-  // TODO: check return values
   public registerUser(registerData: RegisterData): ApiPromise<void> {
     return this.post(`${AuthAPI.getAuthUrl()}`, registerData);
   }
