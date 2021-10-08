@@ -1,14 +1,19 @@
 import BaseAPI from './base';
 import ChallengesAPI from './challenges';
 import { ApiPromise, EmptyPayload } from '../types/api';
-import { TaskData, TaskPostData, TaskPutData } from '../types/tasks';
+import {
+  TaskData,
+  TaskListData,
+  TaskPostData,
+  TaskPutData,
+} from '../types/tasks';
 
 class TasksAPI extends BaseAPI {
   protected static getTasksUrl(): string {
     return 'tasks';
   }
 
-  public getTasksList(challengeId: number): ApiPromise<TaskData[]> {
+  public getTaskList(challengeId: number): ApiPromise<TaskListData[]> {
     return this.get(
       `${ChallengesAPI.getChallengesUrl()}/${challengeId}/${TasksAPI.getTasksUrl()}`
     );
@@ -20,24 +25,20 @@ class TasksAPI extends BaseAPI {
     );
   }
 
-  public addTask(
-    challengeId: number,
-    taskPostData: TaskPostData
-  ): ApiPromise<TaskData> {
+  public addTask(taskPostData: TaskPostData): ApiPromise<TaskData> {
     return this.post(
-      `${ChallengesAPI.getChallengesUrl()}/${challengeId}/${TasksAPI.getTasksUrl()}`,
+      `${ChallengesAPI.getChallengesUrl()}/${
+        taskPostData.challengeId
+      }/${TasksAPI.getTasksUrl()}`,
       taskPostData
     );
   }
 
-  public editTask(
-    challengeId: number,
-    taskPutData: TaskPutData
-  ): ApiPromise<TaskData> {
+  public editTask(taskPutData: TaskPutData): ApiPromise<TaskData> {
     return this.put(
-      `${ChallengesAPI.getChallengesUrl()}/${challengeId}/${TasksAPI.getTasksUrl()}/${
-        taskPutData.id
-      }`,
+      `${ChallengesAPI.getChallengesUrl()}/${
+        taskPutData.challengeId
+      }/${TasksAPI.getTasksUrl()}/${taskPutData.id}`,
       taskPutData
     );
   }
