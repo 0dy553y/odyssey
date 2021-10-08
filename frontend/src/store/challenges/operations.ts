@@ -53,7 +53,7 @@ export function updateChallenge(
 
 export function deleteChallenge(challengeId: number): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.challenges.deleteChallenge(challengeId);
+    await api.challenges.deleteChallenge(challengeId);
     dispatch(removeChallenge(challengeId));
   };
 }
