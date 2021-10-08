@@ -2,14 +2,13 @@
 
 class TasksController < ApplicationController
   before_action :find_challenge
-  before_action :set_task, only: [:show, :update, :destroy]
+  before_action :set_task, only: %i[show update destroy]
 
   def index
     @tasks = @challenge.tasks
   end
 
-  def show
-  end
+  def show; end
 
   def create
     @task = @challenge.tasks.build(task_params)
