@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -9,8 +9,9 @@ import { LOGIN_ROUTE } from '../../routing/routes';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../store/auth/operations';
+import { useForm, Controller } from 'react-hook-form';
 
-interface RegistrationPageState {
+interface RegistrationFormState {
   username: string;
   password: string;
   passwordConfirmation: string;
@@ -19,22 +20,16 @@ interface RegistrationPageState {
 const RegistrationPage: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [state, setState] = useReducer(
-    (s: RegistrationPageState, a: Partial<RegistrationPageState>) => ({
-      ...s,
-      ...a,
-    }),
-    {
-      username: '',
-      password: '',
-      passwordConfirmation: '',
-    }
-  );
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    getValues,
+  } = useForm<RegistrationFormState>();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    dispatch(registerUser({ ...state }, history));
-  };
+  const onSubmit = handleSubmit((data: RegistrationFormState) =>
+    dispatch(registerUser({ ...data }, history))
+  );
 
   return (
     <Box
@@ -48,40 +43,80 @@ const RegistrationPage: React.FC = () => {
       <Typography component="h1" variant="h5">
         Sign up
       </Typography>
-      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+      <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
+            <Controller
               name="username"
-              label="Username"
-              id="username"
-              onChange={(event) => setState({ username: event.target.value })}
+              control={control}
+              defaultValue=""
+              rules={{ required: 'Username is required' }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
+                  error={!!errors.username}
+                  helperText={errors.username?.message}
+                />
+              )}
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
+            <Controller
               name="password"
-              label="Password"
-              type="password"
-              id="password"
-              onChange={(event) => setState({ password: event.target.value })}
+              control={control}
+              defaultValue=""
+              rules={{
+                required: 'Password is required',
+                minLength: {
+                  value: 6,
+                  message: 'Password must be at least 6 characters long',
+                },
+              }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  error={!!errors.password}
+                  helperText={errors.password?.message}
+                />
+              )}
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              name="confirmPassword"
-              label="Confirm Password"
-              type="password"
-              id="confirmPassword"
-              onChange={(event) =>
-                setState({ passwordConfirmation: event.target.value })
-              }
+            <Controller
+              name="passwordConfirmation"
+              control={control}
+              defaultValue=""
+              rules={{
+                required: 'Please confirm your password',
+                validate: (passwordConfirmation) =>
+                  passwordConfirmation === getValues().password ||
+                  'Passwords do not match',
+              }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  fullWidth
+                  name="passwordConfirmation"
+                  label="Confirm Password"
+                  type="passwordConfirmation"
+                  id="passwordConfirmation"
+                  error={!!errors.passwordConfirmation}
+                  helperText={errors.passwordConfirmation?.message}
+                />
+              )}
             />
           </Grid>
         </Grid>

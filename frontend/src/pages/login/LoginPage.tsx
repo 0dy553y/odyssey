@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -9,8 +9,9 @@ import { REGISTER_ROUTE } from '../../routing/routes';
 import { useHistory } from 'react-router-dom';
 import { login } from '../../store/auth/operations';
 import { useDispatch } from 'react-redux';
+import { useForm, Controller } from 'react-hook-form';
 
-interface LoginPageState {
+interface LoginFormState {
   username: string;
   password: string;
 }
@@ -18,21 +19,15 @@ interface LoginPageState {
 const LoginPage: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [state, setState] = useReducer(
-    (s: LoginPageState, a: Partial<LoginPageState>) => ({
-      ...s,
-      ...a,
-    }),
-    {
-      username: '',
-      password: '',
-    }
-  );
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<LoginFormState>();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    dispatch(login({ ...state }, history));
-  };
+  const onSubmit = handleSubmit((data: LoginFormState) =>
+    dispatch(login({ ...data }, history))
+  );
 
   return (
     <Box
@@ -46,27 +41,47 @@ const LoginPage: React.FC = () => {
       <Typography component="h1" variant="h5">
         Login
       </Typography>
-      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="username"
-          label="Username"
+      <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
+        <Controller
           name="username"
-          autoComplete="username"
-          onChange={(event) => setState({ username: event.target.value })}
+          control={control}
+          defaultValue=""
+          rules={{ required: 'Username is required' }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
+              error={!!errors.username}
+              helperText={errors.username?.message}
+            />
+          )}
         />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
+        <Controller
           name="password"
-          label="Password"
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          onChange={(event) => setState({ password: event.target.value })}
+          control={control}
+          defaultValue=""
+          rules={{ required: 'Password is required' }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              error={!!errors.password}
+              helperText={errors.password?.message}
+            />
+          )}
         />
         <Button
           type="submit"
