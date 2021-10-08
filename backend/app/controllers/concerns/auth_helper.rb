@@ -4,6 +4,6 @@ module AuthHelper
   def render_error(status, message, _data = nil)
     @errors = message
     show_error_message(message)
-    render 'auth/user', status: status
+    render 'layouts/empty', status: status
   end
 end
