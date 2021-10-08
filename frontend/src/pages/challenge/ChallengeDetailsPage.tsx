@@ -1,10 +1,15 @@
-import React, { useReducer } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import React, { useState } from 'react';
+import {
+  Box,
+  Typography,
+  Drawer,
+  IconButton,
+  Divider,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
 import { ChallengeData } from '../../types/challenges';
 import { useHistory } from 'react-router-dom';
 
@@ -13,6 +18,9 @@ interface ChallengeDetailsPageState {
 }
 
 const ChallengeDetailsPage: React.FC = () => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const details = () => <Typography>test</Typography>;
   return (
     <Box
       sx={{
@@ -22,9 +30,25 @@ const ChallengeDetailsPage: React.FC = () => {
         alignItems: 'center',
       }}
     >
-      <Typography component="h1" variant="h5">
-        Couch to 5k
-      </Typography>
+      <Typography component="h1">Couch to 5k</Typography>
+      <Drawer variant="permanent" open={true}>
+        <Divider />
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
     </Box>
   );
 };
