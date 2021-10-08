@@ -33,7 +33,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:data).permit(:challenge_id, :name, :description, :index)
+    params.require(:task).permit(:challenge_id, :name, :description, :index)
   end
 
   rescue_from ActiveRecord::RecordNotFound do |e|
