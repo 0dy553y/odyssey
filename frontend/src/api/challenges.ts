@@ -8,7 +8,7 @@ import {
 } from '../types/challenges';
 
 class ChallengesAPI extends BaseAPI {
-  protected static getChallengesUrl(): string {
+  public static getChallengesUrl(): string {
     return 'challenges';
   }
 
