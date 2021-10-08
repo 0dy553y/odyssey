@@ -12,6 +12,6 @@ export interface TaskPostData {
   index: number;
 }
 
-export interface TaskPutData {
+export interface TaskPutData extends TaskPostData {
   id: number;
 }
