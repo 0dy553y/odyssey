@@ -3,8 +3,8 @@ import ChallengesAPI from './challenges';
 import TasksAPI from './tasks';
 
 const api = Object.freeze({
-  challenges: new ChallengesAPI(),
   categories: new CategoriesAPI(),
+  challenges: new ChallengesAPI(),
   tasks: new TasksAPI(),
 });
 
