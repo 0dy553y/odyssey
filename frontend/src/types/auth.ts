@@ -10,7 +10,7 @@ export interface UserData {
   displayName: string;
 }
 
-export interface SignInData {
+export interface LoginData {
   username: string;
   password: string;
 }

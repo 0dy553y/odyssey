@@ -4,11 +4,12 @@ import {
   createStore,
   Store,
 } from '@reduxjs/toolkit';
-import authReducer, { AuthState } from './authReducer';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import authReducer from './auth/reducer';
+import { AuthState } from './auth/types';
 import challengesReducer from './challenges/reducer';
 import { ChallengesState } from './challenges/types';
-import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
 
 export interface RootState {
   auth: AuthState;

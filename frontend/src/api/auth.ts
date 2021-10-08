@@ -1,5 +1,5 @@
 import { ApiPromise } from '../types/api';
-import { RegisterData, SignInData, UserData } from '../types/auth';
+import { LoginData, RegisterData, UserData } from '../types/auth';
 import BaseAPI from './base';
 
 class AuthAPI extends BaseAPI {
@@ -12,7 +12,7 @@ class AuthAPI extends BaseAPI {
     return this.post(`${AuthAPI.getAuthUrl()}`, registerData);
   }
 
-  public signIn(signInData: SignInData): ApiPromise<UserData> {
+  public login(signInData: LoginData): ApiPromise<UserData> {
     return this.post(`${AuthAPI.getAuthUrl()}/sign_in`, signInData);
   }
 }
