@@ -8,17 +8,24 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import authReducer from './auth/reducer';
 import { AuthState } from './auth/types';
+import categoriesReducer from './categories/reducer';
+import { CategoriesState } from './categories/types';
 import challengesReducer from './challenges/reducer';
 import { ChallengesState } from './challenges/types';
-
+import tasksReducer from './tasks/reducer';
+import { TasksState } from './tasks/types';
 export interface RootState {
   auth: AuthState;
+  categories: CategoriesState;
   challenges: ChallengesState;
+  tasks: TasksState;
 }
 
 export const rootReducer = combineReducers({
   auth: authReducer,
+  categories: categoriesReducer,
   challenges: challengesReducer,
+  tasks: tasksReducer,
 });
 
 const storeEnhancer = applyMiddleware(thunk);
