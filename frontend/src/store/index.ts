@@ -9,14 +9,18 @@ import challengesReducer from './challenges/reducer';
 import { ChallengesState } from './challenges/types';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import categoriesReducer from './categories/reducer';
+import { CategoriesState } from './categories/types';
 
 export interface RootState {
   auth: AuthState;
+  categories: CategoriesState;
   challenges: ChallengesState;
 }
 
 export const rootReducer = combineReducers({
   auth: authReducer,
+  categories: categoriesReducer,
   challenges: challengesReducer,
 });
 

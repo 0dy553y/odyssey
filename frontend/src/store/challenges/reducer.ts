@@ -21,7 +21,9 @@ const challengesReducer = produce(
         break;
       }
       case SAVE_CHALLENGE: {
-        draft.challengeList.push(action.challenge);
+        if (!draft.challengeList.includes(action.challenge)) {
+          draft.challengeList.push(action.challenge);
+        }
         draft.challenges[action.challenge.id] = action.challenge;
         break;
       }
