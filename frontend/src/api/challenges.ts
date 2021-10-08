@@ -12,7 +12,7 @@ class ChallengesAPI extends BaseAPI {
     return 'challenges';
   }
 
-  public getChallengesList(): ApiPromise<ChallengeListData[]> {
+  public getChallengeList(): ApiPromise<ChallengeListData[]> {
     return this.get(ChallengesAPI.getChallengesUrl());
   }
 
