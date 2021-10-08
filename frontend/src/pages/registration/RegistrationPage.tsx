@@ -5,7 +5,7 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { HOME_ROUTE, LOGIN_ROUTE } from '../../routing/routes';
+import { LOGIN_ROUTE } from '../../routing/routes';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../store/auth/operations';

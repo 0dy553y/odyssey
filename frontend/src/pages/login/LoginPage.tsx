@@ -5,12 +5,10 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { HOME_ROUTE, REGISTER_ROUTE } from '../../routing/routes';
+import { REGISTER_ROUTE } from '../../routing/routes';
 import { useHistory } from 'react-router-dom';
 import { login } from '../../store/auth/operations';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { getUser } from '../../store/auth/selectors';
+import { useDispatch } from 'react-redux';
 
 interface LoginPageState {
   username: string;
@@ -30,8 +28,6 @@ const LoginPage: React.FC = () => {
       password: '',
     }
   );
-
-  const user = useSelector((state: RootState) => getUser(state));
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
