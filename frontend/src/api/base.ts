@@ -1,15 +1,15 @@
-import {
-  ApiPromise,
-  ApiResponse,
-  EmptyPayload,
-  StatusMessageType,
-} from '../types/api';
 import axios, {
   AxiosError,
   AxiosPromise,
   AxiosRequestConfig,
   AxiosResponse,
 } from 'axios';
+import {
+  ApiPromise,
+  ApiResponse,
+  EmptyPayload,
+  StatusMessageType,
+} from '../types/api';
 
 const DEFAULT_API_RESPONSE: ApiResponse<EmptyPayload> = Object.freeze({
   payload: { data: {} },

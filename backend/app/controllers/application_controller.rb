@@ -1,10 +1,26 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  include DeviseTokenAuth::Concerns::SetUserByToken
   include ::ActionView::Layouts
   include StatusMessages
   layout 'application'
   before_action :underscore_params!
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+
+  def configure_permitted_parameters
+    added_attrs = %i[username email display_name password password_confirmation remember_me]
+    devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
+    devise_parameter_sanitizer.permit :sign_in, keys: %i[login password]
+    devise_parameter_sanitizer.permit :account_update, keys: added_attrs
+  end
+
+  def provider
+    super
+    'username'
+  end
 
   private
 
