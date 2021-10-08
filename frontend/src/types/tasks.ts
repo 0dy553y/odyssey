@@ -1,13 +1,16 @@
-export interface TaskData {
+export interface TaskListData {
   id: number;
+  challengeId: number;
   name: string;
   description: string;
   index: number;
 }
 
+export type TaskData = TaskListData;
+
 export interface TaskPostData {
-  name: string;
   challengeId: number;
+  name: string;
   description: string;
   index: number;
 }
