@@ -8,7 +8,9 @@ import Typography from '@mui/material/Typography';
 import { HOME_ROUTE, REGISTER_ROUTE } from '../../routing/routes';
 import { useHistory } from 'react-router-dom';
 import { login } from '../../store/auth/operations';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { getUser } from '../../store/auth/selectors';
 
 interface LoginPageState {
   username: string;
@@ -29,10 +31,11 @@ const LoginPage: React.FC = () => {
     }
   );
 
+  const user = useSelector((state: RootState) => getUser(state));
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(login({ ...state }));
-    history.push(HOME_ROUTE);
+    dispatch(login({ ...state }, history));
   };
 
   return (

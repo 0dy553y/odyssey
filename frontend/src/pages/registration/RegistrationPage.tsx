@@ -33,8 +33,7 @@ const RegistrationPage: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(registerUser({ ...state }));
-    history.push(HOME_ROUTE);
+    dispatch(registerUser({ ...state }, history));
   };
 
   return (
