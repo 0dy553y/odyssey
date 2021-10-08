@@ -1,5 +1,5 @@
 export interface ChallengeListData {
-  id: string;
+  id: number;
   name: string;
   duration: number;
 }
