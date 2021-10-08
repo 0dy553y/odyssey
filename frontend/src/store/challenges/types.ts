@@ -27,5 +27,6 @@ export type ChallengeActions =
   | RemoveChallengeAction;
 
 export interface ChallengesState {
-  challenges: (ChallengeListData & Partial<ChallengeData>)[];
+  challengeList: ChallengeListData[];
+  challenges: Record<number, ChallengeData>;
 }
