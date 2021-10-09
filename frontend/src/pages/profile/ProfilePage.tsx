@@ -1,7 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { getUser } from 'store/auth/selectors';
-import { Avatar, Box, Stack, Typography } from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {
+  Avatar,
+  Box,
+  Grid,
+  IconButton,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { RootState } from 'store';
 import { displayUsername } from 'utils/profile';
 
@@ -20,17 +28,23 @@ const ProfilePage: React.FC = () => {
   return (
     <Box
       sx={{
-        marginTop: 8,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
       }}
     >
-      <Avatar
-        alt={user?.username}
-        src="https://breakbrunch.com/wp-content/uploads/2019/11/cute-bright-smile-112419.jpg"
-        sx={{ width: '20vh', height: '20vh' }}
-      />
+      <Grid container justifyContent="flex-end" alignItems="center">
+        <IconButton color="primary">
+          <MoreVertIcon />
+        </IconButton>
+      </Grid>
+
+      <IconButton>
+        <Avatar
+          src="https://breakbrunch.com/wp-content/uploads/2019/11/cute-bright-smile-112419.jpg"
+          sx={{ width: '20vh', height: '20vh' }}
+        />
+      </IconButton>
 
       {user.displayName && (
         <Typography component="h1" variant="h4">
