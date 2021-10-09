@@ -28,7 +28,6 @@ const CategoryPreview: React.FC = () => {
     <Box
       style={gradient}
       sx={{
-        marginTop: 8,
         width: '100%',
         height: '12em',
         borderRadius: '2em',

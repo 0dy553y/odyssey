@@ -8,6 +8,7 @@ const backgroundImage = {
   zIndex: -1,
   position: 'relative',
   display: 'block',
+  borderRadius: '0 0 2em 2em',
 } as React.CSSProperties;
 
 const gradient = {
@@ -29,15 +30,13 @@ const CategoryHeader: React.FC = () => {
     <Box
       style={gradient}
       sx={{
-        marginTop: 8,
-        minWidth: '100%',
-        minHeight: '100%',
+        position: 'relative',
         borderRadius: '0 0 2em 2em',
-        margin: '0 0 1em 0',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        overflow: 'hidden',
+        margin: '0 -50vw 1em -50vw',
+        maxWidth: '100vw',
+        left: '50%',
+        right: '50%',
+        width: '100vw',
       }}
     >
       <div style={overlayText}>
