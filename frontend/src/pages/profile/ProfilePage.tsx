@@ -11,7 +11,8 @@ import {
   Typography,
 } from '@mui/material';
 import { RootState } from 'store';
-import { displayUsername } from 'utils/profile';
+import { displayUsername } from 'utils/formatting';
+import ActivityMap from './ActivityMap';
 
 const ProfilePage: React.FC = () => {
   // user should never be undefined (assuming auth routing works)
@@ -71,6 +72,7 @@ const ProfilePage: React.FC = () => {
           </Box>
         ))}
       </Stack>
+      <ActivityMap />
     </Box>
   );
 };
