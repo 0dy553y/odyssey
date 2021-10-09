@@ -55,11 +55,13 @@ ActiveRecord::Schema.define(version: 2021_10_09_222136) do
 
   create_table "user_tasks", force: :cascade do |t|
     t.bigint "user_id"
+    t.bigint "user_challenge_id"
     t.bigint "task_id"
     t.boolean "is_completed", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["task_id"], name: "index_user_tasks_on_task_id"
+    t.index ["user_challenge_id"], name: "index_user_tasks_on_user_challenge_id"
     t.index ["user_id"], name: "index_user_tasks_on_user_id"
   end
 
@@ -93,5 +95,6 @@ ActiveRecord::Schema.define(version: 2021_10_09_222136) do
   add_foreign_key "user_challenges", "challenges"
   add_foreign_key "user_challenges", "users"
   add_foreign_key "user_tasks", "tasks"
+  add_foreign_key "user_tasks", "user_challenges"
   add_foreign_key "user_tasks", "users"
 end
