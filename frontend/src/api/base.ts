@@ -92,6 +92,10 @@ class BaseAPI {
   private static initialiseClient() {
     const client = axios.create({
       baseURL: process.env.REACT_APP_SERVER_BASE_URL,
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
     });
 
     client.interceptors.request.use(
