@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2021_10_09_222136) do
     t.bigint "user_challenge_id"
     t.bigint "task_id"
     t.boolean "is_completed", default: false, null: false
+    t.datetime "scheduled_for", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["task_id"], name: "index_user_tasks_on_task_id"

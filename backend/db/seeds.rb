@@ -28,7 +28,7 @@ user_challenge_drinking = UserChallenge.create(user_id: user_unclesoo.id, challe
   task = Task.create(challenge_id: challenge_running.id, name: "Day #{i + 1}: Warming Up",
                      description: description, index: i)
   UserTask.create(user_id: user_unclesoo.id, user_challenge_id: user_challenge_running.id, task_id: task.id,
-                  is_completed: i < 1.week.in_days)
+                  is_completed: i < 1.week.in_days, scheduled_for: 1.week.ago + i.days)
 end
 
 30.times do |i|
@@ -36,5 +36,5 @@ end
   task = Task.create(challenge_id: challenge_drinking.id, name: "Day #{i + 1}: Bling Blong",
                      description: description, index: i)
   UserTask.create(user_id: user_unclesoo.id, user_challenge_id: user_challenge_drinking.id, task_id: task.id,
-                  is_completed: i < 2.weeks.in_days)
+                  is_completed: i < 2.weeks.in_days, scheduled_for: 2.weeks.ago + i.days)
 end
