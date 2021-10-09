@@ -8,6 +8,11 @@ class User < ApplicationRecord
 
   include DeviseTokenAuth::Concerns::User
 
+  has_many :user_challenges, dependent: :destroy
+  has_many :challenges, through: :user_challenges
+  has_many :user_tasks, dependent: :destroy
+  has_many :tasks, through: :user_tasks
+
   validates :email, uniqueness: { case_sensitive: false, if: -> { provider == 'email' } }
   validates :username, presence: true,
                        uniqueness: { case_sensitive: false },
