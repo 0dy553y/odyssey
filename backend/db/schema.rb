@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_07_080728) do
+ActiveRecord::Schema.define(version: 2021_10_09_222136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,26 @@ ActiveRecord::Schema.define(version: 2021_10_07_080728) do
     t.index ["challenge_id"], name: "index_tasks_on_challenge_id"
   end
 
+  create_table "user_challenges", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "challenge_id"
+    t.datetime "started_at", default: -> { "now()" }, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["challenge_id"], name: "index_user_challenges_on_challenge_id"
+    t.index ["user_id"], name: "index_user_challenges_on_user_id"
+  end
+
+  create_table "user_tasks", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "task_id"
+    t.boolean "is_completed", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["task_id"], name: "index_user_tasks_on_task_id"
+    t.index ["user_id"], name: "index_user_tasks_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "username", null: false
     t.string "uid", default: "", null: false
@@ -70,4 +90,8 @@ ActiveRecord::Schema.define(version: 2021_10_07_080728) do
 
   add_foreign_key "challenges", "categories"
   add_foreign_key "tasks", "challenges"
+  add_foreign_key "user_challenges", "challenges"
+  add_foreign_key "user_challenges", "users"
+  add_foreign_key "user_tasks", "tasks"
+  add_foreign_key "user_tasks", "users"
 end
