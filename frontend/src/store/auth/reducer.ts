@@ -4,6 +4,7 @@ import { AuthState } from './types';
 
 const initialState: AuthState = {
   user: undefined,
+  isValidatingToken: true,
 };
 
 export const authSlice = createSlice({
@@ -12,6 +13,9 @@ export const authSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<UserData>): void => {
       state.user = action.payload;
+    },
+    setIsValidatingToken: (state, action: PayloadAction<boolean>): void => {
+      state.isValidatingToken = action.payload;
     },
   },
 });

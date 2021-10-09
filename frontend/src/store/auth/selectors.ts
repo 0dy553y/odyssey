@@ -9,3 +9,7 @@ function getLocalState(state: RootState): AuthState {
 export function getUser(state: RootState): UserData | undefined {
   return getLocalState(state).user;
 }
+
+export function getIsValidatingToken(state: RootState): boolean {
+  return getLocalState(state).isValidatingToken;
+}
