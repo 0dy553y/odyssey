@@ -27,7 +27,7 @@ user_challenge_drinking = UserChallenge.create(user_id: user_unclesoo.id, challe
   description = "Welcome to the #{(i + 1).ordinalize} day of Couch to 5k. Today, you will run till you drop. Okay, go!"
   task = Task.create(challenge_id: challenge_running.id, name: "Day #{i + 1}: Warming Up",
                      description: description, index: i)
-  UserTask.create(user_id: user_unclesoo.id, user_challenge_id: user_challenge_running, task_id: task.id,
+  UserTask.create(user_id: user_unclesoo.id, user_challenge_id: user_challenge_running.id, task_id: task.id,
                   is_completed: i < 1.week.in_days)
 end
 
@@ -35,6 +35,6 @@ end
   description = "Jialin drank #{i + 1} cups of water today. Can you?"
   task = Task.create(challenge_id: challenge_drinking.id, name: "Day #{i + 1}: Bling Blong",
                      description: description, index: i)
-  UserTask.create(user_id: user_unclesoo.id, user_challenge_id: user_challenge_drinking, task_id: task.id,
+  UserTask.create(user_id: user_unclesoo.id, user_challenge_id: user_challenge_drinking.id, task_id: task.id,
                   is_completed: i < 2.weeks.in_days)
 end
