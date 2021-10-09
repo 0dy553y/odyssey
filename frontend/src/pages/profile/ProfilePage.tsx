@@ -7,25 +7,50 @@ import {
   Avatar,
   Box,
   IconButton,
+  Grid,
   Stack,
   Toolbar,
   Typography,
 } from '@mui/material';
-import { RootState } from 'store';
-import { displayUsername } from 'utils/formatting';
 import ActivityMap from './ActivityMap';
+import { RootState } from 'store';
+import {
+  displayDate,
+  displayUsername,
+  displayDuration,
+} from 'utils/formatting';
+import { Duration } from 'date-fns';
 
-const ProfilePage: React.FC = () => {
-  // user should never be undefined (assuming auth routing works)
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const user = useSelector((state: RootState) => getUser(state))!; //
+interface ProfilePageProps {
+  userProfileItems: { label: string; count: number }[];
+  registrationDate: Date;
+  challengesCompleted: number;
+  longestStreakDuration: Duration;
+}
 
-  // TODO: remove hardcoded values
-  const userProfileItems = [
+// TODO: replace these
+const mockProps: ProfilePageProps = {
+  userProfileItems: [
     { label: 'friends', count: 20 },
     { label: 'completed challenges', count: 16 },
     { label: 'badges', count: 2 },
-  ];
+  ],
+  registrationDate: new Date('2021-10-03'),
+  challengesCompleted: 16,
+  longestStreakDuration: { months: 1, days: 13 },
+};
+
+const ProfilePage: React.FC = () => {
+  const {
+    userProfileItems,
+    registrationDate,
+    challengesCompleted,
+    longestStreakDuration: longestStreak,
+  } = mockProps;
+
+  // user should never be undefined (assuming auth routing works)
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const user = useSelector((state: RootState) => getUser(state))!; //
 
   return (
     <Box
@@ -80,6 +105,32 @@ const ProfilePage: React.FC = () => {
         ))}
       </Stack>
       <ActivityMap />
+
+      <Grid container direction="column" alignItems="flex-start">
+        <Grid item xs={12}>
+          <Typography component="div" variant="h6">
+            Stats
+          </Typography>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography component="div" variant="body1">
+            Challenger since {displayDate(registrationDate)}
+          </Typography>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography component="div" variant="body1">
+            Completed: {challengesCompleted}
+          </Typography>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography component="div" variant="body1">
+            Longest streak: {displayDuration(longestStreak)}
+          </Typography>
+        </Grid>
+      </Grid>
     </Box>
   );
 };
