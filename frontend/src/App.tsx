@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Box, CircularProgress, Container, CssBaseline } from '@mui/material';
+import { Global } from '@emotion/react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import { LOGIN_ROUTE, privateRoutes, publicRoutes } from './routing/routes';
 import ProtectedRoute, { ProtectedRouteProps } from './routing/ProtectedRoute';
@@ -33,6 +34,14 @@ function App(): JSX.Element {
       <CssBaseline />
       <ScrollToTop />
       <Notifier />
+      <Global
+        styles={{
+          '.MuiDrawer-root > .MuiPaper-root': {
+            height: `calc(50%)`,
+            overflow: 'visible',
+          },
+        }}
+      />
       <Switch>
         {isValidatingToken ? (
           <Box

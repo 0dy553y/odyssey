@@ -8,8 +8,10 @@ import {
   Tab,
   IconButton,
   Toolbar,
+  Paper,
 } from '@mui/material';
 import { ChevronLeft, MoreVert } from '@mui/icons-material';
+import { makeStyles } from '@mui/styles';
 import {
   Timeline,
   TimelineItem,
@@ -29,7 +31,46 @@ interface ChallengeDetailsPageState {
   challenge: ChallengeData;
 }
 
+const useStyles = makeStyles(() => ({
+  paper: {
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: '100vh',
+  },
+  appbar: {
+    background: 'transparent',
+    boxShadow: 'none',
+  },
+  spacer: {
+    flexGrow: 1,
+  },
+  drawer: {
+    overflow: 'visible',
+  },
+  peekDrawer: {
+    position: 'absolute',
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    visibility: 'visible',
+    overflow: 'auto',
+    right: 0,
+    left: 0,
+  },
+  puller: {
+    width: 30,
+    height: 6,
+    backgroundColor: 'grey[300]',
+    borderRadius: 3,
+    position: 'absolute',
+    left: 'calc(50% - 15px)',
+  },
+}));
+
 const ChallengeDetailsPage: React.FC = () => {
+  const classes = useStyles();
   const [state, setState] = useReducer(
     (s: ChallengeDetailsPageState, a: Partial<ChallengeDetailsPageState>) => ({
       ...s,
@@ -67,19 +108,6 @@ const ChallengeDetailsPage: React.FC = () => {
 
   const peekDrawerHeight = 200;
 
-  const Puller = () => (
-    <Box
-      sx={{
-        width: 30,
-        height: 6,
-        backgroundColor: 'grey[300]',
-        borderRadius: 3,
-        position: 'absolute',
-        left: 'calc(50% - 15px)',
-      }}
-    ></Box>
-  );
-
   const Details = () => (
     <Box>
       <Timeline>
@@ -107,71 +135,53 @@ const ChallengeDetailsPage: React.FC = () => {
   );
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        backgroundColor: state.challenge.color,
-        height: '100vh',
-      }}
+    <Paper
+      className={classes.paper}
+      sx={{ backgroundColor: state.challenge.color }}
     >
-      <AppBar
-        position="static"
-        style={{ background: 'transparent', boxShadow: 'none' }}
-      >
-        <Toolbar>
-          <IconButton edge="start">
-            <ChevronLeft />
-          </IconButton>
-          <Box sx={{ flexGrow: 1 }} />
-          <IconButton>
-            <MoreVert />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <Typography component="h1">{state.challenge.name}</Typography>
-      <Typography>{state.challenge.description}</Typography>
-      <Typography>Recommended schedule</Typography>
-      <Typography>{state.challenge.schedule}</Typography>
-      <SwipeableDrawer
-        anchor="bottom"
-        open={isDrawerOpen}
-        onClose={() => {
-          setIsDrawerOpen(false);
-        }}
-        onOpen={() => {
-          setIsDrawerOpen(true);
-        }}
-        swipeAreaWidth={peekDrawerHeight}
-        disableSwipeToOpen={false}
-        keepMounted
-        sx={{
-          height: `calc(80% - ${peekDrawerHeight}px)`,
-          overflow: 'visible',
-        }}
-      >
-        <Box
+      <Box>
+        <AppBar position="static" className={classes.appbar}>
+          <Toolbar>
+            <IconButton edge="start">
+              <ChevronLeft />
+            </IconButton>
+            <Box className={classes.spacer} />
+            <IconButton>
+              <MoreVert />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <Typography component="h1">{state.challenge.name}</Typography>
+        <Typography>{state.challenge.description}</Typography>
+        <Typography>Recommended schedule</Typography>
+        <Typography>{state.challenge.schedule}</Typography>
+        <SwipeableDrawer
+          anchor="bottom"
+          open={isDrawerOpen}
+          onClose={() => {
+            setIsDrawerOpen(false);
+          }}
+          onOpen={() => {
+            setIsDrawerOpen(true);
+          }}
+          swipeAreaWidth={peekDrawerHeight}
+          disableSwipeToOpen={false}
+          keepMounted
           sx={{
-            position: 'absolute',
-            top: -peekDrawerHeight,
-            backgroundColor: '#fff',
-            borderTopLeftRadius: 8,
-            borderTopRightRadius: 8,
-            visibility: 'visible',
-            overflow: 'auto',
-            right: 0,
-            left: 0,
+            height: `calc(80% - ${peekDrawerHeight}px)`,
+            overflow: 'visible',
           }}
         >
-          <Puller />
-          <Tabs>
-            <Tab label={'Milestones'} />
-          </Tabs>
-          <Details />
-        </Box>
-      </SwipeableDrawer>
-    </Box>
+          <Box className={classes.peekDrawer} sx={{ top: -peekDrawerHeight }}>
+            <Box className={classes.puller} />;
+            <Tabs>
+              <Tab label={'Milestones'} />
+            </Tabs>
+            <Details />
+          </Box>
+        </SwipeableDrawer>
+      </Box>
+    </Paper>
   );
 };
 
