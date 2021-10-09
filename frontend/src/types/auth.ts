@@ -9,5 +9,5 @@ export interface RegisterData extends LoginData {
 export interface UserData {
   id: string;
   username: string;
-  displayName: string;
+  displayName?: string;
 }
