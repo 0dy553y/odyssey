@@ -6,9 +6,9 @@ import CategoryPreview from '../../components/explore/CategoryPreview';
 const ExplorePage: React.FC = () => {
   return (
     <Box>
-      Find your next challenge
+      <h1>Find your next challenge</h1>
       <Searchbar />
-      <div>I want to</div>
+      <div>I want to...</div>
       <CategoryPreview />
     </Box>
   );

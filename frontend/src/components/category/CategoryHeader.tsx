@@ -13,25 +13,26 @@ const backgroundImage = {
 const gradient = {
   display: 'inline-block',
   background:
-    'linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)',
+    'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)',
 };
+
 const overlayText = {
   position: 'absolute',
   display: 'block',
   color: 'white',
-  paddingTop: '4em',
+  paddingTop: '8em',
   paddingLeft: '1em',
 } as React.CSSProperties;
 
-const CategoryPreview: React.FC = () => {
+const CategoryHeader: React.FC = () => {
   return (
     <Box
       style={gradient}
       sx={{
         marginTop: 8,
-        width: '100%',
-        height: '12em',
-        borderRadius: '2em',
+        minWidth: '100%',
+        minHeight: '100%',
+        borderRadius: '0 0 2em 2em',
         margin: '0 0 1em 0',
         display: 'flex',
         flexDirection: 'column',
@@ -40,11 +41,12 @@ const CategoryPreview: React.FC = () => {
       }}
     >
       <div style={overlayText}>
-        <h2>Exercise more</h2>
+        <h3>I want to..</h3>
+        <h1>Exercise more</h1>
       </div>
       <img src={cute} style={backgroundImage} />
     </Box>
   );
 };
 
-export default CategoryPreview;
+export default CategoryHeader;
