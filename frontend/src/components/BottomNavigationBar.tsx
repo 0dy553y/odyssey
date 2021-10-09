@@ -12,6 +12,7 @@ import {
   HOME_ROUTE,
   PROFILE_ROUTE,
 } from '../routing/routes';
+import { getFirstPathSegment } from '../utils/url';
 
 const useStyles = makeStyles(() => ({
   paper: {
@@ -28,7 +29,10 @@ const BottomNavigationBar: React.FC = () => {
 
   return (
     <Paper className={classes.paper} elevation={3}>
-      <BottomNavigation showLabels value={location.pathname}>
+      <BottomNavigation
+        showLabels
+        value={getFirstPathSegment(location.pathname)}
+      >
         <BottomNavigationAction
           label="Home"
           icon={<HomeOutlinedIcon />}
