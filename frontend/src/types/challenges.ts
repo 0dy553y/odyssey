@@ -7,6 +7,7 @@ export interface ChallengeListData {
 export interface ChallengeData extends ChallengeListData {
   description: string;
   schedule: string;
+  tasks: TaskData[];
 }
 
 export interface ChallengePostData {
@@ -19,4 +20,8 @@ export interface ChallengePostData {
 
 export interface ChallengePutData {
   id: number;
+}
+
+export interface TaskData {
+  description: string;
 }

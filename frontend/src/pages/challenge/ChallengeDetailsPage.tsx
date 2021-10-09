@@ -1,10 +1,11 @@
 import React, { useReducer, useState } from 'react';
 import {
+  AppBar,
   Box,
   Typography,
-  Drawer,
   SwipeableDrawer,
-  Skeleton,
+  Tabs,
+  Tab,
   IconButton,
   Divider,
   List,
@@ -12,6 +13,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
+import { ChevronLeft, MoreVert } from '@mui/icons-material';
 import { ChallengeData } from '../../types/challenges';
 import { useHistory } from 'react-router-dom';
 
@@ -32,8 +34,9 @@ const ChallengeDetailsPage: React.FC = () => {
         name: 'Couch to 5k',
         description:
           'Couch to 5K is a running plan for absolute beginners. It was developed by a new runner, Josh Clark, who wanted to help his 50-something mum get off the couch and start running, too.',
-        schedule: '',
+        schedule: '3 times a week, alternate days',
         duration: 10,
+        tasks: [],
       },
     }
   );
@@ -71,8 +74,18 @@ const ChallengeDetailsPage: React.FC = () => {
         height: '100vh',
       }}
     >
+      <AppBar position="static">
+        <IconButton edge="start">
+          <ChevronLeft />
+        </IconButton>
+        <IconButton>
+          <MoreVert />
+        </IconButton>
+      </AppBar>
       <Typography component="h1">{state.challenge.name}</Typography>
-      <Puller />
+      <Typography>{state.challenge.description}</Typography>
+      <Typography>Recommended schedule</Typography>
+      <Typography>{state.challenge.schedule}</Typography>
       <SwipeableDrawer
         anchor="bottom"
         open={isDrawerOpen}
@@ -100,6 +113,9 @@ const ChallengeDetailsPage: React.FC = () => {
           }}
         >
           <Puller />
+          <Tabs>
+            <Tab label={'Milestones'} />
+          </Tabs>
           <Details />
         </Box>
       </SwipeableDrawer>
