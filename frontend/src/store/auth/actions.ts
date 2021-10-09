@@ -1,3 +1,3 @@
 import { authSlice } from './reducer';
 
-export const { setUser } = authSlice.actions;
+export const { setUser, setIsValidatingToken } = authSlice.actions;

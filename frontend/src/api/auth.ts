@@ -14,6 +14,10 @@ class AuthAPI extends BaseAPI {
   public login(signInData: LoginData): ApiPromise<UserData> {
     return this.post(`${AuthAPI.getAuthUrl()}/sign_in`, signInData);
   }
+
+  public validateToken(): ApiPromise<UserData> {
+    return this.get(`${AuthAPI.getAuthUrl()}/validate_token`);
+  }
 }
 
 export default AuthAPI;
