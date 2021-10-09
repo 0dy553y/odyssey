@@ -2,20 +2,18 @@
 
 module Auth
   class SessionsController < DeviseTokenAuth::SessionsController
+    include AuthHelper
+
+    private
+
     def render_create_success
-      render json: {
-        payload: { data: resource_data(resource_json: @resource.token_validation_response) },
-        messages: [],
-        errors: []
-      }
+      show_success_message("Welcome, #{@resource.username}!")
+      render 'auth/user', status: :created
     end
 
-    def render_create_error_bad_credentials
-      render json: {
-        payload: { data: nil },
-        messages: [],
-        errors: [I18n.t('devise_token_auth.sessions.bad_credentials')]
-      }, status: :unauthorized
+    def render_destroy_success
+      show_success_message('Successfully logged out!')
+      render 'layouts/empty', status: :ok
     end
   end
 end

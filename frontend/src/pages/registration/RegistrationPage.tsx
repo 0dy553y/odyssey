@@ -111,7 +111,7 @@ const RegistrationPage: React.FC = () => {
                   fullWidth
                   name="passwordConfirmation"
                   label="Confirm Password"
-                  type="passwordConfirmation"
+                  type="password"
                   id="passwordConfirmation"
                   error={!!errors.passwordConfirmation}
                   helperText={errors.passwordConfirmation?.message}
