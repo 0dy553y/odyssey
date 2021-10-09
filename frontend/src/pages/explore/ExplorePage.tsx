@@ -1,53 +1,15 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import InputBase from '@mui/material/InputBase';
-import { styled, alpha } from '@mui/material/styles';
-import { ReactComponent as SearchIcon } from '../../assets/icons/search-icon.svg';
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  //   borderRadius: theme.shape.borderRadius,
-  borderRadius: 40,
-  'margin-top': 20,
-  backgroundColor: alpha(theme.palette.common.black, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.black, 0.25),
-  },
-  width: '100%',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  width: '70%',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1.5, 0, 1.5, 0),
-    // vertical padding + font size from searchIcon
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
+import Searchbar from '../../components/common/Searchbar';
+import CategoryPreview from '../../components/explore/CategoryPreview';
 
 const ExplorePage: React.FC = () => {
   return (
     <Box>
       Find your next challenge
-      <Search>
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="Search…"
-          inputProps={{ 'aria-label': 'search' }}
-        />
-      </Search>
+      <Searchbar />
+      <div>I want to</div>
+      <CategoryPreview />
     </Box>
   );
 };
