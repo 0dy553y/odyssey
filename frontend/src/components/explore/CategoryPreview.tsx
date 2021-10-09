@@ -2,31 +2,32 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import cute from '../../assets/images/exercise.png';
 
-const backgroundImage = {
-  flexShrink: 0,
-  width: '100%',
-  zIndex: -1,
-  position: 'relative',
-  display: 'block',
-} as React.CSSProperties;
-
-const gradient = {
-  display: 'inline-block',
-  background:
-    'linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)',
-};
-const overlayText = {
-  position: 'absolute',
-  display: 'block',
-  color: 'white',
-  paddingTop: '4em',
-  paddingLeft: '1em',
-} as React.CSSProperties;
+const styles = {
+  backgroundImage: {
+    flexShrink: 0,
+    width: '100%',
+    zIndex: -1,
+    position: 'relative',
+    display: 'block',
+  },
+  gradient: {
+    display: 'inline-block',
+    background:
+      'linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)',
+  },
+  overlayText: {
+    position: 'absolute',
+    display: 'block',
+    color: 'white',
+    paddingTop: '4em',
+    paddingLeft: '1em',
+  },
+} as const;
 
 const CategoryPreview: React.FC = () => {
   return (
     <Box
-      style={gradient}
+      style={styles.gradient}
       sx={{
         width: '100%',
         height: '12em',
@@ -38,10 +39,10 @@ const CategoryPreview: React.FC = () => {
         overflow: 'hidden',
       }}
     >
-      <div style={overlayText}>
+      <div style={styles.overlayText}>
         <h2>Exercise more</h2>
       </div>
-      <img src={cute} style={backgroundImage} />
+      <img src={cute} style={styles.backgroundImage} />
     </Box>
   );
 };
