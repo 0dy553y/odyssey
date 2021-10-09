@@ -18,4 +18,4 @@ export interface ApiResponse<D> {
 }
 
 export type EmptyPayload = Record<string, never>;
-export type ApiPromise<D> = Promise<ApiResponse<D> | void>;
+export type ApiPromise<D> = Promise<ApiResponse<D>>;

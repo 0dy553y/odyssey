@@ -29,3 +29,6 @@
 # Ignore IDE configuration
 /.idea
 /.vscode
+
+# Misc
+.DS_Store

@@ -5,7 +5,6 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import AuthAPI from '../../api/auth';
 import { LOGIN_ROUTE } from '../../routing/routes';
 import { useHistory } from 'react-router-dom';
 

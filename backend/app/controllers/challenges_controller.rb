@@ -33,7 +33,7 @@ class ChallengesController < ApplicationController
   private
 
   def challenge_params
-    params.require(:data).permit(:category_id, :name, :description, :schedule, :duration)
+    params.require(:challenge).permit(:category_id, :name, :description, :schedule, :duration)
   end
 
   rescue_from ActiveRecord::RecordNotFound do |e|
