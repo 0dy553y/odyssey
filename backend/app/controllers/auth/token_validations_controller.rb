@@ -8,7 +8,7 @@ module Auth
 
     def render_validate_token_success
       show_success_message("Welcome back, #{@resource.username}!")
-      render 'auth/user', status: :created
+      render 'auth/user', status: :ok
     end
 
     def render_validate_token_error
