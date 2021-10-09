@@ -9,6 +9,7 @@ import { getUser, getIsValidatingToken } from './store/auth/selectors';
 import { validateToken } from './store/auth/operations';
 
 import './App.css';
+import BottomNavigationBar from './components/BottomNavigationBar';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ function App(): JSX.Element {
           })
         )}
       </Switch>
+      <BottomNavigationBar />
     </Container>
   );
 }
