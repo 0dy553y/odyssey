@@ -8,6 +8,7 @@ export interface ChallengeData extends ChallengeListData {
   description: string;
   schedule: string;
   tasks: TaskData[];
+  color: ChallengeColor;
 }
 
 export interface ChallengePostData {
@@ -22,6 +23,14 @@ export interface ChallengePutData {
   id: number;
 }
 
+export enum ChallengeColor {
+  BLUE = '#3836A6',
+  PURPLE = '#9F88E3',
+}
+
 export interface TaskData {
+  id: number;
+  title: string;
   description: string;
+  dayNumber: number;
 }

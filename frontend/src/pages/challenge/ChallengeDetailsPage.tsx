@@ -7,14 +7,21 @@ import {
   Tabs,
   Tab,
   IconButton,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
 } from '@mui/material';
 import { ChevronLeft, MoreVert } from '@mui/icons-material';
-import { ChallengeData } from '../../types/challenges';
+import {
+  Timeline,
+  TimelineItem,
+  TimelineSeparator,
+  TimelineConnector,
+  TimelineContent,
+  TimelineDot,
+} from '@mui/lab';
+import {
+  ChallengeData,
+  ChallengeColor,
+  TaskData,
+} from '../../types/challenges';
 import { useHistory } from 'react-router-dom';
 
 interface ChallengeDetailsPageState {
@@ -36,14 +43,28 @@ const ChallengeDetailsPage: React.FC = () => {
           'Couch to 5K is a running plan for absolute beginners. It was developed by a new runner, Josh Clark, who wanted to help his 50-something mum get off the couch and start running, too.',
         schedule: '3 times a week, alternate days',
         duration: 10,
-        tasks: [],
+        tasks: [
+          {
+            id: 1,
+            title: 'Getting started',
+            description: 'Run 5k',
+            dayNumber: 1,
+          },
+          {
+            id: 2,
+            title: 'Warming up',
+            description: 'Walk 10m',
+            dayNumber: 2,
+          },
+        ],
+        color: ChallengeColor.PURPLE,
       },
     }
   );
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const peekDrawerHeight = 56;
+  const peekDrawerHeight = 200;
 
   const Puller = () => (
     <Box
@@ -60,7 +81,27 @@ const ChallengeDetailsPage: React.FC = () => {
 
   const Details = () => (
     <Box>
-      <Typography>{state.challenge.description}</Typography>
+      <Timeline>
+        {state.challenge.tasks.map((t: TaskData, index: number) => (
+          <TimelineItem key={t.id}>
+            <TimelineSeparator>
+              <TimelineDot />
+              {index < state.challenge.tasks.length - 1 ? (
+                <TimelineConnector />
+              ) : (
+                // Don't show trailing line on last element
+                <div />
+              )}
+            </TimelineSeparator>
+            <TimelineContent>
+              <Typography>
+                Day {t.dayNumber}: {t.title}
+              </Typography>
+              <Typography>{t.description} </Typography>
+            </TimelineContent>
+          </TimelineItem>
+        ))}
+      </Timeline>
     </Box>
   );
 
@@ -70,11 +111,14 @@ const ChallengeDetailsPage: React.FC = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        backgroundColor: 'aqua',
+        backgroundColor: state.challenge.color,
         height: '100vh',
       }}
     >
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        style={{ background: 'transparent', boxShadow: 'none' }}
+      >
         <IconButton edge="start">
           <ChevronLeft />
         </IconButton>
@@ -97,17 +141,21 @@ const ChallengeDetailsPage: React.FC = () => {
         }}
         swipeAreaWidth={peekDrawerHeight}
         disableSwipeToOpen={false}
-        ModalProps={{
-          keepMounted: true,
+        keepMounted
+        sx={{
+          height: `calc(80% - ${peekDrawerHeight}px)`,
+          overflow: 'visible',
         }}
       >
         <Box
           sx={{
+            position: 'absolute',
             top: -peekDrawerHeight,
             backgroundColor: '#fff',
             borderTopLeftRadius: 8,
             borderTopRightRadius: 8,
             visibility: 'visible',
+            overflow: 'auto',
             right: 0,
             left: 0,
           }}
