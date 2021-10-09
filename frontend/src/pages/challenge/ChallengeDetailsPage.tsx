@@ -7,6 +7,7 @@ import {
   Tabs,
   Tab,
   IconButton,
+  Toolbar,
 } from '@mui/material';
 import { ChevronLeft, MoreVert } from '@mui/icons-material';
 import {
@@ -119,12 +120,15 @@ const ChallengeDetailsPage: React.FC = () => {
         position="static"
         style={{ background: 'transparent', boxShadow: 'none' }}
       >
-        <IconButton edge="start">
-          <ChevronLeft />
-        </IconButton>
-        <IconButton>
-          <MoreVert />
-        </IconButton>
+        <Toolbar>
+          <IconButton edge="start">
+            <ChevronLeft />
+          </IconButton>
+          <Box sx={{ flexGrow: 1 }} />
+          <IconButton>
+            <MoreVert />
+          </IconButton>
+        </Toolbar>
       </AppBar>
       <Typography component="h1">{state.challenge.name}</Typography>
       <Typography>{state.challenge.description}</Typography>
