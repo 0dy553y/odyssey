@@ -12,7 +12,7 @@ module Auth
     end
 
     def render_validate_token_error
-      show_error_message("Token is not valid!")
+      show_error_message('Token is not valid!')
       render 'layouts/empty', status: :unauthorized
     end
   end
