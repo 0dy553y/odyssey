@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { Box, CircularProgress, Container, CssBaseline } from '@mui/material';
 import { Route, Switch } from 'react-router-dom';
-import { LOGIN_ROUTE, routes } from './routing/routes';
+import { LOGIN_ROUTE, privateRoutes, publicRoutes } from './routing/routes';
 import ProtectedRoute, { ProtectedRouteProps } from './routing/ProtectedRoute';
 import { RootState } from './store';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, getIsValidatingToken } from './store/auth/selectors';
+import { getIsValidatingToken, getUser } from './store/auth/selectors';
 import { validateToken } from './store/auth/operations';
-
 import './App.css';
 import BottomNavigationBar from './components/BottomNavigationBar';
+import { RouteEntry } from './types/routes';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -28,13 +28,11 @@ function App(): JSX.Element {
     dispatch(validateToken());
   }, []);
 
-  const isLoading = isValidatingToken;
-
   return (
     <Container className="App" component="main" maxWidth="xs">
       <CssBaseline />
       <Switch>
-        {isLoading ? (
+        {isValidatingToken ? (
           <Box
             display="flex"
             justifyContent="center"
@@ -44,22 +42,23 @@ function App(): JSX.Element {
             <CircularProgress />
           </Box>
         ) : (
-          routes.map((route) => {
-            if (!route.isPublic) {
-              return (
+          <>
+            {publicRoutes.map((route: RouteEntry) => (
+              <Route key={route.path} {...route} />
+            ))}
+            <div>
+              {privateRoutes.map((route: RouteEntry) => (
                 <ProtectedRoute
                   key={route.path}
                   {...route}
                   {...defaultProtectedRouteProps}
                 />
-              );
-            } else {
-              return <Route key={route.path} {...route} />;
-            }
-          })
+              ))}
+              <BottomNavigationBar />
+            </div>
+          </>
         )}
       </Switch>
-      <BottomNavigationBar />
     </Container>
   );
 }
