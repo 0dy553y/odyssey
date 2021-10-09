@@ -5,10 +5,10 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { LOGIN_ROUTE } from '../../routing/routes';
+import { LOGIN_ROUTE } from 'routing/routes';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { registerUser } from '../../store/auth/operations';
+import { registerUser } from 'store/auth/operations';
 import { useForm, Controller } from 'react-hook-form';
 
 interface RegistrationFormState {
