@@ -3,11 +3,12 @@ import { useSelector } from 'react-redux';
 import { getUser } from 'store/auth/selectors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {
+  AppBar,
   Avatar,
   Box,
-  Grid,
   IconButton,
   Stack,
+  Toolbar,
   Typography,
 } from '@mui/material';
 import { RootState } from 'store';
@@ -34,11 +35,17 @@ const ProfilePage: React.FC = () => {
         alignItems: 'center',
       }}
     >
-      <Grid container justifyContent="flex-end" alignItems="center">
-        <IconButton color="primary">
-          <MoreVertIcon />
-        </IconButton>
-      </Grid>
+      <AppBar
+        position="static"
+        style={{ background: 'transparent', boxShadow: 'none' }}
+      >
+        <Toolbar>
+          <Box sx={{ flexGrow: 1 }} />
+          <IconButton edge="end" color="primary">
+            <MoreVertIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
 
       <IconButton>
         <Avatar
