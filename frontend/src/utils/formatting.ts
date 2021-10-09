@@ -1,12 +1,12 @@
-import { Dayjs } from 'dayjs';
+import { format } from 'date-fns';
 
 export const displayUsername = (username: string): string => {
   return `@${username}`;
 };
 
-export const displayDateRange = (fromDate: Dayjs, toDate: Dayjs): string => {
-  if (fromDate.year === toDate.year) {
-    return `${fromDate.format('D MMM')} - ${toDate.format('D MMM')}`;
+export const displayDateRange = (fromDate: Date, toDate: Date): string => {
+  if (fromDate.getFullYear() === toDate.getFullYear()) {
+    return `${format(fromDate, 'd MMM')} - ${format(toDate, 'd MMM')}`;
   }
-  return `${fromDate.format('D MMM YY')} - ${toDate.format('D MMM YY')}`;
+  return `${format(fromDate, 'd MMM yy')} - ${format(toDate, 'd MMM yy')}`;
 };

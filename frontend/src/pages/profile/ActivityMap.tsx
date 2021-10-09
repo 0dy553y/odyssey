@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import CalendarHeatmap from 'react-calendar-heatmap';
-import dayjs, { Dayjs } from 'dayjs';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { displayDateRange } from 'utils/formatting';
+import { subDays } from 'date-fns';
 
 import './ActivityMap.css';
 
@@ -14,8 +14,8 @@ interface HeatmapData {
 }
 
 const ActivityMap: React.FC = () => {
-  // Show duration spanning 7 weekdays * 4 weeks * 3 months
-  const numCellsToShow = 7 * 4 * 3;
+  // Show duration spanning 7 weekdays * 4 weeks * 4 months
+  const numCellsToShow = 7 * 4 * 4;
 
   const heatmapData = [
     { date: new Date('2021-10-02'), count: 6 },
@@ -28,8 +28,8 @@ const ActivityMap: React.FC = () => {
     { date: new Date('2021-09-07'), count: 1 },
   ];
 
-  const startDate: Dayjs = dayjs().subtract(numCellsToShow, 'days');
-  const endDate: Dayjs = dayjs();
+  const startDate: Date = subDays(new Date(), numCellsToShow);
+  const endDate: Date = new Date();
 
   const getHeatmapCellClass = (data: HeatmapData | undefined): string => {
     if (!data || data.count === 0) {
@@ -66,13 +66,15 @@ const ActivityMap: React.FC = () => {
         <ChevronRightIcon />
       </Box>
 
-      <CalendarHeatmap
-        startDate={startDate.toDate()}
-        endDate={endDate.toDate()}
-        showMonthLabels={false}
-        values={heatmapData}
-        classForValue={(value) => getHeatmapCellClass(value)}
-      />
+      <Grid item xs={12}>
+        <CalendarHeatmap
+          startDate={startDate}
+          endDate={endDate}
+          showMonthLabels={false}
+          values={heatmapData}
+          classForValue={(value) => getHeatmapCellClass(value)}
+        />
+      </Grid>
     </Grid>
   );
 };
