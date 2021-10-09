@@ -18,5 +18,5 @@ export const publicRoutes: RouteEntry[] = [
 
 export const privateRoutes: RouteEntry[] = [
   { path: PROFILE_ROUTE, component: ProfilePage },
-  { path: HOME_ROUTE, component: HomePage },
+  { path: HOME_ROUTE, component: HomePage, exact: true },
 ];
