@@ -1,10 +1,12 @@
 import React from 'react';
-import { Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import dayjs, { Dayjs } from 'dayjs';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { displayDateRange } from 'utils/formatting';
 
 import './ActivityMap.css';
-import { displayDateRange } from 'utils/formatting';
 
 interface HeatmapData {
   date: Date;
@@ -49,9 +51,20 @@ const ActivityMap: React.FC = () => {
       <Typography component="span" variant="h6">
         Activity Map
       </Typography>
-      <Typography component="span" variant="h6">
-        {`< ${displayDateRange(startDate, endDate)} >`}
-      </Typography>
+
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <ChevronLeftIcon />
+        <Typography component="span" variant="h6">
+          {displayDateRange(startDate, endDate)}
+        </Typography>
+        <ChevronRightIcon />
+      </Box>
 
       <CalendarHeatmap
         startDate={startDate.toDate()}
