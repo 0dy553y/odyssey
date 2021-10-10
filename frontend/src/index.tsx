@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import configureStore from './store';
 import { ThemeProvider } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
-import theme from './theme';
+import theme from './utils/theme';
 
 const store = configureStore();
 
