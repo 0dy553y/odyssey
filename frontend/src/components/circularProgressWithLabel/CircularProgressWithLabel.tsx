@@ -1,11 +1,12 @@
 import React from 'react';
-import CircularProgress, {
+import {
+  CircularProgress,
   CircularProgressProps,
-} from '@mui/material/CircularProgress';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+  Typography,
+  Box,
+} from '@mui/material';
 
-import './CircularProgressWithLabel.css';
+import './CircularProgressWithLabel.scss';
 
 // Adapted from https://mui.com/components/progress/#CircularWithValueLabel.tsx
 const CircularProgressWithLabel: React.FC<

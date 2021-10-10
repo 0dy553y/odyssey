@@ -6,7 +6,7 @@ import ProtectedRoute, { ProtectedRouteProps } from './routing/ProtectedRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsValidatingToken, getUser } from './store/auth/selectors';
 import { validateToken } from './store/auth/operations';
-import './App.css';
+import './App.scss';
 import BottomNavigationBar from './components/BottomNavigationBar';
 import { RouteEntry } from './types/routes';
 import Notifier from 'components/notifier';
