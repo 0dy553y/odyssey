@@ -1,23 +1,9 @@
 import React from 'react';
 import { Avatar, Box, IconButton, Stack, Typography } from '@mui/material';
-import { createStyles, makeStyles } from '@mui/styles';
 import { displayUsername } from 'utils/formatting';
 import { UserData } from 'types/auth';
 
 import './ProfileHeader.css';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    avatar: {
-      width: '20vh',
-      height: '20vh',
-    },
-    userProfileItemContainer: {
-      display: 'flex',
-      justifyContent: 'center',
-    },
-  })
-);
 
 interface ProfileHeaderProps {
   user: UserData;
@@ -26,8 +12,6 @@ interface ProfileHeaderProps {
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
   const { userProfileItems, user } = props;
-
-  const classes = useStyles();
 
   return (
     <Box className="profile-header">
