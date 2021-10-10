@@ -6,13 +6,14 @@ import {
   AppBar,
   Avatar,
   Box,
-  IconButton,
   Grid,
+  IconButton,
   Stack,
   Toolbar,
   Typography,
 } from '@mui/material';
 import ActivityMap from './ActivityMap';
+import CircularProgressWithLabel from 'components/CircularProgressWithLabel';
 import { RootState } from 'store';
 import {
   displayDate,
@@ -26,6 +27,14 @@ interface ProfilePageProps {
   registrationDate: Date;
   challengesCompleted: number;
   longestStreakDuration: Duration;
+  challengeSummaries: ChallengeSummaryProps[];
+}
+
+interface ChallengeSummaryProps {
+  id: number;
+  percentage: number;
+  label: string;
+  remarks: string;
 }
 
 // TODO: replace these
@@ -38,6 +47,32 @@ const mockProps: ProfilePageProps = {
   registrationDate: new Date('2021-10-03'),
   challengesCompleted: 16,
   longestStreakDuration: { months: 1, days: 13 },
+  challengeSummaries: [
+    {
+      id: 1,
+      percentage: 75,
+      label: 'Couch to 5k',
+      remarks: '🔥 4 day streak!',
+    },
+    {
+      id: 2,
+      percentage: 20,
+      label: 'Mermay',
+      remarks: 'Waddle right back in',
+    },
+    {
+      id: 3,
+      percentage: 50,
+      label: 'Marmay',
+      remarks: 'Waddle right back in',
+    },
+    {
+      id: 4,
+      percentage: 25,
+      label: 'Mermey',
+      remarks: 'Waddle right back in',
+    },
+  ],
 };
 
 const ProfilePage: React.FC = () => {
@@ -45,12 +80,31 @@ const ProfilePage: React.FC = () => {
     userProfileItems,
     registrationDate,
     challengesCompleted,
-    longestStreakDuration: longestStreak,
+    longestStreakDuration,
+    challengeSummaries,
   } = mockProps;
 
   // user should never be undefined (assuming auth routing works)
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const user = useSelector((state: RootState) => getUser(state))!; //
+
+  const ChallengeSummary = ({
+    percentage,
+    label,
+    remarks,
+  }: ChallengeSummaryProps) => (
+    <Stack direction="row" spacing={4} alignItems="center">
+      <CircularProgressWithLabel variant="determinate" value={percentage} />
+      <Stack direction="column" alignItems="flex-start">
+        <Typography component="div" variant="body1">
+          {label}
+        </Typography>
+        <Typography component="div" variant="body1">
+          {remarks}
+        </Typography>
+      </Stack>
+    </Stack>
+  );
 
   return (
     <Box
@@ -106,7 +160,12 @@ const ProfilePage: React.FC = () => {
       </Stack>
       <ActivityMap />
 
-      <Grid container direction="column" alignItems="flex-start">
+      <Grid
+        container
+        direction="column"
+        alignItems="flex-start"
+        justifyContent="center"
+      >
         <Grid item xs={12}>
           <Typography component="div" variant="h6">
             Stats
@@ -127,9 +186,21 @@ const ProfilePage: React.FC = () => {
 
         <Grid item xs={12}>
           <Typography component="div" variant="body1">
-            Longest streak: {displayDuration(longestStreak)}
+            Longest streak: {displayDuration(longestStreakDuration)}
           </Typography>
         </Grid>
+
+        <Grid item xs={12}>
+          <Typography component="div" variant="h6">
+            Challenges
+          </Typography>
+        </Grid>
+
+        {challengeSummaries.map((summary) => (
+          <Grid key={summary.id} item xs={12}>
+            <ChallengeSummary key={summary.id} {...summary} />
+          </Grid>
+        ))}
       </Grid>
     </Box>
   );
