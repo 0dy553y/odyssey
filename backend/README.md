@@ -39,6 +39,13 @@ If the state of your database is out of sync, you can drop it and recreate it as
 $ bundle exec rake db:migrate:reset
 ```
 
+## Seeding Database
+
+To seed the database:
+```sh
+$ bundle exec rake db:seed
+```
+
 ## Linting
 
 To run the linter:
