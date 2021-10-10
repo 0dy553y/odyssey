@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getIsValidatingToken, getUser } from './store/auth/selectors';
 import { validateToken } from './store/auth/operations';
 import './App.css';
-import BottomNavigationBar from './components/BottomNavigationBar';
+import BottomNavigationBar from './components/common/BottomNavigationBar';
 import { RouteEntry } from './types/routes';
 
 function App(): JSX.Element {

@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import cute from '../../assets/images/exercise.png';
+import Typography from '@mui/material/Typography';
 
 const styles = {
   backgroundImage: {
@@ -19,7 +20,7 @@ const styles = {
     position: 'absolute',
     display: 'block',
     color: 'white',
-    paddingTop: '4em',
+    paddingTop: '5em',
     paddingLeft: '1em',
   },
 } as const;
@@ -40,7 +41,7 @@ const CategoryPreview: React.FC = () => {
       }}
     >
       <div style={styles.overlayText}>
-        <h2>Exercise more</h2>
+        <Typography variant="h4">Exercise more</Typography>
       </div>
       <img src={cute} style={styles.backgroundImage} />
     </Box>

@@ -2,13 +2,14 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Searchbar from '../../components/common/Searchbar';
 import CategoryPreview from '../../components/explore/CategoryPreview';
+import Typography from '@mui/material/Typography';
 
 const ExplorePage: React.FC = () => {
   return (
     <Box>
-      <h1>Find your next challenge</h1>
+      <Typography variant="h3">Find your next challenge</Typography>
       <Searchbar />
-      <div>I want to...</div>
+      <Typography variant="h6">I want to...</Typography>
       <CategoryPreview />
     </Box>
   );

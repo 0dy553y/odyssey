@@ -11,8 +11,8 @@ import {
   FEED_ROUTE,
   HOME_ROUTE,
   PROFILE_ROUTE,
-} from '../routing/routes';
-import { getFirstPathSegment } from '../utils/url';
+} from '../../routing/routes';
+import { getFirstPathSegment } from '../../utils/url';
 
 const useStyles = makeStyles(() => ({
   paper: {
@@ -28,7 +28,7 @@ const BottomNavigationBar: React.FC = () => {
   const location = useLocation();
 
   return (
-    <Paper className={classes.paper} elevation={3}>
+    <Paper className={classes.paper} elevation={0}>
       <BottomNavigation
         showLabels
         value={getFirstPathSegment(location.pathname)}
