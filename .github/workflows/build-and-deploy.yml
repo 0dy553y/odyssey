@@ -13,6 +13,9 @@ env:
 jobs:
   build-backend-image:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Check out Source
         uses: actions/checkout@v2
@@ -31,6 +34,9 @@ jobs:
           tags: ghcr.io/${{ github.repository_owner }}/${{ env.BACKEND_IMAGE_NAME }}:latest
   build-frontend-image:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Check out Source
         uses: actions/checkout@v2
