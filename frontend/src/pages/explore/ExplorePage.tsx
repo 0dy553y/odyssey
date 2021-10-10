@@ -33,7 +33,10 @@ const ExplorePage: React.FC = () => {
       <ul>
         {categories.map((category) => (
           <li key={category.id}>
-            <CategoryPreview heading={getHeadingFromCategory(category.title)} />
+            <CategoryPreview
+              title={category.title}
+              heading={getHeadingFromCategory(category.title)}
+            />
           </li>
         ))}
       </ul>

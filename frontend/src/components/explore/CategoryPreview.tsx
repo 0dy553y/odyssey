@@ -1,8 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
-import cute from '../../assets/images/exercise.png';
+// import cute from '../../assets/images/exercise.png';
 import Typography from '@mui/material/Typography';
+import { constants } from 'zlib';
 
 const useStyles = makeStyles(() => ({
   backgroundImage: {
@@ -27,12 +28,15 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface CategoryPreviewProps {
+  title: string;
   heading: string;
 }
 
 const CategoryPreview: React.FC<CategoryPreviewProps> = (props) => {
   const classes = useStyles();
-  const { heading } = props;
+  const { title, heading } = props;
+  /* eslint-disable */
+  const headerImage = require('../../assets/images/' + title.toLowerCase() + '.png');
 
   return (
     <Box
@@ -51,7 +55,7 @@ const CategoryPreview: React.FC<CategoryPreviewProps> = (props) => {
       <div className={classes.overlayText}>
         <Typography variant="h4">{heading}</Typography>
       </div>
-      <img src={cute} className={classes.backgroundImage} />
+      <img src={headerImage.default} className={classes.backgroundImage} />
     </Box>
   );
 };
