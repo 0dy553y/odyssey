@@ -2,6 +2,8 @@
 
 class Task < ApplicationRecord
   belongs_to :challenge
+  has_many :user_tasks, dependent: :destroy
+  has_many :users, through: :user_tasks
 
   default_scope -> { order(index: :asc) }
   validates :name,

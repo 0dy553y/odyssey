@@ -2,8 +2,9 @@
 
 class Challenge < ApplicationRecord
   belongs_to :category
-  # belongs_to :user
   has_many :tasks, dependent: :destroy
+  has_many :user_challenges, dependent: :destroy
+  has_many :users, through: :user_challenges
 
   default_scope -> { order(name: :asc) }
   validates :name,
