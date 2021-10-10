@@ -1,9 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
-// import cute from '../../assets/images/exercise.png';
 import Typography from '@mui/material/Typography';
-import { constants } from 'zlib';
 
 const useStyles = makeStyles(() => ({
   backgroundImage: {
