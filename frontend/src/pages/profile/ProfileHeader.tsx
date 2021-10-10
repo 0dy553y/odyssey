@@ -1,5 +1,12 @@
 import React from 'react';
-import { Avatar, Box, IconButton, Stack, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  IconButton,
+  Stack,
+  Theme,
+  Typography,
+} from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { displayUsername } from 'utils/formatting';
 import { UserData } from 'types/auth';
@@ -9,6 +16,10 @@ const useStyles = makeStyles(() =>
     avatar: {
       width: '20vh',
       height: '20vh',
+    },
+    userProfileItemContainer: {
+      display: 'flex',
+      justifyContent: 'center',
     },
   })
 );
@@ -46,8 +57,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
         {userProfileItems.map((item) => (
           <Box
             key={item.label}
-            display="flex"
-            justifyContent="center"
+            className={classes.userProfileItemContainer}
             sx={{ width: 1 / userProfileItems.length }}
           >
             <Typography component="div" variant="body1">

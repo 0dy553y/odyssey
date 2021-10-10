@@ -5,12 +5,17 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { displayDateRange } from 'utils/formatting';
 import { getDay, subDays } from 'date-fns';
+import { createStyles, makeStyles } from '@mui/styles';
 
 import './ActivityMap.css';
 
-interface HeatmapData {
+export interface ActivityMapDataPoint {
   date: Date;
   count: number;
+}
+
+interface ActivityMapProps {
+  activityMapData: ActivityMapDataPoint[];
 }
 
 // Returns the number of cells to show in the activity map such that
@@ -30,23 +35,28 @@ const getNumCellsToShow = (endDate: Date): number => {
   return numCellsToShow + additionalCells;
 };
 
-const ActivityMap: React.FC = () => {
-  const heatmapData = [
-    { date: new Date('2021-10-02'), count: 6 },
-    { date: new Date('2021-09-22'), count: 3 },
-    { date: new Date('2021-09-30'), count: 2 },
-    { date: new Date('2021-10-03'), count: 2 },
-    { date: new Date('2021-10-01'), count: 1 },
-    { date: new Date('2021-09-15'), count: 9 },
-    { date: new Date('2021-09-14'), count: 2 },
-    { date: new Date('2021-09-07'), count: 1 },
-  ];
+const useStyles = makeStyles(() =>
+  createStyles({
+    dateRangeLabelContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  })
+);
+
+const ActivityMap: React.FC<ActivityMapProps> = (props) => {
+  const { activityMapData } = props;
+
+  const classes = useStyles();
 
   const endDate: Date = new Date();
   const numCellsToShow = getNumCellsToShow(endDate);
   const startDate: Date = subDays(endDate, numCellsToShow);
 
-  const getHeatmapCellClass = (data: HeatmapData | undefined): string => {
+  const getHeatmapCellClass = (
+    data: ActivityMapDataPoint | undefined
+  ): string => {
     if (!data || data.count === 0) {
       return 'color-empty';
     }
@@ -67,13 +77,7 @@ const ActivityMap: React.FC = () => {
         Activity Map
       </Typography>
 
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <Box className={classes.dateRangeLabelContainer}>
         <ChevronLeftIcon />
         <Typography component="span" variant="h6">
           {displayDateRange(startDate, endDate)}
@@ -86,7 +90,7 @@ const ActivityMap: React.FC = () => {
           startDate={startDate}
           endDate={endDate}
           showMonthLabels={false}
-          values={heatmapData}
+          values={activityMapData}
           classForValue={(value) => getHeatmapCellClass(value)}
         />
       </Grid>

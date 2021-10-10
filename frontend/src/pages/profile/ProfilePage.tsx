@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { getUser } from 'store/auth/selectors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
+import { AppBar, Box, IconButton, Theme, Toolbar } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import ProfileHeader from './ProfileHeader';
-import ActivityMap from './ActivityMap';
+import ActivityMap, { ActivityMapDataPoint } from './ActivityMap';
 import UserStats from './UserStats';
 import ChallengeSummaries, {
   ChallengeSummaryProps,
@@ -19,6 +19,7 @@ interface ProfilePageProps {
   challengesCompleted: number;
   longestStreakDuration: Duration;
   challengeSummaries: ChallengeSummaryProps[];
+  activityMapData: ActivityMapDataPoint[];
 }
 
 // TODO: replace these
@@ -57,10 +58,26 @@ const mockProps: ProfilePageProps = {
       remarks: 'Waddle right back in',
     },
   ],
+  activityMapData: [
+    { date: new Date('2021-10-02'), count: 6 },
+    { date: new Date('2021-09-22'), count: 3 },
+    { date: new Date('2021-09-30'), count: 2 },
+    { date: new Date('2021-10-03'), count: 2 },
+    { date: new Date('2021-10-01'), count: 1 },
+    { date: new Date('2021-09-15'), count: 9 },
+    { date: new Date('2021-09-14'), count: 2 },
+    { date: new Date('2021-09-07'), count: 1 },
+  ],
 };
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles<Theme, ProfilePageProps>((theme) =>
   createStyles({
+    profilePageContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: theme.spacing(2),
+    },
     appBar: {
       background: 'transparent',
       boxShadow: 'none',
@@ -75,23 +92,17 @@ const ProfilePage: React.FC = () => {
     challengesCompleted,
     longestStreakDuration,
     challengeSummaries,
+    activityMapData,
   } = mockProps;
 
-  const classes = useStyles();
+  const classes = useStyles(mockProps);
 
   // user should never be undefined (assuming auth routing works)
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const user = useSelector((state: RootState) => getUser(state))!; //
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 2,
-      }}
-    >
+    <Box className={classes.profilePageContainer}>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
           <Box sx={{ flexGrow: 1 }} />
@@ -103,7 +114,7 @@ const ProfilePage: React.FC = () => {
 
       <ProfileHeader user={user} userProfileItems={userProfileItems} />
 
-      <ActivityMap />
+      <ActivityMap activityMapData={activityMapData} />
 
       <UserStats
         challengesCompleted={challengesCompleted}
