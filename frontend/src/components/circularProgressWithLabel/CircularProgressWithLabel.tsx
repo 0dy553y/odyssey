@@ -5,6 +5,8 @@ import CircularProgress, {
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
+import './CircularProgressWithLabel.css';
+
 // Adapted from https://mui.com/components/progress/#CircularWithValueLabel.tsx
 const CircularProgressWithLabel: React.FC<
   CircularProgressProps & { value: number }
@@ -12,18 +14,7 @@ const CircularProgressWithLabel: React.FC<
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
       <CircularProgress variant="determinate" {...props} />
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: 'absolute',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <Box className="circular-progress-label-container">
         <Typography
           variant="caption"
           component="div"
