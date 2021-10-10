@@ -11,6 +11,10 @@ server {
   listen 80;
   server_name odyssey-app.com;
 
+  location /.well-known/acme-challenge/ {
+    root /var/www/certbot;
+  }
+
   # Redirect HTTP to HTTPS
   location / {
     return 301 https://$host$request_uri;
@@ -20,6 +24,10 @@ server {
 server {
   listen 80;
   server_name www.odyssey-app.com;
+
+  location /.well-known/acme-challenge/ {
+    root /var/www/certbot;
+  }
 
   # Redirect www to non-www
   return 301 http://odyssey-app.com$request_uri;
@@ -44,6 +52,14 @@ server {
     # Disable caching of index.html so that any changes to the React application invalidates the cache
     # Note that the React application itself is still cached
     add_header Cache-Control "no-store, no-cache, must-revalidate";
+  }
+
+  location /api/v1/ {
+    proxy_pass http://odyssey-backend:8001/api/v1/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
   }
 }
 
