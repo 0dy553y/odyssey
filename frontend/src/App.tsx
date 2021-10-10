@@ -27,7 +27,6 @@ function App(): JSX.Element {
   };
 
   useEffect(() => {
-    console.log('hwmlo');
     dispatch(validateToken());
     dispatch(loadAllCategories());
   }, []);
