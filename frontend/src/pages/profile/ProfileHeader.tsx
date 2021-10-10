@@ -1,15 +1,10 @@
 import React from 'react';
-import {
-  Avatar,
-  Box,
-  IconButton,
-  Stack,
-  Theme,
-  Typography,
-} from '@mui/material';
+import { Avatar, Box, IconButton, Stack, Typography } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { displayUsername } from 'utils/formatting';
 import { UserData } from 'types/auth';
+
+import './ProfileHeader.css';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -35,11 +30,11 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
   const classes = useStyles();
 
   return (
-    <Box>
+    <Box className="profile-header">
       <IconButton>
         <Avatar
           src="https://breakbrunch.com/wp-content/uploads/2019/11/cute-bright-smile-112419.jpg"
-          className={classes.avatar}
+          className={'avatar'}
         />
       </IconButton>
 
@@ -57,7 +52,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
         {userProfileItems.map((item) => (
           <Box
             key={item.label}
-            className={classes.userProfileItemContainer}
+            className={'user-profile-item-container'}
             sx={{ width: 1 / userProfileItems.length }}
           >
             <Typography component="div" variant="body1">

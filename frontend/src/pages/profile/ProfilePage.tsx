@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { getUser } from 'store/auth/selectors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { AppBar, Box, IconButton, Theme, Toolbar } from '@mui/material';
+import { AppBar, Box, Grid, IconButton, Theme, Toolbar } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import ProfileHeader from './ProfileHeader';
 import ActivityMap, { ActivityMapDataPoint } from './ActivityMap';
@@ -78,6 +78,13 @@ const useStyles = makeStyles<Theme, ProfilePageProps>((theme) =>
       alignItems: 'center',
       gap: theme.spacing(2),
     },
+    profileHeaderContainer: {
+      justifyContent: 'center',
+      background: 'black',
+      paddingBottom: theme.spacing(3),
+      borderBottomRightRadius: theme.spacing(2),
+      borderBottomLeftRadius: theme.spacing(2),
+    },
     appBar: {
       background: 'transparent',
       boxShadow: 'none',
@@ -103,16 +110,18 @@ const ProfilePage: React.FC = () => {
 
   return (
     <Box className={classes.profilePageContainer}>
-      <AppBar position="static" className={classes.appBar}>
-        <Toolbar>
-          <Box sx={{ flexGrow: 1 }} />
-          <IconButton edge="end" color="primary">
-            <MoreVertIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+      <Grid container className={classes.profileHeaderContainer}>
+        <AppBar position="static" className={classes.appBar}>
+          <Toolbar>
+            <Box sx={{ flexGrow: 1 }} />
+            <IconButton edge="end" color="primary">
+              <MoreVertIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
 
-      <ProfileHeader user={user} userProfileItems={userProfileItems} />
+        <ProfileHeader user={user} userProfileItems={userProfileItems} />
+      </Grid>
 
       <ActivityMap activityMapData={activityMapData} />
 
