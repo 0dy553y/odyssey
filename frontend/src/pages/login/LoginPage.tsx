@@ -5,9 +5,9 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { REGISTER_ROUTE } from '../../routing/routes';
+import { REGISTER_ROUTE } from 'routing/routes';
 import { useHistory } from 'react-router-dom';
-import { login } from '../../store/auth/operations';
+import { login } from 'store/auth/operations';
 import { useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 
