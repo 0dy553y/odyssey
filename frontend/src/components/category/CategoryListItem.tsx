@@ -19,11 +19,11 @@ const CategoryListItem: React.FC = () => {
     <Box>
       <div>
         <Grid container spacing={2}>
-          <Grid item xs={10}>
+          <Grid item xs={9}>
             <h3>Couch to 5k</h3>
             <p>Couch to 5k 9 weeks</p>
           </Grid>
-          <Grid item xs={2} style={styles.verticalAlign}>
+          <Grid item xs={3} style={styles.verticalAlign}>
             <CircularProgress
               color="primary"
               variant="determinate"

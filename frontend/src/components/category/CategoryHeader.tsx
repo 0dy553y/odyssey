@@ -20,7 +20,7 @@ const styles = {
     position: 'absolute',
     display: 'block',
     color: 'white',
-    paddingTop: '8em',
+    bottom: '0',
     paddingLeft: '1em',
   },
 } as const;
