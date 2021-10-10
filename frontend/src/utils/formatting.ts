@@ -5,7 +5,11 @@ export const displayUsername = (username: string): string => {
 };
 
 export const displayDateRange = (fromDate: Date, toDate: Date): string => {
-  if (fromDate.getFullYear() === toDate.getFullYear()) {
+  // Omit year if both dates are in the current year
+  if (
+    fromDate.getFullYear() === new Date().getFullYear() &&
+    fromDate.getFullYear() === toDate.getFullYear()
+  ) {
     return `${format(fromDate, 'd MMM')} - ${format(toDate, 'd MMM')}`;
   }
   return `${format(fromDate, 'd MMM yy')} - ${format(toDate, 'd MMM yy')}`;
