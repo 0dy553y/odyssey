@@ -33,7 +33,7 @@ services:
       RAILS_ENV: production
       PORT: 8001
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
-      DB_HOSTNAME: odyssey-database
+      DB_HOST: odyssey-database
       DB_PORT: ${DB_PORT}
       DB_NAME: ${DB_NAME}
       DB_USERNAME: ${DB_USERNAME}
