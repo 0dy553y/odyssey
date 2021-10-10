@@ -197,7 +197,7 @@ DEPENDENCIES
   byebug
   devise (~> 4.8)
   devise_token_auth (~> 1.2)
-  jbuilder (~> 2.7)
+  jbuilder (~> 2.11.2)
   listen (~> 3.3)
   pg (~> 1.1)
   puma (~> 5.0)

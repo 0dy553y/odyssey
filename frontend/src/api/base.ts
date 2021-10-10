@@ -4,6 +4,7 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
 } from 'axios';
+import Cookies from 'js-cookie';
 import {
   ApiPromise,
   ApiResponse,
@@ -53,10 +54,68 @@ function processRequest<D>(
     });
 }
 
+function setAuthHeaders(requestConfig: AxiosRequestConfig) {
+  const rawAuthHeaders = Cookies.get('authHeaders');
+  if (!rawAuthHeaders) {
+    return requestConfig;
+  }
+
+  const authHeaders = JSON.parse(rawAuthHeaders);
+  requestConfig.headers = {
+    client: authHeaders['client'],
+    'access-token': authHeaders['access-token'],
+    uid: authHeaders['uid'],
+    'token-type': authHeaders['token-type'],
+    expiry: authHeaders['expiry'],
+  };
+
+  return requestConfig;
+}
+
+function saveAuthHeaders(resp: AxiosResponse) {
+  if (resp.headers['access-token']) {
+    Cookies.set(
+      'authHeaders',
+      JSON.stringify({
+        'access-token': resp.headers['access-token'],
+        client: resp.headers['client'],
+        uid: resp.headers['uid'],
+        'token-type': resp.headers['token-type'],
+        expiry: resp.headers['expiry'],
+      })
+    );
+  }
+  return resp;
+}
+
 class BaseAPI {
-  private client = axios.create({
-    baseURL: process.env.REACT_APP_SERVER_BASE_URL,
-  });
+  private static initialiseClient() {
+    const client = axios.create({
+      baseURL: process.env.REACT_APP_SERVER_BASE_URL,
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+
+    client.interceptors.request.use(
+      (requestConfig) => setAuthHeaders(requestConfig),
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+
+    client.interceptors.response.use(
+      (resp) => saveAuthHeaders(resp),
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+
+    return client;
+  }
+
+  private client = BaseAPI.initialiseClient();
 
   private clientGet<D, R>(
     url: string,
