@@ -1,9 +1,10 @@
 import React from 'react';
+import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 import cute from '../../assets/images/exercise.png';
 import Typography from '@mui/material/Typography';
 
-const styles = {
+const useStyles = makeStyles(() => ({
   backgroundImage: {
     flexShrink: 0,
     width: '100%',
@@ -23,12 +24,14 @@ const styles = {
     paddingTop: '5em',
     paddingLeft: '1em',
   },
-} as const;
+}));
 
 const CategoryPreview: React.FC = () => {
+  const classes = useStyles();
+
   return (
     <Box
-      style={styles.gradient}
+      className={classes.gradient}
       sx={{
         width: '100%',
         height: '12em',
@@ -40,10 +43,10 @@ const CategoryPreview: React.FC = () => {
         overflow: 'hidden',
       }}
     >
-      <div style={styles.overlayText}>
+      <div className={classes.overlayText}>
         <Typography variant="h4">Exercise more</Typography>
       </div>
-      <img src={cute} style={styles.backgroundImage} />
+      <img src={cute} className={classes.backgroundImage} />
     </Box>
   );
 };

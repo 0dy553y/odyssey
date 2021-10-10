@@ -1,8 +1,9 @@
 import React from 'react';
+import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 import cute from '../../assets/images/exercise.png';
 
-const styles = {
+const useStyles = makeStyles(() => ({
   backgroundImage: {
     flexShrink: 0,
     width: '100%',
@@ -23,12 +24,14 @@ const styles = {
     bottom: '0',
     paddingLeft: '1em',
   },
-} as const;
+}));
 
 const CategoryHeader: React.FC = () => {
+  const classes = useStyles();
+
   return (
     <Box
-      style={styles.gradient}
+      className={classes.gradient}
       sx={{
         position: 'relative',
         borderRadius: '0 0 2em 2em',
@@ -39,11 +42,11 @@ const CategoryHeader: React.FC = () => {
         width: '100vw',
       }}
     >
-      <div style={styles.overlayText}>
+      <div className={classes.overlayText}>
         <h3>I want to..</h3>
         <h1>Exercise more</h1>
       </div>
-      <img src={cute} style={styles.backgroundImage} />
+      <img src={cute} className={classes.backgroundImage} />
     </Box>
   );
 };
