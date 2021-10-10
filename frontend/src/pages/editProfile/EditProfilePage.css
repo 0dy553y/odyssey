@@ -1,0 +1,10 @@
+.edit-profile-page .avatar {
+  width: 20vh;
+  height: 20vh;
+}
+
+.edit-profile-page .avatar-container {
+  display: flex;
+  align-items: 'center';
+  justify-content: 'center';
+}
