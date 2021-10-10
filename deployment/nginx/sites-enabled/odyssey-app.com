@@ -36,7 +36,7 @@ server {
 server {
   listen 443 ssl http2;
   server_name odyssey-app.com;
-  root /build;
+  root /frontend;
   index index.html;
 
   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
