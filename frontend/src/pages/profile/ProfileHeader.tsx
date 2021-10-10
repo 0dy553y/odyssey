@@ -3,7 +3,7 @@ import { Avatar, Box, IconButton, Stack, Typography } from '@mui/material';
 import { displayUsername } from 'utils/formatting';
 import { UserData } from 'types/auth';
 
-import './ProfileHeader.css';
+import './ProfileHeader.scss';
 
 interface ProfileHeaderProps {
   user: UserData;

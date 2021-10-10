@@ -5,7 +5,7 @@ import CircularProgress, {
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-import './CircularProgressWithLabel.css';
+import './CircularProgressWithLabel.scss';
 
 // Adapted from https://mui.com/components/progress/#CircularWithValueLabel.tsx
 const CircularProgressWithLabel: React.FC<
