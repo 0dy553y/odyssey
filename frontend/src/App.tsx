@@ -1,51 +1,66 @@
-import React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import Container from '@mui/material/Container';
-import { Route, Switch } from 'react-router-dom';
-import { LOGIN_ROUTE, routes } from './routing/routes';
+import React, { useEffect } from 'react';
+import { Box, CircularProgress, Container, CssBaseline } from '@mui/material';
+import { Route, Switch, useLocation } from 'react-router-dom';
+import { LOGIN_ROUTE, privateRoutes, publicRoutes } from './routing/routes';
 import ProtectedRoute, { ProtectedRouteProps } from './routing/ProtectedRoute';
-
+import { RootState } from './store';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIsValidatingToken, getUser } from './store/auth/selectors';
+import { validateToken } from './store/auth/operations';
 import './App.css';
-import configureStore from './store';
-import { Provider } from 'react-redux';
+import BottomNavigationBar from './components/BottomNavigationBar';
+import { RouteEntry } from './types/routes';
 
 function App(): JSX.Element {
-  const store = configureStore();
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  const user = useSelector((state: RootState) => getUser(state));
+  const isValidatingToken = useSelector((state: RootState) =>
+    getIsValidatingToken(state)
+  );
 
   const defaultProtectedRouteProps: ProtectedRouteProps = {
-    isAuthenticated: false, // TODO: replace this
+    isAuthenticated: !!user,
     authenticationPath: LOGIN_ROUTE,
   };
 
+  useEffect(() => {
+    dispatch(validateToken());
+  }, []);
+
   return (
-    <Provider store={store}>
-      <Container className="App" component="main" maxWidth="xs">
-        <CssBaseline />
-        <Switch>
-          {routes.map((route) => {
-            if (!route.isPublic) {
-              return (
-                <ProtectedRoute
-                  key={route.path}
-                  {...defaultProtectedRouteProps}
-                  path={route.path}
-                >
-                  {route.component}
-                </ProtectedRoute>
-              );
-            } else {
-              return (
-                <Route
-                  key={route.path}
-                  path={route.path}
-                  component={route.component}
-                />
-              );
-            }
-          })}
-        </Switch>
-      </Container>
-    </Provider>
+    <Container className="App" component="main" maxWidth="xs">
+      <CssBaseline />
+      <Switch>
+        {isValidatingToken ? (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            minHeight="100vh"
+          >
+            <CircularProgress />
+          </Box>
+        ) : (
+          <>
+            {publicRoutes.map((route: RouteEntry) => (
+              <Route key={route.path} {...route} />
+            ))}
+            {privateRoutes.map((route: RouteEntry) => (
+              <ProtectedRoute
+                key={route.path}
+                {...route}
+                {...defaultProtectedRouteProps}
+              />
+            ))}
+          </>
+        )}
+      </Switch>
+      {!publicRoutes
+        .map((route: RouteEntry) => route.path)
+        .includes(location.pathname) && <BottomNavigationBar />}
+    </Container>
   );
 }
 

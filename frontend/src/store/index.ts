@@ -4,16 +4,16 @@ import {
   createStore,
   Store,
 } from '@reduxjs/toolkit';
-import authReducer, { AuthState } from './authReducer';
-import challengesReducer from './challenges/reducer';
-import { ChallengesState } from './challenges/types';
-import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import authReducer from './auth/reducer';
+import { AuthState } from './auth/types';
 import categoriesReducer from './categories/reducer';
 import { CategoriesState } from './categories/types';
-import { TasksState } from './tasks/types';
+import challengesReducer from './challenges/reducer';
+import { ChallengesState } from './challenges/types';
 import tasksReducer from './tasks/reducer';
-
+import { TasksState } from './tasks/types';
 export interface RootState {
   auth: AuthState;
   categories: CategoriesState;
