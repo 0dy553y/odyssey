@@ -1,10 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 import cute from '../../assets/images/exercise.png';
 import Typography from '@mui/material/Typography';
-import { RootState } from 'store';
 
 const useStyles = makeStyles(() => ({
   backgroundImage: {
@@ -28,8 +26,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CategoryPreview: React.FC = () => {
+interface CategoryPreviewProps {
+  heading: string;
+}
+
+const CategoryPreview: React.FC<CategoryPreviewProps> = (props) => {
   const classes = useStyles();
+  const { heading } = props;
 
   return (
     <Box
@@ -46,7 +49,7 @@ const CategoryPreview: React.FC = () => {
       }}
     >
       <div className={classes.overlayText}>
-        <Typography variant="h4">Exercise more</Typography>
+        <Typography variant="h4">{heading}</Typography>
       </div>
       <img src={cute} className={classes.backgroundImage} />
     </Box>

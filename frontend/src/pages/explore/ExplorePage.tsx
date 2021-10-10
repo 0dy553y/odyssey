@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { getCategoryList } from 'store/categories/selectors';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
+import category from 'pages/category';
 
 function getHeadingFromCategory(title: string): string {
   switch (title) {
@@ -30,14 +31,11 @@ const ExplorePage: React.FC = () => {
       <Typography variant="h3">Find your next challenge</Typography>
       <Searchbar />
       <Typography variant="h6">I want to...</Typography>
-      <CategoryPreview />
-      <ul>
-        {categories.map((category) => (
-          <li key={category.id}>
-            {category.title}, {getHeadingFromCategory(category.title)}
-          </li>
-        ))}
-      </ul>
+      {categories.map((category) => (
+        <li key={category.id}>
+          <CategoryPreview heading={getHeadingFromCategory(category.title)} />
+        </li>
+      ))}
     </Box>
   );
 };
