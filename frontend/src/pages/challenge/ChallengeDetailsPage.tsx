@@ -79,7 +79,7 @@ const ChallengeDetailsPage: React.FC = () => {
     {
       // TODO: replace.
       challenge: {
-        id: '1',
+        id: 1,
         name: 'Couch to 5k',
         description:
           'Couch to 5K is a running plan for absolute beginners. It was developed by a new runner, Josh Clark, who wanted to help his 50-something mum get off the couch and start running, too.',
