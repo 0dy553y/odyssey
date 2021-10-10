@@ -8,10 +8,6 @@ const ExplorePage: React.FC = () => {
     <Box>
       <CategoryHeader />
       <CategoryListItem />
-      <div>
-        eorifjeorifjoeirjfoeijfoeijrfoiejrfoiejrfoiejrfo oeirjfoeirfjoei foejrf
-        oeirjf oeirjf oerfj oeirjf oerijfoerijf oerifj e
-      </div>
     </Box>
   );
 };
