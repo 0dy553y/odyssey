@@ -16,7 +16,7 @@ COPY backend .
 RUN gem install bundler
 RUN bundle install
 
-# Add a script to be executed every time the container starts.
+# Add a script to be executed every time the container starts
 COPY deployment/entrypoint-scripts/backend.sh /usr/bin/
 RUN chmod +x /usr/bin/backend.sh
 ENTRYPOINT ["backend.sh"]

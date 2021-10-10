@@ -1,0 +1,55 @@
+# To build a Docker image from this file, run from the root directory:
+# docker build -f deployment/Dockerfile-frontend -t odyssey-frontend .
+
+# Intermediate image for building the React app
+FROM node:16.9.1 AS react-build
+
+# Environment variables
+ENV APP_ROOT /frontend
+
+# Copy source code into container
+RUN mkdir --parents $APP_ROOT
+WORKDIR $APP_ROOT
+COPY frontend .
+
+# Install dependencies
+RUN yarn install --frozen-lockfile
+
+# Build app
+RUN yarn build
+
+# Use nginx to serve the app
+FROM nginx:1.21.3
+
+# Environment variables
+ENV APP_ROOT /frontend
+
+# Make app directory
+RUN mkdir --parents $APP_ROOT
+WORKDIR $APP_ROOT
+
+# Copy React build
+COPY --from=react-build /frontend/build .
+
+# Delete NGINX defaults
+RUN rm -f /etc/nginx/conf.d/* /etc/nginx/sites-enabled/*
+
+# Copy NGINX config
+COPY deployment/nginx/nginx.conf /etc/nginx
+COPY deployment/nginx/sites-enabled/* /etc/nginx/sites-enabled/
+
+# Copy env.template.js
+COPY deployment/env.template.js $APP_ROOT/env.template.js
+
+# Add a script to be executed every time the container starts
+COPY deployment/entrypoint-scripts/frontend.sh /usr/bin/
+RUN chmod +x /usr/bin/frontend.sh
+ENTRYPOINT ["frontend.sh"]
+
+# Expose ports
+EXPOSE 80
+EXPOSE 443
+
+# Run NGINX in the foreground so that Docker can track it properly
+CMD ["nginx", "-g", "daemon off;"]
+
