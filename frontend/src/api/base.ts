@@ -91,7 +91,7 @@ function saveAuthHeaders(resp: AxiosResponse) {
 class BaseAPI {
   private static initialiseClient() {
     const client = axios.create({
-      baseURL: process.env.REACT_APP_SERVER_BASE_URL,
+      baseURL: window.env.BASE_SERVER_URL,
       headers: {
         accept: 'application/json',
         'Content-Type': 'application/json',

@@ -1,0 +1,55 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  REGISTRY: ghcr.io
+  BACKEND_IMAGE_NAME: odyssey-backend
+  FRONTEND_IMAGE_NAME: odyssey-frontend
+
+jobs:
+  build-backend-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out Source
+        uses: actions/checkout@v2
+      - name: Log in to the Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: 0dy553y
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: deployment/Dockerfile-backend
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/${{ env.BACKEND_IMAGE_NAME }}:latest
+  build-frontend-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out Source
+        uses: actions/checkout@v2
+      - name: Log in to the Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: 0dy553y
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: deployment/Dockerfile-frontend
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/${{ env.FRONTEND_IMAGE_NAME }}:latest
