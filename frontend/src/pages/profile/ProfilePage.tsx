@@ -93,17 +93,27 @@ const ProfilePage: React.FC = () => {
     label,
     remarks,
   }: ChallengeSummaryProps) => (
-    <Stack direction="row" spacing={4} alignItems="center">
-      <CircularProgressWithLabel variant="determinate" value={percentage} />
-      <Stack direction="column" alignItems="flex-start">
-        <Typography component="div" variant="body1">
-          {label}
-        </Typography>
-        <Typography component="div" variant="body1">
-          {remarks}
-        </Typography>
+    <Grid
+      container
+      sx={{
+        background: 'papayawhip',
+        borderRadius: '1em',
+        padding: '1em',
+        mb: '1em',
+      }}
+    >
+      <Stack direction="row" spacing={4} alignItems="center">
+        <CircularProgressWithLabel variant="determinate" value={percentage} />
+        <Stack direction="column" alignItems="flex-start">
+          <Typography component="div" variant="body1">
+            {label}
+          </Typography>
+          <Typography component="div" variant="body1">
+            {remarks}
+          </Typography>
+        </Stack>
       </Stack>
-    </Stack>
+    </Grid>
   );
 
   return (
@@ -197,9 +207,7 @@ const ProfilePage: React.FC = () => {
         </Grid>
 
         {challengeSummaries.map((summary) => (
-          <Grid key={summary.id} item xs={12}>
-            <ChallengeSummary key={summary.id} {...summary} />
-          </Grid>
+          <ChallengeSummary key={summary.id} {...summary} />
         ))}
       </Grid>
     </Box>
