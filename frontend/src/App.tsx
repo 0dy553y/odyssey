@@ -10,6 +10,7 @@ import { validateToken } from './store/auth/operations';
 import './App.css';
 import BottomNavigationBar from './components/BottomNavigationBar';
 import { RouteEntry } from './types/routes';
+import Notifier from 'components/notifier';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function App(): JSX.Element {
   return (
     <Container className="App" component="main" maxWidth="xs">
       <CssBaseline />
+      <Notifier />
       <Switch>
         {isValidatingToken ? (
           <Box
