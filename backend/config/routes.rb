@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   api_resources :challenges do
     api_resources :tasks
   end
+  get 'tasks_by_day', to: 'user_tasks#tasks_by_day'
 end
