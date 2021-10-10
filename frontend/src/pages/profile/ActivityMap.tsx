@@ -4,7 +4,7 @@ import CalendarHeatmap from 'react-calendar-heatmap';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { displayDateRange } from 'utils/formatting';
-import { subDays } from 'date-fns';
+import { getDay, subDays } from 'date-fns';
 
 import './ActivityMap.css';
 
@@ -13,10 +13,24 @@ interface HeatmapData {
   count: number;
 }
 
-const ActivityMap: React.FC = () => {
-  // Show duration spanning 7 weekdays * 4 weeks * 4 months
-  const numCellsToShow = 7 * 4 * 4;
+// Returns the number of cells to show in the activity map such that
+// the left edge of the activity map will be filled completely, while the
+// right edge may be partially filed (depending on the day of the week) that endDate
+// falls on
+// Assumption: Sunday is the first day of the week (as displayed on the activity map).
+const getNumCellsToShow = (endDate: Date): number => {
+  const numMonths = 4;
 
+  // Show duration spanning 7 weekdays * 4 weeks * numMonths by default
+  const numCellsToShow = 7 * 4 * numMonths;
+
+  // Add additional cells such that left edge is filled completely
+  const additionalCells = (getDay(endDate) + 1) % 7;
+
+  return numCellsToShow + additionalCells;
+};
+
+const ActivityMap: React.FC = () => {
   const heatmapData = [
     { date: new Date('2021-10-02'), count: 6 },
     { date: new Date('2021-09-22'), count: 3 },
@@ -28,8 +42,9 @@ const ActivityMap: React.FC = () => {
     { date: new Date('2021-09-07'), count: 1 },
   ];
 
-  const startDate: Date = subDays(new Date(), numCellsToShow);
   const endDate: Date = new Date();
+  const numCellsToShow = getNumCellsToShow(endDate);
+  const startDate: Date = subDays(endDate, numCellsToShow);
 
   const getHeatmapCellClass = (data: HeatmapData | undefined): string => {
     if (!data || data.count === 0) {
