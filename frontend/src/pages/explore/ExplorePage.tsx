@@ -11,6 +11,8 @@ const ExplorePage: React.FC = () => {
       <Searchbar />
       <Typography variant="h6">I want to...</Typography>
       <CategoryPreview />
+      <CategoryPreview />
+      <CategoryPreview />
     </Box>
   );
 };
