@@ -1,8 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 import cute from '../../assets/images/exercise.png';
 import Typography from '@mui/material/Typography';
+import { RootState } from 'store';
 
 const useStyles = makeStyles(() => ({
   backgroundImage: {

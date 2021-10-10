@@ -10,6 +10,7 @@ import { validateToken } from './store/auth/operations';
 import './App.css';
 import BottomNavigationBar from './components/common/BottomNavigationBar';
 import { RouteEntry } from './types/routes';
+import { loadAllCategories } from 'store/categories/operations';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -26,7 +27,9 @@ function App(): JSX.Element {
   };
 
   useEffect(() => {
+    console.log('hwmlo');
     dispatch(validateToken());
+    dispatch(loadAllCategories());
   }, []);
 
   return (
