@@ -22,7 +22,7 @@ class User < ApplicationRecord
                          multiline: true,
                          message: 'only allows letters, numbers, underscore or punctuation'
                        }
-  validates :avatar, attached: true,
+  validates :avatar,
             content_type: { in: ['image/png', 'image/jpg', 'image/jpeg'], message: "is not a supported file type" },
             size: { less_than: 1.megabytes , message: 'must be less than 1MB' }
 
