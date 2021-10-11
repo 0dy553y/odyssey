@@ -10,7 +10,6 @@ import UserStats from './UserStats';
 import ChallengeSummaries, {
   ChallengeSummaryProps,
 } from './ChallengeSummaries';
-import { RootState } from 'store';
 import { Duration } from 'date-fns';
 
 interface ProfilePageProps {
@@ -106,7 +105,7 @@ const ProfilePage: React.FC = () => {
 
   // user should never be undefined (assuming auth routing works)
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const user = useSelector((state: RootState) => getUser(state))!; //
+  const user = useSelector(getUser)!; //
 
   return (
     <Box className={classes.profilePageContainer}>

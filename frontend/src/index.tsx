@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
@@ -8,7 +8,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme';
+import { SnackbarProvider } from 'notistack';
+import theme from './utils/theme';
 
 const store = configureStore();
 
@@ -16,9 +17,11 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <SnackbarProvider autoHideDuration={3000}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </SnackbarProvider>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,

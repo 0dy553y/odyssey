@@ -1,6 +1,7 @@
 import { History } from 'history';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
+import { withStatusMessages } from 'utils/ui';
 import api from '../../api';
 import { HOME_ROUTE } from '../../routing/routes';
 import { LoginData, RegisterData, UserData } from '../../types/auth';
@@ -10,13 +11,13 @@ import { setIsValidatingToken, setUser } from './actions';
 
 export function login(loginData: LoginData, history: History): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.auth.login(loginData).catch((e: Error) => {
-      // TODO: better error handling
-      return Promise.reject(e);
-    });
-    const userData: UserData = response.payload.data;
-    dispatch(setUser(userData));
-    history.push(HOME_ROUTE);
+    await withStatusMessages(dispatch, api.auth.login(loginData)).then(
+      (response) => {
+        const userData: UserData = response.payload.data;
+        dispatch(setUser(userData));
+        history.push(HOME_ROUTE);
+      }
+    );
   };
 }
 
@@ -25,12 +26,12 @@ export function registerUser(
   history: History
 ): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    await api.auth.registerUser(registerData).catch((e: Error) => {
-      // TODO: better error handling
-      return Promise.reject(e);
+    await withStatusMessages(
+      dispatch,
+      api.auth.registerUser(registerData)
+    ).then(() => {
+      dispatch(login({ ...registerData }, history));
     });
-
-    dispatch(login({ ...registerData }, history));
   };
 }
 
@@ -42,11 +43,6 @@ export function validateToken(): OperationResult {
         const userData: UserData = resp.payload.data;
         dispatch(setUser(userData));
       })
-      .catch((e: Error) => {
-        // TODO: better error handling
-        console.error(e);
-      });
-
-    dispatch(setIsValidatingToken(false));
+      .finally(() => dispatch(setIsValidatingToken(false)));
   };
 }

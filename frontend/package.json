@@ -16,6 +16,8 @@
     "date-fns": "^2.25.0",
     "immer": "^9.0.6",
     "js-cookie": "^3.0.1",
+    "node-sass": "^6.0.1",
+    "notistack": "^2.0.2",
     "react": "^17.0.2",
     "react-calendar-heatmap": "^1.8.1",
     "react-dom": "^17.0.2",

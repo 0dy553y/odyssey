@@ -1,0 +1,28 @@
+# To build a Docker image from this file, run from the root directory:
+# docker build -f deployment/Dockerfile-backend -t odyssey-backend .
+
+# Base image
+FROM ruby:3.0.2
+
+# Environment variables
+ENV APP_ROOT /backend
+
+# Copy source code into container
+RUN mkdir --parents $APP_ROOT
+WORKDIR $APP_ROOT
+COPY backend .
+
+# Install gems
+RUN gem install bundler
+RUN bundle install
+
+# Add a script to be executed every time the container starts
+COPY deployment/entrypoint-scripts/backend.sh /usr/bin/
+RUN chmod +x /usr/bin/backend.sh
+ENTRYPOINT ["backend.sh"]
+
+# Expose port
+EXPOSE 8001
+
+# Default command
+CMD ["sh", "-c", "bundle exec rails server -b 0.0.0.0 -p 8001"]
