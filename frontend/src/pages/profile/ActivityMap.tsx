@@ -7,7 +7,7 @@ import { displayDateRange } from 'utils/formatting';
 import { getDay, subDays } from 'date-fns';
 import { createStyles, makeStyles } from '@mui/styles';
 
-import './ActivityMap.css';
+import './ActivityMap.scss';
 
 export interface ActivityMapDataPoint {
   date: Date;
