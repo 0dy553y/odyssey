@@ -5,13 +5,20 @@ module Auth
     include AuthHelper
     include Base64Helper
 
-    private
-
     def update
       super do |resource|
-        resource.avatar.attach(decoded_file(params[:avatar]))
+        type = get_file_type(params[:avatar])
+        fileBase64 = decoded_file(params[:avatar])
+        blob = ActiveStorage::Blob.create_after_upload!(
+          io: StringIO.new(fileBase64),
+          filename: "#{resource.username}.#{type}",
+          content_type: "image/#{type}"
+        )
+        resource.avatar.attach(blob)
       end
     end
+
+    private
 
     def render_create_success
       show_success_message("Successfully registered with username '#{@resource.username}'!")
