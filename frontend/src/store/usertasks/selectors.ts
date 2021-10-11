@@ -10,5 +10,5 @@ export function getUserTaskListForDay(
   state: RootState,
   date: Date
 ): UserTaskListData[] {
-  return getLocalState(state).tasksByDay[date.toDateString()];
+  return getLocalState(state).tasksByDay[date.toDateString()] ?? [];
 }
