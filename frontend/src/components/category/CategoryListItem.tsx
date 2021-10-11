@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import CircularProgress, {
   circularProgressClasses,
 } from '@mui/material/CircularProgress';
+import { getFormattedStringFromDays } from 'utils/formatting';
 
 const useStyles = makeStyles(() => ({
   verticalAlign: {
@@ -15,16 +16,24 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CategoryListItem: React.FC = () => {
+interface CategoryListProps {
+  name: string;
+  duration: number;
+}
+
+const CategoryListItem: React.FC<CategoryListProps> = (props) => {
   const classes = useStyles();
+  const { name, duration } = props;
+  console.log(name);
+  console.log(duration);
 
   return (
     <Box>
       <div>
         <Grid container spacing={2}>
           <Grid item xs={9}>
-            <h3>Couch to 5k</h3>
-            <p>Couch to 5k 9 weeks</p>
+            <h3>{name}</h3>
+            <p>{getFormattedStringFromDays(duration)}</p>
           </Grid>
           <Grid item xs={3} className={classes.verticalAlign}>
             <CircularProgress
