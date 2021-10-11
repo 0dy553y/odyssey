@@ -23,12 +23,16 @@ import {
 import {
   ChallengeData,
   ChallengeColor,
+  ChallengeStatus,
+  UserChallenge,
   TaskData,
 } from '../../types/challenges';
+import dayjs from 'dayjs';
 import { useHistory } from 'react-router-dom';
 
 interface ChallengeDetailsPageState {
   challenge: ChallengeData;
+  attempt: UserChallenge | null;
 }
 
 const useStyles = makeStyles(() => ({
@@ -101,12 +105,34 @@ const ChallengeDetailsPage: React.FC = () => {
         ],
         color: ChallengeColor.PURPLE,
       },
+      attempt: {
+        id: 1,
+        user_id: 1,
+        challenge_id: 1,
+        status: ChallengeStatus.ONGOING,
+        enrolled_at: dayjs(),
+        reason_for_enrollment: '',
+      },
     }
   );
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const peekDrawerHeight = 200;
+
+  const Bar = () => (
+    <AppBar position="static" className={classes.appbar}>
+      <Toolbar>
+        <IconButton edge="start">
+          <ChevronLeft />
+        </IconButton>
+        <Box className={classes.spacer} />
+        <IconButton>
+          <MoreVert />
+        </IconButton>
+      </Toolbar>
+    </AppBar>
+  );
 
   const Details = () => (
     <Box>
@@ -134,23 +160,21 @@ const ChallengeDetailsPage: React.FC = () => {
     </Box>
   );
 
+  const Status = () =>
+    state.attempt === null ? (
+      <Typography>🔥 ONGOING</Typography>
+    ) : (
+      <Typography>👻 UNENROLLED</Typography>
+    );
+
   return (
     <Paper
       className={classes.paper}
       sx={{ backgroundColor: state.challenge.color }}
     >
       <Box>
-        <AppBar position="static" className={classes.appbar}>
-          <Toolbar>
-            <IconButton edge="start">
-              <ChevronLeft />
-            </IconButton>
-            <Box className={classes.spacer} />
-            <IconButton>
-              <MoreVert />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
+        <Bar />
+        <Status />
         <Typography component="h1">{state.challenge.name}</Typography>
         <Typography>{state.challenge.description}</Typography>
         <Typography>Recommended schedule</Typography>
