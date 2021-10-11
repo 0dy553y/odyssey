@@ -10,7 +10,9 @@ import UserStats from './UserStats';
 import ChallengeSummaries, {
   ChallengeSummaryProps,
 } from './ChallengeSummaries';
+import { useHistory } from 'react-router-dom';
 import { Duration } from 'date-fns';
+import { EDIT_PROFILE_ROUTE } from 'routing/routes';
 
 interface ProfilePageProps {
   userProfileItems: { label: string; count: number }[];
@@ -84,10 +86,6 @@ const useStyles = makeStyles<Theme, ProfilePageProps>((theme) =>
       borderBottomRightRadius: theme.spacing(2),
       borderBottomLeftRadius: theme.spacing(2),
     },
-    appBar: {
-      background: 'transparent',
-      boxShadow: 'none',
-    },
   })
 );
 
@@ -101,6 +99,7 @@ const ProfilePage: React.FC = () => {
     activityMapData,
   } = mockProps;
 
+  const history = useHistory();
   const classes = useStyles(mockProps);
 
   // user should never be undefined (assuming auth routing works)
@@ -113,7 +112,11 @@ const ProfilePage: React.FC = () => {
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <Box sx={{ flexGrow: 1 }} />
-            <IconButton edge="end" color="primary">
+            <IconButton
+              edge="end"
+              color="primary"
+              onClick={() => history.push(EDIT_PROFILE_ROUTE)}
+            >
               <MoreVertIcon />
             </IconButton>
           </Toolbar>

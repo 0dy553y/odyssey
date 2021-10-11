@@ -9,4 +9,13 @@
     align-items: 'center';
     justify-content: 'center';
   }
+
+  .avatar-input {
+    display: none;
+  }
+
+  .avatar-camera-badge {
+    width: 1.5em;
+    height: 1.5em;
+  }
 }

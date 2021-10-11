@@ -7,6 +7,7 @@ const theme = createTheme({
         root: {
           background: 'transparent',
           boxShadow: 'none',
+          color: 'black',
         },
       },
     },
