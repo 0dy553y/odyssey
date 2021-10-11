@@ -18,7 +18,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
       <IconButton>
         <Avatar
           src="https://breakbrunch.com/wp-content/uploads/2019/11/cute-bright-smile-112419.jpg"
-          className={'avatar'}
+          className="avatar"
         />
       </IconButton>
 
