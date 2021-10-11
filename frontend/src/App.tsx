@@ -31,7 +31,7 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <Container className="App" component="main" maxWidth="xs">
+    <Container className="App" component="main" disableGutters maxWidth="xs">
       <CssBaseline />
       <Notifier />
       <Switch>
