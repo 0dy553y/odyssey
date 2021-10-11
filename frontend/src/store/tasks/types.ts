@@ -2,8 +2,8 @@ import { TaskData, TaskListData } from '../../types/tasks';
 
 // Action names
 export const SAVE_TASK_LIST = 'tasks/SAVE_TASK_LIST';
-export const SAVE_TASK = 'tasks/SAVE_CHALLENGE';
-export const REMOVE_TASK = 'tasks/REMOVE_CHALLENGE';
+export const SAVE_TASK = 'tasks/SAVE_TASK';
+export const REMOVE_TASK = 'tasks/REMOVE_TASK';
 
 // Action types
 export interface SaveTaskListAction {

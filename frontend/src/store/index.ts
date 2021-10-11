@@ -16,20 +16,25 @@ import notificationsReducer from './notifications/reducer';
 import { NotificationsState } from './notifications/types';
 import tasksReducer from './tasks/reducer';
 import { TasksState } from './tasks/types';
+import { UserTasksState } from './usertasks/types';
+import userTasksReducer from './usertasks/reducer';
+
 export interface RootState {
   auth: AuthState;
   categories: CategoriesState;
   challenges: ChallengesState;
-  tasks: TasksState;
   notifications: NotificationsState;
+  tasks: TasksState;
+  userTasks: UserTasksState;
 }
 
 export const rootReducer = combineReducers({
   auth: authReducer,
   categories: categoriesReducer,
   challenges: challengesReducer,
-  tasks: tasksReducer,
   notifications: notificationsReducer,
+  tasks: tasksReducer,
+  userTasks: userTasksReducer,
 });
 
 const storeEnhancer = applyMiddleware(thunk);
