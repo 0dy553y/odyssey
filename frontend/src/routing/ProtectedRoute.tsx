@@ -14,8 +14,7 @@ const ProtectedRoute = ({
   if (isAuthenticated) {
     return <Route {...routeProps} />;
   } else {
-    return <Route {...routeProps} />;
-    //return <Redirect to={{ pathname: authenticationPath }} />;
+    return <Redirect to={{ pathname: authenticationPath }} />;
   }
 };
 

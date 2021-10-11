@@ -22,6 +22,6 @@ export const publicRoutes: RouteEntry[] = [
 export const privateRoutes: RouteEntry[] = [
   { path: PROFILE_ROUTE, component: ProfilePage },
   { path: HOME_ROUTE, component: HomePage, exact: true },
-  { path: CATEGORY_ROUTE, component: CategoryPage },
+  { path: CATEGORY_ROUTE + '/:categoryId', component: CategoryPage },
   { path: EXPLORE_ROUTE, component: ExplorePage },
 ];

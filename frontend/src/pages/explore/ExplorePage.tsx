@@ -7,6 +7,7 @@ import { getCategoryList } from 'store/categories/selectors';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 import './ExplorePage.css';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 function getHeadingFromCategory(title: string): string {
   switch (title) {
@@ -33,10 +34,12 @@ const ExplorePage: React.FC = () => {
       <ul>
         {categories.map((category) => (
           <li key={category.id}>
-            <CategoryPreview
-              title={category.title}
-              heading={getHeadingFromCategory(category.title)}
-            />
+            <Link to={`/category/${category.id}`}>
+              <CategoryPreview
+                title={category.title}
+                heading={getHeadingFromCategory(category.title)}
+              />
+            </Link>
           </li>
         ))}
       </ul>
