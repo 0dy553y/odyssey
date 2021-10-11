@@ -3,12 +3,13 @@
 module Auth
   class RegistrationsController < DeviseTokenAuth::RegistrationsController
     include AuthHelper
+    include Base64Helper
 
     private
 
     def update
       super do |resource|
-        resource.avatar.attach(params[:avatar])
+        resource.avatar.attach(decoded_file(params[:avatar]))
       end
     end
 

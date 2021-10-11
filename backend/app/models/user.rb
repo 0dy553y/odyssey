@@ -23,7 +23,7 @@ class User < ApplicationRecord
                          message: 'only allows letters, numbers, underscore or punctuation'
                        }
   validates :avatar, attached: true,
-            content_type: { in: ['image/png', 'image/jpg', 'image/jpeg'], message: "is not a supported file type" }
+            content_type: { in: ['image/png', 'image/jpg', 'image/jpeg'], message: "is not a supported file type" },
             size: { less_than: 1.megabytes , message: 'must be less than 1MB' }
 
   before_validation do
