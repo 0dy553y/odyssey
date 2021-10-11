@@ -6,10 +6,10 @@ import Typography from '@mui/material/Typography';
 import { getCategoryList } from 'store/categories/selectors';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
-import { CATEGORY_ROUTE } from '../../routing/routes';
-import './ExplorePage.css';
 import { BrowserRouter as Route, Link } from 'react-router-dom';
 import { getHeadingFromCategory } from 'utils/naming';
+import { CATEGORY_ROUTE } from '../../routing/routes';
+import './ExplorePage.scss';
 
 const ExplorePage: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
