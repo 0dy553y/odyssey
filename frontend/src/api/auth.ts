@@ -1,5 +1,5 @@
 import { ApiPromise } from '../types/api';
-import { LoginData, RegisterData, UserData } from '../types/auth';
+import { LoginData, RegisterData, UserData, UserPutData } from '../types/auth';
 import BaseAPI from './base';
 
 class AuthAPI extends BaseAPI {
@@ -17,6 +17,10 @@ class AuthAPI extends BaseAPI {
 
   public validateToken(): ApiPromise<UserData> {
     return this.get(`${AuthAPI.getAuthUrl()}/validate_token`);
+  }
+
+  public editUser(userPutData: UserPutData): ApiPromise<UserData> {
+    return this.put(`${AuthAPI.getAuthUrl()}`, userPutData);
   }
 }
 

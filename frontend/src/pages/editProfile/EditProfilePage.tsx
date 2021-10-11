@@ -15,8 +15,11 @@ import {
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
+import { getUser } from 'store/auth/selectors';
+import { updateUser } from 'store/auth/operations';
+import { stringAvatar } from 'utils/avatar';
 
 import './EditProfilePage.scss';
 
@@ -30,8 +33,14 @@ const EditProfilePage: React.FC = () => {
   const dispatch = useDispatch();
   const { register, control, handleSubmit } = useForm<EditProfileFormState>();
 
-  const onSubmit = handleSubmit((data: EditProfileFormState) =>
-    console.log(data)
+  // user should never be undefined (assuming auth routing works)
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const user = useSelector(getUser)!; //
+
+  const onSubmit = handleSubmit(
+    (data: EditProfileFormState) =>
+      dispatch(updateUser({ displayName: data.displayName }))
+    // console.log(data)
   );
 
   return (
@@ -70,8 +79,9 @@ const EditProfilePage: React.FC = () => {
                   }
                 >
                   <Avatar
-                    src="https://breakbrunch.com/wp-content/uploads/2019/11/cute-bright-smile-112419.jpg"
+                    src={user.avatar}
                     className="avatar"
+                    {...stringAvatar(user.displayName ?? user.username)}
                   />
                 </Badge>
               </label>
@@ -82,7 +92,7 @@ const EditProfilePage: React.FC = () => {
             <Controller
               name="displayName"
               control={control}
-              defaultValue=""
+              defaultValue={user.displayName ?? ''}
               render={({ field }) => (
                 <TextField
                   {...field}

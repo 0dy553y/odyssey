@@ -4,7 +4,12 @@ import { ThunkDispatch } from 'redux-thunk';
 import { withStatusMessages } from 'utils/ui';
 import api from '../../api';
 import { HOME_ROUTE } from '../../routing/routes';
-import { LoginData, RegisterData, UserData } from '../../types/auth';
+import {
+  LoginData,
+  RegisterData,
+  UserData,
+  UserPutData,
+} from '../../types/auth';
 import { OperationResult } from '../../types/store';
 import { RootState } from '../index';
 import { setIsValidatingToken, setUser } from './actions';
@@ -44,5 +49,16 @@ export function validateToken(): OperationResult {
         dispatch(setUser(userData));
       })
       .finally(() => dispatch(setIsValidatingToken(false)));
+  };
+}
+
+export function updateUser(userPutData: UserPutData): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    await withStatusMessages(dispatch, api.auth.editUser(userPutData)).then(
+      (resp) => {
+        const userData: UserData = resp.payload.data;
+        dispatch(setUser(userData));
+      }
+    );
   };
 }
