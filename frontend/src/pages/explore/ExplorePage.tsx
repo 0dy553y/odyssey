@@ -6,8 +6,9 @@ import Typography from '@mui/material/Typography';
 import { getCategoryList } from 'store/categories/selectors';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
+import { CATEGORY_ROUTE } from '../../routing/routes';
 import './ExplorePage.css';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Route, Link } from 'react-router-dom';
 
 function getHeadingFromCategory(title: string): string {
   switch (title) {
@@ -34,7 +35,7 @@ const ExplorePage: React.FC = () => {
       <ul>
         {categories.map((category) => (
           <li key={category.id}>
-            <Link to={`/category/${category.id}`}>
+            <Link to={`${CATEGORY_ROUTE}/${category.id}`}>
               <CategoryPreview
                 title={category.title}
                 heading={getHeadingFromCategory(category.title)}
