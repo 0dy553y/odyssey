@@ -1,3 +1,5 @@
+import { Dayjs } from 'dayjs';
+
 export interface ChallengeListData {
   id: number;
   name: string;
@@ -33,4 +35,19 @@ export interface TaskData {
   title: string;
   description: string;
   dayNumber: number;
+}
+
+export interface UserChallenge {
+  id: number;
+  user_id: number;
+  challenge_id: number;
+  status: ChallengeStatus;
+  enrolled_at: Dayjs;
+  reason_for_enrollment: string;
+}
+
+export enum ChallengeStatus {
+  ONGOING,
+  COMPLETED,
+  FORFEITED,
 }
