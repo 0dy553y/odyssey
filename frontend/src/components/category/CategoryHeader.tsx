@@ -26,8 +26,16 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CategoryHeader: React.FC = () => {
+interface CategoryHeaderProps {
+  title: string;
+  heading: string;
+}
+
+const CategoryHeader: React.FC<CategoryHeaderProps> = (props) => {
   const classes = useStyles();
+  const { title, heading } = props;
+  /* eslint-disable */
+  const headerImage = require('../../assets/images/' + title.toLowerCase() + '.png');
 
   return (
     <Box
@@ -44,9 +52,9 @@ const CategoryHeader: React.FC = () => {
     >
       <div className={classes.overlayText}>
         <h3>I want to..</h3>
-        <h1>Exercise more</h1>
+        <h1>{heading}</h1>
       </div>
-      <img src={cute} className={classes.backgroundImage} />
+      <img src={headerImage.default} className={classes.backgroundImage} />
     </Box>
   );
 };

@@ -9,19 +9,7 @@ import { RootState } from 'store';
 import { CATEGORY_ROUTE } from '../../routing/routes';
 import './ExplorePage.css';
 import { BrowserRouter as Route, Link } from 'react-router-dom';
-
-function getHeadingFromCategory(title: string): string {
-  switch (title) {
-    case 'Hobbies':
-      return 'learn a new hobby';
-    case 'Exercise':
-      return 'exercise more';
-    case 'Habits':
-      return 'pick up a habit';
-    default:
-      return 'invalid category';
-  }
-}
+import { getHeadingFromCategory } from 'utils/naming';
 
 const ExplorePage: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
