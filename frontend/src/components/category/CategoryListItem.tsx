@@ -27,8 +27,6 @@ interface CategoryListProps {
 const CategoryListItem: React.FC<CategoryListProps> = (props) => {
   const classes = useStyles();
   const { name, duration } = props;
-  console.log(name);
-  console.log(duration);
 
   return (
     <Box>

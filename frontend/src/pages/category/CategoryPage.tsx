@@ -18,7 +18,6 @@ const ExplorePage: React.FC = () => {
   const category = useSelector((state: RootState) =>
     getCategory(state, Number(categoryId))
   )!;
-  console.log(category);
 
   useEffect(() => {
     dispatch(loadAllChallenges());
@@ -28,7 +27,6 @@ const ExplorePage: React.FC = () => {
   const challenges = useSelector((state: RootState) =>
     getChallengeList(state)
   )!;
-  console.log(challenges);
 
   return (
     <Box>
