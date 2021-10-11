@@ -5,8 +5,8 @@ Rails.application.routes.draw do
     resources res, except: %i[new edit], &block
   end
 
-  namespace :api, defaults: { format: 'json' } do
-    namespace :v1, defaults: { format: 'json' } do
+  scope :api, defaults: { format: 'json' } do
+    scope :v1, defaults: { format: 'json' } do
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
         registrations: 'auth/registrations',
         sessions: 'auth/sessions',
