@@ -8,11 +8,14 @@ import CircularProgress, {
 import { getFormattedStringFromDays } from 'utils/formatting';
 
 const useStyles = makeStyles(() => ({
-  verticalAlign: {
-    bottom: 0,
-  },
   setOpacity: {
     opacity: 0.5,
+    position: 'absolute',
+  },
+  help: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }));
 
@@ -30,12 +33,12 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
   return (
     <Box>
       <div>
-        <Grid container spacing={2}>
+        <div className={classes.help}>
           <Grid item xs={9}>
             <h3>{name}</h3>
             <p>{getFormattedStringFromDays(duration)}</p>
           </Grid>
-          <Grid item xs={3} className={classes.verticalAlign}>
+          <Grid item xs={2}>
             <CircularProgress
               color="primary"
               variant="determinate"
@@ -43,7 +46,6 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
                 [`& .${circularProgressClasses.circle}`]: {
                   strokeLinecap: 'round',
                 },
-                position: 'absolute',
               }}
               value={100}
               size={50}
@@ -57,14 +59,13 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
                 [`& .${circularProgressClasses.circle}`]: {
                   strokeLinecap: 'round',
                 },
-                position: 'absolute',
               }}
               value={75}
               size={50}
               thickness={8}
             />
           </Grid>
-        </Grid>
+        </div>
       </div>
     </Box>
   );
