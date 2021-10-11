@@ -6,6 +6,12 @@ module Auth
 
     private
 
+    def update
+      super do |resource|
+        resource.avatar.attach(params[:avatar])
+      end
+    end
+
     def render_create_success
       show_success_message("Successfully registered with username '#{@resource.username}'!")
       render 'auth/user', status: :created
