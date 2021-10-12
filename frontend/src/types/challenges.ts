@@ -44,6 +44,7 @@ export interface UserChallenge {
   status: ChallengeStatus;
   enrolled_at: Dayjs;
   reason_for_enrollment: string;
+  last_completed_task_id: number;
 }
 
 export enum ChallengeStatus {
