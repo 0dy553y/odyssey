@@ -3,6 +3,7 @@ import { Box, CircularProgress, Container, CssBaseline } from '@mui/material';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import { LOGIN_ROUTE, privateRoutes, publicRoutes } from './routing/routes';
 import ProtectedRoute, { ProtectedRouteProps } from './routing/ProtectedRoute';
+import ScrollToTop from './components/common/ScrollToTop';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsValidatingToken, getUser } from './store/auth/selectors';
 import { validateToken } from './store/auth/operations';
@@ -32,6 +33,7 @@ function App(): JSX.Element {
   return (
     <Container className="App" component="main" maxWidth="xs">
       <CssBaseline />
+      <ScrollToTop />
       <Notifier />
       <Switch>
         {isValidatingToken ? (
