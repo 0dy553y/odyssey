@@ -67,12 +67,16 @@ export function validateToken(): OperationResult {
   };
 }
 
-export function updateUser(userPutData: UserPutData): OperationResult {
+export function updateUser(
+  userPutData: UserPutData,
+  history: History
+): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     await withStatusMessages(dispatch, api.auth.editUser(userPutData)).then(
       (resp) => {
         const userData: UserData = resp.payload.data;
         dispatch(setUser(userData));
+        history.goBack();
       }
     );
   };

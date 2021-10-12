@@ -46,7 +46,7 @@ const EditProfilePage: React.FC = () => {
     if (avatarBase64DataUrl) {
       userPutData.avatar = avatarBase64DataUrl;
     }
-    dispatch(updateUser(userPutData));
+    dispatch(updateUser(userPutData, history));
   });
 
   return (
