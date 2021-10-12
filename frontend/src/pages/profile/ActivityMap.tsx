@@ -89,7 +89,6 @@ const ActivityMap: React.FC<ActivityMapProps> = (props) => {
       lastDayOfMonth(addMonths(endDate, NUM_MONTHS_TO_SHOW)),
       TODAY,
     ];
-    console.log(TODAY);
     setEndDate(min(newEndDates));
   };
 

@@ -1,11 +1,16 @@
+import imageCompression from 'browser-image-compression';
 import { DataUrl } from 'types/auth';
 
+const imageCompressionOptions = Object.freeze({
+  maxSizeMB: 1,
+  useWebWorker: true,
+});
+
 // Adapted from https://stackoverflow.com/a/52311051
-export const compressThenConvertToBase64DataUrl = (
+export const compressThenConvertToBase64DataUrl = async (
   file: File
 ): Promise<DataUrl> => {
-  //   const compressedFile = await imageCompression(file, options);
-  const compressedFile = file;
+  const compressedFile = await imageCompression(file, imageCompressionOptions);
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(compressedFile);

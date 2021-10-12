@@ -18,7 +18,7 @@ export const authSlice = createSlice({
       state.isValidatingToken = action.payload;
     },
     resetAuth: (state): void => {
-      // Note: not reseting isValidatingToken here because it should not need to be reset
+      // Note: not resetting isValidatingToken here because it should not need to be reset
       state.user = undefined;
     },
   },
