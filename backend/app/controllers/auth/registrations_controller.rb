@@ -13,12 +13,8 @@ module Auth
         next if params[:avatar].nil?
 
         type = get_file_type(params[:avatar])
-        fileBase64 = decoded_file(params[:avatar])
-        blob = ActiveStorage::Blob.create_and_upload!(
-          io: StringIO.new(fileBase64),
-          filename: "#{resource.username}.#{type}",
-          content_type: "image/#{type}"
-        )
+        avatar_data_url = decoded_file(params[:avatar])
+        blob = get_blob(avatar_data_url, "#{resource.username}.#{type}", "image/#{type}")
         resource.avatar.attach(blob)
       end
     end

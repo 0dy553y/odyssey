@@ -20,4 +20,12 @@ module Base64Helper
     mime_type = attachment.content_type
     "data:#{mime_type};base64,#{Base64.strict_encode64(attachment.download)}"
   end
+
+  def get_blob(data_url, filename, content_type)
+    ActiveStorage::Blob.create_and_upload!(
+      io: StringIO.new(data_url),
+      filename: filename,
+      content_type: content_type
+    )
+  end
 end
