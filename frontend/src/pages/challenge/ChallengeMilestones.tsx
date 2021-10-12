@@ -7,8 +7,10 @@ import {
   TimelineSeparator,
   TimelineConnector,
   TimelineContent,
+  TimelineOppositeContent,
   TimelineDot,
 } from '@mui/lab';
+import { makeStyles } from '@mui/styles';
 import { TaskData, UserChallengeData } from '../../types/challenges';
 
 interface ChallengeMilestonesProps {
@@ -16,14 +18,20 @@ interface ChallengeMilestonesProps {
   attempt: UserChallengeData | null;
 }
 
+const useStyles = makeStyles(() => ({
+  opposite: { maxWidth: '1px', paddingLeft: '0px', paddingRight: '0px' },
+}));
+
 const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
   const { tasks, attempt } = props;
+  const classes = useStyles();
 
   return (
     <Box>
       <Timeline>
         {tasks.map((t: TaskData, index: number) => (
           <TimelineItem key={t.id}>
+            <TimelineOppositeContent className={classes.opposite} />
             <TimelineSeparator>
               <TimelineDot>
                 {attempt === null ||
