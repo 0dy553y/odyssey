@@ -1,8 +1,12 @@
 import React, { useEffect } from 'react';
 import { Box, CircularProgress, Container, CssBaseline } from '@mui/material';
 import { Route, Switch, useLocation } from 'react-router-dom';
-import { LOGIN_ROUTE, privateRoutes, publicRoutes } from './routing/routes';
-import ProtectedRoute, { ProtectedRouteProps } from './routing/ProtectedRoute';
+import { privateRoutes, publicRoutes } from './routing/routes';
+import {
+  ProtectedRouteProps,
+  ProtectedRoute,
+  RedirectIfAuthenticated,
+} from './routing/ProtectedRoute';
 import ScrollToTop from './components/common/ScrollToTop';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsValidatingToken, getUser } from './store/auth/selectors';
@@ -21,7 +25,6 @@ function App(): JSX.Element {
 
   const defaultProtectedRouteProps: ProtectedRouteProps = {
     isAuthenticated: !!user,
-    authenticationPath: LOGIN_ROUTE,
   };
 
   useEffect(() => {
@@ -46,7 +49,11 @@ function App(): JSX.Element {
         ) : (
           <>
             {publicRoutes.map((route: RouteEntry) => (
-              <Route key={route.path} {...route} />
+              <RedirectIfAuthenticated
+                key={route.path}
+                {...route}
+                {...defaultProtectedRouteProps}
+              />
             ))}
             {privateRoutes.map((route: RouteEntry) => (
               <ProtectedRoute
