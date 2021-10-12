@@ -9,7 +9,7 @@ module Base64Helper
     parsed = mimetype.split('/')
     return nil if parsed.length != 2
 
-    return parsed[1]
+    parsed[1]
   end
 
   def decoded_file(data_url)
