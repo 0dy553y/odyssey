@@ -20,6 +20,7 @@ interface ChallengeMilestonesProps {
 
 const useStyles = makeStyles(() => ({
   opposite: { maxWidth: '1px', paddingLeft: '0px', paddingRight: '0px' },
+  checkbox: { padding: '0px' },
 }));
 
 const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
@@ -43,6 +44,7 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
                   <Checkbox
                     icon={<RadioButtonUnchecked />}
                     checkedIcon={<CheckCircle />}
+                    className={classes.checkbox}
                   />
                 ) : (
                   // Have completed.
