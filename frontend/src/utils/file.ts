@@ -1,5 +1,9 @@
+import { DataUrl } from 'types/auth';
+
 // Adapted from https://stackoverflow.com/a/52311051
-export const compressThenConvertToBase64 = (file: File): Promise<string> => {
+export const compressThenConvertToBase64DataUrl = (
+  file: File
+): Promise<DataUrl> => {
   //   const compressedFile = await imageCompression(file, options);
   const compressedFile = file;
   return new Promise((resolve, reject) => {
