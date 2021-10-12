@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
 import CategoryHeader from '../../components/category/CategoryHeader';
 import CategoryListItem from '../../components/category/CategoryListItem';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,6 +28,10 @@ const ExplorePage: React.FC = () => {
   const challenges = useSelector((state: RootState) =>
     getChallengeList(state)
   )!;
+
+  if (!category) {
+    return <Skeleton />;
+  }
 
   return (
     <Box>
