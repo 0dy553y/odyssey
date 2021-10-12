@@ -2,7 +2,6 @@ import React, { useReducer, useState } from 'react';
 import {
   AppBar,
   Box,
-  Checkbox,
   Typography,
   SwipeableDrawer,
   Tabs,
@@ -11,35 +10,23 @@ import {
   Toolbar,
   Paper,
 } from '@mui/material';
-import {
-  ChevronLeft,
-  MoreVert,
-  CheckCircle,
-  RadioButtonUnchecked,
-  Circle,
-} from '@mui/icons-material';
+import { ChevronLeft, MoreVert } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
-import {
-  Timeline,
-  TimelineItem,
-  TimelineSeparator,
-  TimelineConnector,
-  TimelineContent,
-  TimelineDot,
-} from '@mui/lab';
 import {
   ChallengeData,
   ChallengeColor,
   ChallengeStatus,
-  UserChallenge,
-  TaskData,
+  UserChallengeData,
 } from '../../types/challenges';
 import dayjs from 'dayjs';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import ChallengeMilestones from './ChallengeMilestones';
 
 interface ChallengeDetailsPageState {
   challenge: ChallengeData;
-  attempt: UserChallenge | null;
+  attempt: UserChallengeData | null;
 }
 
 const useStyles = makeStyles(() => ({
@@ -134,12 +121,6 @@ const ChallengeDetailsPage: React.FC = () => {
 
   const peekDrawerHeight = 200;
 
-  const handleCheckTask = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      console.log('checked');
-    }
-  };
-
   const Bar = () => (
     <AppBar position="static" className={classes.appbar}>
       <Toolbar>
@@ -152,48 +133,6 @@ const ChallengeDetailsPage: React.FC = () => {
         </IconButton>
       </Toolbar>
     </AppBar>
-  );
-
-  const Milestones = () => (
-    <Box>
-      <Timeline>
-        {state.challenge.tasks.map((t: TaskData, index: number) => (
-          <TimelineItem key={t.id}>
-            <TimelineSeparator>
-              <TimelineDot>
-                {state.attempt === null ||
-                t.id > state.attempt.last_completed_task_id + 1 ? (
-                  // Unenrolled, or tasks in the future.
-                  <Circle />
-                ) : t.id === state.attempt.last_completed_task_id + 1 ? (
-                  // Earliest uncompleted task.
-                  <Checkbox
-                    icon={<RadioButtonUnchecked />}
-                    checkedIcon={<CheckCircle />}
-                    onChange={handleCheckTask}
-                  />
-                ) : (
-                  // Have completed.
-                  <CheckCircle />
-                )}
-              </TimelineDot>
-              {index < state.challenge.tasks.length - 1 ? (
-                <TimelineConnector />
-              ) : (
-                // Don't show trailing line on last element.
-                <div />
-              )}
-            </TimelineSeparator>
-            <TimelineContent>
-              <Typography>
-                Day {t.dayNumber}: {t.title}
-              </Typography>
-              <Typography>{t.description} </Typography>
-            </TimelineContent>
-          </TimelineItem>
-        ))}
-      </Timeline>
-    </Box>
   );
 
   const Status = () =>
@@ -237,7 +176,10 @@ const ChallengeDetailsPage: React.FC = () => {
             <Tabs>
               <Tab label={'Milestones'} />
             </Tabs>
-            <Milestones />
+            <ChallengeMilestones
+              tasks={state.challenge.tasks}
+              attempt={state.attempt}
+            />
           </Box>
         </SwipeableDrawer>
       </Box>

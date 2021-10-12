@@ -37,7 +37,7 @@ export interface TaskData {
   dayNumber: number;
 }
 
-export interface UserChallenge {
+export interface UserChallengeData {
   id: number;
   user_id: number;
   challenge_id: number;
