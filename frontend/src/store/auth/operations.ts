@@ -3,7 +3,7 @@ import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { HOME_ROUTE, LOGIN_ROUTE } from 'routing/routes';
-import { resetNotifications } from 'store/notifications/actions';
+import { resetSnackbars } from 'store/snackbars/actions';
 import { withStatusMessages } from 'utils/ui';
 import api from '../../api';
 import {
@@ -33,7 +33,7 @@ export function logout(history: History): OperationResult {
     await withStatusMessages(dispatch, api.auth.logout()).then(() => {
       batch(() => {
         // TODO: reset other store here as well
-        dispatch(resetNotifications());
+        dispatch(resetSnackbars());
         dispatch(resetAuth());
       });
       history.push(LOGIN_ROUTE);
