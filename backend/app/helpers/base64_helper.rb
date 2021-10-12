@@ -1,17 +1,20 @@
 # frozen_string_literal: true
 
 module Base64Helper
+  REGEXP = /data:(?<mimetype>.+?);base64,(?<data>.*)/
+
   def get_file_type(data_url)
-    data_url.split(',')[0][/(.*?);/m, 1]
+    match = REGEXP.match(data_url)
+    mimetype = match[:mimetype]
+    parsed = mimetype.split('/')
+    return nil if parsed.length != 2
+
+    return parsed[1]
   end
 
   def decoded_file(data_url)
-    file_type = get_file_type(data_url)
-    if file_type.present?
-      Base64.decode64(data_url.split(',')[1])
-    else
-      Base64.decode64(data_url)
-    end
+    match = REGEXP.match(data_url)
+    Base64.decode64(match[:data])
   end
 
   def encoded_file_data_url(attachment)
