@@ -33,6 +33,10 @@ export const notificationsSlice = createSlice({
         (notification) => notification.key !== action.payload
       );
     },
+    resetNotifications: (state): void => {
+      state.nextNotificationKey = 0;
+      state.notifications = [];
+    },
   },
 });
 
