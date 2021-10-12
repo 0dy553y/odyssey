@@ -2,7 +2,7 @@
 
 module Base64Helper
   def get_file_type(data_url)
-    data_url.split(',')[0][/#{'/'}(.*?)#{';'}/m, 1]
+    data_url.split(',')[0][/(.*?);/m, 1]
   end
 
   def decoded_file(data_url)

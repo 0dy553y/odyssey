@@ -23,8 +23,8 @@ class User < ApplicationRecord
                          message: 'only allows letters, numbers, underscore or punctuation'
                        }
   validates :avatar,
-            content_type: { in: ['image/png', 'image/jpg', 'image/jpeg'], message: "is not a supported file type" },
-            size: { less_than: 1.megabytes , message: 'must be less than 1MB' }
+            content_type: { in: ['image/png', 'image/jpg', 'image/jpeg'], message: 'is not a supported file type' },
+            size: { less_than: 1.megabytes, message: 'must be less than 1MB' }
 
   before_validation do
     self.uid = username if uid.blank?
