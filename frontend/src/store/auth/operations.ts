@@ -1,9 +1,9 @@
 import { History } from 'history';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
+import { HOME_ROUTE, LOGIN_ROUTE } from 'routing/routes';
 import { withStatusMessages } from 'utils/ui';
 import api from '../../api';
-import { HOME_ROUTE } from '../../routing/routes';
 import {
   LoginData,
   RegisterData,
@@ -12,7 +12,7 @@ import {
 } from '../../types/auth';
 import { OperationResult } from '../../types/store';
 import { RootState } from '../index';
-import { setIsValidatingToken, setUser } from './actions';
+import { resetAuth, setIsValidatingToken, setUser } from './actions';
 
 export function login(loginData: LoginData, history: History): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
@@ -23,6 +23,16 @@ export function login(loginData: LoginData, history: History): OperationResult {
         history.push(HOME_ROUTE);
       }
     );
+  };
+}
+
+export function logout(history: History): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    await withStatusMessages(dispatch, api.auth.logout()).then(() => {
+      // TODO: reset other store here as well
+      dispatch(resetAuth());
+      history.push(LOGIN_ROUTE);
+    });
   };
 }
 

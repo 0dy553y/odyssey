@@ -15,6 +15,10 @@ class AuthAPI extends BaseAPI {
     return this.post(`${AuthAPI.getAuthUrl()}/sign_in`, signInData);
   }
 
+  public logout(): ApiPromise<void> {
+    return this.delete(`${AuthAPI.getAuthUrl()}/sign_out`);
+  }
+
   public validateToken(): ApiPromise<UserData> {
     return this.get(`${AuthAPI.getAuthUrl()}/validate_token`);
   }
