@@ -15,6 +15,7 @@ import './App.scss';
 import BottomNavigationBar from './components/common/BottomNavigationBar';
 import { RouteEntry } from './types/routes';
 import Notifier from 'components/notifier';
+import { loadAllCategories } from 'store/categories/operations';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(validateToken());
+    dispatch(loadAllCategories());
   }, []);
 
   return (
