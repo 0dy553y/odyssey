@@ -1,30 +1,21 @@
 import React from 'react';
 import { RouteProps, Route, Redirect } from 'react-router-dom';
-import { LOGIN_ROUTE } from './routes';
-import { HOME_ROUTE } from './routes';
 
 export type ProtectedRouteProps = {
   isAuthenticated: boolean;
+  authenticationPath: string;
 } & RouteProps;
 
-export const ProtectedRoute = ({
+const ProtectedRoute = ({
   isAuthenticated,
+  authenticationPath,
   ...routeProps
 }: ProtectedRouteProps): JSX.Element => {
   if (isAuthenticated) {
     return <Route {...routeProps} />;
   } else {
-    return <Redirect to={{ pathname: LOGIN_ROUTE }} />;
+    return <Redirect to={{ pathname: authenticationPath }} />;
   }
 };
 
-export const RedirectIfAuthenticated = ({
-  isAuthenticated,
-  ...routeProps
-}: ProtectedRouteProps): JSX.Element => {
-  if (isAuthenticated) {
-    return <Redirect to={{ pathname: HOME_ROUTE }} />;
-  } else {
-    return <Route {...routeProps} />;
-  }
-};
+export default ProtectedRoute;
