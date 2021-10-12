@@ -20,6 +20,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { getUser } from 'store/auth/selectors';
 import { updateUser } from 'store/auth/operations';
 import { stringAvatar } from 'utils/avatar';
+import { compressThenConvertToBase64 } from 'utils/file';
 
 import './EditProfilePage.scss';
 
@@ -31,17 +32,20 @@ interface EditProfileFormState {
 const EditProfilePage: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { register, control, handleSubmit } = useForm<EditProfileFormState>();
+  const { register, control, handleSubmit, getValues } =
+    useForm<EditProfileFormState>();
 
   // user should never be undefined (assuming auth routing works)
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const user = useSelector(getUser)!; //
 
-  const onSubmit = handleSubmit(
-    (data: EditProfileFormState) =>
-      dispatch(updateUser({ displayName: data.displayName }))
-    // console.log(data)
-  );
+  const onSubmit = handleSubmit(async (data: EditProfileFormState) => {
+    let avatarB64: string | undefined = undefined;
+    if (data.avatar && data.avatar.length > 0) {
+      avatarB64 = await compressThenConvertToBase64(data.avatar[0]);
+    }
+    dispatch(updateUser({ displayName: data.displayName, avatar: avatarB64 }));
+  });
 
   return (
     <Box className="edit-profile-page">
