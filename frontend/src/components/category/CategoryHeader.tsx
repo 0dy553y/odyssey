@@ -6,10 +6,13 @@ const useStyles = makeStyles(() => ({
   backgroundImage: {
     flexShrink: 0,
     width: '100%',
+    maxHeight: '55vh',
     zIndex: -1,
     position: 'relative',
     display: 'block',
-    borderRadius: '0 0 2em 2em',
+    borderRadius: '0 0 5vh 5vh',
+    objectFit: 'cover',
+    objectPosition: '20% 30%',
   },
   gradient: {
     display: 'inline-block',
@@ -21,7 +24,7 @@ const useStyles = makeStyles(() => ({
     display: 'block',
     color: 'white',
     bottom: '0',
-    paddingLeft: '1em',
+    paddingLeft: '2em',
   },
 }));
 
@@ -41,9 +44,10 @@ const CategoryHeader: React.FC<CategoryHeaderProps> = (props) => {
       className={classes.gradient}
       sx={{
         position: 'relative',
-        borderRadius: '0 0 2em 2em',
+        borderRadius: '0 0 5vh 5vh',
         margin: '0 -50vw 1em -50vw',
         maxWidth: '100vw',
+        maxHeight: '55vh',
         left: '50%',
         right: '50%',
         width: '100vw',
