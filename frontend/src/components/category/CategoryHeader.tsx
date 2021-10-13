@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
+import { Typography } from '@mui/material';
 
 const useStyles = makeStyles(() => ({
   backgroundImage: {
@@ -54,8 +55,8 @@ const CategoryHeader: React.FC<CategoryHeaderProps> = (props) => {
       }}
     >
       <div className={classes.overlayText}>
-        <h3>I want to..</h3>
-        <h1>{heading}</h1>
+        <Typography variant="h5">I want to...</Typography>
+        <Typography variant="h3" sx={{ paddingBottom: '0.5em', fontFamily: 'Frock' }}>{heading}</Typography>
       </div>
       <img src={headerImage.default} className={classes.backgroundImage} />
     </Box>

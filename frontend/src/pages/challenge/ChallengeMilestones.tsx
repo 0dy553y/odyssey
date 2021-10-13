@@ -1,0 +1,76 @@
+import React from 'react';
+import { Box, Checkbox, Typography } from '@mui/material';
+import { CheckCircle, RadioButtonUnchecked, Circle } from '@mui/icons-material';
+import {
+  Timeline,
+  TimelineItem,
+  TimelineSeparator,
+  TimelineConnector,
+  TimelineContent,
+  TimelineOppositeContent,
+  TimelineDot,
+} from '@mui/lab';
+import { makeStyles } from '@mui/styles';
+import { UserChallengeData } from '../../types/challenges';
+import { TaskListData } from '../../types/tasks';
+
+interface ChallengeMilestonesProps {
+  tasks: TaskListData[];
+  attempt: UserChallengeData | null;
+}
+
+const useStyles = makeStyles(() => ({
+  opposite: { maxWidth: '1px', paddingLeft: '0px', paddingRight: '0px' },
+  checkbox: { padding: '0px' },
+}));
+
+const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
+  const { tasks, attempt } = props;
+  const classes = useStyles();
+
+  console.log(tasks);
+
+  return (
+    <Box>
+      <Timeline>
+        {tasks.map((t: TaskListData, index: number) => (
+          <TimelineItem key={t.id}>
+            <TimelineOppositeContent className={classes.opposite} />
+            <TimelineSeparator>
+              <TimelineDot>
+                {attempt === null || t.id > 1 ? (
+                  // Unenrolled, or tasks in the future.
+                  <Circle />
+                ) : t.id === 1 ? (
+                  // Earliest uncompleted task.
+                  <Checkbox
+                    icon={<RadioButtonUnchecked />}
+                    checkedIcon={<CheckCircle />}
+                    className={classes.checkbox}
+                  />
+                ) : (
+                  // Have completed.
+                  <CheckCircle />
+                )}
+              </TimelineDot>
+              {index < tasks.length - 1 ? (
+                <TimelineConnector />
+              ) : (
+                // Don't show trailing line on last element.
+                <div />
+              )}
+            </TimelineSeparator>
+            <TimelineContent>
+              <Typography>
+                Day {t.index}: {t.name}
+              </Typography>
+              <Typography>{t.description} </Typography>
+            </TimelineContent>
+          </TimelineItem>
+        ))}
+      </Timeline>
+    </Box>
+  );
+};
+
+export default ChallengeMilestones;

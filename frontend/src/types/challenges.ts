@@ -1,3 +1,5 @@
+import { Dayjs } from 'dayjs';
+
 export interface ChallengeListData {
   id: number;
   name: string;
@@ -7,6 +9,7 @@ export interface ChallengeListData {
 export interface ChallengeData extends ChallengeListData {
   description: string;
   schedule: string;
+  color: ChallengeColor;
 }
 
 export interface ChallengePostData {
@@ -19,4 +22,25 @@ export interface ChallengePostData {
 
 export interface ChallengePutData {
   id: number;
+}
+
+export enum ChallengeColor {
+  BLUE = '#3836A6',
+  PURPLE = '#9F88E3',
+}
+
+export interface UserChallengeData {
+  id: number;
+  user_id: number;
+  challenge_id: number;
+  status: ChallengeStatus;
+  enrolled_at: Dayjs;
+  reason_for_enrollment: string;
+  last_completed_task_id: number;
+}
+
+export enum ChallengeStatus {
+  ONGOING,
+  COMPLETED,
+  FORFEITED,
 }

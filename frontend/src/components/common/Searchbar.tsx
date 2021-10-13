@@ -40,7 +40,7 @@ const Searchbar: React.FC = () => {
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
-        placeholder="Search…"
+        placeholder="Search..."
         inputProps={{ 'aria-label': 'search' }}
       />
     </Search>

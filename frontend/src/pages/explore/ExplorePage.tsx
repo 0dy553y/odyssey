@@ -16,10 +16,12 @@ const ExplorePage: React.FC = () => {
   const categories = useSelector((state: RootState) => getCategoryList(state))!;
 
   return (
-    <Box>
-      <Typography variant="h3">Find your next challenge</Typography>
+    <Box sx={{ paddingTop: '2em' }}>
+      <Typography variant="h2">Find your next challenge</Typography>
       <Searchbar />
-      <Typography variant="h6">I want to...</Typography>
+      <Typography variant="h6" sx={{ fontStyle: 'italic' }}>
+        I want to...
+      </Typography>
       <ul>
         {categories.map((category) => (
           <li key={category.id}>
