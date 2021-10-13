@@ -5,4 +5,5 @@ json.data @tasks do |task|
   json.name task.name
   json.description task.description
   json.index task.index
+  json.challengeId task.challenge_id
 end

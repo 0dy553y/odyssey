@@ -20,6 +20,10 @@ class ChallengesAPI extends BaseAPI {
     return this.get(`${ChallengesAPI.getChallengesUrl()}/${challengeId}`);
   }
 
+  public getChallengeTasks(challengeId: number): ApiPromise<ChallengeData> {
+    return this.get(`${ChallengesAPI.getChallengesUrl()}/${challengeId}`);
+  }
+
   public addChallenge(
     challengePostData: ChallengePostData
   ): ApiPromise<ChallengeData> {

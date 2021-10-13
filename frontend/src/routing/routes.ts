@@ -6,6 +6,7 @@ import HomePage from '../pages/home';
 import LoginPage from '../pages/login';
 import ProfilePage from '../pages/profile';
 import RegistrationPage from '../pages/registration';
+import ChallengeDetailsPage from '../pages/challenge';
 import { RouteEntry } from '../types/routes';
 
 export const HOME_ROUTE = '/';
@@ -27,7 +28,15 @@ export const privateRoutes: RouteEntry[] = [
   { path: EDIT_PROFILE_ROUTE, component: EditProfilePage, exact: true },
   { path: PROFILE_ROUTE, component: ProfilePage, exact: true },
   { path: HOME_ROUTE, component: HomePage, exact: true },
+  {
+    path: CATEGORY_ROUTE + '/:categoryId/:challengeId',
+    component: ChallengeDetailsPage,
+  },
   { path: FRIENDS_ROUTE, component: FriendsPage, exact: true },
-  { path: CATEGORY_ROUTE + '/:categoryId', component: CategoryPage },
+  {
+    path: CATEGORY_ROUTE + '/:categoryId',
+    component: CategoryPage,
+    exact: true,
+  },
   { path: EXPLORE_ROUTE, component: ExplorePage },
 ];

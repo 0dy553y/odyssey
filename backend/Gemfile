@@ -51,3 +51,6 @@ gem 'devise_token_auth', '~> 1.2'
 
 # Validates active storage uploads
 gem 'active_storage_validations', '~> 0.9.l'
+
+# For windows
+gem 'wdm', '>= 0.1.0', platforms: [:x64_mingw]

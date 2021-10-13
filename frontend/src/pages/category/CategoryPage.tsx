@@ -5,7 +5,7 @@ import Skeleton from '@mui/material/Skeleton';
 import CategoryHeader from '../../components/category/CategoryHeader';
 import CategoryListItem from '../../components/category/CategoryListItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { RootState } from 'store';
 import { getCategory } from 'store/categories/selectors';
 import { loadAllChallenges } from 'store/challenges/operations';
@@ -116,10 +116,18 @@ const ExplorePage: React.FC = () => {
       <ul>
         {challenges.map((challenge) => (
           <li key={challenge.id}>
-            <CategoryListItem
-              name={challenge.name}
-              duration={challenge.duration}
-            />
+            <Link
+              to={{
+                pathname: `${CATEGORY_ROUTE}/${category.id}/${challenge.id}`,
+                state: { challenge: challenge },
+              }}
+              style={{ textDecoration: 'none' }}
+            >
+              <CategoryListItem
+                name={challenge.name}
+                duration={challenge.duration}
+              />
+            </Link>
           </li>
         ))}
       </ul>
