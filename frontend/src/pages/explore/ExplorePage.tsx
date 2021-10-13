@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { getCategoryList } from 'store/categories/selectors';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
-import { BrowserRouter as Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getHeadingFromCategory } from 'utils/naming';
 import { CATEGORY_ROUTE } from '../../routing/routes';
 import './ExplorePage.scss';
