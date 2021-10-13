@@ -15,23 +15,23 @@ import FriendsList from 'components/friendsList';
 const mockFriends: UserData[] = [
   {
     id: 2,
-    username: 'aaaaa',
-    displayName: 'hello',
+    username: 'bobby',
+    displayName: 'Bobby',
   },
   {
     id: 3,
-    username: 'aaaaa',
-    displayName: 'hello',
+    username: 'tommy',
+    displayName: 'Tommy',
   },
   {
     id: 4,
-    username: 'aaaaa',
-    displayName: 'hello',
+    username: 'danny',
+    displayName: 'Danny',
   },
   {
     id: 5,
-    username: 'aaaaa',
-    displayName: 'hello',
+    username: 'poppy',
+    displayName: 'Poppy',
   },
 ];
 
