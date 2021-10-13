@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :challenges, through: :user_challenges
   has_many :user_tasks, dependent: :destroy
   has_many :tasks, through: :user_tasks
+  has_one_attached :avatar
 
   validates :email, uniqueness: { case_sensitive: false, if: -> { provider == 'email' } }
   validates :username, presence: true,
@@ -21,6 +22,9 @@ class User < ApplicationRecord
                          multiline: true,
                          message: 'only allows letters, numbers, underscore or punctuation'
                        }
+  validates :avatar,
+            content_type: { in: ['image/png', 'image/jpg', 'image/jpeg'], message: 'is not a supported file type' },
+            size: { less_than: 1.megabytes, message: 'must be less than 1MB' }
 
   before_validation do
     self.uid = username if uid.blank?

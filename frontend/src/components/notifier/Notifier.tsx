@@ -1,40 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { removeNotification } from 'store/notifications/actions';
+import { removeSnackbar } from 'store/snackbars/actions';
 import { useSnackbar } from 'notistack';
-import { getNotifications } from 'store/notifications/selectors';
+import { getSnackbars } from 'store/snackbars/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { NotificationKey } from 'store/notifications/types';
+import { SnackbarKey } from 'store/snackbars/types';
 
 const Notifier: React.FC = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const notifications = useSelector(getNotifications);
+  const snackbars = useSelector(getSnackbars);
 
-  const [displayedNotificationKeys, setDisplayedNotificationKeys] = useState<
-    NotificationKey[]
+  const [displayedSnackbarKeys, setDisplayedSnackbarKeys] = useState<
+    SnackbarKey[]
   >([]);
 
   useEffect(() => {
-    notifications.map((notification) => {
-      // If notification already displayed, abort
-      if (displayedNotificationKeys.includes(notification.key)) {
+    snackbars.map((snackbar) => {
+      // If snackbar already displayed, abort
+      if (displayedSnackbarKeys.includes(snackbar.key)) {
         return;
       }
 
-      // Display notification using Snackbar
-      enqueueSnackbar(notification.message, {
-        variant: notification.variant,
+      enqueueSnackbar(snackbar.message, {
+        variant: snackbar.variant,
       });
 
-      setDisplayedNotificationKeys([
-        ...displayedNotificationKeys,
-        notification.key,
-      ]);
+      setDisplayedSnackbarKeys([...displayedSnackbarKeys, snackbar.key]);
 
-      // Dispatch action to remove the notification from the redux store
-      dispatch(removeNotification(notification.key));
+      dispatch(removeSnackbar(snackbar.key));
     });
-  }, [notifications, displayedNotificationKeys]);
+  }, [snackbars, displayedSnackbarKeys]);
 
   return <></>;
 };
