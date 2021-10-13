@@ -12,6 +12,7 @@ import { RouteEntry } from './types/routes';
 import Notifier from 'components/notifier';
 
 import './App.scss';
+import './react-slider.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 

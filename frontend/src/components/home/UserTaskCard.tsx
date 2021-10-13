@@ -8,7 +8,8 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#9F88E3',
     borderRadius: 25,
     padding: 25,
-    width: '60vw',
+    height: '100%',
+    width: '100%',
   },
   primaryText: {
     color: 'white',
