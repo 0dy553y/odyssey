@@ -11,10 +11,11 @@ import {
   TimelineDot,
 } from '@mui/lab';
 import { makeStyles } from '@mui/styles';
-import { TaskData, UserChallengeData } from '../../types/challenges';
+import { UserChallengeData } from '../../types/challenges';
+import { TaskListData } from '../../types/tasks';
 
 interface ChallengeMilestonesProps {
-  tasks: TaskData[];
+  tasks: TaskListData[];
   attempt: UserChallengeData | null;
 }
 
@@ -27,19 +28,20 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
   const { tasks, attempt } = props;
   const classes = useStyles();
 
+  console.log(tasks);
+
   return (
     <Box>
       <Timeline>
-        {tasks.map((t: TaskData, index: number) => (
+        {tasks.map((t: TaskListData, index: number) => (
           <TimelineItem key={t.id}>
             <TimelineOppositeContent className={classes.opposite} />
             <TimelineSeparator>
               <TimelineDot>
-                {attempt === null ||
-                t.id > attempt.last_completed_task_id + 1 ? (
+                {attempt === null || t.id > 1 ? (
                   // Unenrolled, or tasks in the future.
                   <Circle />
-                ) : t.id === attempt.last_completed_task_id + 1 ? (
+                ) : t.id === 1 ? (
                   // Earliest uncompleted task.
                   <Checkbox
                     icon={<RadioButtonUnchecked />}
@@ -60,7 +62,7 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
             </TimelineSeparator>
             <TimelineContent>
               <Typography>
-                Day {t.dayNumber}: {t.title}
+                Day {t.index}: {t.name}
               </Typography>
               <Typography>{t.description} </Typography>
             </TimelineContent>

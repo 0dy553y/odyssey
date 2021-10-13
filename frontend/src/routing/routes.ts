@@ -25,7 +25,7 @@ export const publicRoutes: RouteEntry[] = [
 export const privateRoutes: RouteEntry[] = [
   { path: EDIT_PROFILE_ROUTE, component: EditProfilePage, exact: true },
   { path: PROFILE_ROUTE, component: ProfilePage, exact: true },
-  { path: HOME_ROUTE, component: HomePage },
+  { path: HOME_ROUTE, component: HomePage, exact: true },
   {
     path: CATEGORY_ROUTE + '/:categoryId/:challengeId',
     component: ChallengeDetailsPage,

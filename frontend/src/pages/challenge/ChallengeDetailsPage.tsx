@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AppBar,
   Box,
@@ -18,7 +18,8 @@ import { RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ChallengeMilestones from './ChallengeMilestones';
-import { getChallenge } from 'store/challenges/selectors';
+import { loadAllTasks } from 'store/tasks/operations';
+import { getTaskList } from 'store/tasks/selectors';
 
 export interface ChallengeDetailsPageProps {
   challenge: ChallengeData;
@@ -68,6 +69,19 @@ const ChallengeDetailsPage: React.FC = () => {
     .state as ChallengeDetailsPageProps;
   const classes = useStyles();
   const history = useHistory();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadAllTasks(Number(challengeId)));
+  }, []);
+
+  const { challengeId } = useParams<{ challengeId: string }>();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const tasks = useSelector((state: RootState) =>
+    getTaskList(state, Number(challengeId))
+  )!;
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const peekDrawerHeight = 200;
@@ -99,6 +113,7 @@ const ChallengeDetailsPage: React.FC = () => {
     );
 
   console.log(challenge);
+  console.log(tasks);
   console.log(attempt);
 
   return (
@@ -132,7 +147,7 @@ const ChallengeDetailsPage: React.FC = () => {
             <Tabs>
               <Tab label={'Milestones'} />
             </Tabs>
-            <ChallengeMilestones tasks={challenge.tasks} attempt={attempt} />
+            <ChallengeMilestones tasks={tasks} attempt={attempt} />
           </Box>
         </SwipeableDrawer>
       </Box>
