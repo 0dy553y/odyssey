@@ -49,8 +49,6 @@ const StyledTab = styled((props: StyledTabProps) => (
 ))(({ theme }) => ({
   textTransform: 'none',
   fontWeight: theme.typography.fontWeightRegular,
-  fontSize: theme.typography.pxToRem(15),
-  marginRight: theme.spacing(1),
   color: 'rgba(0, 0, 0, 0.5)',
   '&.Mui-selected': {
     color: '#000',
@@ -93,7 +91,18 @@ const ExplorePage: React.FC = () => {
         title={category.title}
         heading={getHeadingFromCategory(category.title)}
       />
-      <Box>
+      <Box
+        sx={{
+          paddingBottom: '-2em',
+          position: 'relative',
+          margin: '0 -50vw -2em -50vw',
+          maxWidth: '100vw',
+          maxHeight: '55vh',
+          left: '50%',
+          right: '50%',
+          width: '100vw',
+        }}
+      >
         <StyledTabs
           value={value}
           onChange={handleChange}

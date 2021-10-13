@@ -1,7 +1,14 @@
-import { orange } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#B892D5',
+    },
+    secondary: {
+      main: '#ff4081',
+    },
+  },
   typography: {
     fontFamily: `"CircularStd", "Helvetica", "Arial", sans-serif, "Frock"`,
     h2: {
