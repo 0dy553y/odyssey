@@ -1,8 +1,8 @@
 import React from 'react';
-import { Avatar, Box, IconButton, Stack, Typography } from '@mui/material';
+import { Box, IconButton, Stack, Typography } from '@mui/material';
 import { displayUsername } from 'utils/formatting';
 import { UserData } from 'types/auth';
-import { stringAvatar } from 'utils/avatar';
+import UserAvatar from 'components/userAvatar';
 
 import './ProfileHeader.scss';
 
@@ -17,10 +17,11 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
   return (
     <Box className="profile-header">
       <IconButton>
-        <Avatar
-          src={user.avatar}
+        <UserAvatar
           className="avatar"
-          {...stringAvatar(user.displayName ?? user.username)}
+          src={user.avatar}
+          username={user.username}
+          displayName={user.displayName}
         />
       </IconButton>
 

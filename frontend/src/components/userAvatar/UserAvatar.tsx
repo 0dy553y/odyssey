@@ -4,17 +4,25 @@ import { DataUrl } from 'types/auth';
 import { stringAvatar } from 'utils/avatar';
 
 interface UserAvatarProps {
-  src: DataUrl;
-  displayName?: string;
+  src: DataUrl | undefined;
   username: string;
+  displayName?: string;
+  className?: string;
 }
 
 const UserAvatar: React.FC<UserAvatarProps> = ({
   src,
-  displayName,
   username,
+  displayName,
+  className,
 }) => {
-  return <Avatar src={src} {...stringAvatar(displayName ?? username)} />;
+  return (
+    <Avatar
+      className={className}
+      src={src}
+      {...stringAvatar(displayName ?? username)}
+    />
+  );
 };
 
 export default UserAvatar;
