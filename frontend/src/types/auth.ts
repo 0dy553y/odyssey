@@ -11,7 +11,7 @@ export interface RegisterData extends LoginData {
 }
 
 export interface UserData {
-  id: string;
+  id: number;
   username: string;
   displayName?: string;
   avatar?: DataUrl;
