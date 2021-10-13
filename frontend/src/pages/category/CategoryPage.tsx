@@ -13,6 +13,7 @@ import { getChallengeList } from 'store/challenges/selectors';
 import { getHeadingFromCategory } from 'utils/naming';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import { CATEGORY_ROUTE } from 'routing/routes';
 
 interface StyledTabProps {
   label: string;
