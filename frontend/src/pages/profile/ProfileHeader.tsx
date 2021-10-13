@@ -1,14 +1,14 @@
 import React from 'react';
-import { Avatar, Box, IconButton, Stack, Typography } from '@mui/material';
+import { Box, IconButton, Stack, Typography } from '@mui/material';
 import { displayUsername } from 'utils/formatting';
 import { UserData } from 'types/auth';
-import { stringAvatar } from 'utils/avatar';
+import UserAvatar from 'components/userAvatar';
 
 import './ProfileHeader.scss';
 
 interface ProfileHeaderProps {
   user: UserData;
-  userProfileItems: { label: string; count: number }[];
+  userProfileItems: { label: string; count: number; onClick?: () => void }[];
 }
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
@@ -17,10 +17,11 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
   return (
     <Box className="profile-header">
       <IconButton>
-        <Avatar
-          src={user.avatar}
+        <UserAvatar
           className="avatar"
-          {...stringAvatar(user.displayName ?? user.username)}
+          src={user.avatar}
+          username={user.username}
+          displayName={user.displayName}
         />
       </IconButton>
 
@@ -40,6 +41,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
             key={item.label}
             className={'user-profile-item-container'}
             sx={{ width: 1 / userProfileItems.length }}
+            onClick={item.onClick}
           >
             <Typography component="div" variant="body1">
               {item.count} <br />

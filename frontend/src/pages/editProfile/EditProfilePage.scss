@@ -1,4 +1,9 @@
 .edit-profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   .avatar {
     width: 20vh;
     height: 20vh;
@@ -6,8 +11,8 @@
 
   .avatar-container {
     display: flex;
-    align-items: 'center';
-    justify-content: 'center';
+    align-items: center;
+    justify-content: center;
   }
 
   .avatar-input {

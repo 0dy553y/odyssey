@@ -19,9 +19,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { getUser } from 'store/auth/selectors';
 import { updateUser } from 'store/auth/operations';
-import { stringAvatar } from 'utils/avatar';
 import { compressThenConvertToBase64DataUrl } from 'utils/file';
 import { DataUrl, UserPutData } from 'types/auth';
+import UserAvatar from 'components/userAvatar';
 
 import './EditProfilePage.scss';
 
@@ -66,7 +66,7 @@ const EditProfilePage: React.FC = () => {
       <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
         <Grid container>
           <Grid item xs={12}>
-            <Container>
+            <Container className="avatar-container">
               <label htmlFor="contained-button-file">
                 <input
                   className="avatar-input"
@@ -95,10 +95,11 @@ const EditProfilePage: React.FC = () => {
                     </Avatar>
                   }
                 >
-                  <Avatar
-                    src={avatarBase64DataUrl || user.avatar}
+                  <UserAvatar
                     className="avatar"
-                    {...stringAvatar(user.displayName ?? user.username)}
+                    src={avatarBase64DataUrl || user.avatar}
+                    username={user.username}
+                    displayName={user.displayName}
                   />
                 </Badge>
               </label>
