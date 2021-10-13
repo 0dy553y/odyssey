@@ -4,12 +4,13 @@ import Skeleton from '@mui/material/Skeleton';
 import CategoryHeader from '../../components/category/CategoryHeader';
 import CategoryListItem from '../../components/category/CategoryListItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { RootState } from 'store';
 import { getCategory } from 'store/categories/selectors';
 import { loadAllChallenges } from 'store/challenges/operations';
 import { getChallengeList } from 'store/challenges/selectors';
 import { getHeadingFromCategory } from 'utils/naming';
+import { CATEGORY_ROUTE } from '../../routing/routes';
 
 const ExplorePage: React.FC = () => {
   const dispatch = useDispatch();
@@ -42,10 +43,12 @@ const ExplorePage: React.FC = () => {
       <ul>
         {challenges.map((challenge) => (
           <li key={challenge.id}>
-            <CategoryListItem
-              name={challenge.name}
-              duration={challenge.duration}
-            />
+            <Link to={`${CATEGORY_ROUTE}/${category.id}/${challenge.id}`}>
+              <CategoryListItem
+                name={challenge.name}
+                duration={challenge.duration}
+              />
+            </Link>
           </li>
         ))}
       </ul>

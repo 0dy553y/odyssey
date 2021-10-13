@@ -16,7 +16,6 @@ export const FEED_ROUTE = '/feed';
 export const PROFILE_ROUTE = '/profile';
 export const CATEGORY_ROUTE = '/category';
 export const EDIT_PROFILE_ROUTE = '/profile/edit';
-export const CHALLENGE_ROUTE = '/challenge';
 
 export const publicRoutes: RouteEntry[] = [
   { path: LOGIN_ROUTE, component: LoginPage },
@@ -27,7 +26,10 @@ export const privateRoutes: RouteEntry[] = [
   { path: EDIT_PROFILE_ROUTE, component: EditProfilePage, exact: true },
   { path: PROFILE_ROUTE, component: ProfilePage, exact: true },
   { path: HOME_ROUTE, component: HomePage },
-  { path: CHALLENGE_ROUTE, component: ChallengeDetailsPage },
+  {
+    path: CATEGORY_ROUTE + '/:categoryId/:challengeId',
+    component: ChallengeDetailsPage,
+  },
   { path: CATEGORY_ROUTE + '/:categoryId', component: CategoryPage },
   { path: EXPLORE_ROUTE, component: ExplorePage },
 ];
