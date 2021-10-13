@@ -12,8 +12,8 @@ import categoriesReducer from './categories/reducer';
 import { CategoriesState } from './categories/types';
 import challengesReducer from './challenges/reducer';
 import { ChallengesState } from './challenges/types';
-import notificationsReducer from './notifications/reducer';
-import { NotificationsState } from './notifications/types';
+import snackbarsReducer from './snackbars/reducer';
+import { SnackbarsState } from './snackbars/types';
 import tasksReducer from './tasks/reducer';
 import { TasksState } from './tasks/types';
 export interface RootState {
@@ -21,7 +21,7 @@ export interface RootState {
   categories: CategoriesState;
   challenges: ChallengesState;
   tasks: TasksState;
-  notifications: NotificationsState;
+  snackbars: SnackbarsState;
 }
 
 export const rootReducer = combineReducers({
@@ -29,7 +29,7 @@ export const rootReducer = combineReducers({
   categories: categoriesReducer,
   challenges: challengesReducer,
   tasks: tasksReducer,
-  notifications: notificationsReducer,
+  snackbars: snackbarsReducer,
 });
 
 const storeEnhancer = applyMiddleware(thunk);

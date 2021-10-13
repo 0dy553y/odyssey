@@ -1,8 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from 'store/auth/selectors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { AppBar, Box, Grid, IconButton, Theme, Toolbar } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  Grid,
+  IconButton,
+  Menu,
+  MenuItem,
+  Theme,
+  Toolbar,
+} from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import ProfileHeader from './ProfileHeader';
 import ActivityMap, { ActivityMapDataPoint } from './ActivityMap';
@@ -10,7 +19,10 @@ import UserStats from './UserStats';
 import ChallengeSummaries, {
   ChallengeSummaryProps,
 } from './ChallengeSummaries';
+import { useHistory } from 'react-router-dom';
 import { Duration } from 'date-fns';
+import { EDIT_PROFILE_ROUTE } from 'routing/routes';
+import { logout } from 'store/auth/operations';
 
 interface ProfilePageProps {
   userProfileItems: { label: string; count: number }[];
@@ -84,10 +96,6 @@ const useStyles = makeStyles<Theme, ProfilePageProps>((theme) =>
       borderBottomRightRadius: theme.spacing(2),
       borderBottomLeftRadius: theme.spacing(2),
     },
-    appBar: {
-      background: 'transparent',
-      boxShadow: 'none',
-    },
   })
 );
 
@@ -101,11 +109,24 @@ const ProfilePage: React.FC = () => {
     activityMapData,
   } = mockProps;
 
+  const dispatch = useDispatch();
+  const history = useHistory();
   const classes = useStyles(mockProps);
 
   // user should never be undefined (assuming auth routing works)
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const user = useSelector(getUser)!; //
+
+  const [menuAnchorEl, setMenuAnchorEl] = React.useState<null | HTMLElement>(
+    null
+  );
+  const isMenuOpen = Boolean(menuAnchorEl);
+  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setMenuAnchorEl(event.currentTarget);
+  };
+  const handleMenuClose = () => {
+    setMenuAnchorEl(null);
+  };
 
   return (
     <Box className={classes.profilePageContainer}>
@@ -113,9 +134,31 @@ const ProfilePage: React.FC = () => {
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <Box sx={{ flexGrow: 1 }} />
-            <IconButton edge="end" color="primary">
+            <IconButton edge="end" color="primary" onClick={handleMenuClick}>
               <MoreVertIcon />
             </IconButton>
+            <Menu
+              anchorEl={menuAnchorEl}
+              open={isMenuOpen}
+              onClose={handleMenuClose}
+            >
+              <MenuItem
+                onClick={() => {
+                  handleMenuClose();
+                  history.push(EDIT_PROFILE_ROUTE);
+                }}
+              >
+                Edit Profile
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleMenuClose();
+                  dispatch(logout(history));
+                }}
+              >
+                Logout
+              </MenuItem>
+            </Menu>
           </Toolbar>
         </AppBar>
 

@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { addNotification } from 'store/notifications/actions';
+import { addSnackbar } from 'store/snackbars/actions';
 import { ApiResponse, StatusMessage, StatusMessageType } from 'types/api';
 
 export function withStatusMessages<D, S, E>(
@@ -25,15 +25,15 @@ function showStatusMessages<S, E>(
 ) {
   messages.forEach((message) => {
     dispatch(
-      addNotification({
+      addSnackbar({
         message: message.content,
-        variant: getNotificationVariant(message.type),
+        variant: getSnackbarVariant(message.type),
       })
     );
   });
 }
 
-function getNotificationVariant(type: StatusMessageType) {
+function getSnackbarVariant(type: StatusMessageType) {
   switch (type) {
     case StatusMessageType.Error:
       return 'error';
