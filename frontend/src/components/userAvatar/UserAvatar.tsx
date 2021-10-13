@@ -1,19 +1,20 @@
 import * as React from 'react';
 import { Avatar } from '@mui/material';
-import { UserData } from 'types/auth';
+import { DataUrl } from 'types/auth';
 import { stringAvatar } from 'utils/avatar';
 
 interface UserAvatarProps {
-  user: UserData;
+  src: DataUrl;
+  displayName?: string;
+  username: string;
 }
 
-const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
-  return (
-    <Avatar
-      src={user.avatar}
-      {...stringAvatar(user.displayName ?? user.username)}
-    />
-  );
+const UserAvatar: React.FC<UserAvatarProps> = ({
+  src,
+  displayName,
+  username,
+}) => {
+  return <Avatar src={src} {...stringAvatar(displayName ?? username)} />;
 };
 
 export default UserAvatar;
