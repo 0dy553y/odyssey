@@ -86,15 +86,20 @@ const useStyles = makeStyles<Theme, ProfilePageProps>((theme) =>
     profilePageContainer: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
       gap: theme.spacing(2),
     },
     profileHeaderContainer: {
       justifyContent: 'center',
+      textAlign: 'center',
       background: 'black',
       paddingBottom: theme.spacing(3),
-      borderBottomRightRadius: theme.spacing(2),
-      borderBottomLeftRadius: theme.spacing(2),
+      position: 'relative',
+      borderRadius: '0 0 2em 2em',
+      margin: '0 -50vw 1em -50vw',
+      maxWidth: '100vw',
+      left: '50%',
+      right: '50%',
+      width: '100vw',
     },
   })
 );
