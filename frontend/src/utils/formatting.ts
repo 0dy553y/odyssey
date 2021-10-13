@@ -5,7 +5,11 @@ export const displayUsername = (username: string): string => {
 };
 
 export const displayDateRange = (fromDate: Date, toDate: Date): string => {
-  if (fromDate.getFullYear() === toDate.getFullYear()) {
+  // Omit year if both dates are in the current year
+  if (
+    fromDate.getFullYear() === new Date().getFullYear() &&
+    fromDate.getFullYear() === toDate.getFullYear()
+  ) {
     return `${format(fromDate, 'd MMM')} - ${format(toDate, 'd MMM')}`;
   }
   return `${format(fromDate, 'd MMM yy')} - ${format(toDate, 'd MMM yy')}`;
@@ -35,4 +39,17 @@ const durationToSeconds = (duration: Duration): number => {
   const numSeconds = (duration.seconds ?? 0) + numMinutes * 60;
 
   return numSeconds;
+};
+
+export const getFormattedStringFromDays = (numberOfDays: number): string => {
+  const years = Math.floor(numberOfDays / 365);
+  const months = Math.floor((numberOfDays % 365) / 30);
+  const days = Math.floor((numberOfDays % 365) % 30);
+
+  const yearsDisplay =
+    years > 0 ? years + (years == 1 ? ' year ' : ' years ') : '';
+  const monthsDisplay =
+    months > 0 ? months + (months == 1 ? ' month ' : ' months ') : '';
+  const daysDisplay = days > 0 ? days + (days == 1 ? ' day' : ' days') : '';
+  return yearsDisplay + monthsDisplay + daysDisplay;
 };

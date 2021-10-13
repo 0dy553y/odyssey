@@ -10,7 +10,7 @@ gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 5.5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.11.2'
 # Use Redis adapter to run Action Cable in production
@@ -48,3 +48,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # User Authentication
 gem 'devise', '~> 4.8'
 gem 'devise_token_auth', '~> 1.2'
+
+# Validates active storage uploads
+gem 'active_storage_validations', '~> 0.9.l'
