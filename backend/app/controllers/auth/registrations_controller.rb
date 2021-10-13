@@ -3,6 +3,21 @@
 module Auth
   class RegistrationsController < DeviseTokenAuth::RegistrationsController
     include AuthHelper
+    # include to have access to methods in controller
+    include Base64Helper
+    # helper to have access to methods in templates
+    helper Base64Helper
+
+    def update
+      super do |resource|
+        next if params[:avatar].nil?
+
+        type = get_file_type(params[:avatar])
+        avatar_data_url = decoded_file(params[:avatar])
+        blob = get_blob(avatar_data_url, "#{resource.username}.#{type}", "image/#{type}")
+        resource.avatar.attach(blob)
+      end
+    end
 
     private
 

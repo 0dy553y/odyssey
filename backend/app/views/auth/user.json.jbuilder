@@ -5,4 +5,5 @@ json.data do
   json.id @resource.id
   json.username @resource.username
   json.displayName @resource.display_name
+  json.avatar encoded_file_data_url(@resource.avatar) if @resource.avatar.attached?
 end

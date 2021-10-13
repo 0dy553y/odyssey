@@ -3,6 +3,7 @@
 module Auth
   class TokenValidationsController < DeviseTokenAuth::TokenValidationsController
     include AuthHelper
+    helper Base64Helper
 
     private
 
