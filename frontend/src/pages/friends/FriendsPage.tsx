@@ -31,7 +31,6 @@ const mockFriends: UserData[] = [
   {
     id: 5,
     username: 'poppy',
-    displayName: 'Poppy',
   },
 ];
 

@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 import { UserData } from 'types/auth';
 import UserAvatar from 'components/userAvatar';
+import { displayUsername } from 'utils/formatting';
 
 interface FriendsListItemProps {
   friend: UserData;
@@ -23,20 +24,8 @@ export const FriendsListItem: React.FC<FriendsListItemProps> = ({ friend }) => {
         />
       </ListItemAvatar>
       <ListItemText
-        primary="Brunch this weekend?"
-        secondary={
-          <>
-            <Typography
-              sx={{ display: 'inline' }}
-              component="span"
-              variant="body2"
-              color="text.primary"
-            >
-              Ali Connors
-            </Typography>
-            {" — I'll be in your neighborhood doing errands this…"}
-          </>
-        }
+        primary={friend.displayName ?? displayUsername(friend.username)}
+        secondary={friend.displayName && displayUsername(friend.username)}
       />
     </ListItem>
   );
