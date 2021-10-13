@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Stack, Theme, Typography } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import CircularProgressWithLabel from 'components/circularProgressWithLabel';
+import CircularProgressWithLabel from 'components/common/circularProgressWithLabel';
 
 export interface ChallengeSummaryProps {
   id: number;
