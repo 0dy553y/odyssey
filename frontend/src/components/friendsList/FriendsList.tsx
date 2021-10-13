@@ -11,16 +11,15 @@ const FriendsList: React.FC<FriendsListProps> = ({ friends }) => {
   return (
     <List>
       {friends.map((friend, idx) => {
-        // Omit divider for last friend
-        if (idx === friends.length - 1) {
-          return <FriendsListItem friend={friend} />;
-        }
-
         return (
-          <>
+          <React.Fragment key={friend.id}>
             <FriendsListItem friend={friend} />
-            <Divider variant="inset" component="li" />
-          </>
+
+            {/* include divider for all except last friend */}
+            {idx !== friends.length - 1 && (
+              <Divider variant="inset" component="li" />
+            )}
+          </React.Fragment>
         );
       })}
     </List>
