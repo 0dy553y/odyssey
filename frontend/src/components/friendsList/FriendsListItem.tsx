@@ -1,10 +1,5 @@
 import * as React from 'react';
-import {
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
-  Typography,
-} from '@mui/material';
+import { ListItem, ListItemText, ListItemAvatar } from '@mui/material';
 import { UserData } from 'types/auth';
 import UserAvatar from 'components/userAvatar';
 import { displayUsername } from 'utils/formatting';

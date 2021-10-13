@@ -1,13 +1,6 @@
 import React from 'react';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
-import {
-  AppBar,
-  Box,
-  Grid,
-  IconButton,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { UserData } from 'types/auth';
 import FriendsList from 'components/friendsList';
