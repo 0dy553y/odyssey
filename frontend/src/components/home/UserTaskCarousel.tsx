@@ -9,6 +9,13 @@ const useStyles = makeStyles(() => ({
     height: '100%',
     width: '100%',
   },
+  sliderItem: {
+    height: '100%',
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
 }));
 
 interface Props {
@@ -26,7 +33,9 @@ const UserTaskCarousel: React.FC<Props> = ({ userTaskList }: Props) => {
       className={classes.slider}
     >
       {userTaskList.map((userTask: UserTaskListData) => (
-        <UserTaskCard key={userTask.id} userTask={userTask} />
+        <div key={userTask.id} className={classes.sliderItem}>
+          <UserTaskCard userTask={userTask} />
+        </div>
       ))}
     </Slider>
   );
