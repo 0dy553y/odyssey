@@ -136,7 +136,7 @@ const ProfilePage: React.FC = () => {
   return (
     <Box className={classes.profilePageContainer}>
       <Grid container className={classes.profileHeaderContainer}>
-        <AppBar position="static" className={classes.appBar}>
+        <AppBar position="static">
           <Toolbar>
             <Box sx={{ flexGrow: 1 }} />
             <IconButton edge="end" color="primary" onClick={handleMenuClick}>
