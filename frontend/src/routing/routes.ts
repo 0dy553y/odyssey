@@ -30,6 +30,10 @@ export const privateRoutes: RouteEntry[] = [
     path: CATEGORY_ROUTE + '/:categoryId/:challengeId',
     component: ChallengeDetailsPage,
   },
-  { path: CATEGORY_ROUTE + '/:categoryId', component: CategoryPage },
+  {
+    path: CATEGORY_ROUTE + '/:categoryId',
+    component: CategoryPage,
+    exact: true,
+  },
   { path: EXPLORE_ROUTE, component: ExplorePage },
 ];

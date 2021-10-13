@@ -69,6 +69,7 @@ const useStyles = makeStyles(() => ({
 
 const ChallengeDetailsPage: React.FC = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [state, setState] = useReducer(
     (s: ChallengeDetailsPageState, a: Partial<ChallengeDetailsPageState>) => ({
       ...s,
@@ -124,7 +125,12 @@ const ChallengeDetailsPage: React.FC = () => {
   const Bar = () => (
     <AppBar position="static" className={classes.appbar}>
       <Toolbar>
-        <IconButton edge="start">
+        <IconButton
+          edge="start"
+          onClick={() => {
+            history.goBack();
+          }}
+        >
           <ChevronLeft />
         </IconButton>
         <Box className={classes.spacer} />
