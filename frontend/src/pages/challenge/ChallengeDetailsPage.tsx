@@ -12,21 +12,17 @@ import {
 } from '@mui/material';
 import { ChevronLeft, MoreVert } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
-import {
-  ChallengeData,
-  ChallengeColor,
-  ChallengeStatus,
-  UserChallengeData,
-} from '../../types/challenges';
-import dayjs from 'dayjs';
-import { useHistory } from 'react-router-dom';
+import { ChallengeData, UserChallengeData } from '../../types/challenges';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
+import { RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ChallengeMilestones from './ChallengeMilestones';
+import { getChallenge } from 'store/challenges/selectors';
 
-interface ChallengeDetailsPageState {
+export interface ChallengeDetailsPageProps {
   challenge: ChallengeData;
-  attempt: UserChallengeData | null;
+  attempt: UserChallengeData;
 }
 
 const useStyles = makeStyles(() => ({
@@ -68,56 +64,10 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ChallengeDetailsPage: React.FC = () => {
+  const { challenge, attempt } = useLocation()
+    .state as ChallengeDetailsPageProps;
   const classes = useStyles();
   const history = useHistory();
-  const [state, setState] = useReducer(
-    (s: ChallengeDetailsPageState, a: Partial<ChallengeDetailsPageState>) => ({
-      ...s,
-      ...a,
-    }),
-    {
-      // TODO: replace.
-      challenge: {
-        id: 1,
-        name: 'Couch to 5k',
-        description:
-          'Couch to 5K is a running plan for absolute beginners. It was developed by a new runner, Josh Clark, who wanted to help his 50-something mum get off the couch and start running, too.',
-        schedule: '3 times a week, alternate days',
-        duration: 10,
-        tasks: [
-          {
-            id: 1,
-            title: 'Getting started',
-            description: 'Run 5k',
-            dayNumber: 1,
-          },
-          {
-            id: 2,
-            title: 'Warming up',
-            description: 'Walk 10m',
-            dayNumber: 2,
-          },
-          {
-            id: 3,
-            title: 'Cooling down',
-            description: 'Dance for 10min',
-            dayNumber: 3,
-          },
-        ],
-        color: ChallengeColor.PURPLE,
-      },
-      attempt: {
-        id: 1,
-        user_id: 1,
-        challenge_id: 1,
-        status: ChallengeStatus.ONGOING,
-        enrolled_at: dayjs(),
-        reason_for_enrollment: '',
-        last_completed_task_id: 1,
-      },
-    }
-  );
-
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const peekDrawerHeight = 200;
@@ -142,24 +92,24 @@ const ChallengeDetailsPage: React.FC = () => {
   );
 
   const Status = () =>
-    state.attempt === null ? (
+    attempt === null ? (
       <Typography>🔥 ONGOING</Typography>
     ) : (
       <Typography>👻 UNENROLLED</Typography>
     );
 
+  console.log(challenge);
+  console.log(attempt);
+
   return (
-    <Paper
-      className={classes.paper}
-      sx={{ backgroundColor: state.challenge.color }}
-    >
+    <Paper className={classes.paper} sx={{ backgroundColor: challenge.color }}>
       <Box>
         <Bar />
         <Status />
-        <Typography component="h1">{state.challenge.name}</Typography>
-        <Typography>{state.challenge.description}</Typography>
+        <Typography component="h1">{challenge.name}</Typography>
+        <Typography>{challenge.description}</Typography>
         <Typography>Recommended schedule</Typography>
-        <Typography>{state.challenge.schedule}</Typography>
+        <Typography>{challenge.schedule}</Typography>
         <SwipeableDrawer
           anchor="bottom"
           open={isDrawerOpen}
@@ -182,10 +132,7 @@ const ChallengeDetailsPage: React.FC = () => {
             <Tabs>
               <Tab label={'Milestones'} />
             </Tabs>
-            <ChallengeMilestones
-              tasks={state.challenge.tasks}
-              attempt={state.attempt}
-            />
+            <ChallengeMilestones tasks={challenge.tasks} attempt={attempt} />
           </Box>
         </SwipeableDrawer>
       </Box>

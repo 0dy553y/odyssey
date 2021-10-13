@@ -43,7 +43,13 @@ const ExplorePage: React.FC = () => {
       <ul>
         {challenges.map((challenge) => (
           <li key={challenge.id}>
-            <Link to={`${CATEGORY_ROUTE}/${category.id}/${challenge.id}`}>
+            <Link
+              to={{
+                pathname: `${CATEGORY_ROUTE}/${category.id}/${challenge.id}`,
+                state: { challenge: challenge },
+              }}
+              style={{ textDecoration: 'none' }}
+            >
               <CategoryListItem
                 name={challenge.name}
                 duration={challenge.duration}
