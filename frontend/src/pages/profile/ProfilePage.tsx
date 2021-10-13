@@ -21,65 +21,17 @@ import ChallengeSummaries, {
 } from './ChallengeSummaries';
 import { useHistory } from 'react-router-dom';
 import { Duration } from 'date-fns';
-import { EDIT_PROFILE_ROUTE } from 'routing/routes';
+import { EDIT_PROFILE_ROUTE, FRIENDS_ROUTE } from 'routing/routes';
 import { logout } from 'store/auth/operations';
 
 interface ProfilePageProps {
-  userProfileItems: { label: string; count: number }[];
+  userProfileItems: { label: string; count: number; onClick?: () => void }[];
   registrationDate: Date;
   challengesCompleted: number;
   longestStreakDuration: Duration;
   challengeSummaries: ChallengeSummaryProps[];
   activityMapData: ActivityMapDataPoint[];
 }
-
-// TODO: replace these
-const mockProps: ProfilePageProps = {
-  userProfileItems: [
-    { label: 'friends', count: 20 },
-    { label: 'completed challenges', count: 16 },
-    { label: 'badges', count: 2 },
-  ],
-  registrationDate: new Date('2021-10-03'),
-  challengesCompleted: 16,
-  longestStreakDuration: { months: 1, days: 50 },
-  challengeSummaries: [
-    {
-      id: 1,
-      percentage: 75,
-      label: 'Couch to 5k',
-      remarks: '🔥 4 day streak!',
-    },
-    {
-      id: 2,
-      percentage: 20,
-      label: 'Mermay',
-      remarks: 'Waddle right back in',
-    },
-    {
-      id: 3,
-      percentage: 50,
-      label: 'Marmay',
-      remarks: 'Waddle right back in',
-    },
-    {
-      id: 4,
-      percentage: 25,
-      label: 'Mermey',
-      remarks: 'Waddle right back in',
-    },
-  ],
-  activityMapData: [
-    { date: new Date('2021-10-02'), count: 6 },
-    { date: new Date('2021-09-22'), count: 3 },
-    { date: new Date('2021-09-30'), count: 2 },
-    { date: new Date('2021-10-03'), count: 2 },
-    { date: new Date('2021-10-01'), count: 1 },
-    { date: new Date('2021-09-15'), count: 9 },
-    { date: new Date('2021-09-14'), count: 2 },
-    { date: new Date('2021-09-07'), count: 1 },
-  ],
-};
 
 const useStyles = makeStyles<Theme, ProfilePageProps>((theme) =>
   createStyles({
@@ -105,6 +57,57 @@ const useStyles = makeStyles<Theme, ProfilePageProps>((theme) =>
 );
 
 const ProfilePage: React.FC = () => {
+  // TODO: replace these
+  const mockProps: ProfilePageProps = {
+    userProfileItems: [
+      {
+        label: 'friends',
+        count: 20,
+        onClick: () => history.push(FRIENDS_ROUTE),
+      },
+      { label: 'completed challenges', count: 16 },
+      { label: 'badges', count: 2 },
+    ],
+    registrationDate: new Date('2021-10-03'),
+    challengesCompleted: 16,
+    longestStreakDuration: { months: 1, days: 50 },
+    challengeSummaries: [
+      {
+        id: 1,
+        percentage: 75,
+        label: 'Couch to 5k',
+        remarks: '🔥 4 day streak!',
+      },
+      {
+        id: 2,
+        percentage: 20,
+        label: 'Mermay',
+        remarks: 'Waddle right back in',
+      },
+      {
+        id: 3,
+        percentage: 50,
+        label: 'Marmay',
+        remarks: 'Waddle right back in',
+      },
+      {
+        id: 4,
+        percentage: 25,
+        label: 'Mermey',
+        remarks: 'Waddle right back in',
+      },
+    ],
+    activityMapData: [
+      { date: new Date('2021-10-02'), count: 6 },
+      { date: new Date('2021-09-22'), count: 3 },
+      { date: new Date('2021-09-30'), count: 2 },
+      { date: new Date('2021-10-03'), count: 2 },
+      { date: new Date('2021-10-01'), count: 1 },
+      { date: new Date('2021-09-15'), count: 9 },
+      { date: new Date('2021-09-14'), count: 2 },
+      { date: new Date('2021-09-07'), count: 1 },
+    ],
+  };
   const {
     userProfileItems,
     registrationDate,

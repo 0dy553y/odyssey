@@ -8,7 +8,7 @@ import './ProfileHeader.scss';
 
 interface ProfileHeaderProps {
   user: UserData;
-  userProfileItems: { label: string; count: number }[];
+  userProfileItems: { label: string; count: number; onClick?: () => void }[];
 }
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
@@ -40,6 +40,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
             key={item.label}
             className={'user-profile-item-container'}
             sx={{ width: 1 / userProfileItems.length }}
+            onClick={item.onClick}
           >
             <Typography component="div" variant="body1">
               {item.count} <br />
