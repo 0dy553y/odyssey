@@ -1,3 +1,11 @@
 a {
     color: black;
 }
+
+html, body, #root, .App {
+  height: 100%;
+}
+
+.App {
+  padding-bottom: 60px;
+}

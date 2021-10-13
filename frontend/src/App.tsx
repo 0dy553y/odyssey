@@ -8,10 +8,14 @@ import ScrollToTop from './components/common/ScrollToTop';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsValidatingToken, getUser } from './store/auth/selectors';
 import { validateToken } from './store/auth/operations';
-import './App.scss';
 import BottomNavigationBar from './components/common/BottomNavigationBar';
 import { RouteEntry } from './types/routes';
 import Notifier from 'components/notifier';
+
+import './App.scss';
+import './react-slider.scss';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -30,7 +34,7 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <Container className="App" component="main" maxWidth="xs">
+    <Container className="App" component="main" disableGutters maxWidth="xs">
       <CssBaseline />
       <ScrollToTop />
       <Notifier />
