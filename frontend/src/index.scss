@@ -13,16 +13,16 @@ code {
 }
 
 @font-face {
-  font-family: "CircularStd";
+  font-family: "CircularStdMedium";
   src: local('CircularStd-Medium'), url(./assets/fonts/CircularStd-Medium.otf) format('opentype');
-  font-weight: light;
+  font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "CircularStd";
+  font-family: "CircularStdMedium";
   src: local('CircularStd-MediumItalic'), url(./assets/fonts/CircularStd-MediumItalic.otf) format('opentype');
-  font-weight: light;
+  font-weight: normal;
   font-style: italic;
 }
 

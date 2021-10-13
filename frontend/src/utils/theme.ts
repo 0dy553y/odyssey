@@ -1,3 +1,4 @@
+import { orange } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -6,8 +7,16 @@ const theme = createTheme({
     h2: {
       fontFamily: 'Frock',
     },
+    body1: {
+      fontFamily: 'CircularStdMedium',
+    },
   },
   components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
     MuiAppBar: {
       styleOverrides: {
         root: {

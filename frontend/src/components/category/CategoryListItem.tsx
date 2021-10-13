@@ -6,6 +6,7 @@ import CircularProgress, {
   circularProgressClasses,
 } from '@mui/material/CircularProgress';
 import { getFormattedStringFromDays } from 'utils/formatting';
+import { Typography } from '@mui/material';
 
 const useStyles = makeStyles(() => ({
   setOpacity: {
@@ -16,6 +17,14 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    padding: '0 0 2em 0',
+  },
+  temp: {
+    // backgroundColor: 'red',
+  },
+  animateProgress: {
+    transition: '4s ease',
+    transitionDelay: '4s',
   },
 }));
 
@@ -28,15 +37,25 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
   const classes = useStyles();
   const { name, duration } = props;
 
+  const [progress, setProgress] = React.useState(0);
+
+  React.useEffect(() => {
+    setProgress(80);
+  }, []);
+
   return (
     <Box>
       <div>
         <div className={classes.help}>
           <Grid item xs={9}>
-            <h3>{name}</h3>
-            <p>{getFormattedStringFromDays(duration)}</p>
+            <Typography component="div" variant="h6">
+              {name}
+            </Typography>
+            <Typography component="div" variant="body1">
+              {getFormattedStringFromDays(duration)}
+            </Typography>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={2} className={classes.temp}>
             <CircularProgress
               color="primary"
               variant="determinate"
@@ -58,7 +77,8 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
                   strokeLinecap: 'round',
                 },
               }}
-              value={75}
+              className={classes.animateProgress}
+              value={progress}
               size={50}
               thickness={7}
             />
