@@ -66,7 +66,7 @@ const EditProfilePage: React.FC = () => {
       <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
         <Grid container>
           <Grid item xs={12}>
-            <Container>
+            <Container className="avatar-container">
               <label htmlFor="contained-button-file">
                 <input
                   className="avatar-input"
