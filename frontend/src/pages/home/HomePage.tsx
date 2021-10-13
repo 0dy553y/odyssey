@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import UserTaskCarousel from '../../components/home/UserTaskCarousel';
 import { getUserTaskListForDay } from '../../store/usertasks/selectors';
 import { RootState } from '../../store';
+import { Typography } from '@mui/material';
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,12 @@ const HomePage: React.FC = () => {
     getUserTaskListForDay(state, new Date())
   );
 
-  return <UserTaskCarousel userTaskList={userTaskList} />;
+  return (
+    <>
+      <Typography variant="h5">Your Tasks</Typography>
+      <UserTaskCarousel userTaskList={userTaskList} />
+    </>
+  );
 };
 
 export default HomePage;
