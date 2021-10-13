@@ -17,7 +17,7 @@ const ExplorePage: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h3">Find your next challenge</Typography>
+      <Typography variant="h2">Find your next challenge</Typography>
       <Searchbar />
       <Typography variant="h6">I want to...</Typography>
       <ul>

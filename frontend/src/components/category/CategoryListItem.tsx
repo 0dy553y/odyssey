@@ -47,7 +47,7 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
               }}
               value={100}
               size={50}
-              thickness={8}
+              thickness={7}
               className={classes.setOpacity}
             />
             <CircularProgress
@@ -60,7 +60,7 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
               }}
               value={75}
               size={50}
-              thickness={8}
+              thickness={7}
             />
           </Grid>
         </div>
