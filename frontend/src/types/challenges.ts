@@ -29,16 +29,6 @@ export enum ChallengeColor {
   PURPLE = '#9F88E3',
 }
 
-export interface UserChallengeData {
-  id: number;
-  user_id: number;
-  challenge_id: number;
-  status: ChallengeStatus;
-  enrolled_at: Dayjs;
-  reason_for_enrollment: string;
-  last_completed_task_id: number;
-}
-
 export enum ChallengeStatus {
   ONGOING,
   COMPLETED,
