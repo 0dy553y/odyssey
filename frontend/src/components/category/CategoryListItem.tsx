@@ -45,13 +45,11 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
     setProgress(80);
   }, []);
 
-  const style = { '--color': 10 } as React.CSSProperties;
-
   return (
     <Box>
       <div>
         <div className={classes.help}>
-          <div className="square" style={style}></div>
+          <div className="square"></div>
           <Grid item xs={9}>
             <Typography component="div" variant="h6">
               {name}
