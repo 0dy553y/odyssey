@@ -7,6 +7,7 @@ import produce from 'immer';
 
 const initialState: UserTasksState = {
   tasksByDay: {},
+  tasksByChallenge: {},
 };
 
 const userTasksReducer = produce(

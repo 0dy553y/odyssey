@@ -28,8 +28,6 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
   const { tasks, attempt } = props;
   const classes = useStyles();
 
-  console.log(tasks);
-
   return (
     <Box>
       <Timeline>

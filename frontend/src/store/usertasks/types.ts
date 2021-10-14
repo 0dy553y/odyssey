@@ -4,6 +4,9 @@ import { UserTaskListData } from '../../types/usertasks';
 export const SAVE_USER_TASK_LIST_FOR_DAY =
   'usertasks/SAVE_USER_TASK_LIST_FOR_DAY';
 
+export const SAVE_USER_TASK_LIST_FOR_CHALLENGE =
+  'usertasks/SAVE_USER_TASK_LIST_FOR_CHALLENGE';
+
 // Action types
 export interface SaveUserTaskListAction {
   type: typeof SAVE_USER_TASK_LIST_FOR_DAY;
@@ -11,8 +14,17 @@ export interface SaveUserTaskListAction {
   userTaskList: UserTaskListData[];
 }
 
-export type UserTaskActions = SaveUserTaskListAction;
+export interface SaveUserTaskListForChallengeAction {
+  type: typeof SAVE_USER_TASK_LIST_FOR_CHALLENGE;
+  challengeId: string;
+  userTaskList: UserTaskListData[];
+}
+
+export type UserTaskActions =
+  | SaveUserTaskListAction
+  | SaveUserTaskListForChallengeAction;
 
 export interface UserTasksState {
   tasksByDay: Record<string, UserTaskListData[]>;
+  tasksByChallenge: Record<string, UserTaskListData[]>;
 }

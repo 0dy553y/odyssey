@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ChallengeMilestones from './ChallengeMilestones';
 import { loadAllTasks } from 'store/tasks/operations';
+import { loadUserTasksForChallenge } from 'store/usertasks/operations';
 import { getTaskList } from 'store/tasks/selectors';
 
 export interface ChallengeDetailsPageProps {
@@ -74,6 +75,7 @@ const ChallengeDetailsPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(loadAllTasks(Number(challengeId)));
+    dispatch(loadUserTasksForChallenge(Number(challengeId)));
   }, []);
 
   const { challengeId } = useParams<{ challengeId: string }>();
@@ -111,10 +113,6 @@ const ChallengeDetailsPage: React.FC = () => {
     ) : (
       <Typography>👻 UNENROLLED</Typography>
     );
-
-  console.log(challenge);
-  console.log(tasks);
-  console.log(attempt);
 
   return (
     <Paper className={classes.paper} sx={{ backgroundColor: challenge.color }}>
