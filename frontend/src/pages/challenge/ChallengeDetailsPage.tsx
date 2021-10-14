@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   AppBar,
+  Button,
   Box,
   Typography,
   SwipeableDrawer,
@@ -128,6 +129,7 @@ const ChallengeDetailsPage: React.FC = () => {
         <Typography>{challenge.description}</Typography>
         <Typography>Recommended schedule</Typography>
         <Typography>{challenge.schedule}</Typography>
+        <Button> Join Challenge!</Button>
         <SwipeableDrawer
           anchor="bottom"
           open={isDrawerOpen}

@@ -36,6 +36,7 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
       earliestUncompletedIndex = t.id;
     }
   });
+  console.log(completion);
 
   return (
     <Box>
@@ -48,7 +49,7 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
                 {userTasks === null || !completion[t.id] ? (
                   // Unenrolled, or tasks in the future.
                   <Circle />
-                ) : t.id === earliestUncompletedIndex ? (
+                ) : t.id === 9 ? (
                   // Earliest uncompleted task.
                   <Checkbox
                     icon={<RadioButtonUnchecked />}
@@ -56,7 +57,7 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
                     className={classes.checkbox}
                   />
                 ) : (
-                  // Have completed.
+                  // Have completed. Shows a tick.
                   <CheckCircle />
                 )}
               </TimelineDot>
