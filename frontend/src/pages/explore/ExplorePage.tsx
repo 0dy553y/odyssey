@@ -18,7 +18,7 @@ const ExplorePage: React.FC = () => {
   return (
     <Box sx={{ paddingTop: '2em' }}>
       <Typography variant="h2">Find your next challenge</Typography>
-      <Searchbar />
+      <Searchbar placeholder="Search by challenge name..." />
       <Typography variant="h6" sx={{ fontStyle: 'italic' }}>
         I want to...
       </Typography>
