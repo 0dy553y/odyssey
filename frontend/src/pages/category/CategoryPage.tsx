@@ -110,27 +110,29 @@ const ExplorePage: React.FC = () => {
           aria-label="styled tabs example"
         >
           <StyledTab label="All challenges" />
-          <StyledTab label="Ongoing" />
+          <StyledTab label="Curated" />
         </StyledTabs>
         <Box sx={{ p: 3 }} />
       </Box>
       <ul>
-        {challenges.map((challenge) => (
-          <li key={challenge.id}>
-            <Link
-              to={{
-                pathname: `${CATEGORY_ROUTE}/${category.id}/${challenge.id}`,
-                state: { challenge: challenge },
-              }}
-              style={{ textDecoration: 'none' }}
-            >
-              <CategoryListItem
-                name={challenge.name}
-                duration={challenge.duration}
-              />
-            </Link>
-          </li>
-        ))}
+        {challenges
+          .filter((challenge) => challenge.categoryId == category.id)
+          .map((challenge) => (
+            <li key={challenge.id}>
+              <Link
+                to={{
+                  pathname: `${CATEGORY_ROUTE}/${category.id}/${challenge.id}`,
+                  state: { challenge: challenge },
+                }}
+                style={{ textDecoration: 'none' }}
+              >
+                <CategoryListItem
+                  name={challenge.name}
+                  duration={challenge.duration}
+                />
+              </Link>
+            </li>
+          ))}
       </ul>
     </Box>
   );

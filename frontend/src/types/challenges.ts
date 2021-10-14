@@ -4,12 +4,14 @@ export interface ChallengeListData {
   id: number;
   name: string;
   duration: number;
+  categoryId: number;
 }
 
 export interface ChallengeData extends ChallengeListData {
   description: string;
   schedule: string;
   color: ChallengeColor;
+  categoryId: number;
 }
 
 export interface ChallengePostData {
