@@ -88,8 +88,6 @@ const ChallengeDetailsPage: React.FC = () => {
     getUserTaskListForChallenge(state, Number(challengeId))
   )!;
 
-  console.log(userTasks);
-
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const peekDrawerHeight = 200;
@@ -143,7 +141,7 @@ const ChallengeDetailsPage: React.FC = () => {
           keepMounted
           sx={{
             height: `calc(80% - ${peekDrawerHeight}px)`,
-            overflow: 'visible',
+            overflow: 'scroll',
           }}
         >
           <Box className={classes.peekDrawer} sx={{ top: -peekDrawerHeight }}>

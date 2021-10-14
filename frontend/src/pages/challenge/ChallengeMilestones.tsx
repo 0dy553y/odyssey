@@ -28,6 +28,16 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
   const { tasks, userTasks } = props;
   const classes = useStyles();
 
+  const completion: Record<number, boolean> = {};
+  let earliestUncompletedIndex = -1;
+  userTasks?.map((t: UserTaskListData) => {
+    completion[t.id] = t.isCompleted;
+    if (!t.isCompleted && earliestUncompletedIndex === -1) {
+      earliestUncompletedIndex = t.id;
+    }
+  });
+  console.log(earliestUncompletedIndex);
+
   return (
     <Box>
       <Timeline>
@@ -36,10 +46,10 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
             <TimelineOppositeContent className={classes.opposite} />
             <TimelineSeparator>
               <TimelineDot>
-                {userTasks === null || t.id > 1 ? (
+                {userTasks === null || !completion[t.id] ? (
                   // Unenrolled, or tasks in the future.
                   <Circle />
-                ) : t.id === 1 ? (
+                ) : t.id === earliestUncompletedIndex ? (
                   // Earliest uncompleted task.
                   <Checkbox
                     icon={<RadioButtonUnchecked />}
@@ -59,9 +69,7 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
               )}
             </TimelineSeparator>
             <TimelineContent>
-              <Typography>
-                Day {t.index}: {t.name}
-              </Typography>
+              <Typography>{t.name}</Typography>
               <Typography>{t.description} </Typography>
             </TimelineContent>
           </TimelineItem>
