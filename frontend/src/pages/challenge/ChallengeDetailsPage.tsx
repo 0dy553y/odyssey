@@ -16,7 +16,7 @@ import { ChallengeData, UserChallengeData } from '../../types/challenges';
 import { useHistory, useParams, useLocation } from 'react-router-dom';
 import { RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
-
+import UserChallengeStats from './UserChallengeStats';
 import ChallengeMilestones from './ChallengeMilestones';
 import { loadAllTasks } from 'store/tasks/operations';
 import { getTaskList } from 'store/tasks/selectors';
@@ -126,7 +126,7 @@ const ChallengeDetailsPage: React.FC = () => {
       case TabItem.Milestones:
         return <ChallengeMilestones tasks={tasks} attempt={attempt} />;
       case TabItem.YourStats:
-        return <div>stats</div>;
+        return <UserChallengeStats />;
       case TabItem.Community:
         return <div>community</div>;
       default:
