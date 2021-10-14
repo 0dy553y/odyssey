@@ -50,6 +50,7 @@ const StyledTab = styled((props: StyledTabProps) => (
 ))(({ theme }) => ({
   textTransform: 'none',
   fontWeight: theme.typography.fontWeightRegular,
+  fontSize: '1em',
   color: 'rgba(0, 0, 0, 0.5)',
   '&.Mui-selected': {
     color: '#000',

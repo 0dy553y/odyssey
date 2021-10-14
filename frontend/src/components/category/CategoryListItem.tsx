@@ -8,6 +8,8 @@ import CircularProgress, {
 import { getFormattedStringFromDays } from 'utils/formatting';
 import { Typography } from '@mui/material';
 
+import './CategoryListItem.scss';
+
 const useStyles = makeStyles(() => ({
   setOpacity: {
     opacity: 0.5,
@@ -43,10 +45,13 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
     setProgress(80);
   }, []);
 
+  const style = { '--color': 10 } as React.CSSProperties;
+
   return (
     <Box>
       <div>
         <div className={classes.help}>
+          <div className="square" style={style}></div>
           <Grid item xs={9}>
             <Typography component="div" variant="h6">
               {name}
