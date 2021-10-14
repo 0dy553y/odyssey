@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Searchbar from '../../components/common/Searchbar';
 import CategoryPreview from '../../components/explore/CategoryPreview';
@@ -14,26 +14,40 @@ import './ExplorePage.scss';
 const ExplorePage: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const categories = useSelector((state: RootState) => getCategoryList(state))!;
+  const [value, setValue] = useState('');
+
+  const eventhandler = (data: string) => {
+    console.log(data);
+    setValue(data);
+  };
 
   return (
     <Box sx={{ paddingTop: '2em' }}>
       <Typography variant="h2">Find your next challenge</Typography>
-      <Searchbar placeholder="Search by challenge name..." />
-      <Typography variant="h6" sx={{ fontStyle: 'italic' }}>
-        I want to...
-      </Typography>
-      <ul>
-        {categories.map((category) => (
-          <li key={category.id}>
-            <Link to={`${CATEGORY_ROUTE}/${category.id}`}>
-              <CategoryPreview
-                title={category.title}
-                heading={getHeadingFromCategory(category.title)}
-              />
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <Searchbar
+        placeholder="Search by challenge name..."
+        func={eventhandler}
+      />
+      {value.length > 0 && <h2>You have unread messages.</h2>}
+      {value.length == 0 && (
+        <>
+          <Typography variant="h6" sx={{ fontStyle: 'italic' }}>
+            I want to...
+          </Typography>
+          <ul>
+            {categories.map((category) => (
+              <li key={category.id}>
+                <Link to={`${CATEGORY_ROUTE}/${category.id}`}>
+                  <CategoryPreview
+                    title={category.title}
+                    heading={getHeadingFromCategory(category.title)}
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </Box>
   );
 };

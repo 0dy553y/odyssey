@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import InputBase from '@mui/material/InputBase';
 import { styled, alpha } from '@mui/material/styles';
 import { ReactComponent as SearchIcon } from '../../assets/icons/search-icon.svg';
 
 interface SearchbarProps {
   placeholder: string;
+  func: (e: any) => void;
 }
 
 const Search = styled('div')(({ theme }) => ({
@@ -38,12 +39,10 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 const Searchbar: React.FC<SearchbarProps> = (props) => {
-  const { placeholder } = props;
-  const [filter, setFilter] = useState('');
+  const { placeholder, func } = props;
 
-  const handleSearchChange = (e: React.ChangeEvent<any>) => {
-    console.log(e.target.value);
-    setFilter(e.target.value);
+  const handleChange = (e: React.ChangeEvent<any>) => {
+    func(e.target.value);
   };
 
   return (
@@ -52,9 +51,9 @@ const Searchbar: React.FC<SearchbarProps> = (props) => {
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
-        onChange={handleSearchChange}
         placeholder={placeholder}
         inputProps={{ 'aria-label': 'search' }}
+        onChange={handleChange}
       />
     </Search>
   );
