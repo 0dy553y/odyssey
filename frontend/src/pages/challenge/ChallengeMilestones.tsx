@@ -11,12 +11,12 @@ import {
   TimelineDot,
 } from '@mui/lab';
 import { makeStyles } from '@mui/styles';
-import { UserChallengeData } from '../../types/challenges';
 import { TaskListData } from '../../types/tasks';
+import { UserTaskListData } from '../../types/usertasks';
 
 interface ChallengeMilestonesProps {
   tasks: TaskListData[];
-  attempt: UserChallengeData | null;
+  userTasks: UserTaskListData[] | null;
 }
 
 const useStyles = makeStyles(() => ({
@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
-  const { tasks, attempt } = props;
+  const { tasks, userTasks } = props;
   const classes = useStyles();
 
   return (
@@ -36,7 +36,7 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
             <TimelineOppositeContent className={classes.opposite} />
             <TimelineSeparator>
               <TimelineDot>
-                {attempt === null || t.id > 1 ? (
+                {userTasks === null || t.id > 1 ? (
                   // Unenrolled, or tasks in the future.
                   <Circle />
                 ) : t.id === 1 ? (

@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { ChevronLeft, MoreVert } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
-import { ChallengeData, UserChallengeData } from '../../types/challenges';
+import { ChallengeData } from '../../types/challenges';
 import { useHistory, useParams, useLocation } from 'react-router-dom';
 import { RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,10 +21,10 @@ import ChallengeMilestones from './ChallengeMilestones';
 import { loadAllTasks } from 'store/tasks/operations';
 import { loadUserTasksForChallenge } from 'store/usertasks/operations';
 import { getTaskList } from 'store/tasks/selectors';
+import { getUserTaskListForChallenge } from 'store/usertasks/selectors';
 
 export interface ChallengeDetailsPageProps {
   challenge: ChallengeData;
-  attempt: UserChallengeData;
 }
 
 const useStyles = makeStyles(() => ({
@@ -66,8 +66,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ChallengeDetailsPage: React.FC = () => {
-  const { challenge, attempt } = useLocation()
-    .state as ChallengeDetailsPageProps;
+  const { challenge } = useLocation().state as ChallengeDetailsPageProps;
   const classes = useStyles();
   const history = useHistory();
 
@@ -83,6 +82,13 @@ const ChallengeDetailsPage: React.FC = () => {
   const tasks = useSelector((state: RootState) =>
     getTaskList(state, Number(challengeId))
   )!;
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const userTasks = useSelector((state: RootState) =>
+    getUserTaskListForChallenge(state, Number(challengeId))
+  )!;
+
+  console.log(userTasks);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -108,7 +114,7 @@ const ChallengeDetailsPage: React.FC = () => {
   );
 
   const Status = () =>
-    attempt === null ? (
+    userTasks === null ? (
       <Typography>🔥 ONGOING</Typography>
     ) : (
       <Typography>👻 UNENROLLED</Typography>
@@ -145,7 +151,7 @@ const ChallengeDetailsPage: React.FC = () => {
             <Tabs>
               <Tab label={'Milestones'} />
             </Tabs>
-            <ChallengeMilestones tasks={tasks} attempt={attempt} />
+            <ChallengeMilestones tasks={tasks} userTasks={userTasks} />
           </Box>
         </SwipeableDrawer>
       </Box>
