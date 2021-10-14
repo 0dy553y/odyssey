@@ -36,7 +36,6 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
       earliestUncompletedIndex = t.id;
     }
   });
-  console.log(earliestUncompletedIndex);
 
   return (
     <Box>

@@ -89,6 +89,7 @@ const ChallengeDetailsPage: React.FC = () => {
   )!;
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [selectedTab, setSelectedTab] = useState(0);
 
   const peekDrawerHeight = 200;
 
@@ -112,7 +113,7 @@ const ChallengeDetailsPage: React.FC = () => {
   );
 
   const Status = () =>
-    userTasks === null ? (
+    userTasks !== null ? (
       <Typography>🔥 ONGOING</Typography>
     ) : (
       <Typography>👻 UNENROLLED</Typography>
@@ -146,7 +147,7 @@ const ChallengeDetailsPage: React.FC = () => {
         >
           <Box className={classes.peekDrawer} sx={{ top: -peekDrawerHeight }}>
             <Box className={classes.puller} />;
-            <Tabs>
+            <Tabs value={selectedTab}>
               <Tab label={'Milestones'} />
             </Tabs>
             <ChallengeMilestones tasks={tasks} userTasks={userTasks} />
