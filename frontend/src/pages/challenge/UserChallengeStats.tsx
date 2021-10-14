@@ -2,20 +2,23 @@ import React from 'react';
 import ChallengeProgressChart from 'components/challengeProgressChart';
 import { useTheme } from '@mui/styles';
 import { Theme } from '@mui/material';
-import { sub } from 'date-fns';
+import { add, sub } from 'date-fns';
 
 interface UserChallengeStatsProps {
   TODO?: string;
 }
 
+const mockChallengeEnrolledDate = sub(new Date(), { months: 1 });
+const mockFirstTaskDate = add(mockChallengeEnrolledDate, { days: 3 });
 const mockChallengeProgressChartProps = {
   data: Array.from(Array(6).keys()).map((i) => {
     return {
-      taskCompletionDate: sub(sub(new Date(), { days: 5 }), { days: 6 - i }),
+      taskCompletionDate: add(mockFirstTaskDate, { days: i * 3 }),
       taskIndex: i,
     };
   }),
   totalNumberOfTasks: 10,
+  challengeEnrolledDate: mockChallengeEnrolledDate,
 };
 
 const UserChallengeStats: React.FC<UserChallengeStatsProps> = (props) => {

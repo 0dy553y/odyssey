@@ -17,6 +17,7 @@ interface ChallengeProgressChartProps {
   color?: string;
   data: ChallengeProgressData[];
   totalNumberOfTasks: number;
+  challengeEnrolledDate: Date;
 }
 
 interface ChallengeProgressData {
@@ -47,6 +48,7 @@ const ChallengeProgressChart: React.FC<ChallengeProgressChartProps> = ({
   color,
   data,
   totalNumberOfTasks,
+  challengeEnrolledDate,
 }) => {
   const isChallengeCompleted = data.length === totalNumberOfTasks;
 
@@ -88,18 +90,23 @@ const ChallengeProgressChart: React.FC<ChallengeProgressChartProps> = ({
           tickFormatter={(timestamp) => displayDate(new Date(timestamp))}
           type="number"
           domain={[
-            'dataMin',
-            (dataMax: Date) => {
-              console.log(isChallengeCompleted, dataMax);
-
-              return isChallengeCompleted ? dataMax : new Date();
-            },
+            challengeEnrolledDate.getTime(),
+            (dataMax: Date) =>
+              isChallengeCompleted ? dataMax : new Date().getTime(),
           ]}
         />
         <YAxis domain={[0, 100]} />
-        <Tooltip />
+        <Tooltip
+          formatter={(percentage: number) => {
+            return [`${percentage}%`, 'Percentage'];
+          }}
+          labelFormatter={(timestamp: number) =>
+            displayDate(new Date(timestamp))
+          }
+        />
         <Area
           type="monotone"
+          dot={{ stroke: 'black', strokeWidth: 1 }}
           dataKey="percentage"
           stroke={color ?? '#8884d8'}
           fillOpacity={1}
