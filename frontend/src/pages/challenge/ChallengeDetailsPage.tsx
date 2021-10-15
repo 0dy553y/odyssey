@@ -14,13 +14,15 @@ import {
 import { ChevronLeft, MoreVert } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
 import { ChallengeData } from '../../types/challenges';
-import { useHistory, useParams, useLocation } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ChallengeMilestones from './ChallengeMilestones';
+import { loadChallenge } from 'store/challenges/operations';
 import { loadAllTasks } from 'store/tasks/operations';
 import { loadUserTasksForChallenge } from 'store/usertasks/operations';
+import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
 import { getUserTaskListForChallenge } from 'store/usertasks/selectors';
 
@@ -68,18 +70,24 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ChallengeDetailsPage: React.FC = () => {
-  const { challenge } = useLocation().state as ChallengeDetailsPageProps;
   const classes = useStyles();
   const history = useHistory();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(loadChallenge(Number(challengeId)));
     dispatch(loadAllTasks(Number(challengeId)));
     dispatch(loadUserTasksForChallenge(Number(challengeId)));
   }, []);
 
   const { challengeId } = useParams<{ challengeId: string }>();
+
+  const challenge =
+    useSelector((state: RootState) =>
+      getChallenge(state, Number(challengeId))
+    ) ?? {};
+
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const tasks = useSelector((state: RootState) =>
     getTaskList(state, Number(challengeId))
@@ -98,14 +106,15 @@ const ChallengeDetailsPage: React.FC = () => {
   const Bar = () => (
     <AppBar position="static" className={classes.appbar}>
       <Toolbar>
-        <IconButton
-          edge="start"
+        <div
           onClick={() => {
             history.goBack();
           }}
         >
-          <ChevronLeft />
-        </IconButton>
+          <IconButton edge="start">
+            <ChevronLeft />
+          </IconButton>
+        </div>
         <Box className={classes.spacer} />
         <IconButton>
           <MoreVert />
@@ -127,6 +136,7 @@ const ChallengeDetailsPage: React.FC = () => {
       <Box sx={{ marginLeft: '28px' }}>
         <Status />
         <Typography variant="h1">{challenge.name}</Typography>
+        <Typography>{challenge.duration}</Typography>
         <Typography>{challenge.description}</Typography>
         <Typography>Recommended schedule</Typography>
         <Typography>{challenge.schedule}</Typography>

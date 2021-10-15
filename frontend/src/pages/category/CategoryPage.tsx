@@ -118,10 +118,7 @@ const ExplorePage: React.FC = () => {
         {challenges.map((challenge) => (
           <li key={challenge.id}>
             <Link
-              to={{
-                pathname: `${CATEGORY_ROUTE}/${category.id}/${challenge.id}`,
-                state: { challenge: challenge },
-              }}
+              to={`${CATEGORY_ROUTE}/${category.id}/${challenge.id}`}
               style={{ textDecoration: 'none' }}
             >
               <CategoryListItem

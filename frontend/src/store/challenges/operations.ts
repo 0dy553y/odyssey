@@ -21,9 +21,11 @@ export function loadAllChallenges(): OperationResult {
 }
 
 export function loadChallenge(challengeId: number): OperationResult {
+  console.log('load challenge');
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.challenges.getChallenge(challengeId);
     const challenge: ChallengeData = response.payload.data;
+    console.log(challenge);
     dispatch(saveChallenge(challenge));
   };
 }
