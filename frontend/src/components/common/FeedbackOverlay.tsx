@@ -13,11 +13,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+// Hardcoded since this feedback component is temporary.
+const feedbackLink = 'https://youtu.be/QJ7YeSoDYlY';
+
 const FeedbackOverlay: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <Button className={classes.button}>
+    <Button className={classes.button} href={feedbackLink} target="_blank">
       <Typography>Feedback</Typography>
     </Button>
   );
