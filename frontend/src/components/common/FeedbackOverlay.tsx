@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Theme, Typography } from '@mui/material';
 import { makeStyles, useTheme } from '@mui/styles';
-import FeedbackIcon from '@mui/icons-material/Feedback';
+import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
@@ -42,9 +42,9 @@ const FeedbackOverlay: React.FC = () => {
   return (
     <Button className={classes.button} href={feedbackLink} target="_blank">
       <div className={classes.buttonContent}>
-        <FeedbackIcon className={classes.buttonIcon} />
+        <SentimentVerySatisfiedIcon className={classes.buttonIcon} />
         <Typography style={{ textTransform: 'none' }}>
-          Provide feedback :-)
+          Provide feedback
         </Typography>
       </div>
     </Button>
