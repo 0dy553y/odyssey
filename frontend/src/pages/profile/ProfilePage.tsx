@@ -137,7 +137,10 @@ const ProfilePage: React.FC = () => {
   };
 
   return (
-    <Box className={classes.profilePageContainer}>
+    <Box
+      className={classes.profilePageContainer}
+      sx={{ padding: '0 1.5em 0 1.5em' }}
+    >
       <Grid container className={classes.profileHeaderContainer}>
         <AppBar position="static">
           <Toolbar>

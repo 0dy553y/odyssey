@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button, Theme, Typography } from '@mui/material';
 import { makeStyles, useTheme } from '@mui/styles';
-import AddIcon from '@mui/icons-material/Add';
+import FeedbackIcon from '@mui/icons-material/Feedback';
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
     position: 'fixed',
     left: 0,
-    top: '70%',
+    top: '75%',
     transform: 'rotate(-90deg) translateX(-50%)',
     transformOrigin: 'top left',
     backgroundColor: 'black',
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   buttonIcon: {
     marginBottom: 2,
+    marginRight: 5,
   },
 }));
 
@@ -41,9 +42,9 @@ const FeedbackOverlay: React.FC = () => {
   return (
     <Button className={classes.button} href={feedbackLink} target="_blank">
       <div className={classes.buttonContent}>
-        <AddIcon className={classes.buttonIcon} />
+        <FeedbackIcon className={classes.buttonIcon} />
         <Typography style={{ textTransform: 'none' }}>
-          Provide Feedback
+          Provide feedback :-)
         </Typography>
       </div>
     </Button>
