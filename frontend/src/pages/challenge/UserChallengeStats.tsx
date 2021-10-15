@@ -7,6 +7,7 @@ import {
   Divider,
   FormControl,
   FormControlLabel,
+  Grid,
   Stack,
   FormGroup,
   Theme,
@@ -36,9 +37,37 @@ const mockChallengeProgressChartProps = {
 
 const UserChallengeStats: React.FC<UserChallengeStatsProps> = (props) => {
   const theme: Theme = useTheme();
+
+  const percentCompleted = 75;
+  const currentStreak = 4;
+  const longestStreak = 12;
+
+  const statsLabel = (
+    valueLabel: string,
+    desc: string,
+    valueClassName?: string
+  ) => (
+    <>
+      <Typography
+        component="div"
+        variant="h5"
+        className={`stats-value-label ${valueClassName}`}
+      >
+        {valueLabel}
+      </Typography>
+      <Typography
+        component="div"
+        variant="body1"
+        className="stats-description-label"
+      >
+        {desc}
+      </Typography>
+    </>
+  );
+
   return (
     <Box className="user-challenge-stats">
-      <Typography component="div" variant="h6" sx={{ fontStyle: 'italic' }}>
+      <Typography component="div" variant="h6">
         Recurring days
       </Typography>
 
@@ -61,6 +90,24 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = (props) => {
 
       <Divider className="divider" />
 
+      <Grid container justifyContent="space-between" alignItems="center">
+        <Grid item xs={6}>
+          <Stack>
+            {statsLabel(`${percentCompleted}%`, 'complete', 'big-label')}
+          </Stack>
+        </Grid>
+
+        <Grid item xs={6}>
+          <Stack>
+            {statsLabel(`${currentStreak}`, 'days in a row')}
+            {statsLabel(`${longestStreak}`, 'longest streak')}
+          </Stack>
+        </Grid>
+      </Grid>
+
+      <Typography component="div" variant="h6">
+        Progress Chart
+      </Typography>
       <ChallengeProgressChart
         height={220}
         color={theme.palette.primary.main}

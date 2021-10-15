@@ -11,4 +11,21 @@
     margin-top: 0.8em;
     margin-bottom: 0.8em;
   }
+
+  .MuiTypography-h6,
+  .MuiTypography-body1 {
+    font-style: italic;
+  }
+
+  .stats-description-label {
+    opacity: 0.6;
+  }
+
+  .stats-value-label {
+    font-weight: bolder;
+  }
+
+  .big-label {
+    font-size: xxx-large;
+  }
 }
