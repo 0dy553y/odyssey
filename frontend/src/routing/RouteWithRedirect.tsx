@@ -1,5 +1,10 @@
 import React from 'react';
-import { RouteProps, Route, Redirect } from 'react-router-dom';
+import {
+  RouteProps,
+  Route,
+  Redirect,
+  RouteComponentProps,
+} from 'react-router-dom';
 
 export type RouteWithRedirectProps = {
   shouldRedirect: boolean;
@@ -9,13 +14,21 @@ export type RouteWithRedirectProps = {
 const RouteWithRedirect = ({
   shouldRedirect,
   redirectPath,
+  component: Component,
   ...routeProps
 }: RouteWithRedirectProps): JSX.Element => {
-  if (shouldRedirect) {
-    return <Redirect to={{ pathname: redirectPath }} />;
-  } else {
-    return <Route {...routeProps} />;
+  if (!Component) {
+    throw Error('Component is undefined');
   }
+
+  const render = (props: RouteComponentProps): React.ReactNode => {
+    if (shouldRedirect) {
+      return <Redirect to={{ pathname: redirectPath }} />;
+    }
+    return <Component {...props} />;
+  };
+
+  return <Route {...routeProps} render={render} />;
 };
 
 export default RouteWithRedirect;
