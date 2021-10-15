@@ -88,6 +88,7 @@ const ChallengeProgressChart: React.FC<ChallengeProgressChartProps> = ({
         <XAxis
           dataKey="timestamp"
           tickFormatter={(timestamp) => displayDate(new Date(timestamp))}
+          tick={false}
           type="number"
           domain={[
             challengeEnrolledDate.getTime(),
@@ -95,7 +96,15 @@ const ChallengeProgressChart: React.FC<ChallengeProgressChartProps> = ({
               isChallengeCompleted ? dataMax : new Date().getTime(),
           ]}
         />
-        <YAxis domain={[0, 100]} />
+        <YAxis
+          domain={[0, 100]}
+          tickFormatter={(percent) => {
+            if (percent === 0) {
+              return `${percent}%`;
+            }
+            return percent;
+          }}
+        />
         <Tooltip
           formatter={(percentage: number) => {
             return [`${percentage}%`, 'Percentage'];
