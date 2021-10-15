@@ -57,12 +57,13 @@ const useStyles = makeStyles(() => ({
     left: 0,
   },
   puller: {
-    width: 30,
+    width: 90,
     height: 6,
-    backgroundColor: 'grey[300]',
+    backgroundColor: 'black',
     borderRadius: 3,
     position: 'absolute',
-    left: 'calc(50% - 15px)',
+    left: 'calc(50% - 45px)',
+    top: '-10px',
   },
 }));
 
@@ -122,14 +123,15 @@ const ChallengeDetailsPage: React.FC = () => {
 
   return (
     <Paper className={classes.paper} sx={{ backgroundColor: challenge.color }}>
-      <Box>
-        <Bar />
+      <Bar />
+      <Box sx={{ marginLeft: '28px' }}>
         <Status />
-        <Typography component="h1">{challenge.name}</Typography>
+        <Typography variant="h1">{challenge.name}</Typography>
         <Typography>{challenge.description}</Typography>
         <Typography>Recommended schedule</Typography>
         <Typography>{challenge.schedule}</Typography>
         <Button> Join Challenge!</Button>
+
         <SwipeableDrawer
           anchor="bottom"
           open={isDrawerOpen}

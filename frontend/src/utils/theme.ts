@@ -11,6 +11,10 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: `"CircularStd", "Helvetica", "Arial", sans-serif, "Frock"`,
+    h1: {
+      fontFamily: 'Frock',
+      fontSize: 50,
+    },
     h2: {
       fontFamily: 'Frock',
     },
