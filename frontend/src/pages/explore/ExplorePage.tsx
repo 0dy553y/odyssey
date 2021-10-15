@@ -35,6 +35,29 @@ const ExplorePage: React.FC = () => {
     setSearchQuery(data);
   };
 
+  const getFilteredChallenges = () => {
+    return challenges
+      .filter((challenge) =>
+        challenge.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .map((challenge) => (
+        <li key={challenge.id}>
+          <Link
+            to={{
+              pathname: `${CATEGORY_ROUTE}/${challenge.categoryId}/${challenge.id}`,
+              state: { challenge: challenge },
+            }}
+            style={{ textDecoration: 'none' }}
+          >
+            <CategoryListItem
+              name={challenge.name}
+              duration={challenge.duration}
+            />
+          </Link>
+        </li>
+      ));
+  };
+
   return (
     <Box sx={{ paddingTop: '2em' }}>
       <Typography variant="h2">Find your next challenge</Typography>
@@ -42,30 +65,14 @@ const ExplorePage: React.FC = () => {
         placeholder="Search by challenge name..."
         onChange={eventhandler}
       />
-      {searchQuery.length > 0 && (
-        <ul>
-          {challenges
-            .filter((challenge) =>
-              challenge.name.toLowerCase().includes(searchQuery.toLowerCase())
-            )
-            .map((challenge) => (
-              <li key={challenge.id}>
-                <Link
-                  to={{
-                    pathname: `${CATEGORY_ROUTE}/${challenge.categoryId}/${challenge.id}`,
-                    state: { challenge: challenge },
-                  }}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <CategoryListItem
-                    name={challenge.name}
-                    duration={challenge.duration}
-                  />
-                </Link>
-              </li>
-            ))}
-        </ul>
-      )}
+      {searchQuery.length > 0 &&
+        (getFilteredChallenges().length > 0 ? (
+          <ul>{getFilteredChallenges()}</ul>
+        ) : (
+          <Typography variant="body1" style={{ textAlign: 'center' }}>
+            No results found &#128123;
+          </Typography>
+        ))}
       {searchQuery.length == 0 && (
         <>
           <Typography variant="h6" sx={{ fontStyle: 'italic' }}>
