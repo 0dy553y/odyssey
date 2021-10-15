@@ -136,7 +136,9 @@ const ChallengeDetailsPage: React.FC = () => {
       <Box sx={{ marginLeft: '28px' }}>
         <Status />
         <Typography variant="h1">{challenge.name}</Typography>
-        <Typography>{challenge.duration}</Typography>
+        <Typography>
+          {challenge.duration} days {challenge.createdBy}
+        </Typography>
         <Typography>{challenge.description}</Typography>
         <Typography>Recommended schedule</Typography>
         <Typography>{challenge.schedule}</Typography>
