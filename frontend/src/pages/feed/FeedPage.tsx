@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 
-const HomePage: React.FC = () => {
+const FeedPage: React.FC = () => {
   return (
     <>
       <Typography variant="h5">Upcoming :-)</Typography>
@@ -10,4 +10,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default FeedPage;

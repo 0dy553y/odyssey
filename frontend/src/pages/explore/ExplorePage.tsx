@@ -18,12 +18,9 @@ import './ExplorePage.scss';
 const ExplorePage: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const categories = useSelector((state: RootState) => getCategoryList(state))!;
-  const dispatch = useDispatch();
-  const [value, setValue] = useState('');
 
-  const eventhandler = (data: string) => {
-    setValue(data);
-  };
+  const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     dispatch(loadAllChallenges());
@@ -34,18 +31,22 @@ const ExplorePage: React.FC = () => {
     getChallengeList(state)
   )!;
 
+  const eventhandler = (data: string) => {
+    setSearchQuery(data);
+  };
+
   return (
     <Box sx={{ paddingTop: '2em' }}>
       <Typography variant="h2">Find your next challenge</Typography>
       <Searchbar
         placeholder="Search by challenge name..."
-        func={eventhandler}
+        onChange={eventhandler}
       />
-      {value.length > 0 && (
+      {searchQuery.length > 0 && (
         <ul>
           {challenges
             .filter((challenge) =>
-              challenge.name.toLowerCase().includes(value.toLowerCase())
+              challenge.name.toLowerCase().includes(searchQuery.toLowerCase())
             )
             .map((challenge) => (
               <li key={challenge.id}>
@@ -65,7 +66,7 @@ const ExplorePage: React.FC = () => {
             ))}
         </ul>
       )}
-      {value.length == 0 && (
+      {searchQuery.length == 0 && (
         <>
           <Typography variant="h6" sx={{ fontStyle: 'italic' }}>
             I want to...

@@ -5,7 +5,7 @@ import { ReactComponent as SearchIcon } from '../../assets/icons/search-icon.svg
 
 interface SearchbarProps {
   placeholder: string;
-  func: (e: any) => void;
+  onChange: (e: string) => void;
 }
 
 const Search = styled('div')(({ theme }) => ({
@@ -39,10 +39,10 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 const Searchbar: React.FC<SearchbarProps> = (props) => {
-  const { placeholder, func } = props;
+  const { placeholder, onChange } = props;
 
-  const handleChange = (e: React.ChangeEvent<any>) => {
-    func(e.target.value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
   };
 
   return (
