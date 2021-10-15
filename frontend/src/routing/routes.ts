@@ -3,6 +3,7 @@ import FriendsPage from 'pages/friends/FriendsPage';
 import CategoryPage from '../pages/category';
 import ChallengeDetailsPage from '../pages/challenge';
 import ExplorePage from '../pages/explore';
+import FeedPage from '../pages/feed';
 import HomePage from '../pages/home';
 import LoginPage from '../pages/login';
 import ProfilePage from '../pages/profile';
@@ -32,6 +33,7 @@ export const privateRoutes: RouteEntry[] = [
   { path: EDIT_PROFILE_ROUTE, component: EditProfilePage, exact: true },
   { path: PROFILE_ROUTE, component: ProfilePage, exact: true },
   { path: HOME_ROUTE, component: HomePage, exact: true },
+  { path: FEED_ROUTE, component: FeedPage, exact: true },
   {
     path: CATEGORY_ROUTE + '/:categoryId/:challengeId',
     component: ChallengeDetailsPage,
