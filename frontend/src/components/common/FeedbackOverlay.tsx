@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Button, Theme, Typography } from '@mui/material';
+import { makeStyles, useTheme } from '@mui/styles';
 import AddIcon from '@mui/icons-material/Add';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   button: {
     position: 'fixed',
     left: 0,
@@ -16,6 +16,10 @@ const useStyles = makeStyles(() => ({
     borderBottomRightRadius: 20,
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+      color: 'white',
+    },
   },
   buttonContent: {
     display: 'flex',
@@ -31,7 +35,8 @@ const useStyles = makeStyles(() => ({
 const feedbackLink = 'https://youtu.be/QJ7YeSoDYlY';
 
 const FeedbackOverlay: React.FC = () => {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   return (
     <Button className={classes.button} href={feedbackLink} target="_blank">
