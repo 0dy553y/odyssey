@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   button: {
     position: 'fixed',
     left: 0,
-    top: '50%',
+    top: '70%',
     transform: 'rotate(-90deg) translateX(-50%)',
     transformOrigin: 'top left',
     backgroundColor: 'black',
@@ -42,7 +42,9 @@ const FeedbackOverlay: React.FC = () => {
     <Button className={classes.button} href={feedbackLink} target="_blank">
       <div className={classes.buttonContent}>
         <AddIcon className={classes.buttonIcon} />
-        <Typography>Provide Feedback</Typography>
+        <Typography style={{ textTransform: 'none' }}>
+          Provide Feedback
+        </Typography>
       </div>
     </Button>
   );
