@@ -40,7 +40,7 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = ({
     data: completedTasks.map((task) => {
       return {
         taskCompletionDate: task.completedAt,
-        taskIndex: task.index,
+        taskIndex: task.taskIndex,
       };
     }),
     totalNumberOfTasks: totalNumberOfTasks,

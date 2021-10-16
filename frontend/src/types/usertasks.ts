@@ -4,7 +4,7 @@ export interface UserTaskListData {
   challengeName: string;
   description: string;
   completedAt: Date;
-  index: number;
+  taskIndex: number;
 }
 
 export type UserTaskData = UserTaskListData;

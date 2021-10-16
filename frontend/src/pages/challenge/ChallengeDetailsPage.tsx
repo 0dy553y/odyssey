@@ -150,13 +150,6 @@ const ChallengeDetailsPage: React.FC = () => {
           />
         );
       case TabItem.YourStats:
-        // let percentCompleted = 0;
-        // if (latestCompletedTask) {
-        //   // Add one because tasks are zero-indexed
-        //   percentCompleted =
-        //     ((latestCompletedTask.index + 1) / tasks.length) * 100;
-        // }
-
         return (
           <UserChallengeStats
             percentCompleted={75}
