@@ -12,17 +12,18 @@ import { Typography, Theme } from '@mui/material';
 import './CategoryListItem.scss';
 
 const useStyles = makeStyles((theme: Theme) => ({
-  setOpacity: {
+  innerRing: {
     opacity: 0.5,
     position: 'absolute',
   },
   container: {
     display: 'flex',
+    position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
     padding: '0 0 2em 0',
   },
-  animateProgress: {
+  outerRing: {
     transition: '4s ease',
     transitionDelay: '4s',
   },
@@ -73,7 +74,7 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
               value={100}
               size={50}
               thickness={7}
-              className={classes.setOpacity}
+              className={classes.innerRing}
             />
             <CircularProgress
               color="primary"
@@ -84,7 +85,7 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
                 },
                 marginTop: '0.5em',
               }}
-              className={classes.animateProgress}
+              className={classes.outerRing}
               value={progress}
               size={50}
               thickness={7}
@@ -92,7 +93,6 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
             {percentageComplete === 100 && (
               <Box
                 sx={{
-                  position: 'absolute',
                   marginTop: '-2.6em',
                   marginLeft: '0.75em',
                 }}

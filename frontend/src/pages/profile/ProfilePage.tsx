@@ -26,6 +26,7 @@ import { Duration } from 'date-fns';
 import { EDIT_PROFILE_ROUTE, FRIENDS_ROUTE } from 'routing/routes';
 import { logout } from 'store/auth/operations';
 import useScrollbarSize from 'react-scrollbar-size';
+import CategoryListItem from 'components/category/CategoryListItem';
 
 interface ProfilePageProps {
   userProfileItems: { label: string; count: number; onClick?: () => void }[];
@@ -145,55 +146,68 @@ const ProfilePage: React.FC = () => {
   };
 
   return (
-    <Box
-      className={classes.profilePageContainer}
-      sx={{ padding: '0 1.5em 0 1.5em' }}
-    >
-      <Grid container className={classes.profileHeaderContainer}>
-        <AppBar position="static">
-          <Toolbar>
-            <Box sx={{ flexGrow: 1 }} />
-            <IconButton edge="end" color="primary" onClick={handleMenuClick}>
-              <MoreVertIcon />
-            </IconButton>
-            <Menu
-              anchorEl={menuAnchorEl}
-              open={isMenuOpen}
-              onClose={handleMenuClose}
-            >
-              <MenuItem
-                onClick={() => {
-                  handleMenuClose();
-                  history.push(EDIT_PROFILE_ROUTE);
-                }}
+    <>
+      <Box
+        className={classes.profilePageContainer}
+        sx={{ padding: '0 1.5em 0 1.5em' }}
+      >
+        <Grid container className={classes.profileHeaderContainer}>
+          <AppBar position="static">
+            <Toolbar>
+              <Box sx={{ flexGrow: 1 }} />
+              <IconButton edge="end" color="primary" onClick={handleMenuClick}>
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                anchorEl={menuAnchorEl}
+                open={isMenuOpen}
+                onClose={handleMenuClose}
               >
-                Edit Profile
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  handleMenuClose();
-                  dispatch(logout(history));
-                }}
-              >
-                Logout
-              </MenuItem>
-            </Menu>
-          </Toolbar>
-        </AppBar>
+                <MenuItem
+                  onClick={() => {
+                    handleMenuClose();
+                    history.push(EDIT_PROFILE_ROUTE);
+                  }}
+                >
+                  Edit Profile
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    handleMenuClose();
+                    dispatch(logout(history));
+                  }}
+                >
+                  Logout
+                </MenuItem>
+              </Menu>
+            </Toolbar>
+          </AppBar>
 
-        <ProfileHeader user={user} userProfileItems={userProfileItems} />
-      </Grid>
+          <ProfileHeader user={user} userProfileItems={userProfileItems} />
+        </Grid>
 
-      <ActivityMap activityMapData={activityMapData} />
+        <ActivityMap activityMapData={activityMapData} />
 
-      <UserStats
-        challengesCompleted={challengesCompleted}
-        registrationDate={registrationDate}
-        longestStreakDuration={longestStreakDuration}
-      />
+        <UserStats
+          challengesCompleted={challengesCompleted}
+          registrationDate={registrationDate}
+          longestStreakDuration={longestStreakDuration}
+        />
 
-      <ChallengeSummaries challengeSummaries={challengeSummaries} />
-    </Box>
+        <ChallengeSummaries challengeSummaries={challengeSummaries} />
+      </Box>
+      <Box sx={{ padding: '2em 1.5em 0 1.5em' }}>
+        <ul>
+          <li>
+            <CategoryListItem
+              name="hello"
+              duration={10}
+              percentageComplete={100}
+            />
+          </li>
+        </ul>
+      </Box>
+    </>
   );
 };
 

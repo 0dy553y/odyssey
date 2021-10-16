@@ -1,9 +1,16 @@
-import React from 'react';
-import { Grid, Stack, Theme, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
+import { Box, Grid, Stack, Theme, Typography } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import CircularProgressWithLabel from 'components/common/circularProgressWithLabel';
 
 import './ChallengeSummaries.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadAllChallenges } from 'store/challenges/operations';
+import { RootState } from 'store';
+import { getChallengeList } from 'store/challenges/selectors';
+import CategoryListItem from 'components/category/CategoryListItem';
+import { Link } from 'react-router-dom';
+import { CATEGORY_ROUTE } from 'routing/routes';
 
 export interface ChallengeSummaryProps {
   id: number;
@@ -33,8 +40,17 @@ const useStyles = makeStyles<Theme, ChallengeSummariesProps>((theme) =>
 
 const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
   const { challengeSummaries } = props;
-
   const classes = useStyles(props);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadAllChallenges());
+  }, []);
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const challenges = useSelector((state: RootState) =>
+    getChallengeList(state)
+  )!;
 
   const ChallengeSummary = ({
     percentage,
@@ -62,21 +78,46 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
   );
 
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="flex-start"
-      justifyContent="center"
-    >
-      <Grid item xs={12}>
-        <Typography component="div" variant="h6" className="section-heading">
-          Ongoing challenges
-        </Typography>
+    <>
+      <Grid
+        container
+        direction="column"
+        alignItems="flex-start"
+        justifyContent="center"
+      >
+        <Grid item xs={12}>
+          <Typography component="div" variant="h6" className="section-heading">
+            Ongoing challenges
+          </Typography>
+        </Grid>
       </Grid>
-      {challengeSummaries.map((summary) => (
-        <ChallengeSummary key={summary.id} {...summary} />
-      ))}
-    </Grid>
+      <Box>
+        <ul>
+          <CategoryListItem
+            name="hello"
+            duration={10}
+            percentageComplete={100}
+          />
+          {/* {challenges.map((challenge) => (
+            <li key={challenge.id}>
+              <Link
+                to={{
+                  pathname: `${CATEGORY_ROUTE}/1/${challenge.id}`,
+                  state: { challenge: challenge },
+                }}
+                style={{ textDecoration: 'none' }}
+              >
+                <CategoryListItem
+                  name={challenge.name}
+                  duration={challenge.duration}
+                  percentageComplete={100}
+                />
+              </Link>
+            </li>
+          ))} */}
+        </ul>
+      </Box>
+    </>
   );
 };
 
