@@ -15,6 +15,6 @@ class AddScheduleTable < ActiveRecord::Migration[6.1]
     end
 
     add_reference :user_challenges, :schedule,
-                  foreign_key: { to_table: :schedules }, null: false
+                  foreign_key: { to_table: :schedules }, null: false # rubocop:disable Rails/NotNullColumn
   end
 end
