@@ -21,14 +21,14 @@ import './UserChallengeStats.scss';
 
 interface UserChallengeStatsProps {
   percentCompleted: number;
+  enrolledDate: Date;
   completedTasks: UserTaskListData[];
   totalNumberOfTasks: number;
 }
 
-const mockChallengeEnrolledDate = sub(new Date(), { months: 1 });
-
 const UserChallengeStats: React.FC<UserChallengeStatsProps> = ({
   percentCompleted,
+  enrolledDate,
   completedTasks,
   totalNumberOfTasks,
 }) => {
@@ -40,7 +40,7 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = ({
       };
     }),
     totalNumberOfTasks: totalNumberOfTasks,
-    challengeEnrolledDate: mockChallengeEnrolledDate,
+    challengeEnrolledDate: enrolledDate,
   };
 
   const theme: Theme = useTheme();

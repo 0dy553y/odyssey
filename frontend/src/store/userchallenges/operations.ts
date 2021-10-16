@@ -13,18 +13,17 @@ export function loadOngoingUserChallengeDataForChallenge(
     const response = await api.userChallenges.getOngoingUserChallengeData(
       challengeId
     );
-    const userTasks: UserTaskListData[] = response.payload.data.userTasks.map(
-      (userTask) => {
-        return {
-          ...userTask,
-          completedAt: userTask.completedAt && new Date(userTask.completedAt),
-        };
-      }
-    );
+    const data = response.payload.data;
+    const userTasks: UserTaskListData[] = data.userTasks.map((userTask) => {
+      return {
+        ...userTask,
+        completedAt: userTask.completedAt && new Date(userTask.completedAt),
+      };
+    });
     dispatch(
       updateOngoingUserChallengeData({
         challengeId,
-        data: { ...response.payload.data, userTasks },
+        data: { ...data, enrolledDate: new Date(data.enrolledDate), userTasks },
       })
     );
   };

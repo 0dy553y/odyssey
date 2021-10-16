@@ -153,6 +153,7 @@ const ChallengeDetailsPage: React.FC = () => {
         return (
           <UserChallengeStats
             percentCompleted={userChallenge.percentCompleted}
+            enrolledDate={userChallenge.enrolledDate}
             completedTasks={userChallenge.userTasks.filter(
               (userTask) => userTask.completedAt !== null
             )}
