@@ -44,7 +44,7 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = (props) => {
 
   const statsLabel = (
     valueLabel: string,
-    desc: string,
+    description: string,
     valueClassName?: string
   ) => (
     <>
@@ -60,7 +60,7 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = (props) => {
         variant="body1"
         className="stats-description-label"
       >
-        {desc}
+        {description}
       </Typography>
     </>
   );
