@@ -19,20 +19,3 @@ export function getUserTaskListForChallenge(
 ): UserTaskListData[] {
   return getLocalState(state).tasksByChallenge[challengeId] ?? [];
 }
-
-export function getLatestCompletedTaskForChallenge(
-  state: RootState,
-  challengeId: number
-): UserTaskListData | null {
-  const completedUserTasks = getUserTaskListForChallenge(
-    state,
-    challengeId
-  ).filter((task) => task.isCompleted);
-
-  const numCompletedTasks = completedUserTasks.length;
-  if (numCompletedTasks === 0) {
-    return null;
-  }
-
-  return completedUserTasks[numCompletedTasks - 1];
-}
