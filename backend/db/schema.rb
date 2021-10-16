@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(version: 2021_10_15_062159) do
     t.integer "duration", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "creator_id", null: false
-    t.integer "color", null: false
+    t.bigint "creator_id", default: 1, null: false
+    t.integer "color", default: 0, null: false
     t.index ["category_id"], name: "index_challenges_on_category_id"
     t.index ["creator_id"], name: "index_challenges_on_creator_id"
   end
