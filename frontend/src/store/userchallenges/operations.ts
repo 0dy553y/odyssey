@@ -29,7 +29,7 @@ export function loadOngoingUserChallengeDataForChallenge(
         challengeId,
         data: {
           ...data,
-          enrolledDate: data.enrolledDate && new Date(data.enrolledDate),
+          enrolledDate: new Date(data.enrolledDate),
           userTasks,
         },
       })

@@ -100,6 +100,9 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = ({
         height={220}
         color={theme.palette.primary.main}
         data={completedTasks.map((task) => {
+          if (!task.completedAt) {
+            throw new Error('Completed task must have a completedAt date');
+          }
           return {
             taskCompletionDate: task.completedAt,
             taskIndex: task.taskIndex,
