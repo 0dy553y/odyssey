@@ -10,6 +10,7 @@ import configureStore from './store';
 import { ThemeProvider } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
 import theme from './utils/theme';
+import { CssBaseline } from '@mui/material';
 
 const store = configureStore();
 
@@ -17,11 +18,13 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <SnackbarProvider autoHideDuration={3000}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </SnackbarProvider>
+        <CssBaseline>
+          <SnackbarProvider autoHideDuration={3000}>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </SnackbarProvider>
+        </CssBaseline>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,

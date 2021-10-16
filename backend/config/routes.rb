@@ -21,9 +21,13 @@ Rails.application.routes.draw do
           post 'join'
         end
       end
+
       namespace :user_tasks do
         get 'tasks_for_day', to: 'tasks_for_day'
-        get 'tasks_for_challenge', to: 'tasks_for_challenge'
+      end
+
+      namespace :user_challenges do
+        get 'ongoing_user_challenge', to: 'ongoing_user_challenge'
       end
     end
   end

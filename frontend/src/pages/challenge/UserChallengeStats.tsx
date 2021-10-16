@@ -13,34 +13,41 @@ import {
   Theme,
   Typography,
 } from '@mui/material';
-import { add, sub } from 'date-fns';
+import { sub } from 'date-fns';
 import { DayOfWeek } from 'types/date';
+import { UserTaskListData } from 'types/usertasks';
 
 import './UserChallengeStats.scss';
 
 interface UserChallengeStatsProps {
-  TODO?: string;
+  percentCompleted: number;
+  currentStreak: number;
+  longestStreak: number;
+  completedTasks: UserTaskListData[];
+  totalNumberOfTasks: number;
 }
 
 const mockChallengeEnrolledDate = sub(new Date(), { months: 1 });
-const mockFirstTaskDate = add(mockChallengeEnrolledDate, { days: 3 });
-const mockChallengeProgressChartProps = {
-  data: Array.from(Array(6).keys()).map((i) => {
-    return {
-      taskCompletionDate: add(mockFirstTaskDate, { days: i * 3 }),
-      taskIndex: i,
-    };
-  }),
-  totalNumberOfTasks: 10,
-  challengeEnrolledDate: mockChallengeEnrolledDate,
-};
 
-const UserChallengeStats: React.FC<UserChallengeStatsProps> = (props) => {
+const UserChallengeStats: React.FC<UserChallengeStatsProps> = ({
+  percentCompleted,
+  currentStreak,
+  longestStreak,
+  completedTasks,
+  totalNumberOfTasks,
+}) => {
+  const partialMockChallengeProgressChartProps = {
+    data: completedTasks.map((task) => {
+      return {
+        taskCompletionDate: task.completedAt,
+        taskIndex: task.taskIndex,
+      };
+    }),
+    totalNumberOfTasks: totalNumberOfTasks,
+    challengeEnrolledDate: mockChallengeEnrolledDate,
+  };
+
   const theme: Theme = useTheme();
-
-  const percentCompleted = 75;
-  const currentStreak = 4;
-  const longestStreak = 12;
 
   const statsLabel = (
     valueLabel: string,
@@ -93,7 +100,11 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = (props) => {
       <Grid container justifyContent="space-between" alignItems="center">
         <Grid item xs={6}>
           <Stack>
-            {statsLabel(`${percentCompleted}%`, 'complete', 'big-label')}
+            {statsLabel(
+              `${percentCompleted.toFixed(1)}%`,
+              'complete',
+              'big-label'
+            )}
           </Stack>
         </Grid>
 
@@ -111,7 +122,7 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = (props) => {
       <ChallengeProgressChart
         height={220}
         color={theme.palette.primary.main}
-        {...mockChallengeProgressChartProps}
+        {...partialMockChallengeProgressChartProps}
       />
     </Box>
   );

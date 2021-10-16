@@ -1,11 +1,14 @@
 a {
-    color: black;
-}
-
-html, body, #root, .App {
-  height: 100%;
+  color: black;
 }
 
 .App {
-  padding-bottom: 60px;
+  display: flex !important;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.App-content-container {
+  flex: 1;
+  overflow-y: auto;
 }
