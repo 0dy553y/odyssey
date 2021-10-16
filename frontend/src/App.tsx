@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, CircularProgress, Container, CssBaseline } from '@mui/material';
+import { Box, CircularProgress, Container } from '@mui/material';
 import { Global } from '@emotion/react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import {
@@ -50,7 +50,6 @@ function App(): JSX.Element {
 
   return (
     <Container className="App" component="main" disableGutters maxWidth="xs">
-      <CssBaseline />
       <ScrollToTop />
       <Notifier />
       <Global
