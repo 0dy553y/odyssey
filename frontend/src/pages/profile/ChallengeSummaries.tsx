@@ -17,8 +17,8 @@ interface ChallengeSummariesProps {
 const useStyles = makeStyles<Theme, ChallengeSummariesProps>((theme) =>
   createStyles({
     challengeSummary: {
-      background: 'papayawhip',
-      borderRadius: '1em',
+      background: '#1e2568',
+      borderRadius: '2em',
       padding: theme.spacing(2),
       marginBottom: theme.spacing(3),
     },
