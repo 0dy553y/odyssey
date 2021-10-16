@@ -10,7 +10,7 @@
 
 user_odyssey = User.create(username: 'Odyssey', display_name: 'Odyssey', password: 'password')
 
-user_unclesoo = User.create(username: 'unclesoo', password: 'password')
+user_unclesoo = User.create(username: 'unclesoo', display_name: 'Uncle Soo', password: 'password')
 
 category_exercise = Category.create(title: 'Exercise')
 category_habits = Category.create(title: 'Habits')
