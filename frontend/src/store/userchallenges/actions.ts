@@ -1,3 +1,3 @@
 import { userChallengesSlice } from './reducer';
 
-export const { updateLatestUserChallengeData } = userChallengesSlice.actions;
+export const { updateOngoingUserChallengeData } = userChallengesSlice.actions;

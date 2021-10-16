@@ -3,18 +3,18 @@ import { UserChallengeData } from 'types/userchallenge';
 import { UserChallengesState } from './types';
 
 const initialState: UserChallengesState = {
-  latestUserChallengeData: {},
+  ongoingUserChallengeData: {},
 };
 
 export const userChallengesSlice = createSlice({
   name: 'userChallenges',
   initialState,
   reducers: {
-    updateLatestUserChallengeData: (
+    updateOngoingUserChallengeData: (
       state,
       action: PayloadAction<{ challengeId: number; data: UserChallengeData }>
     ) => {
-      state.latestUserChallengeData[action.payload.challengeId] =
+      state.ongoingUserChallengeData[action.payload.challengeId] =
         action.payload.data;
     },
   },

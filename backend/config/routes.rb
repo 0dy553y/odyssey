@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       end
 
       namespace :user_challenges do
-        get 'latest_user_challenge', to: 'latest_user_challenge'
+        get 'ongoing_user_challenge', to: 'ongoing_user_challenge'
       end
     end
   end
