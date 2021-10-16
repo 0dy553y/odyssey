@@ -5,6 +5,7 @@ import {
   Box,
   Typography,
   SwipeableDrawer,
+  Skeleton,
   Tab,
   IconButton,
   Toolbar,
@@ -89,10 +90,9 @@ const ChallengeDetailsPage: React.FC = () => {
 
   const { challengeId } = useParams<{ challengeId: string }>();
 
-  const challenge =
-    useSelector((state: RootState) =>
-      getChallenge(state, Number(challengeId))
-    ) ?? {};
+  const challenge = useSelector((state: RootState) =>
+    getChallenge(state, Number(challengeId))
+  );
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const tasks = useSelector((state: RootState) =>
@@ -150,6 +150,10 @@ const ChallengeDetailsPage: React.FC = () => {
         throw new Error('Unknown tab item!');
     }
   };
+
+  if (!challenge) {
+    return <Skeleton />;
+  }
 
   return (
     <Paper className={classes.paper} sx={{ backgroundColor: challenge.color }}>
