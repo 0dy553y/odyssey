@@ -9,11 +9,7 @@ class UserTasksController < ApplicationController
     # looks for ongoing attempt
     @user_challenge = current_user.user_challenges.find_by(challenge_id: params.require(:challenge_id),
                                                            completed_at: nil, forfeited_at: nil)
-    unless @user_challenge.nil?
-      p @user_challenge.id
-      @user_tasks = current_user.user_tasks.where(user_challenge_id: @user_challenge.id)
-    end
-    p @user_tasks.inspect
+    @user_tasks = current_user.user_tasks.where(user_challenge_id: @user_challenge.id) unless @user_challenge.nil?
     render 'user_tasks/tasks_for_day', status: :ok
   end
 end

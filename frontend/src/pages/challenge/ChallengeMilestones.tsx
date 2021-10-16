@@ -48,7 +48,7 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
                 {userTasks === null || !completion[t.id] ? (
                   // Unenrolled, or tasks in the future.
                   <Circle />
-                ) : t.id === 9 ? (
+                ) : t.id === earliestUncompletedIndex ? (
                   // Earliest uncompleted task.
                   <Checkbox
                     icon={<RadioButtonUnchecked />}

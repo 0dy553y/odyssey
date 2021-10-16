@@ -16,9 +16,9 @@ category_exercise = Category.create(title: 'Exercise')
 category_habits = Category.create(title: 'Habits')
 
 challenge_running = Challenge.create(category_id: category_exercise.id, name: 'Couch to 5k',
-                                     description: 'Couch to 5K is a running plan for absolute beginners. 
-                                     It was developed by a new runner, Josh Clark, 
-                                     who wanted to help his 50-something mum get off the couch and start running, too.', 
+                                     description: 'Couch to 5K is a running plan for absolute beginners.
+                                     It was developed by a new runner, Josh Clark,
+                                     who wanted to help his 50-something mum get off the couch and start running, too.',
                                      schedule: '3 times a week, alternate days',
                                      duration: 30,
                                      creator_id: user_odyssey.id,
