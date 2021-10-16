@@ -61,7 +61,7 @@ function App(): JSX.Element {
         }}
       />
       <div className="App-content-container">
-        <Container disableGutters maxWidth="xs">
+        <Container className="column-container" disableGutters maxWidth="xs">
           <Switch>
             {isValidatingToken ? (
               <Box

@@ -22,6 +22,9 @@ const useStyles = makeStyles(() => ({
     marginRight: 30,
     marginTop: 40,
   },
+  headerItem: {
+    width: '100%',
+  },
 }));
 
 const HomePage: React.FC = () => {
@@ -54,7 +57,7 @@ const HomePage: React.FC = () => {
               <Typography variant="h4">{user.displayName}</Typography>
             </Grid>
           </Grid>
-          <Grid item>
+          <Grid item className={classes.headerItem}>
             <DateCarousel />
           </Grid>
           <Grid item>
