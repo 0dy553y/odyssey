@@ -115,25 +115,28 @@ const ExplorePage: React.FC = () => {
         </StyledTabs>
         <Box sx={{ p: 3 }} />
       </Box>
-      <ul>
-        {challenges
-          .filter((challenge) => challenge.categoryId == category.id)
-          .map((challenge) => (
-            <li key={challenge.id}>
-              <Link
-                to={{
-                  pathname: `${CATEGORY_ROUTE}/${category.id}/${challenge.id}`,
-                }}
-                style={{ textDecoration: 'none' }}
-              >
-                <CategoryListItem
-                  name={challenge.name}
-                  duration={challenge.duration}
-                />
-              </Link>
-            </li>
-          ))}
-      </ul>
+      <Box sx={{ padding: '0 1.5em 0 1.5em' }}>
+        <ul>
+          {challenges
+            .filter((challenge) => challenge.categoryId == category.id)
+            .map((challenge) => (
+              <li key={challenge.id}>
+                <Link
+                  to={{
+                    pathname: `${CATEGORY_ROUTE}/${category.id}/${challenge.id}`,
+                    state: { challenge: challenge },
+                  }}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <CategoryListItem
+                    name={challenge.name}
+                    duration={challenge.duration}
+                  />
+                </Link>
+              </li>
+            ))}
+        </ul>
+      </Box>
     </Box>
   );
 };
