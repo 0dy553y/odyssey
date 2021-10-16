@@ -13,7 +13,6 @@ import {
   Theme,
   Typography,
 } from '@mui/material';
-import { sub } from 'date-fns';
 import { DayOfWeek } from 'types/date';
 import { UserTaskListData } from 'types/usertasks';
 
