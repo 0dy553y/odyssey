@@ -9,6 +9,7 @@ import { makeStyles } from '@mui/styles';
 import { getUser } from '../../store/auth/selectors';
 import { useHistory } from 'react-router-dom';
 import { LOGIN_ROUTE } from '../../routing/routes';
+import DateCarousel from '../../components/home/DateCarousel';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -52,6 +53,9 @@ const HomePage: React.FC = () => {
             <Grid item>
               <Typography variant="h4">{user.displayName}</Typography>
             </Grid>
+          </Grid>
+          <Grid item>
+            <DateCarousel />
           </Grid>
           <Grid item>
             <Typography variant="h5">Your Tasks</Typography>
