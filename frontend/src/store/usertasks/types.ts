@@ -14,17 +14,8 @@ export interface SaveUserTaskListAction {
   userTaskList: UserTaskListData[];
 }
 
-export interface SaveUserTaskListForChallengeAction {
-  type: typeof SAVE_USER_TASK_LIST_FOR_CHALLENGE;
-  challengeId: number;
-  userTaskList: UserTaskListData[];
-}
-
-export type UserTaskActions =
-  | SaveUserTaskListAction
-  | SaveUserTaskListForChallengeAction;
+export type UserTaskActions = SaveUserTaskListAction;
 
 export interface UserTasksState {
   tasksByDay: Record<string, UserTaskListData[]>;
-  tasksByChallenge: Record<number, UserTaskListData[]>;
 }

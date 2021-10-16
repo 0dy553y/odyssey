@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :challenges, through: :user_challenges
   has_many :user_tasks, dependent: :destroy
   has_many :tasks, through: :user_tasks
+  has_many :created_challenges, class_name: 'Challenge',
+                                foreign_key: :creator_id, inverse_of: :creator, dependent: :nullify
   has_one_attached :avatar
 
   validates :email, uniqueness: { case_sensitive: false, if: -> { provider == 'email' } }

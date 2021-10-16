@@ -31,8 +31,8 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
   const completion: Record<number, boolean> = {};
   let earliestUncompletedIndex = -1;
   userTasks?.map((t: UserTaskListData) => {
-    completion[t.id] = t.isCompleted;
-    if (!t.isCompleted && earliestUncompletedIndex === -1) {
+    completion[t.id] = !!t.completedAt;
+    if (!t.completedAt && earliestUncompletedIndex === -1) {
       earliestUncompletedIndex = t.id;
     }
   });
