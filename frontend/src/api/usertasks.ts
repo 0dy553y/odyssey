@@ -1,6 +1,6 @@
-import BaseAPI from './base';
 import { ApiPromise } from '../types/api';
 import { UserTaskListData } from '../types/usertasks';
+import BaseAPI from './base';
 
 class UserTasksAPI extends BaseAPI {
   protected static getUserTasksUrl(): string {
@@ -13,6 +13,7 @@ class UserTasksAPI extends BaseAPI {
     );
   }
 
+  // TODO: migrate this to userchallenge api
   public getUserTaskListForChallenge(
     challengeId: number
   ): ApiPromise<UserTaskListData[]> {
