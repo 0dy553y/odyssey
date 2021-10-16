@@ -2,6 +2,7 @@ import AuthAPI from './auth';
 import CategoriesAPI from './categories';
 import ChallengesAPI from './challenges';
 import TasksAPI from './tasks';
+import UserChallengesAPI from './userchallenge';
 import UserTasksAPI from './usertasks';
 
 const api = Object.freeze({
@@ -10,6 +11,7 @@ const api = Object.freeze({
   challenges: new ChallengesAPI(),
   tasks: new TasksAPI(),
   userTasks: new UserTasksAPI(),
+  userChallenges: new UserChallengesAPI();
 });
 
 export default api;
