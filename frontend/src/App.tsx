@@ -60,40 +60,42 @@ function App(): JSX.Element {
           },
         }}
       />
-      <Switch>
-        {isValidatingToken ? (
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            minHeight="100vh"
-          >
-            <CircularProgress />
-          </Box>
-        ) : (
-          <>
-            {publicRoutes.map((route: RouteEntry) => (
-              <Route key={route.path} {...route} />
-            ))}
+      <div className="App-content-container">
+        <Switch>
+          {isValidatingToken ? (
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              minHeight="100vh"
+            >
+              <CircularProgress />
+            </Box>
+          ) : (
+            <>
+              {publicRoutes.map((route: RouteEntry) => (
+                <Route key={route.path} {...route} />
+              ))}
 
-            {notAuthenticatedRoutes.map((route: RouteEntry) => (
-              <RouteWithRedirect
-                key={route.path}
-                {...route}
-                {...defaultNotAuthenticatedRouteProps}
-              />
-            ))}
+              {notAuthenticatedRoutes.map((route: RouteEntry) => (
+                <RouteWithRedirect
+                  key={route.path}
+                  {...route}
+                  {...defaultNotAuthenticatedRouteProps}
+                />
+              ))}
 
-            {privateRoutes.map((route: RouteEntry) => (
-              <RouteWithRedirect
-                key={route.path}
-                {...route}
-                {...defaultPrivateRouteProps}
-              />
-            ))}
-          </>
-        )}
-      </Switch>
+              {privateRoutes.map((route: RouteEntry) => (
+                <RouteWithRedirect
+                  key={route.path}
+                  {...route}
+                  {...defaultPrivateRouteProps}
+                />
+              ))}
+            </>
+          )}
+        </Switch>
+      </div>
       {!notAuthenticatedRoutes
         .map((route: RouteEntry) => route.path)
         .includes(location.pathname) && <BottomNavigationBar />}
