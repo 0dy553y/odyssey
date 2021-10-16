@@ -3,7 +3,6 @@ export interface UserTaskListData {
   name: string;
   challengeName: string;
   description: string;
-  isCompleted: boolean; // TODO: remove this
   completedAt: Date;
   index: number;
 }

@@ -26,6 +26,8 @@ import { loadUserTasksForChallenge } from 'store/usertasks/operations';
 import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
 import { getUserTaskListForChallenge } from 'store/usertasks/selectors';
+import { loadOngoingUserChallengeDataForChallenge } from 'store/userchallenges/operations';
+import { getOngoingUserChallengeData } from 'store/userchallenges/selectors';
 
 export interface ChallengeDetailsPageProps {
   challenge: ChallengeData;
@@ -85,7 +87,7 @@ const ChallengeDetailsPage: React.FC = () => {
   useEffect(() => {
     dispatch(loadChallenge(Number(challengeId)));
     dispatch(loadAllTasks(Number(challengeId)));
-    dispatch(loadUserTasksForChallenge(Number(challengeId)));
+    dispatch(loadOngoingUserChallengeDataForChallenge(Number(challengeId)));
   }, []);
 
   const { challengeId } = useParams<{ challengeId: string }>();
@@ -99,10 +101,9 @@ const ChallengeDetailsPage: React.FC = () => {
     getTaskList(state, Number(challengeId))
   )!;
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const userTasks = useSelector((state: RootState) =>
-    getUserTaskListForChallenge(state, Number(challengeId))
-  )!;
+  const userChallenge = useSelector((state: RootState) =>
+    getOngoingUserChallengeData(state, Number(challengeId))
+  );
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [currentTabItem, setCurrentTabItem] = useState<TabItem>(
@@ -132,16 +133,24 @@ const ChallengeDetailsPage: React.FC = () => {
   );
 
   const Status = () =>
-    userTasks !== null ? (
+    !!userChallenge ? (
       <Typography>🔥 ONGOING</Typography>
     ) : (
       <Typography>👻 UNENROLLED</Typography>
     );
 
   const tabPanelRenderer = (tabItem: TabItem) => {
+    if (!userChallenge) {
+      return <Skeleton />;
+    }
     switch (tabItem) {
       case TabItem.Milestones:
-        return <ChallengeMilestones tasks={tasks} userTasks={userTasks} />;
+        return (
+          <ChallengeMilestones
+            tasks={tasks}
+            userTasks={userChallenge.userTasks}
+          />
+        );
       case TabItem.YourStats:
         // let percentCompleted = 0;
         // if (latestCompletedTask) {
@@ -155,7 +164,7 @@ const ChallengeDetailsPage: React.FC = () => {
             percentCompleted={75}
             longestStreak={12}
             currentStreak={4}
-            completedTasks={userTasks.filter(
+            completedTasks={userChallenge.userTasks.filter(
               (userTask) => userTask.completedAt !== null
             )}
             totalNumberOfTasks={tasks.length}
