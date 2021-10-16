@@ -152,7 +152,7 @@ const ChallengeDetailsPage: React.FC = () => {
       case TabItem.YourStats:
         return (
           <UserChallengeStats
-            percentCompleted={75}
+            percentCompleted={userChallenge.percentCompleted}
             longestStreak={12}
             currentStreak={4}
             completedTasks={userChallenge.userTasks.filter(
