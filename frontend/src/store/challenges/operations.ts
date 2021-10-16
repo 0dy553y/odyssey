@@ -1,6 +1,7 @@
-import { ThunkDispatch } from 'redux-thunk';
-import { RootState } from '../index';
+import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { loadOngoingUserChallengeDataForChallenge } from 'store/userchallenges/operations';
 import api from '../../api';
 import {
   ChallengeData,
@@ -9,10 +10,9 @@ import {
   ChallengePutData,
   Schedule,
 } from '../../types/challenges';
-import { removeChallenge, saveChallenge, saveChallengeList } from './actions';
-import { batch } from 'react-redux';
 import { OperationResult } from '../../types/store';
-import { loadUserTasksForChallenge } from '../usertasks/operations';
+import { RootState } from '../index';
+import { removeChallenge, saveChallenge, saveChallengeList } from './actions';
 
 export function loadAllChallenges(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
@@ -36,7 +36,7 @@ export function joinChallenge(
 ): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     await api.challenges.joinChallenge(challengeId, recurringDays);
-    dispatch(loadUserTasksForChallenge(challengeId));
+    dispatch(loadOngoingUserChallengeDataForChallenge(challengeId));
   };
 }
 
