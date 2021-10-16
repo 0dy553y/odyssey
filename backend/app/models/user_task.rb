@@ -5,7 +5,7 @@ class UserTask < ApplicationRecord
   belongs_to :user_challenge
   belongs_to :task
 
-  def is_completed
+  def completed?
     completed_at.present?
   end
 end
