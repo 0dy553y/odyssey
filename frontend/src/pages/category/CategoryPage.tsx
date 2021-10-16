@@ -123,7 +123,6 @@ const ExplorePage: React.FC = () => {
               <Link
                 to={{
                   pathname: `${CATEGORY_ROUTE}/${category.id}/${challenge.id}`,
-                  state: { challenge: challenge },
                 }}
                 style={{ textDecoration: 'none' }}
               >

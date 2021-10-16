@@ -12,3 +12,10 @@ export function getUserTaskListForDay(
 ): UserTaskListData[] {
   return getLocalState(state).tasksByDay[date.toDateString()] ?? [];
 }
+
+export function getUserTaskListForChallenge(
+  state: RootState,
+  challengeId: number
+): UserTaskListData[] {
+  return getLocalState(state).tasksByChallenge[challengeId] ?? [];
+}

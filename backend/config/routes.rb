@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       end
       namespace :user_tasks do
         get 'tasks_for_day', to: 'tasks_for_day'
+        get 'tasks_for_challenge', to: 'tasks_for_challenge'
       end
     end
   end

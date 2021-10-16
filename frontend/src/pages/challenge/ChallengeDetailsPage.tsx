@@ -1,29 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import {
   AppBar,
+  Button,
   Box,
   Typography,
   SwipeableDrawer,
-  Tabs,
+  Skeleton,
   Tab,
   IconButton,
   Toolbar,
   Paper,
 } from '@mui/material';
+import { TabPanel, TabContext, TabList } from '@mui/lab';
 import { ChevronLeft, MoreVert } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
-import { ChallengeData, UserChallengeData } from '../../types/challenges';
-import { useHistory, useParams, useLocation } from 'react-router-dom';
+import { ChallengeData } from '../../types/challenges';
+import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
-
+import UserChallengeStats from './UserChallengeStats';
 import ChallengeMilestones from './ChallengeMilestones';
+import { loadChallenge } from 'store/challenges/operations';
 import { loadAllTasks } from 'store/tasks/operations';
+import { loadUserTasksForChallenge } from 'store/usertasks/operations';
+import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
+import { getUserTaskListForChallenge } from 'store/usertasks/selectors';
 
 export interface ChallengeDetailsPageProps {
   challenge: ChallengeData;
-  attempt: UserChallengeData;
 }
 
 const useStyles = makeStyles(() => ({
@@ -55,48 +60,69 @@ const useStyles = makeStyles(() => ({
     left: 0,
   },
   puller: {
-    width: 30,
+    width: 90,
     height: 6,
-    backgroundColor: 'grey[300]',
+    backgroundColor: 'black',
     borderRadius: 3,
     position: 'absolute',
-    left: 'calc(50% - 15px)',
+    left: 'calc(50% - 45px)',
+    top: '-10px',
   },
 }));
 
+enum TabItem {
+  Milestones = 'Milestones',
+  YourStats = 'Your Stats',
+  Community = 'Community',
+}
+
 const ChallengeDetailsPage: React.FC = () => {
-  const { challenge, attempt } = useLocation()
-    .state as ChallengeDetailsPageProps;
   const classes = useStyles();
   const history = useHistory();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(loadChallenge(Number(challengeId)));
     dispatch(loadAllTasks(Number(challengeId)));
+    dispatch(loadUserTasksForChallenge(Number(challengeId)));
   }, []);
 
   const { challengeId } = useParams<{ challengeId: string }>();
+
+  const challenge = useSelector((state: RootState) =>
+    getChallenge(state, Number(challengeId))
+  );
+
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const tasks = useSelector((state: RootState) =>
     getTaskList(state, Number(challengeId))
   )!;
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const userTasks = useSelector((state: RootState) =>
+    getUserTaskListForChallenge(state, Number(challengeId))
+  )!;
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [currentTabItem, setCurrentTabItem] = useState<TabItem>(
+    TabItem.Milestones
+  );
 
   const peekDrawerHeight = 200;
 
   const Bar = () => (
     <AppBar position="static" className={classes.appbar}>
       <Toolbar>
-        <IconButton
-          edge="start"
+        <div
           onClick={() => {
             history.goBack();
           }}
         >
-          <ChevronLeft />
-        </IconButton>
+          <IconButton edge="start">
+            <ChevronLeft />
+          </IconButton>
+        </div>
         <Box className={classes.spacer} />
         <IconButton>
           <MoreVert />
@@ -106,25 +132,43 @@ const ChallengeDetailsPage: React.FC = () => {
   );
 
   const Status = () =>
-    attempt === null ? (
+    userTasks !== null ? (
       <Typography>🔥 ONGOING</Typography>
     ) : (
       <Typography>👻 UNENROLLED</Typography>
     );
 
-  console.log(challenge);
-  console.log(tasks);
-  console.log(attempt);
+  const tabPanelRenderer = (tabItem: TabItem) => {
+    switch (tabItem) {
+      case TabItem.Milestones:
+        return <ChallengeMilestones tasks={tasks} userTasks={userTasks} />;
+      case TabItem.YourStats:
+        return <UserChallengeStats />;
+      case TabItem.Community:
+        return <div>community</div>;
+      default:
+        throw new Error('Unknown tab item!');
+    }
+  };
+
+  if (!challenge) {
+    return <Skeleton />;
+  }
 
   return (
     <Paper className={classes.paper} sx={{ backgroundColor: challenge.color }}>
-      <Box>
-        <Bar />
+      <Bar />
+      <Box sx={{ marginLeft: '28px' }}>
         <Status />
-        <Typography component="h1">{challenge.name}</Typography>
+        <Typography variant="h1">{challenge.name}</Typography>
+        <Typography>
+          {challenge.duration} days {challenge.createdBy}
+        </Typography>
         <Typography>{challenge.description}</Typography>
         <Typography>Recommended schedule</Typography>
         <Typography>{challenge.schedule}</Typography>
+        <Button> Join Challenge!</Button>
+
         <SwipeableDrawer
           anchor="bottom"
           open={isDrawerOpen}
@@ -139,15 +183,28 @@ const ChallengeDetailsPage: React.FC = () => {
           keepMounted
           sx={{
             height: `calc(80% - ${peekDrawerHeight}px)`,
-            overflow: 'visible',
+            overflow: 'scroll',
           }}
         >
           <Box className={classes.peekDrawer} sx={{ top: -peekDrawerHeight }}>
-            <Box className={classes.puller} />;
-            <Tabs>
-              <Tab label={'Milestones'} />
-            </Tabs>
-            <ChallengeMilestones tasks={tasks} attempt={attempt} />
+            <Box className={classes.puller} />
+            <TabContext value={currentTabItem}>
+              <TabList
+                onChange={(_: React.SyntheticEvent, newValue: TabItem) => {
+                  setCurrentTabItem(newValue);
+                }}
+              >
+                {Object.values(TabItem).map((tabItem) => (
+                  <Tab key={tabItem} label={tabItem} value={tabItem} />
+                ))}
+              </TabList>
+
+              {Object.values(TabItem).map((tabItem) => (
+                <TabPanel key={tabItem} value={tabItem}>
+                  {tabPanelRenderer(tabItem)}
+                </TabPanel>
+              ))}
+            </TabContext>
           </Box>
         </SwipeableDrawer>
       </Box>

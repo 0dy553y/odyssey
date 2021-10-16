@@ -5,13 +5,11 @@ import Typography from '@mui/material/Typography';
 
 const useStyles = makeStyles(() => ({
   backgroundImage: {
-    flexShrink: 0,
     width: '100%',
     zIndex: -1,
     position: 'relative',
     objectFit: 'cover',
     objectPosition: '100% 30%',
-    display: 'block',
   },
   gradient: {
     display: 'inline-block',
@@ -19,9 +17,10 @@ const useStyles = makeStyles(() => ({
       'linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)',
   },
   overlayText: {
-    position: 'absolute',
-    display: 'block',
     color: 'white',
+    position: 'absolute',
+    top: 0,
+    left: 0,
     paddingTop: '6em',
     paddingLeft: '1em',
   },
@@ -46,16 +45,15 @@ const CategoryPreview: React.FC<CategoryPreviewProps> = (props) => {
         height: '14em',
         borderRadius: '2em',
         margin: '0 0 1em 0',
-        display: 'flex',
-        flexDirection: 'column',
+        position: 'relative',
         alignItems: 'center',
         overflow: 'hidden',
       }}
     >
+      <img src={headerImage.default} className={classes.backgroundImage} />
       <div className={classes.overlayText}>
         <Typography variant="h4">{heading}</Typography>
       </div>
-      <img src={headerImage.default} className={classes.backgroundImage} />
     </Box>
   );
 };

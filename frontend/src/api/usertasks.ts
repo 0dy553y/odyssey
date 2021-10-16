@@ -12,6 +12,14 @@ class UserTasksAPI extends BaseAPI {
       `${UserTasksAPI.getUserTasksUrl()}/tasks_for_day?date=${date.toISOString()}`
     );
   }
+
+  public getUserTaskListForChallenge(
+    challengeId: number
+  ): ApiPromise<UserTaskListData[]> {
+    return this.get(
+      `${UserTasksAPI.getUserTasksUrl()}/tasks_for_challenge?challenge_id=${challengeId}`
+    );
+  }
 }
 
 export default UserTasksAPI;
