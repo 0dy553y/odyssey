@@ -4,6 +4,8 @@ import UserTaskCard from './UserTaskCard';
 import Slider from 'react-slick';
 import { makeStyles } from '@mui/styles';
 
+import './UserTaskCarousel.scss';
+
 const useStyles = makeStyles(() => ({
   slider: {
     height: '100%',
