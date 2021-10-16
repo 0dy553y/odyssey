@@ -45,6 +45,6 @@ end
   task = Task.create(challenge_id: challenge_drinking.id, name: "Day #{i + 1}: Bling Blong",
                      description: description, index: i)
   UserTask.create(user_id: user_unclesoo.id, user_challenge_id: user_challenge_drinking.id, task_id: task.id,
-                  completed_at: i < 2.week.in_days ? 2.week.ago + i.days : nil,
+                  completed_at: i < 2.weeks.in_days ? 2.weeks.ago + i.days : nil,
                   scheduled_for: 2.weeks.ago + i.days)
 end

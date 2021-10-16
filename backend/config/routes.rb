@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       api_resources :challenges do
         api_resources :tasks
       end
-      
+
       namespace :user_tasks do
         get 'tasks_for_day', to: 'tasks_for_day'
       end
