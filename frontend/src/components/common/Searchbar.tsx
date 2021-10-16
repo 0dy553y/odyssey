@@ -3,6 +3,11 @@ import InputBase from '@mui/material/InputBase';
 import { styled, alpha } from '@mui/material/styles';
 import { ReactComponent as SearchIcon } from '../../assets/icons/search-icon.svg';
 
+interface SearchbarProps {
+  placeholder: string;
+  onChange: (e: string) => void;
+}
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: 40,
@@ -33,15 +38,22 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const Searchbar: React.FC = () => {
+const Searchbar: React.FC<SearchbarProps> = (props) => {
+  const { placeholder, onChange } = props;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  };
+
   return (
     <Search>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
-        placeholder="Search..."
+        placeholder={placeholder}
         inputProps={{ 'aria-label': 'search' }}
+        onChange={handleChange}
       />
     </Search>
   );

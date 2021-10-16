@@ -2,6 +2,7 @@ export interface ChallengeListData {
   id: number;
   name: string;
   duration: number;
+  categoryId: number;
 }
 
 export interface ChallengeData extends ChallengeListData {
@@ -9,6 +10,7 @@ export interface ChallengeData extends ChallengeListData {
   schedule: string;
   createdBy: string;
   color: ChallengeColor;
+  categoryId: number;
 }
 
 export interface ChallengePostData {

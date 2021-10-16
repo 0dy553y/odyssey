@@ -8,6 +8,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+user_odyssey = User.create(username: 'Odyssey', display_name: 'Odyssey', password: 'password')
+
 user_unclesoo = User.create(username: 'unclesoo', password: 'password')
 
 category_exercise = Category.create(title: 'Exercise')
@@ -18,12 +20,14 @@ challenge_running = Challenge.create(category_id: category_exercise.id, name: 'C
                                      It was developed by a new runner, Josh Clark, 
                                      who wanted to help his 50-something mum get off the couch and start running, too.', 
                                      schedule: '3 times a week, alternate days',
-                                     duration: 30, created_by: 'Josh Clark', color: 1)
+                                     duration: 30,
+                                     creator_id: user_odyssey.id,
+                                     color: 0)
 user_challenge_running = UserChallenge.create(user_id: user_unclesoo.id, challenge_id: challenge_running.id,
                                               started_at: 1.week.ago)
 challenge_drinking = Challenge.create(category_id: category_habits.id, name: 'Water Drinking',
                                       description: 'Get hydrated with Jialin', schedule: 'Daily', duration: 36_464_572,
-                                      created_by: 'Jialin', color: 1)
+                                      creator_id: user_odyssey.id, color: 1)
 user_challenge_drinking = UserChallenge.create(user_id: user_unclesoo.id, challenge_id: challenge_drinking.id,
                                                started_at: 2.weeks.ago)
 
