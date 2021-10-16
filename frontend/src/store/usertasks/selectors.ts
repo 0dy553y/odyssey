@@ -1,6 +1,6 @@
+import { UserTaskListData } from 'types/usertasks';
 import { RootState } from '../index';
 import { UserTasksState } from './types';
-import { UserTaskListData } from '../../types/usertasks';
 
 function getLocalState(state: RootState): UserTasksState {
   return state.userTasks;
@@ -18,4 +18,21 @@ export function getUserTaskListForChallenge(
   challengeId: number
 ): UserTaskListData[] {
   return getLocalState(state).tasksByChallenge[challengeId] ?? [];
+}
+
+export function getLatestCompletedTaskForChallenge(
+  state: RootState,
+  challengeId: number
+): UserTaskListData | null {
+  const completedUserTasks = getUserTaskListForChallenge(
+    state,
+    challengeId
+  ).filter((task) => task.isCompleted);
+
+  const numCompletedTasks = completedUserTasks.length;
+  if (numCompletedTasks === 0) {
+    return null;
+  }
+
+  return completedUserTasks[numCompletedTasks - 1];
 }

@@ -4,6 +4,7 @@ export interface UserTaskListData {
   challengeName: string;
   description: string;
   isCompleted: boolean;
+  index: number;
 }
 
 export type UserTaskData = UserTaskListData;

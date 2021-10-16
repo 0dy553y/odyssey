@@ -1,9 +1,9 @@
-import { OperationResult } from '../../types/store';
-import { ThunkDispatch } from 'redux-thunk';
-import { RootState } from '../index';
+import api from 'api';
 import { AnyAction } from 'redux';
-import api from '../../api';
-import { UserTaskListData } from '../../types/usertasks';
+import { ThunkDispatch } from 'redux-thunk';
+import { OperationResult } from 'types/store';
+import { UserTaskListData } from 'types/usertasks';
+import { RootState } from '../index';
 import { saveUserTaskList, saveUserTaskListForChallenge } from './actions';
 
 export function loadUserTasksForDay(date: Date): OperationResult {

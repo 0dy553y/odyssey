@@ -25,7 +25,10 @@ import { loadAllTasks } from 'store/tasks/operations';
 import { loadUserTasksForChallenge } from 'store/usertasks/operations';
 import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
-import { getUserTaskListForChallenge } from 'store/usertasks/selectors';
+import {
+  getLatestCompletedTaskForChallenge,
+  getUserTaskListForChallenge,
+} from 'store/usertasks/selectors';
 
 export interface ChallengeDetailsPageProps {
   challenge: ChallengeData;
@@ -104,6 +107,10 @@ const ChallengeDetailsPage: React.FC = () => {
     getUserTaskListForChallenge(state, Number(challengeId))
   )!;
 
+  const latestCompletedTask = useSelector((state: RootState) =>
+    getLatestCompletedTaskForChallenge(state, Number(challengeId))
+  );
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [currentTabItem, setCurrentTabItem] = useState<TabItem>(
     TabItem.Milestones
@@ -143,7 +150,20 @@ const ChallengeDetailsPage: React.FC = () => {
       case TabItem.Milestones:
         return <ChallengeMilestones tasks={tasks} userTasks={userTasks} />;
       case TabItem.YourStats:
-        return <UserChallengeStats />;
+        let percentCompleted = 0;
+        if (latestCompletedTask) {
+          // Add one because tasks are zero-indexed
+          percentCompleted =
+            ((latestCompletedTask.index + 1) / tasks.length) * 100;
+        }
+
+        return (
+          <UserChallengeStats
+            percentCompleted={percentCompleted}
+            longestStreak={12}
+            currentStreak={4}
+          />
+        );
       case TabItem.Community:
         return <div>community</div>;
       default:
