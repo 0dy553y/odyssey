@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, IconButton, Stack, Typography } from '@mui/material';
 import { displayUsername } from 'utils/formatting';
 import { UserData } from 'types/auth';
-import UserAvatar from 'components/userAvatar';
+import UserAvatar from 'components/common/userAvatar';
 
 import './ProfileHeader.scss';
 
@@ -31,7 +31,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
         </Typography>
       )}
 
-      <Typography component="h2" variant="h5" gutterBottom>
+      <Typography component="h2" variant="h6" className="username" gutterBottom>
         {displayUsername(user.username)}
       </Typography>
 

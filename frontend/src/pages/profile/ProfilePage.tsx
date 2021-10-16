@@ -43,7 +43,7 @@ const useStyles = makeStyles<Theme, ProfilePageProps>((theme) =>
     profileHeaderContainer: {
       justifyContent: 'center',
       textAlign: 'center',
-      background: 'black',
+      background: '#1C1C1C',
       paddingBottom: theme.spacing(3),
       position: 'relative',
       borderRadius: '0 0 2em 2em',
