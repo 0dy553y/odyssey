@@ -1,10 +1,5 @@
 import { UserTaskListData } from '../../types/usertasks';
-import {
-  SAVE_USER_TASK_LIST_FOR_DAY,
-  SAVE_USER_TASK_LIST_FOR_CHALLENGE,
-  SaveUserTaskListAction,
-  SaveUserTaskListForChallengeAction,
-} from './types';
+import { SaveUserTaskListAction, SAVE_USER_TASK_LIST_FOR_DAY } from './types';
 
 export function saveUserTaskList(
   date: Date,
@@ -13,17 +8,6 @@ export function saveUserTaskList(
   return {
     type: SAVE_USER_TASK_LIST_FOR_DAY,
     date,
-    userTaskList,
-  };
-}
-
-export function saveUserTaskListForChallenge(
-  challengeId: number,
-  userTaskList: UserTaskListData[]
-): SaveUserTaskListForChallengeAction {
-  return {
-    type: SAVE_USER_TASK_LIST_FOR_CHALLENGE,
-    challengeId,
     userTaskList,
   };
 }

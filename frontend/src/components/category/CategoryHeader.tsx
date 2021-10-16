@@ -47,7 +47,7 @@ const CategoryHeader: React.FC<CategoryHeaderProps> = (props) => {
         position: 'relative',
         borderRadius: '0 0 5vh 5vh',
         margin: '0 -50vw 1em -50vw',
-        maxWidth: '100vw',
+        minWidth: '100vw',
         maxHeight: '55vh',
         left: '50%',
         right: '50%',

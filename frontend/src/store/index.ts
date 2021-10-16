@@ -16,8 +16,10 @@ import snackbarsReducer from './snackbars/reducer';
 import { SnackbarsState } from './snackbars/types';
 import tasksReducer from './tasks/reducer';
 import { TasksState } from './tasks/types';
-import { UserTasksState } from './usertasks/types';
+import userChallengesReducer from './userchallenges/reducer';
+import { UserChallengesState } from './userchallenges/types';
 import userTasksReducer from './usertasks/reducer';
+import { UserTasksState } from './usertasks/types';
 
 export interface RootState {
   auth: AuthState;
@@ -26,6 +28,7 @@ export interface RootState {
   snackbars: SnackbarsState;
   tasks: TasksState;
   userTasks: UserTasksState;
+  userChallenges: UserChallengesState;
 }
 
 export const rootReducer = combineReducers({
@@ -35,6 +38,7 @@ export const rootReducer = combineReducers({
   snackbars: snackbarsReducer,
   tasks: tasksReducer,
   userTasks: userTasksReducer,
+  userChallenges: userChallengesReducer,
 });
 
 const storeEnhancer = applyMiddleware(thunk);

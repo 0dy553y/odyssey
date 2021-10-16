@@ -63,7 +63,12 @@ const EditProfilePage: React.FC = () => {
         Edit Profile
       </Typography>
 
-      <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
+      <Box
+        component="form"
+        noValidate
+        onSubmit={onSubmit}
+        sx={{ mt: 1, padding: '0 1.5em 0 1.5em' }}
+      >
         <Grid container>
           <Grid item xs={12}>
             <Container className="avatar-container">
