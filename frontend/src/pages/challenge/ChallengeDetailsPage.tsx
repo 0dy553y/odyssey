@@ -139,18 +139,18 @@ const ChallengeDetailsPage: React.FC = () => {
     );
 
   const tabPanelRenderer = (tabItem: TabItem) => {
-    if (!userChallenge) {
-      return <Skeleton />;
-    }
     switch (tabItem) {
       case TabItem.Milestones:
         return (
           <ChallengeMilestones
             tasks={tasks}
-            userTasks={userChallenge.userTasks}
+            userTasks={userChallenge?.userTasks ?? []}
           />
         );
       case TabItem.YourStats:
+        if (!userChallenge) {
+          return <Skeleton />;
+        }
         return (
           <UserChallengeStats
             percentCompleted={userChallenge.percentCompleted}
