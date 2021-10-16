@@ -12,7 +12,7 @@ import {
   Theme,
   Toolbar,
 } from '@mui/material';
-import { createStyles, makeStyles } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 import ProfileHeader from './ProfileHeader';
 import ActivityMap, { ActivityMapDataPoint } from './ActivityMap';
 import UserStats from './UserStats';
@@ -23,6 +23,7 @@ import { useHistory } from 'react-router-dom';
 import { Duration } from 'date-fns';
 import { EDIT_PROFILE_ROUTE, FRIENDS_ROUTE } from 'routing/routes';
 import { logout } from 'store/auth/operations';
+import useScrollbarSize from 'react-scrollbar-size';
 
 interface ProfilePageProps {
   userProfileItems: { label: string; count: number; onClick?: () => void }[];
@@ -33,28 +34,32 @@ interface ProfilePageProps {
   activityMapData: ActivityMapDataPoint[];
 }
 
-const useStyles = makeStyles<Theme, ProfilePageProps>((theme) =>
-  createStyles({
-    profilePageContainer: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: theme.spacing(2),
-    },
-    profileHeaderContainer: {
-      justifyContent: 'center',
-      textAlign: 'center',
-      background: 'black',
-      paddingBottom: theme.spacing(3),
-      position: 'relative',
-      borderRadius: '0 0 2em 2em',
-      margin: '0 -50vw 1em -50vw',
-      maxWidth: '100vw',
-      left: '50%',
-      right: '50%',
-      width: '100vw',
-    },
-  })
-);
+export interface StyleProps {
+  scrollbarWidth: number;
+}
+
+const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
+  profilePageContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+  },
+  profileHeaderContainer: {
+    justifyContent: 'center',
+    textAlign: 'center',
+    background: 'black',
+    paddingBottom: theme.spacing(3),
+    position: 'relative',
+    borderRadius: '0 0 2em 2em',
+    margin: (props) =>
+      `0 calc(-50vw + ${props.scrollbarWidth / 2}px) 1em calc(-50vw + ${
+        props.scrollbarWidth / 2
+      }px)`,
+    left: '50%',
+    right: '50%',
+    width: (props) => `calc(100vw - ${props.scrollbarWidth}px)`,
+  },
+}));
 
 const ProfilePage: React.FC = () => {
   // TODO: replace these
@@ -119,7 +124,8 @@ const ProfilePage: React.FC = () => {
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const classes = useStyles(mockProps);
+  const { width } = useScrollbarSize();
+  const classes = useStyles({ scrollbarWidth: width });
 
   // user should never be undefined (assuming auth routing works)
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
