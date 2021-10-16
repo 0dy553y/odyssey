@@ -119,7 +119,7 @@ const ChallengeProgressChart: React.FC<ChallengeProgressChartProps> = ({
         />
         <Tooltip
           formatter={(percentage: number) => {
-            return [`${percentage}%`, 'Percentage'];
+            return [`${percentage.toFixed(1)}%`, 'Percentage'];
           }}
           labelFormatter={(timestamp: number) =>
             displayDate(new Date(timestamp))

@@ -27,7 +27,7 @@ interface Props {
 const UserTaskCard: React.FC<Props> = ({ userTask }: Props) => {
   const classes = useStyles();
 
-  const status = userTask.isCompleted ? '🎉 Completed!' : '🔥 Ongoing';
+  const status = !!userTask.completedAt ? '🎉 Completed!' : '🔥 Ongoing';
 
   return (
     <Card className={classes.card}>
