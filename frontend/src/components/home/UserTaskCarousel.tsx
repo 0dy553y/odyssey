@@ -7,10 +7,6 @@ import { makeStyles } from '@mui/styles';
 import './UserTaskCarousel.scss';
 
 const useStyles = makeStyles(() => ({
-  slider: {
-    height: '100%',
-    width: '100%',
-  },
   sliderItem: {
     height: '100%',
     paddingTop: 20,
@@ -28,12 +24,7 @@ const UserTaskCarousel: React.FC<Props> = ({ userTaskList }: Props) => {
   const classes = useStyles();
 
   return (
-    <Slider
-      arrows={false}
-      centerMode
-      infinite={false}
-      className={classes.slider}
-    >
+    <Slider arrows={false} centerMode infinite={false} className="task-slider">
       {userTaskList.map((userTask: UserTaskListData) => (
         <div key={userTask.id} className={classes.sliderItem}>
           <UserTaskCard userTask={userTask} />

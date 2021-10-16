@@ -1,11 +1,15 @@
-.slick-slider .slick-list {
+.task-slider {
   height: 100%;
 }
 
-.slick-list .slick-track {
+.task-slider .slick-list {
   height: 100%;
 }
 
-.slick-slide > div {
+.task-slider .slick-track {
+  height: 100%;
+}
+
+.task-slider .slick-slide > div {
   height: 100%;
 }
