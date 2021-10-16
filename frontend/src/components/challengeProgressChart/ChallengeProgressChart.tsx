@@ -52,6 +52,20 @@ const ChallengeProgressChart: React.FC<ChallengeProgressChartProps> = ({
 }) => {
   const isChallengeCompleted = data.length === totalNumberOfTasks;
 
+  const defaultStyles = {
+    color: '#8884d8',
+    maxOpacity: 0.8,
+    minOpacity: 0,
+    minOffset: '5%',
+    maxOffset: '95%',
+    areaDotStyles: {
+      stroke: 'black',
+      strokeWidth: 1,
+    },
+  };
+
+  const gradientId = 'progress-chart-area-gradient';
+
   return (
     <ResponsiveContainer
       width="100%"
@@ -68,19 +82,17 @@ const ChallengeProgressChart: React.FC<ChallengeProgressChartProps> = ({
         }}
       >
         <defs>
-          <linearGradient
-            id="progress-chart-area-gradient"
-            x1="0"
-            y1="0"
-            x2="0"
-            y2="1"
-          >
+          <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
             <stop
-              offset="5%"
-              stopColor={color ?? '#8884d8'}
-              stopOpacity={0.8}
+              offset={defaultStyles.minOffset}
+              stopColor={color ?? defaultStyles.color}
+              stopOpacity={defaultStyles.maxOpacity}
             />
-            <stop offset="95%" stopColor={color ?? '#8884d8'} stopOpacity={0} />
+            <stop
+              offset={defaultStyles.maxOffset}
+              stopColor={color ?? defaultStyles.color}
+              stopOpacity={defaultStyles.minOpacity}
+            />
           </linearGradient>
         </defs>
 
@@ -115,11 +127,11 @@ const ChallengeProgressChart: React.FC<ChallengeProgressChartProps> = ({
         />
         <Area
           type="monotone"
-          dot={{ stroke: 'black', strokeWidth: 1 }}
+          dot={defaultStyles.areaDotStyles}
           dataKey="percentage"
-          stroke={color ?? '#8884d8'}
+          stroke={color ?? defaultStyles.color}
           fillOpacity={1}
-          fill="url(#progress-chart-area-gradient)"
+          fill={`url(#${gradientId})`}
         />
       </AreaChart>
     </ResponsiveContainer>
