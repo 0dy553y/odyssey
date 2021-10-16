@@ -23,8 +23,8 @@ Rails.application.routes.draw do
         get 'tasks_for_challenge', to: 'tasks_for_challenge'
       end
 
-      namespace :user_challenge do
-        get 'user_stats', to: 'user_challenge_stats'
+      namespace :user_challenges do
+        get 'latest_user_challenge', to: 'latest_user_challenge'
       end
     end
   end
