@@ -11,12 +11,12 @@ import {
   TimelineDot,
 } from '@mui/lab';
 import { makeStyles } from '@mui/styles';
-import { UserChallengeData } from '../../types/challenges';
 import { TaskListData } from '../../types/tasks';
+import { UserTaskListData } from '../../types/usertasks';
 
 interface ChallengeMilestonesProps {
   tasks: TaskListData[];
-  attempt: UserChallengeData | null;
+  userTasks: UserTaskListData[] | null;
 }
 
 const useStyles = makeStyles(() => ({
@@ -25,10 +25,17 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
-  const { tasks, attempt } = props;
+  const { tasks, userTasks } = props;
   const classes = useStyles();
 
-  console.log(tasks);
+  const completion: Record<number, boolean> = {};
+  let earliestUncompletedIndex = -1;
+  userTasks?.map((t: UserTaskListData) => {
+    completion[t.id] = t.isCompleted;
+    if (!t.isCompleted && earliestUncompletedIndex === -1) {
+      earliestUncompletedIndex = t.id;
+    }
+  });
 
   return (
     <Box>
@@ -38,10 +45,10 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
             <TimelineOppositeContent className={classes.opposite} />
             <TimelineSeparator>
               <TimelineDot>
-                {attempt === null || t.id > 1 ? (
+                {userTasks === null || !completion[t.id] ? (
                   // Unenrolled, or tasks in the future.
                   <Circle />
-                ) : t.id === 1 ? (
+                ) : t.id === earliestUncompletedIndex ? (
                   // Earliest uncompleted task.
                   <Checkbox
                     icon={<RadioButtonUnchecked />}
@@ -49,7 +56,7 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
                     className={classes.checkbox}
                   />
                 ) : (
-                  // Have completed.
+                  // Have completed. Shows a tick.
                   <CheckCircle />
                 )}
               </TimelineDot>
@@ -61,9 +68,7 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
               )}
             </TimelineSeparator>
             <TimelineContent>
-              <Typography>
-                Day {t.index}: {t.name}
-              </Typography>
+              <Typography>{t.name}</Typography>
               <Typography>{t.description} </Typography>
             </TimelineContent>
           </TimelineItem>

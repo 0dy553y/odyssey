@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, CircularProgress, Container, CssBaseline } from '@mui/material';
+import { Box, CircularProgress, Container } from '@mui/material';
 import { Global } from '@emotion/react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import {
@@ -51,7 +51,6 @@ function App(): JSX.Element {
 
   return (
     <Container className="App" component="main" disableGutters maxWidth="xs">
-      <CssBaseline />
       <ScrollToTop />
       <Notifier />
       <Global
@@ -62,40 +61,42 @@ function App(): JSX.Element {
           },
         }}
       />
-      <Switch>
-        {isValidatingToken ? (
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            minHeight="100vh"
-          >
-            <CircularProgress />
-          </Box>
-        ) : (
-          <>
-            {publicRoutes.map((route: RouteEntry) => (
-              <Route key={route.path} {...route} />
-            ))}
+      <div className="App-content-container">
+        <Switch>
+          {isValidatingToken ? (
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              minHeight="100vh"
+            >
+              <CircularProgress />
+            </Box>
+          ) : (
+            <>
+              {publicRoutes.map((route: RouteEntry) => (
+                <Route key={route.path} {...route} />
+              ))}
 
-            {notAuthenticatedRoutes.map((route: RouteEntry) => (
-              <RouteWithRedirect
-                key={route.path}
-                {...route}
-                {...defaultNotAuthenticatedRouteProps}
-              />
-            ))}
+              {notAuthenticatedRoutes.map((route: RouteEntry) => (
+                <RouteWithRedirect
+                  key={route.path}
+                  {...route}
+                  {...defaultNotAuthenticatedRouteProps}
+                />
+              ))}
 
-            {privateRoutes.map((route: RouteEntry) => (
-              <RouteWithRedirect
-                key={route.path}
-                {...route}
-                {...defaultPrivateRouteProps}
-              />
-            ))}
-          </>
-        )}
-      </Switch>
+              {privateRoutes.map((route: RouteEntry) => (
+                <RouteWithRedirect
+                  key={route.path}
+                  {...route}
+                  {...defaultPrivateRouteProps}
+                />
+              ))}
+            </>
+          )}
+        </Switch>
+      </div>
       {!notAuthenticatedRoutes
         .map((route: RouteEntry) => route.path)
         .includes(location.pathname) && <BottomNavigationBar />}
