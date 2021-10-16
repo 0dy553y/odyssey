@@ -21,8 +21,6 @@ import './UserChallengeStats.scss';
 
 interface UserChallengeStatsProps {
   percentCompleted: number;
-  currentStreak: number;
-  longestStreak: number;
   completedTasks: UserTaskListData[];
   totalNumberOfTasks: number;
 }
@@ -31,8 +29,6 @@ const mockChallengeEnrolledDate = sub(new Date(), { months: 1 });
 
 const UserChallengeStats: React.FC<UserChallengeStatsProps> = ({
   percentCompleted,
-  currentStreak,
-  longestStreak,
   completedTasks,
   totalNumberOfTasks,
 }) => {
@@ -105,13 +101,6 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = ({
               'complete',
               'big-label'
             )}
-          </Stack>
-        </Grid>
-
-        <Grid item xs={6}>
-          <Stack>
-            {statsLabel(`${currentStreak}`, 'days in a row')}
-            {statsLabel(`${longestStreak}`, 'longest streak')}
           </Stack>
         </Grid>
       </Grid>
