@@ -9,6 +9,41 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.find(params.require(:id))
   end
 
+  def join
+    schedule = params[:schedule]
+    challenge_id = params[:id]
+    my_id = current_user.id
+    now = DateTime.now
+    ActiveRecord::Base.transaction do
+      @user_challenge = UserChallenge.new(
+        user_id: my_id,
+        challenge_id: challenge_id,
+        created_at: now,
+        updated_at: now
+      )
+      @user_challenge.save!
+
+      @tasks = Task.where(challenge_id: challenge_id)
+
+      schedule_date_pointer = now
+      @tasks.each do |task|
+        # find next available time in schedule
+        schedule_date_pointer += 1.day until schedule[schedule_date_pointer.wday - 1]
+        
+        @user_task = UserTask.new(
+          user_id: my_id,
+          user_challenge_id: @user_challenge.id,
+          task_id: task.id,
+          scheduled_for: schedule_date_pointer
+        )
+        @user_task.save!
+        schedule_date_pointer += 1.day
+      end
+    end
+
+    render 'layouts/empty', status: :ok
+  end
+
   def create
     @challenge = Challenge.new(challenge_params)
     @challenge.save!

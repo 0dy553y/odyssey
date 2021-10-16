@@ -7,10 +7,12 @@ import {
   ChallengeListData,
   ChallengePostData,
   ChallengePutData,
+  Schedule,
 } from '../../types/challenges';
 import { removeChallenge, saveChallenge, saveChallengeList } from './actions';
 import { batch } from 'react-redux';
 import { OperationResult } from '../../types/store';
+import { loadUserTasksForChallenge } from '../usertasks/operations';
 
 export function loadAllChallenges(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
@@ -25,6 +27,16 @@ export function loadChallenge(challengeId: number): OperationResult {
     const response = await api.challenges.getChallenge(challengeId);
     const challenge: ChallengeData = response.payload.data;
     dispatch(saveChallenge(challenge));
+  };
+}
+
+export function joinChallenge(
+  challengeId: number,
+  recurringDays: Schedule
+): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    await api.challenges.joinChallenge(challengeId, recurringDays);
+    dispatch(loadUserTasksForChallenge(challengeId));
   };
 }
 
