@@ -17,10 +17,11 @@ interface ChallengeSummariesProps {
 const useStyles = makeStyles<Theme, ChallengeSummariesProps>((theme) =>
   createStyles({
     challengeSummary: {
-      background: '#1e2568',
+      background: '#4068a3',
       borderRadius: '2em',
       padding: theme.spacing(2),
       marginBottom: theme.spacing(3),
+      color: 'white',
     },
     challengeSummaryLabel: {
       fontWeight: theme.typography.fontWeightBold,

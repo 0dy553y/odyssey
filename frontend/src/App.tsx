@@ -49,7 +49,7 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <Container className="App" component="main" disableGutters>
+    <Container className="App" component="main" disableGutters maxWidth="xs">
       <ScrollToTop />
       <Notifier />
       <Global

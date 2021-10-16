@@ -13,12 +13,14 @@ import {
   Toolbar,
 } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import ProfileHeader from './ProfileHeader';
-import ActivityMap, { ActivityMapDataPoint } from './ActivityMap';
-import UserStats from './UserStats';
+import ProfileHeader from '../../components/profile/ProfileHeader';
+import ActivityMap, {
+  ActivityMapDataPoint,
+} from '../../components/profile/ActivityMap';
+import UserStats from '../../components/profile/UserStats';
 import ChallengeSummaries, {
   ChallengeSummaryProps,
-} from './ChallengeSummaries';
+} from '../../components/profile/ChallengeSummaries';
 import { useHistory } from 'react-router-dom';
 import { Duration } from 'date-fns';
 import { EDIT_PROFILE_ROUTE, FRIENDS_ROUTE } from 'routing/routes';
