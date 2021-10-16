@@ -3,6 +3,8 @@ import { Grid, Stack, Theme, Typography } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import CircularProgressWithLabel from 'components/common/circularProgressWithLabel';
 
+import './ChallengeSummaries.scss';
+
 export interface ChallengeSummaryProps {
   id: number;
   percentage: number;
@@ -19,8 +21,8 @@ const useStyles = makeStyles<Theme, ChallengeSummariesProps>((theme) =>
     challengeSummary: {
       background: '#4068a3',
       borderRadius: '2em',
-      padding: theme.spacing(2),
-      marginBottom: theme.spacing(3),
+      padding: theme.spacing(3),
+      marginBottom: theme.spacing(2),
       color: 'white',
     },
     challengeSummaryLabel: {
@@ -46,13 +48,13 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
         <Stack direction="column" spacing={1} alignItems="flex-start">
           <Typography
             component="div"
-            variant="body1"
+            variant="h6"
             className={classes.challengeSummaryLabel}
           >
             {label}
           </Typography>
           <Typography component="div" variant="body1">
-            {remarks}
+            {remarks}hi
           </Typography>
         </Stack>
       </Stack>
@@ -67,8 +69,8 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
       justifyContent="center"
     >
       <Grid item xs={12}>
-        <Typography component="div" variant="h6">
-          Challenges
+        <Typography component="div" variant="h6" className="section-heading">
+          Ongoing challenges
         </Typography>
       </Grid>
       {challengeSummaries.map((summary) => (

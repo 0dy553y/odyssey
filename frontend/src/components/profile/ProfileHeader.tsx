@@ -43,7 +43,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
             sx={{ width: 1 / userProfileItems.length }}
             onClick={item.onClick}
           >
-            <Typography component="div" variant="body1">
+            <Typography component="div" variant="body1" className="hand-cursor">
               {item.count} <br />
               {item.label}
             </Typography>

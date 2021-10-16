@@ -21,9 +21,6 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     padding: '0 0 2em 0',
   },
-  temp: {
-    // backgroundColor: 'red',
-  },
   animateProgress: {
     transition: '4s ease',
     transitionDelay: '4s',
@@ -33,16 +30,17 @@ const useStyles = makeStyles(() => ({
 interface CategoryListProps {
   name: string;
   duration: number;
+  percentageComplete: number;
 }
 
 const CategoryListItem: React.FC<CategoryListProps> = (props) => {
   const classes = useStyles();
-  const { name, duration } = props;
+  const { name, duration, percentageComplete } = props;
 
   const [progress, setProgress] = React.useState(0);
 
   React.useEffect(() => {
-    setProgress(80);
+    setProgress(percentageComplete);
   }, []);
 
   return (
