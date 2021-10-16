@@ -12,10 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     transformOrigin: 'top left',
     backgroundColor: 'black',
     color: 'lightgray',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
+    borderRadius: '0 0 1.5em 1.5em',
     '&:hover': {
       backgroundColor: theme.palette.primary.main,
       color: 'white',
@@ -25,6 +22,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'wrap',
+    textTransform: 'none',
+    paddingRight: 3,
   },
   buttonIcon: {
     marginBottom: 2,
@@ -43,9 +42,7 @@ const FeedbackOverlay: React.FC = () => {
     <Button className={classes.button} href={feedbackLink} target="_blank">
       <div className={classes.buttonContent}>
         <SentimentVerySatisfiedIcon className={classes.buttonIcon} />
-        <Typography style={{ textTransform: 'none' }}>
-          Provide feedback
-        </Typography>
+        <Typography>Provide feedback</Typography>
       </div>
     </Button>
   );
