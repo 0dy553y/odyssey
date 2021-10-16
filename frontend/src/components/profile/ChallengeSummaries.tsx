@@ -86,7 +86,7 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
         justifyContent="center"
       >
         <Grid item xs={12}>
-          <Typography component="div" variant="h6" className="section-heading">
+          <Typography component="div" variant="h5" className="section-heading">
             Ongoing challenges
           </Typography>
           <ul>

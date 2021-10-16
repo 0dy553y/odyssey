@@ -12,7 +12,7 @@ import {
   Theme,
   Toolbar,
 } from '@mui/material';
-import { createStyles, makeStyles } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 import ProfileHeader from '../../components/profile/ProfileHeader';
 import ActivityMap, {
   ActivityMapDataPoint,

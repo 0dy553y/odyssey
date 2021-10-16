@@ -2,7 +2,6 @@ import React from 'react';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import { useHistory } from 'react-router-dom';
-import { UserData } from 'types/auth';
 
 const CompletedChallengesPage: React.FC = () => {
   const history = useHistory();
