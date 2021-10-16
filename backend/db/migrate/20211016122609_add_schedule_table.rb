@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddScheduleTable < ActiveRecord::Migration[6.1]
   def change
     create_table :schedules do |t|
@@ -9,9 +11,10 @@ class AddScheduleTable < ActiveRecord::Migration[6.1]
       t.boolean :saturday, default: false
       t.boolean :sunday, default: false
 
-      t.references :user_challenge, null: false
-
       t.timestamps
     end
+
+    add_reference :user_challenges, :schedule,
+                  foreign_key: { to_table: :schedules }, null: false
   end
 end

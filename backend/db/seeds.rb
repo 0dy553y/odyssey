@@ -33,7 +33,8 @@ challenge_drinking = Challenge.create(category_id: category_habits.id, name: 'Wa
                                       creator_id: user_odyssey.id, color: 1)
 user_challenge_drinking = UserChallenge.new(user_id: user_unclesoo.id, challenge_id: challenge_drinking.id,
                                                started_at: 2.weeks.ago)
-user_challenge_drinking.schedule = Schedule.new(monday: true, tuesday: true, wednesday: true, thursday: true, friday: true)
+user_challenge_drinking.schedule = Schedule.new(monday: true, tuesday: true, wednesday: true,
+                                                thursday: true, friday: true)
 user_challenge_drinking.save!
 
 30.times do |i|

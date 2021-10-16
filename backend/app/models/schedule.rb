@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
 class Schedule < ApplicationRecord
-  belongs_to :user_challenge
+   # has_one at the moment, though it can be changed to has_many if we really want to micro-optimize performance
+   has_one :user_challenge
 end

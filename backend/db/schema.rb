@@ -75,10 +75,8 @@ ActiveRecord::Schema.define(version: 2021_10_16_122609) do
     t.boolean "friday", default: false
     t.boolean "saturday", default: false
     t.boolean "sunday", default: false
-    t.bigint "user_challenge_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_challenge_id"], name: "index_schedules_on_user_challenge_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -100,7 +98,9 @@ ActiveRecord::Schema.define(version: 2021_10_16_122609) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "completed_at"
     t.datetime "forfeited_at"
+    t.bigint "schedule_id", null: false
     t.index ["challenge_id"], name: "index_user_challenges_on_challenge_id"
+    t.index ["schedule_id"], name: "index_user_challenges_on_schedule_id"
     t.index ["user_id"], name: "index_user_challenges_on_user_id"
   end
 
@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 2021_10_16_122609) do
   add_foreign_key "challenges", "users", column: "creator_id"
   add_foreign_key "tasks", "challenges"
   add_foreign_key "user_challenges", "challenges"
+  add_foreign_key "user_challenges", "schedules"
   add_foreign_key "user_challenges", "users"
   add_foreign_key "user_tasks", "tasks"
   add_foreign_key "user_tasks", "user_challenges"
