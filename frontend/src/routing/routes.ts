@@ -2,6 +2,7 @@ import EditProfilePage from 'pages/editProfile';
 import FriendsPage from 'pages/friends/FriendsPage';
 import CategoryPage from '../pages/category';
 import ChallengeDetailsPage from '../pages/challenge';
+import CompletedChallengesPage from 'pages/completedChallenges/CompletedChallengesPage';
 import ExplorePage from '../pages/explore';
 import FeedPage from '../pages/feed';
 import HomePage from '../pages/home';
@@ -19,6 +20,7 @@ export const PROFILE_ROUTE = '/profile';
 export const CATEGORY_ROUTE = '/category';
 export const EDIT_PROFILE_ROUTE = '/profile/edit';
 export const FRIENDS_ROUTE = '/friends';
+export const COMPLETED_CHALLENGES_ROUTE = '/completed';
 
 // Routes that are accessible only if user is not authenticated
 export const notAuthenticatedRoutes: RouteEntry[] = [
@@ -39,6 +41,11 @@ export const privateRoutes: RouteEntry[] = [
     component: ChallengeDetailsPage,
   },
   { path: FRIENDS_ROUTE, component: FriendsPage, exact: true },
+  {
+    path: COMPLETED_CHALLENGES_ROUTE,
+    component: CompletedChallengesPage,
+    exact: true,
+  },
   {
     path: CATEGORY_ROUTE + '/:categoryId',
     component: CategoryPage,

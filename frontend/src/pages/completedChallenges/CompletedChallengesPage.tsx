@@ -3,31 +3,8 @@ import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { UserData } from 'types/auth';
-import FriendsList from 'components/friendsList';
 
-const mockFriends: UserData[] = [
-  {
-    id: 2,
-    username: 'bobby',
-    displayName: 'Bobby',
-  },
-  {
-    id: 3,
-    username: 'tommy',
-    displayName: 'Tommy',
-  },
-  {
-    id: 4,
-    username: 'danny',
-    displayName: 'Danny',
-  },
-  {
-    id: 5,
-    username: 'poppy',
-  },
-];
-
-const FriendsPage: React.FC = () => {
+const CompletedChallengesPage: React.FC = () => {
   const history = useHistory();
   return (
     <Box>
@@ -40,12 +17,10 @@ const FriendsPage: React.FC = () => {
       </AppBar>
 
       <Typography component="h1" variant="h5">
-        Your friends
+        Your completed challenges
       </Typography>
-
-      <FriendsList friends={mockFriends} />
     </Box>
   );
 };
 
-export default FriendsPage;
+export default CompletedChallengesPage;

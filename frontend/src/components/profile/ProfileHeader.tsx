@@ -26,12 +26,17 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
       </IconButton>
 
       {user.displayName && (
-        <Typography component="h1" variant="h4">
+        <Typography component="h1" variant="h5">
           {user.displayName}
         </Typography>
       )}
 
-      <Typography component="h2" variant="h6" className="username" gutterBottom>
+      <Typography
+        component="h2"
+        variant="body1"
+        className="username"
+        gutterBottom
+      >
         {displayUsername(user.username)}
       </Typography>
 

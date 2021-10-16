@@ -23,10 +23,13 @@ import ChallengeSummaries, {
 } from '../../components/profile/ChallengeSummaries';
 import { useHistory } from 'react-router-dom';
 import { Duration } from 'date-fns';
-import { EDIT_PROFILE_ROUTE, FRIENDS_ROUTE } from 'routing/routes';
+import {
+  COMPLETED_CHALLENGES_ROUTE,
+  EDIT_PROFILE_ROUTE,
+  FRIENDS_ROUTE,
+} from 'routing/routes';
 import { logout } from 'store/auth/operations';
 import useScrollbarSize from 'react-scrollbar-size';
-import CategoryListItem from 'components/category/CategoryListItem';
 
 interface ProfilePageProps {
   userProfileItems: { label: string; count: number; onClick?: () => void }[];
@@ -73,7 +76,11 @@ const ProfilePage: React.FC = () => {
         count: 20,
         onClick: () => history.push(FRIENDS_ROUTE),
       },
-      { label: 'completed challenges', count: 16 },
+      {
+        label: 'completed challenges',
+        count: 16,
+        onClick: () => history.push(COMPLETED_CHALLENGES_ROUTE),
+      },
       { label: 'badges', count: 2 },
     ],
     registrationDate: new Date('2021-10-03'),
@@ -195,17 +202,6 @@ const ProfilePage: React.FC = () => {
         />
 
         <ChallengeSummaries challengeSummaries={challengeSummaries} />
-      </Box>
-      <Box sx={{ padding: '2em 1.5em 0 1.5em' }}>
-        <ul>
-          <li>
-            <CategoryListItem
-              name="hello"
-              duration={10}
-              percentageComplete={100}
-            />
-          </li>
-        </ul>
       </Box>
     </>
   );

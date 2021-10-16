@@ -89,34 +89,27 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
           <Typography component="div" variant="h6" className="section-heading">
             Ongoing challenges
           </Typography>
+          <ul>
+            {challenges.map((challenge) => (
+              <li key={challenge.id}>
+                <Link
+                  to={{
+                    pathname: `${CATEGORY_ROUTE}/1/${challenge.id}`,
+                    state: { challenge: challenge },
+                  }}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <CategoryListItem
+                    name={challenge.name}
+                    duration={challenge.duration}
+                    percentageComplete={100}
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
         </Grid>
       </Grid>
-      <Box>
-        <ul>
-          <CategoryListItem
-            name="hello"
-            duration={10}
-            percentageComplete={100}
-          />
-          {/* {challenges.map((challenge) => (
-            <li key={challenge.id}>
-              <Link
-                to={{
-                  pathname: `${CATEGORY_ROUTE}/1/${challenge.id}`,
-                  state: { challenge: challenge },
-                }}
-                style={{ textDecoration: 'none' }}
-              >
-                <CategoryListItem
-                  name={challenge.name}
-                  duration={challenge.duration}
-                  percentageComplete={100}
-                />
-              </Link>
-            </li>
-          ))} */}
-        </ul>
-      </Box>
     </>
   );
 };
