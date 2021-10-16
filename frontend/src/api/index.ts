@@ -11,7 +11,7 @@ const api = Object.freeze({
   challenges: new ChallengesAPI(),
   tasks: new TasksAPI(),
   userTasks: new UserTasksAPI(),
-  userChallenges: new UserChallengesAPI();
+  userChallenges: new UserChallengesAPI(),
 });
 
 export default api;
