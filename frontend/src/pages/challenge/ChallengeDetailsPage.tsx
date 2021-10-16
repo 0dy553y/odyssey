@@ -5,19 +5,19 @@ import {
   Box,
   Typography,
   SwipeableDrawer,
-  Tabs,
   Tab,
   IconButton,
   Toolbar,
   Paper,
 } from '@mui/material';
+import { TabPanel, TabContext, TabList } from '@mui/lab';
 import { ChevronLeft, MoreVert } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
 import { ChallengeData } from '../../types/challenges';
 import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
-
+import UserChallengeStats from './UserChallengeStats';
 import ChallengeMilestones from './ChallengeMilestones';
 import { loadChallenge } from 'store/challenges/operations';
 import { loadAllTasks } from 'store/tasks/operations';
@@ -69,6 +69,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+enum TabItem {
+  Milestones = 'Milestones',
+  YourStats = 'Your Stats',
+  Community = 'Community',
+}
+
 const ChallengeDetailsPage: React.FC = () => {
   const classes = useStyles();
   const history = useHistory();
@@ -99,7 +105,9 @@ const ChallengeDetailsPage: React.FC = () => {
   )!;
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [currentTabItem, setCurrentTabItem] = useState<TabItem>(
+    TabItem.Milestones
+  );
 
   const peekDrawerHeight = 200;
 
@@ -129,6 +137,19 @@ const ChallengeDetailsPage: React.FC = () => {
     ) : (
       <Typography>👻 UNENROLLED</Typography>
     );
+
+  const tabPanelRenderer = (tabItem: TabItem) => {
+    switch (tabItem) {
+      case TabItem.Milestones:
+        return <ChallengeMilestones tasks={tasks} userTasks={userTasks} />;
+      case TabItem.YourStats:
+        return <UserChallengeStats />;
+      case TabItem.Community:
+        return <div>community</div>;
+      default:
+        throw new Error('Unknown tab item!');
+    }
+  };
 
   return (
     <Paper className={classes.paper} sx={{ backgroundColor: challenge.color }}>
@@ -160,11 +181,24 @@ const ChallengeDetailsPage: React.FC = () => {
           }}
         >
           <Box className={classes.peekDrawer} sx={{ top: -peekDrawerHeight }}>
-            <Box className={classes.puller} />;
-            <Tabs value={selectedTab}>
-              <Tab label={'Milestones'} />
-            </Tabs>
-            <ChallengeMilestones tasks={tasks} userTasks={userTasks} />
+            <Box className={classes.puller} />
+            <TabContext value={currentTabItem}>
+              <TabList
+                onChange={(_: React.SyntheticEvent, newValue: TabItem) => {
+                  setCurrentTabItem(newValue);
+                }}
+              >
+                {Object.values(TabItem).map((tabItem) => (
+                  <Tab key={tabItem} label={tabItem} value={tabItem} />
+                ))}
+              </TabList>
+
+              {Object.values(TabItem).map((tabItem) => (
+                <TabPanel key={tabItem} value={tabItem}>
+                  {tabPanelRenderer(tabItem)}
+                </TabPanel>
+              ))}
+            </TabContext>
           </Box>
         </SwipeableDrawer>
       </Box>

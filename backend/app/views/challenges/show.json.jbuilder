@@ -6,4 +6,5 @@ json.data do
   json.description @challenge.description
   json.schedule @challenge.schedule
   json.duration @challenge.duration
+  json.categoryId @challenge.category_id
 end

@@ -61,9 +61,10 @@ ActiveRecord::Schema.define(version: 2021_10_15_062159) do
     t.integer "duration", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "created_by"
-    t.integer "color"
+    t.bigint "creator_id", null: false
+    t.integer "color", null: false
     t.index ["category_id"], name: "index_challenges_on_category_id"
+    t.index ["creator_id"], name: "index_challenges_on_creator_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -130,6 +131,7 @@ ActiveRecord::Schema.define(version: 2021_10_15_062159) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "challenges", "categories"
+  add_foreign_key "challenges", "users", column: "creator_id"
   add_foreign_key "tasks", "challenges"
   add_foreign_key "user_challenges", "challenges"
   add_foreign_key "user_challenges", "users"

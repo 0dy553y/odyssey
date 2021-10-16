@@ -9,6 +9,8 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     zIndex: -1,
     position: 'relative',
+    objectFit: 'cover',
+    objectPosition: '100% 30%',
     display: 'block',
   },
   gradient: {
@@ -20,7 +22,7 @@ const useStyles = makeStyles(() => ({
     position: 'absolute',
     display: 'block',
     color: 'white',
-    paddingTop: '5em',
+    paddingTop: '6em',
     paddingLeft: '1em',
   },
 }));
@@ -41,7 +43,7 @@ const CategoryPreview: React.FC<CategoryPreviewProps> = (props) => {
       className={classes.gradient}
       sx={{
         width: '100%',
-        height: '12em',
+        height: '14em',
         borderRadius: '2em',
         margin: '0 0 1em 0',
         display: 'flex',
