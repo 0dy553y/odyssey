@@ -24,6 +24,7 @@ import './App.scss';
 import './react-slider.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import FeedbackOverlay from './components/common/FeedbackOverlay';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -101,6 +102,7 @@ function App(): JSX.Element {
       {!notAuthenticatedRoutes
         .map((route: RouteEntry) => route.path)
         .includes(location.pathname) && <BottomNavigationBar />}
+      <FeedbackOverlay />
     </Container>
   );
 }
