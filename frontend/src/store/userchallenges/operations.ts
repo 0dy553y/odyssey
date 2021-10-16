@@ -14,6 +14,10 @@ export function loadOngoingUserChallengeDataForChallenge(
       challengeId
     );
     const data = response.payload.data;
+    if (!data) {
+      return;
+    }
+
     const userTasks: UserTaskListData[] = data.userTasks.map((userTask) => {
       return {
         ...userTask,
@@ -23,7 +27,11 @@ export function loadOngoingUserChallengeDataForChallenge(
     dispatch(
       updateOngoingUserChallengeData({
         challengeId,
-        data: { ...data, enrolledDate: new Date(data.enrolledDate), userTasks },
+        data: {
+          ...data,
+          enrolledDate: data.enrolledDate && new Date(data.enrolledDate),
+          userTasks,
+        },
       })
     );
   };

@@ -73,8 +73,9 @@ const useStyles = makeStyles(() => ({
 enum TabItem {
   Milestones = 'Milestones',
   YourStats = 'Your Stats',
-  Community = 'Community',
 }
+
+const privateTabs = [TabItem.YourStats];
 
 const ChallengeDetailsPage: React.FC = () => {
   const classes = useStyles();
@@ -160,8 +161,6 @@ const ChallengeDetailsPage: React.FC = () => {
             totalNumberOfTasks={tasks.length}
           />
         );
-      case TabItem.Community:
-        return <div>community</div>;
       default:
         throw new Error('Unknown tab item!');
     }
@@ -210,9 +209,12 @@ const ChallengeDetailsPage: React.FC = () => {
                   setCurrentTabItem(newValue);
                 }}
               >
-                {Object.values(TabItem).map((tabItem) => (
-                  <Tab key={tabItem} label={tabItem} value={tabItem} />
-                ))}
+                {Object.values(TabItem).map((tabItem) => {
+                  if (privateTabs.includes(tabItem) && !userChallenge) {
+                    return null;
+                  }
+                  return <Tab key={tabItem} label={tabItem} value={tabItem} />;
+                })}
               </TabList>
 
               {Object.values(TabItem).map((tabItem) => (

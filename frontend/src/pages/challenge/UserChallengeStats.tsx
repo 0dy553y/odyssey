@@ -32,17 +32,6 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = ({
   completedTasks,
   totalNumberOfTasks,
 }) => {
-  const partialMockChallengeProgressChartProps = {
-    data: completedTasks.map((task) => {
-      return {
-        taskCompletionDate: task.completedAt,
-        taskIndex: task.taskIndex,
-      };
-    }),
-    totalNumberOfTasks: totalNumberOfTasks,
-    challengeEnrolledDate: enrolledDate,
-  };
-
   const theme: Theme = useTheme();
 
   const statsLabel = (
@@ -111,7 +100,14 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = ({
       <ChallengeProgressChart
         height={220}
         color={theme.palette.primary.main}
-        {...partialMockChallengeProgressChartProps}
+        data={completedTasks.map((task) => {
+          return {
+            taskCompletionDate: task.completedAt,
+            taskIndex: task.taskIndex,
+          };
+        })}
+        totalNumberOfTasks={totalNumberOfTasks}
+        challengeEnrolledDate={enrolledDate}
       />
     </Box>
   );

@@ -6,7 +6,7 @@ class UserChallengesController < ApplicationController
     @user_challenge = current_user.user_challenges.find_by(challenge_id: params.require(:challenge_id),
                                                            completed_at: nil, forfeited_at: nil)
 
-    return if @user_challenge.nil?
+    return render 'layouts/empty', status: :ok if @user_challenge.nil?
 
     @user_tasks = current_user.user_tasks.includes(:task).where(user_challenge_id: @user_challenge.id)
   end
