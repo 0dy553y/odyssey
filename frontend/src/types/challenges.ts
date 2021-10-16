@@ -1,5 +1,3 @@
-import { Dayjs } from 'dayjs';
-
 export interface ChallengeListData {
   id: number;
   name: string;
