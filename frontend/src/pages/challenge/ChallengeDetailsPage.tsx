@@ -143,7 +143,7 @@ const ChallengeDetailsPage: React.FC = () => {
       case TabItem.Milestones:
         return <ChallengeMilestones tasks={tasks} userTasks={userTasks} />;
       case TabItem.YourStats:
-        let percentCompleted = 0;
+        // let percentCompleted = 0;
         // if (latestCompletedTask) {
         //   // Add one because tasks are zero-indexed
         //   percentCompleted =
@@ -152,9 +152,13 @@ const ChallengeDetailsPage: React.FC = () => {
 
         return (
           <UserChallengeStats
-            percentCompleted={percentCompleted}
+            percentCompleted={75}
             longestStreak={12}
             currentStreak={4}
+            completedTasks={userTasks.filter(
+              (userTask) => userTask.completedAt !== null
+            )}
+            totalNumberOfTasks={tasks.length}
           />
         );
       case TabItem.Community:

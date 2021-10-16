@@ -21,7 +21,14 @@ export function loadUserTasksForChallenge(
     const response = await api.userTasks.getUserTaskListForChallenge(
       challengeId
     );
-    const userTasks: UserTaskListData[] = response.payload.data;
+    const userTasks: UserTaskListData[] = response.payload.data.map(
+      (userTask) => {
+        return {
+          ...userTask,
+          completedAt: userTask.completedAt && new Date(userTask.completedAt),
+        };
+      }
+    );
     console.log(userTasks);
     dispatch(saveUserTaskListForChallenge(challengeId, userTasks));
   };
