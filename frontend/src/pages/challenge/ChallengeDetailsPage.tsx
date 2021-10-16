@@ -22,10 +22,8 @@ import UserChallengeStats from './UserChallengeStats';
 import ChallengeMilestones from './ChallengeMilestones';
 import { loadChallenge } from 'store/challenges/operations';
 import { loadAllTasks } from 'store/tasks/operations';
-import { loadUserTasksForChallenge } from 'store/usertasks/operations';
 import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
-import { getUserTaskListForChallenge } from 'store/usertasks/selectors';
 import { loadOngoingUserChallengeDataForChallenge } from 'store/userchallenges/operations';
 import { getOngoingUserChallengeData } from 'store/userchallenges/selectors';
 
