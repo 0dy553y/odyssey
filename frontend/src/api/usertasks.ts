@@ -1,5 +1,5 @@
 import { ApiPromise } from '../types/api';
-import { UserTaskListData } from '../types/usertasks';
+import { UserTaskActivityDatum, UserTaskListData } from '../types/usertasks';
 import BaseAPI from './base';
 
 class UserTasksAPI extends BaseAPI {
@@ -10,6 +10,12 @@ class UserTasksAPI extends BaseAPI {
   public getUserTaskListForDay(date: Date): ApiPromise<UserTaskListData[]> {
     return this.get(
       `${UserTasksAPI.getUserTasksUrl()}/tasks_for_day?date=${date.toISOString()}`
+    );
+  }
+
+  public getUserTaskActivityData(): ApiPromise<UserTaskActivityDatum[]> {
+    return this.get(
+      `${UserTasksAPI.getUserTasksUrl()}/user_task_activity_data}`
     );
   }
 }

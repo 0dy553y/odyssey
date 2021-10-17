@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import ProfileHeader from './ProfileHeader';
-import ActivityMap, { ActivityMapDataPoint } from './ActivityMap';
+import ActivityMap from './ActivityMap';
 import UserStats from './UserStats';
 import ChallengeSummaries, {
   ChallengeSummaryProps,
@@ -24,6 +24,7 @@ import { Duration } from 'date-fns';
 import { EDIT_PROFILE_ROUTE, FRIENDS_ROUTE } from 'routing/routes';
 import { logout } from 'store/auth/operations';
 import useScrollbarSize from 'react-scrollbar-size';
+import { UserTaskActivityDatum } from 'types/usertasks';
 
 interface ProfilePageProps {
   userProfileItems: { label: string; count: number; onClick?: () => void }[];
@@ -31,7 +32,7 @@ interface ProfilePageProps {
   challengesCompleted: number;
   longestStreakDuration: Duration;
   challengeSummaries: ChallengeSummaryProps[];
-  activityMapData: ActivityMapDataPoint[];
+  activityMapData: UserTaskActivityDatum[];
 }
 
 export interface StyleProps {
