@@ -136,13 +136,6 @@ const ChallengeDetailsPage: React.FC = () => {
     </AppBar>
   );
 
-  const Status = () =>
-    !!userChallenge ? (
-      <Typography>🔥 ONGOING</Typography>
-    ) : (
-      <Typography>👻 UNENROLLED</Typography>
-    );
-
   const tabPanelRenderer = (tabItem: TabItem) => {
     switch (tabItem) {
       case TabItem.Milestones:
@@ -195,12 +188,8 @@ const ChallengeDetailsPage: React.FC = () => {
         <Typography className={classes.white}>
           {challenge.description}
         </Typography>
-        <Typography className={classes.white}>
-          Recommended schedule
-        </Typography>
-        <Typography className={classes.white}>
-          {challenge.schedule}
-        </Typography>
+        <Typography className={classes.white}>Recommended schedule</Typography>
+        <Typography className={classes.white}>{challenge.schedule}</Typography>
         <Button> Join Challenge!</Button>
 
         <SwipeableDrawer
