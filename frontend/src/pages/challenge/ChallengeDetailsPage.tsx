@@ -40,10 +40,6 @@ const useStyles = makeStyles(() => ({
     right: 0,
     height: '100vh',
   },
-  appbar: {
-    background: 'transparent',
-    boxShadow: 'none',
-  },
   spacer: {
     flexGrow: 1,
   },
@@ -73,6 +69,7 @@ const useStyles = makeStyles(() => ({
     color: 'white',
     opacity: '90%',
   },
+  joinButton: {},
 }));
 
 enum TabItem {
@@ -117,7 +114,7 @@ const ChallengeDetailsPage: React.FC = () => {
   const peekDrawerHeight = 200;
 
   const Bar = () => (
-    <AppBar position="static" className={classes.appbar}>
+    <AppBar position="static">
       <Toolbar>
         <div
           onClick={() => {
@@ -190,7 +187,7 @@ const ChallengeDetailsPage: React.FC = () => {
         </Typography>
         <Typography className={classes.white}>Recommended schedule</Typography>
         <Typography className={classes.white}>{challenge.schedule}</Typography>
-        <Button> Join Challenge!</Button>
+        <Button className={classes.joinButton}> Join Challenge! </Button>
 
         <SwipeableDrawer
           anchor="bottom"
