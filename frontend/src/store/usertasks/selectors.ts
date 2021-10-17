@@ -1,4 +1,4 @@
-import { UserTaskListData } from 'types/usertasks';
+import { UserTaskActivityDatum, UserTaskListData } from 'types/usertasks';
 import { RootState } from '../index';
 import { UserTasksState } from './types';
 
@@ -11,4 +11,10 @@ export function getUserTaskListForDay(
   date: Date
 ): UserTaskListData[] {
   return getLocalState(state).tasksByDay[date.toDateString()] ?? [];
+}
+
+export function getUserTaskActivityData(
+  state: RootState
+): UserTaskActivityDatum[] {
+  return getLocalState(state).userTaskActivityData;
 }

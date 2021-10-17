@@ -14,9 +14,7 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import ProfileHeader from '../../components/profile/ProfileHeader';
-import ActivityMap, {
-  ActivityMapDataPoint,
-} from '../../components/profile/ActivityMap';
+import ActivityMap from '../../components/profile/ActivityMap';
 import UserStats from '../../components/profile/UserStats';
 import ChallengeSummaries, {
   ChallengeSummaryProps,
@@ -30,11 +28,16 @@ import {
 } from 'routing/routes';
 import { logout } from 'store/auth/operations';
 import useScrollbarSize from 'react-scrollbar-size';
+<<<<<<< HEAD
 import { loadAllOngoingUserChallenges } from 'store/userchallenges/operations';
 import { getAllOngoingUserChallenges } from 'store/userchallenges/selectors';
 import { RootState } from 'store';
 import { loadAllChallenges, loadChallenge } from 'store/challenges/operations';
 import { getChallenge } from 'store/challenges/selectors';
+=======
+import { UserTaskActivityDatum } from 'types/usertasks';
+import { loadUserTaskActivityData } from 'store/usertasks/operations';
+>>>>>>> 2b48ac3b1850f037581bebc767a89685ce21ba40
 
 interface ProfilePageProps {
   userProfileItems: { label: string; count: number; onClick?: () => void }[];
@@ -42,7 +45,7 @@ interface ProfilePageProps {
   challengesCompleted: number;
   longestStreakDuration: Duration;
   challengeSummaries: ChallengeSummaryProps[];
-  activityMapData: ActivityMapDataPoint[];
+  activityMapData: UserTaskActivityDatum[];
 }
 
 export interface StyleProps {
@@ -163,6 +166,10 @@ const ProfilePage: React.FC = () => {
   const handleMenuClose = () => {
     setMenuAnchorEl(null);
   };
+
+  useEffect(() => {
+    dispatch(loadUserTaskActivityData());
+  }, []);
 
   return (
     <>
