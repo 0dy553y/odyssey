@@ -5,11 +5,14 @@ import {
   Box,
   Button,
   Fade,
+  IconButton,
   Modal,
   Stack,
   Theme,
+  Tooltip,
   Typography,
 } from '@mui/material';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import RecurringDaysForm from 'components/recurringDaysForm';
 import { Schedule } from 'types/challenges';
 import { DayOfWeek } from 'types/date';
@@ -68,6 +71,24 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({
         <Box className={classes.scheduleModal}>
           <Typography component="div" variant="h6">
             Select recurring days
+            <Tooltip
+              arrow
+              title={
+                'Recurring days are the days of the week in which you are able to commit to completing a task.'
+              }
+              leaveTouchDelay={3000}
+              enterTouchDelay={50}
+            >
+              <sup>
+                <IconButton size="small">
+                  <InfoOutlinedIcon fontSize="inherit" />
+                </IconButton>
+              </sup>
+            </Tooltip>
+          </Typography>
+
+          <Typography component="div" variant="body2">
+            Once confirmed, you cannot change the recurring days.
           </Typography>
 
           <RecurringDaysForm
