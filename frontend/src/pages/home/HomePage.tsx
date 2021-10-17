@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { loadUserTasksForDay } from '../../store/usertasks/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import UserTaskCarousel from '../../components/home/UserTaskCarousel';
@@ -33,12 +33,13 @@ const HomePage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
-    dispatch(loadUserTasksForDay(new Date()));
-  }, []);
+    dispatch(loadUserTasksForDay(date));
+  }, [date]);
   const userTaskList = useSelector((state: RootState) =>
-    getUserTaskListForDay(state, new Date())
+    getUserTaskListForDay(state, date)
   );
 
   const user = useSelector(getUser);
@@ -65,7 +66,7 @@ const HomePage: React.FC = () => {
             </Grid>
           </Grid>
           <Grid item className={classes.headerCarouselItem}>
-            <DateCarousel />
+            <DateCarousel setDate={setDate} />
           </Grid>
           <Grid item className={classes.headerNonCarouselItem}>
             <Typography variant="h5">Your Tasks</Typography>

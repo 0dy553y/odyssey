@@ -5,15 +5,22 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import './DateCarousel.scss';
 
-const DateCarousel: React.FC = () => {
+interface Props {
+  setDate: (date: Date) => void;
+}
+
+const DateCarousel: React.FC<Props> = ({ setDate }: Props) => {
+  const dates = getDatesInMonth(9, 2021);
+
   return (
     <Swiper
       centeredSlides
       slidesPerView={7}
       watchSlidesProgress
       className="date-slider"
+      onRealIndexChange={(swiper) => setDate(dates[swiper.activeIndex])}
     >
-      {getDatesInMonth(9, 2021).map((date: Date) => (
+      {dates.map((date: Date) => (
         <SwiperSlide key={date.toISOString()}>
           <DateItem date={date} />
         </SwiperSlide>
