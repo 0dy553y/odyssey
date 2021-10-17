@@ -14,13 +14,14 @@ import {
 import { TabPanel, TabContext, TabList } from '@mui/lab';
 import { ChevronLeft, MoreVert } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
-import { ChallengeData } from '../../types/challenges';
+import { ChallengeData, Schedule } from 'types/challenges';
 import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
 import UserChallengeStats from './UserChallengeStats';
 import ChallengeMilestones from './ChallengeMilestones';
-import { loadChallenge } from 'store/challenges/operations';
+import ScheduleModal from './ScheduleModal';
+import { joinChallenge, loadChallenge } from 'store/challenges/operations';
 import { loadAllTasks } from 'store/tasks/operations';
 import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
@@ -85,8 +86,10 @@ const privateTabs = [TabItem.YourStats];
 const ChallengeDetailsPage: React.FC = () => {
   const classes = useStyles();
   const history = useHistory();
-
   const dispatch = useDispatch();
+
+  const [isScheduleModalOpen, setIsScheduleModalOpen] =
+    useState<boolean>(false);
 
   useEffect(() => {
     dispatch(loadChallenge(Number(challengeId)));
@@ -190,9 +193,28 @@ const ChallengeDetailsPage: React.FC = () => {
         </Typography>
         <Typography className={classes.white}>Recommended schedule</Typography>
         <Typography className={classes.white}>{challenge.schedule}</Typography>
-        <Button variant="contained" fullWidth className={classes.joinButton}>
-          <Typography variant="body1">Join Challenge!</Typography>
-        </Button>
+
+        {/* User has not enrolled in the challenge */}
+        {/* TODO: ensure that user has < 3 challenges before allowing user to enroll */}
+        {!userChallenge && (
+          <>
+            <Button
+              variant="contained"
+              fullWidth
+              className={classes.joinButton}
+              onClick={() => setIsScheduleModalOpen(true)}
+            >
+              <Typography variant="body1">Join Challenge!</Typography>
+            </Button>
+            <ScheduleModal
+              isOpen={isScheduleModalOpen}
+              onClose={() => setIsScheduleModalOpen(false)}
+              onSubmit={(schedule: Schedule) =>
+                dispatch(joinChallenge(Number(challengeId), schedule))
+              }
+            />
+          </>
+        )}
 
         <SwipeableDrawer
           anchor="bottom"

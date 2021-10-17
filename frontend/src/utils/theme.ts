@@ -9,6 +9,9 @@ const theme = createTheme({
     secondary: {
       main: '#ff4081',
     },
+    background: {
+      paper: '#fff',
+    },
   },
   typography: {
     fontFamily: `"CircularStd", "Helvetica", "Arial", sans-serif, "Frock"`,
