@@ -37,10 +37,10 @@ user_challenge_drinking.schedule = Schedule.new(monday: true, tuesday: true, wed
                                                 thursday: true, friday: true)
 user_challenge_drinking.save!
 
-user_challenge_journalling = Challenge.new(category_id: category_habits.id, name: 'Journalling',
+challenge_journalling = Challenge.new(category_id: category_habits.id, name: 'Journalling',
                                            description: 'Dear Diary', schedule: 'Daily', duration: 30,
                                            creator_id: user_odyssey.id, color: 0)
-user_challenge_journalling.save!
+challenge_journalling.save!
 
 30.times do |i|
   description = "Welcome to the #{(i + 1).ordinalize} day of Couch to 5k. Today, you will run till you drop. Okay, go!"
