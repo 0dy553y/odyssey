@@ -3,7 +3,7 @@ export interface UserTaskListData {
   name: string;
   challengeName: string;
   description: string;
-  completedAt: Date;
+  completedAt?: Date;
   taskIndex: number;
 }
 

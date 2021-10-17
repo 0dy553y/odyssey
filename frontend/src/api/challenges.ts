@@ -5,6 +5,7 @@ import {
   ChallengeListData,
   ChallengePostData,
   ChallengePutData,
+  Schedule,
 } from '../types/challenges';
 
 class ChallengesAPI extends BaseAPI {
@@ -22,6 +23,16 @@ class ChallengesAPI extends BaseAPI {
 
   public getChallengeTasks(challengeId: number): ApiPromise<ChallengeData> {
     return this.get(`${ChallengesAPI.getChallengesUrl()}/${challengeId}`);
+  }
+
+  public joinChallenge(
+    challengeId: number,
+    recurringDays: Schedule
+  ): ApiPromise<ChallengeData> {
+    return this.post(
+      `${ChallengesAPI.getChallengesUrl()}/${challengeId}`,
+      recurringDays
+    );
   }
 
   public addChallenge(

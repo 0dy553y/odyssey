@@ -17,6 +17,9 @@ Rails.application.routes.draw do
       resources :categories, only: %i[index show]
       api_resources :challenges do
         api_resources :tasks
+        member do
+          post 'join'
+        end
       end
 
       namespace :user_tasks do

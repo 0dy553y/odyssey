@@ -1,0 +1,9 @@
+.recurring-days-form {
+  &.MuiFormControl-root {
+    display: block;
+
+    .day-checkbox {
+      margin: 0;
+    }
+  }
+}

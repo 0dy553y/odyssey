@@ -73,8 +73,9 @@ const useStyles = makeStyles(() => ({
 enum TabItem {
   Milestones = 'Milestones',
   YourStats = 'Your Stats',
-  Community = 'Community',
 }
+
+const privateTabs = [TabItem.YourStats];
 
 const ChallengeDetailsPage: React.FC = () => {
   const classes = useStyles();
@@ -138,31 +139,29 @@ const ChallengeDetailsPage: React.FC = () => {
     );
 
   const tabPanelRenderer = (tabItem: TabItem) => {
-    if (!userChallenge) {
-      return <Skeleton />;
-    }
     switch (tabItem) {
       case TabItem.Milestones:
         return (
           <ChallengeMilestones
             tasks={tasks}
-            userTasks={userChallenge.userTasks}
+            userTasks={userChallenge?.userTasks ?? []}
           />
         );
       case TabItem.YourStats:
+        if (!userChallenge) {
+          return <Skeleton />;
+        }
         return (
           <UserChallengeStats
-            percentCompleted={75}
-            longestStreak={12}
-            currentStreak={4}
+            percentCompleted={userChallenge.percentCompleted}
+            enrolledDate={userChallenge.enrolledDate}
             completedTasks={userChallenge.userTasks.filter(
               (userTask) => userTask.completedAt !== null
             )}
             totalNumberOfTasks={tasks.length}
+            schedule={userChallenge.schedule}
           />
         );
-      case TabItem.Community:
-        return <div>community</div>;
       default:
         throw new Error('Unknown tab item!');
     }
@@ -211,9 +210,12 @@ const ChallengeDetailsPage: React.FC = () => {
                   setCurrentTabItem(newValue);
                 }}
               >
-                {Object.values(TabItem).map((tabItem) => (
-                  <Tab key={tabItem} label={tabItem} value={tabItem} />
-                ))}
+                {Object.values(TabItem).map((tabItem) => {
+                  if (privateTabs.includes(tabItem) && !userChallenge) {
+                    return null;
+                  }
+                  return <Tab key={tabItem} label={tabItem} value={tabItem} />;
+                })}
               </TabList>
 
               {Object.values(TabItem).map((tabItem) => (
