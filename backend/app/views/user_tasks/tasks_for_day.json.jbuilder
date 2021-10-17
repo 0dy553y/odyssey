@@ -6,4 +6,5 @@ json.data @user_tasks do |user_task|
   json.challengeName user_task.task.challenge.name
   json.description user_task.task.description
   json.isCompleted user_task.completed?
+  json.challengeColor user_task.task.challenge.color
 end

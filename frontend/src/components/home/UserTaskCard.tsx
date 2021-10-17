@@ -2,10 +2,12 @@ import React from 'react';
 import { UserTaskListData } from '../../types/usertasks';
 import { Card, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { getHexCode } from 'utils/color';
 
 const useStyles = makeStyles(() => ({
   card: {
-    backgroundColor: '#9F88E3',
+    backgroundColor: (userTask: UserTaskListData) =>
+      getHexCode(userTask.challengeColor),
     borderRadius: 25,
     height: '100%',
   },
@@ -26,7 +28,7 @@ interface Props {
 }
 
 const UserTaskCard: React.FC<Props> = ({ userTask }: Props) => {
-  const classes = useStyles();
+  const classes = useStyles(userTask);
 
   const status = !!userTask.completedAt ? '🎉 Completed!' : '🔥 Ongoing';
 
