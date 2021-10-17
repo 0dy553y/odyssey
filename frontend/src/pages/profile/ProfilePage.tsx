@@ -99,11 +99,14 @@ const ProfilePage: React.FC = () => {
     userProfileItems: [
       {
         label: 'friends',
-        count: 20,
+        count: 4,
         onClick: () => history.push(FRIENDS_ROUTE),
       },
       {
-        label: 'completed challenges',
+        label:
+          completedChallenges.length === 1
+            ? 'completed challenge'
+            : 'completed challenges',
         count: completedChallenges.length,
         onClick: () => history.push(COMPLETED_CHALLENGES_ROUTE),
       },

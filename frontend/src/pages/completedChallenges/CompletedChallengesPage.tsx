@@ -58,29 +58,35 @@ const CompletedChallengesPage: React.FC = () => {
         Your completed challenges
       </Typography>
       <ul>
-        {completedChallenges.map(function (challenge) {
-          const challengeDetails = getChallengeDetails(challenge.challengeId);
-          if (challengeDetails !== undefined) {
-            return (
-              <li key={challenge.challengeId}>
-                <Link
-                  to={{
-                    pathname: `${CATEGORY_ROUTE}/1/${challenge.challengeId}`,
-                    state: { challenge: challenge },
-                  }}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <CompletedChallengeListItem
-                    name={challengeDetails.name}
-                    completionDate={convertTimestampToHumanReadableFormat(
-                      challenge.completedAt
-                    )}
-                  />
-                </Link>
-              </li>
-            );
-          }
-        })}
+        {completedChallenges.length === 0 && (
+          <Typography variant="body1" className="no-results-message">
+            Nothing here yet &#128584;
+          </Typography>
+        )}
+        {completedChallenges.length > 0 &&
+          completedChallenges.map(function (challenge) {
+            const challengeDetails = getChallengeDetails(challenge.challengeId);
+            if (challengeDetails !== undefined) {
+              return (
+                <li key={challenge.challengeId}>
+                  <Link
+                    to={{
+                      pathname: `${CATEGORY_ROUTE}/1/${challenge.challengeId}`,
+                      state: { challenge: challenge },
+                    }}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <CompletedChallengeListItem
+                      name={challengeDetails.name}
+                      completionDate={convertTimestampToHumanReadableFormat(
+                        challenge.completedAt
+                      )}
+                    />
+                  </Link>
+                </li>
+              );
+            }
+          })}
       </ul>
     </Box>
   );

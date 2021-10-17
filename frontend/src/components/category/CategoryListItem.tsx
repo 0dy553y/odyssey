@@ -52,7 +52,7 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
     <Box>
       <div>
         <div className={classes.container}>
-          <div className="square"></div>
+          <div className="square-pic"></div>
           <Grid item xs={9}>
             <Typography component="div" variant="h6">
               {name}
