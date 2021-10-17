@@ -7,3 +7,13 @@ export function getDatesInMonth(month: number, year: number): Date[] {
   }
   return days;
 }
+
+export function getNeighbouringDates(date: Date, range: number): Date[] {
+  const dates = [];
+  for (let i = -range; i <= range; i++) {
+    const newDate = new Date();
+    newDate.setDate(date.getDate() + i);
+    dates.push(newDate);
+  }
+  return dates;
+}

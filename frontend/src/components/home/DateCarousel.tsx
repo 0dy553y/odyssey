@@ -1,5 +1,5 @@
-import React from 'react';
-import { getDatesInMonth } from '../../utils/date';
+import React, { useState } from 'react';
+import { getNeighbouringDates } from '../../utils/date';
 import DateItem from './DateItem';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -10,11 +10,15 @@ interface Props {
 }
 
 const DateCarousel: React.FC<Props> = ({ setDate }: Props) => {
-  const dates = getDatesInMonth(9, 2021);
+  const dateRange = 8;
+  const [dates, setDates] = useState(
+    getNeighbouringDates(new Date(), dateRange)
+  );
 
   return (
     <Swiper
       centeredSlides
+      initialSlide={dateRange}
       slidesPerView={7}
       watchSlidesProgress
       className="date-slider"
