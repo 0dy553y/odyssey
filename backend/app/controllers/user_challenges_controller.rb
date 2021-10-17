@@ -14,4 +14,8 @@ class UserChallengesController < ApplicationController
   def all_ongoing_challenges
     @user_challenges = current_user.user_challenges.where(completed_at: nil, forfeited_at: nil)
   end
+
+  def all_completed_challenges
+    @user_challenges = current_user.user_challenges.where.not(completed_at: nil)
+  end
 end
