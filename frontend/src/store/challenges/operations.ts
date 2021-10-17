@@ -2,6 +2,7 @@ import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { loadOngoingUserChallengeDataForChallenge } from 'store/userchallenges/operations';
+import { withStatusMessages } from 'utils/ui';
 import api from '../../api';
 import {
   ChallengeData,
@@ -35,8 +36,12 @@ export function joinChallenge(
   recurringDays: Schedule
 ): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    await api.challenges.joinChallenge(challengeId, recurringDays);
-    dispatch(loadOngoingUserChallengeDataForChallenge(challengeId));
+    await withStatusMessages(
+      dispatch,
+      api.challenges.joinChallenge(challengeId, recurringDays)
+    ).then(() => {
+      dispatch(loadOngoingUserChallengeDataForChallenge(challengeId));
+    });
   };
 }
 
