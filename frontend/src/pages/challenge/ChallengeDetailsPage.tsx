@@ -67,9 +67,12 @@ const useStyles = makeStyles(() => ({
   },
   white: {
     color: 'white',
-    opacity: '90%',
   },
-  joinButton: {},
+  joinButton: {
+    marginTop: '28px',
+    borderRadius: '20px',
+    height: '60px',
+  },
 }));
 
 enum TabItem {
@@ -172,7 +175,7 @@ const ChallengeDetailsPage: React.FC = () => {
       sx={{ backgroundColor: getHexCode(challenge.color) }}
     >
       <Bar />
-      <Box sx={{ marginLeft: '28px' }}>
+      <Box sx={{ marginLeft: '28px', marginRight: '28px' }}>
         <Typography className={classes.white}>
           {!!userChallenge ? '🔥 ONGOING' : '👻 UNENROLLED'}
         </Typography>
@@ -187,7 +190,9 @@ const ChallengeDetailsPage: React.FC = () => {
         </Typography>
         <Typography className={classes.white}>Recommended schedule</Typography>
         <Typography className={classes.white}>{challenge.schedule}</Typography>
-        <Button className={classes.joinButton}> Join Challenge! </Button>
+        <Button variant="contained" fullWidth className={classes.joinButton}>
+          <Typography variant="body1">Join Challenge!</Typography>
+        </Button>
 
         <SwipeableDrawer
           anchor="bottom"
