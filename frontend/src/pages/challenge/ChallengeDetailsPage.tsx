@@ -14,7 +14,7 @@ import {
 import { TabPanel, TabContext, TabList } from '@mui/lab';
 import { ChevronLeft, MoreVert } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
-import { ChallengeData } from '../../types/challenges';
+import { ChallengeData, ChallengeColor } from '../../types/challenges';
 import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +26,7 @@ import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
 import { loadOngoingUserChallengeDataForChallenge } from 'store/userchallenges/operations';
 import { getOngoingUserChallengeData } from 'store/userchallenges/selectors';
+import { getHexCode } from 'utils/color';
 
 export interface ChallengeDetailsPageProps {
   challenge: ChallengeData;
@@ -172,7 +173,10 @@ const ChallengeDetailsPage: React.FC = () => {
   }
 
   return (
-    <Paper className={classes.paper} sx={{ backgroundColor: challenge.color }}>
+    <Paper
+      className={classes.paper}
+      sx={{ backgroundColor: getHexCode(challenge.color) }}
+    >
       <Bar />
       <Box sx={{ marginLeft: '28px' }}>
         <Status />
