@@ -7,7 +7,12 @@ import './DateCarousel.scss';
 
 const DateCarousel: React.FC = () => {
   return (
-    <Swiper centeredSlides slidesPerView={7} className="date-slider">
+    <Swiper
+      centeredSlides
+      slidesPerView={7}
+      watchSlidesProgress
+      className="date-slider"
+    >
       {getDatesInMonth(9, 2021).map((date: Date) => (
         <SwiperSlide key={date.toISOString()}>
           <DateItem date={date} />
