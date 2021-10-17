@@ -4,7 +4,11 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(() => ({
   container: {
-    textAlign: 'center',
+    aspectRatio: '1',
+    display: 'flex',
+    flexDirection: 'column',
+    alignContent: 'center',
+    justifyContent: 'center',
   },
 }));
 
@@ -17,7 +21,9 @@ const DateItem: React.FC<Props> = ({ date }: Props) => {
 
   return (
     <div className={classes.container}>
-      <Typography>{date.getDate()}</Typography>
+      <Typography variant="h5" align="center">
+        {date.getDate()}
+      </Typography>
     </div>
   );
 };
