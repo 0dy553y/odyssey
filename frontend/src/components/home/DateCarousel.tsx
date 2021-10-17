@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
-import { getNeighbouringDates } from '../../utils/date';
+import { getMonthString, getNeighbouringDates } from '../../utils/date';
 import DateItem from './DateItem';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperClass from 'swiper/types/swiper-class';
+import { Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 import './DateCarousel.scss';
+
+const useStyles = makeStyles(() => ({
+  monthText: {
+    textAlign: 'center',
+    paddingBottom: 10,
+  },
+}));
 
 interface Props {
   setDate: (date: Date) => void;
@@ -13,9 +22,11 @@ interface Props {
 const DateCarousel: React.FC<Props> = ({ setDate }: Props) => {
   const dateRange = 50;
   const previousIndex = dateRange;
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [dates, setDates] = useState(
-    getNeighbouringDates(new Date(), dateRange)
+    getNeighbouringDates(selectedDate, dateRange)
   );
+  const classes = useStyles();
 
   const shiftDatesLeft = (by: number) => {
     if (by <= 0) {
@@ -43,8 +54,12 @@ const DateCarousel: React.FC<Props> = ({ setDate }: Props) => {
     setDates(newDates);
   };
 
+  const handleActiveIndexChange = (swiper: SwiperClass) => {
+    setSelectedDate(dates[swiper.activeIndex]);
+  };
+
   const handleTransitionEnd = (swiper: SwiperClass) => {
-    setDate(dates[swiper.activeIndex]);
+    setDate(selectedDate);
     const difference = swiper.activeIndex - previousIndex;
     if (previousIndex > swiper.activeIndex) {
       shiftDatesLeft(-difference);
@@ -56,6 +71,9 @@ const DateCarousel: React.FC<Props> = ({ setDate }: Props) => {
 
   return (
     <>
+      <div className={classes.monthText}>
+        <Typography variant="h5">{getMonthString(selectedDate)}</Typography>
+      </div>
       <Swiper
         centeredSlides
         initialSlide={previousIndex}
@@ -70,6 +88,7 @@ const DateCarousel: React.FC<Props> = ({ setDate }: Props) => {
         }}
         watchSlidesProgress
         className="date-slider"
+        onActiveIndexChange={handleActiveIndexChange}
         onTransitionEnd={handleTransitionEnd}
       >
         {dates.map((date: Date) => (
