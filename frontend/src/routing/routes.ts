@@ -1,3 +1,4 @@
+import BadgePage from 'pages/badge/BadgePage';
 import EditProfilePage from 'pages/editProfile';
 import FriendsPage from 'pages/friends/FriendsPage';
 import CategoryPage from '../pages/category';
@@ -21,6 +22,7 @@ export const CATEGORY_ROUTE = '/category';
 export const EDIT_PROFILE_ROUTE = '/profile/edit';
 export const FRIENDS_ROUTE = '/friends';
 export const COMPLETED_CHALLENGES_ROUTE = '/completed';
+export const BADGE_ROUTE = '/badges';
 
 // Routes that are accessible only if user is not authenticated
 export const notAuthenticatedRoutes: RouteEntry[] = [
@@ -44,6 +46,11 @@ export const privateRoutes: RouteEntry[] = [
   {
     path: COMPLETED_CHALLENGES_ROUTE,
     component: CompletedChallengesPage,
+    exact: true,
+  },
+  {
+    path: BADGE_ROUTE,
+    component: BadgePage,
     exact: true,
   },
   {

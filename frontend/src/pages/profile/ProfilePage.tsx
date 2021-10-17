@@ -21,6 +21,7 @@ import ChallengeSummaries, {
 } from '../../components/profile/ChallengeSummaries';
 import { useHistory } from 'react-router-dom';
 import {
+  BADGE_ROUTE,
   COMPLETED_CHALLENGES_ROUTE,
   EDIT_PROFILE_ROUTE,
   FRIENDS_ROUTE,
@@ -109,7 +110,7 @@ const ProfilePage: React.FC = () => {
         count: completedChallenges.length,
         onClick: () => history.push(COMPLETED_CHALLENGES_ROUTE),
       },
-      { label: 'badges', count: 0 },
+      { label: 'badges', count: 0, onClick: () => history.push(BADGE_ROUTE) },
     ],
     registrationDate: new Date('2021-10-03'),
     challengeSummaries: [
