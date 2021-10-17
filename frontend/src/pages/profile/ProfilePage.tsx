@@ -39,10 +39,6 @@ import { RootState } from 'store';
 import { UserTaskActivityDatum } from 'types/usertasks';
 import { loadUserTaskActivityData } from 'store/usertasks/operations';
 
-interface ProfilePageProps {
-  userProfileItems: { label: string; count: number; onClick?: () => void }[];
-}
-
 export interface StyleProps {
   scrollbarWidth: number;
 }
@@ -98,26 +94,26 @@ const ProfilePage: React.FC = () => {
   );
 
   // TODO: replace these
-  const mockProps: ProfilePageProps = {
-    userProfileItems: [
-      {
-        label: 'friends',
-        count: 4,
-        onClick: () => history.push(FRIENDS_ROUTE),
-      },
-      {
-        label:
-          completedChallenges.length === 1
-            ? 'completed challenge'
-            : 'completed challenges',
-        count: completedChallenges.length,
-        onClick: () => history.push(COMPLETED_CHALLENGES_ROUTE),
-      },
-      { label: 'badges', count: 0, onClick: () => history.push(BADGE_ROUTE) },
-    ],
-  };
-
-  const { userProfileItems } = mockProps;
+  const userProfileItems: {
+    label: string;
+    count: number;
+    onClick: () => void;
+  }[] = [
+    {
+      label: 'friends',
+      count: 4,
+      onClick: () => history.push(FRIENDS_ROUTE),
+    },
+    {
+      label:
+        completedChallenges.length === 1
+          ? 'completed challenge'
+          : 'completed challenges',
+      count: completedChallenges.length,
+      onClick: () => history.push(COMPLETED_CHALLENGES_ROUTE),
+    },
+    { label: 'badges', count: 0, onClick: () => history.push(BADGE_ROUTE) },
+  ];
 
   const [menuAnchorEl, setMenuAnchorEl] = React.useState<null | HTMLElement>(
     null
