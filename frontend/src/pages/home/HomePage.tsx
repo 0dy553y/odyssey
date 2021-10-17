@@ -18,12 +18,14 @@ const useStyles = makeStyles(() => ({
     height: '100%',
   },
   headerContainer: {
-    marginLeft: 30,
-    marginRight: 30,
     marginTop: 40,
   },
-  headerItem: {
+  headerCarouselItem: {
     width: '100%',
+  },
+  headerNonCarouselItem: {
+    marginLeft: 30,
+    marginRight: 30,
   },
 }));
 
@@ -49,7 +51,12 @@ const HomePage: React.FC = () => {
     <div className={classes.baseContainer}>
       <div className={classes.headerContainer}>
         <Grid container direction="column" spacing={2}>
-          <Grid item container direction="column">
+          <Grid
+            item
+            container
+            direction="column"
+            className={classes.headerNonCarouselItem}
+          >
             <Grid item>
               <Typography variant="h4">Hello,</Typography>
             </Grid>
@@ -57,10 +64,10 @@ const HomePage: React.FC = () => {
               <Typography variant="h4">{user.displayName}</Typography>
             </Grid>
           </Grid>
-          <Grid item className={classes.headerItem}>
+          <Grid item className={classes.headerCarouselItem}>
             <DateCarousel />
           </Grid>
-          <Grid item>
+          <Grid item className={classes.headerNonCarouselItem}>
             <Typography variant="h5">Your Tasks</Typography>
           </Grid>
         </Grid>
