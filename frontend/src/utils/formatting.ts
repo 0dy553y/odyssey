@@ -1,5 +1,10 @@
-import { format, formatDuration, intervalToDuration } from 'date-fns';
-import moment from 'moment';
+import {
+  format,
+  formatDuration,
+  intervalToDuration,
+  parseISO,
+  addMinutes,
+} from 'date-fns';
 
 export const displayUsername = (username: string): string => {
   return `@${username}`;
@@ -56,7 +61,11 @@ export const getFormattedStringFromDays = (numberOfDays: number): string => {
 };
 
 export const convertTimestampToHumanReadableFormat = (
-  timestamp: number
+  timestamp: string
 ): string => {
-  return moment(timestamp).utc().format('MMMM Do YYYY, h:mm a');
+  const parsedTime = parseISO(timestamp);
+  return format(
+    addMinutes(parsedTime, parsedTime.getTimezoneOffset()),
+    'dd MMM yyyy, h:mm a'
+  );
 };

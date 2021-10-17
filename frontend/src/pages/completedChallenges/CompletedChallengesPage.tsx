@@ -79,7 +79,7 @@ const CompletedChallengesPage: React.FC = () => {
                     <CompletedChallengeListItem
                       name={challengeDetails.name}
                       completionDate={convertTimestampToHumanReadableFormat(
-                        challenge.completedAt
+                        challenge.completedAt.toString()
                       )}
                     />
                   </Link>
