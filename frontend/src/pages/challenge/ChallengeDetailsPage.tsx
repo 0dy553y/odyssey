@@ -188,6 +188,7 @@ const ChallengeDetailsPage: React.FC = () => {
         <Typography>{challenge.schedule}</Typography>
 
         {/* User has not enrolled in the challenge */}
+        {/* TODO: ensure that user has < 3 challenges before allowing user to enroll */}
         {!userChallenge && (
           <>
             <Button onClick={() => setIsScheduleModalOpen(true)}>
