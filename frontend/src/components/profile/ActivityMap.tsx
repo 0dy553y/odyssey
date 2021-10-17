@@ -15,16 +15,12 @@ import {
   subMonths,
 } from 'date-fns';
 import { createStyles, makeStyles } from '@mui/styles';
+import { UserTaskActivityDatum } from 'types/usertasks';
 
 import './ActivityMap.scss';
 
-export interface ActivityMapDataPoint {
-  date: Date;
-  count: number;
-}
-
 interface ActivityMapProps {
-  activityMapData: ActivityMapDataPoint[];
+  activityMapData: UserTaskActivityDatum[];
 }
 
 const NUM_MONTHS_TO_SHOW = 4;
@@ -68,7 +64,7 @@ const ActivityMap: React.FC<ActivityMapProps> = (props) => {
     !isSameDay(endDate, TODAY) && isBefore(endDate, TODAY);
 
   const getHeatmapCellClass = (
-    data: ActivityMapDataPoint | undefined
+    data: UserTaskActivityDatum | undefined
   ): string => {
     if (!data || data.count === 0) {
       return 'color-empty';
