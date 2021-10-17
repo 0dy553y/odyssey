@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
-import { Grid, Theme, Typography } from '@mui/material';
-import { createStyles, makeStyles } from '@mui/styles';
-
-import './ChallengeSummaries.scss';
+import { Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadAllChallenges } from 'store/challenges/operations';
 import { RootState } from 'store';
@@ -12,6 +9,8 @@ import { Link } from 'react-router-dom';
 import { CATEGORY_ROUTE } from 'routing/routes';
 import { UserChallengeListData } from 'types/userchallenge';
 import { ChallengeListData } from 'types/challenges';
+
+import './ChallengeSummaries.scss';
 
 export interface ChallengeSummaryProps {
   id: number;

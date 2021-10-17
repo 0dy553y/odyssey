@@ -28,16 +28,11 @@ import {
 } from 'routing/routes';
 import { logout } from 'store/auth/operations';
 import useScrollbarSize from 'react-scrollbar-size';
-<<<<<<< HEAD
 import { loadAllOngoingUserChallenges } from 'store/userchallenges/operations';
 import { getAllOngoingUserChallenges } from 'store/userchallenges/selectors';
 import { RootState } from 'store';
-import { loadAllChallenges, loadChallenge } from 'store/challenges/operations';
-import { getChallenge } from 'store/challenges/selectors';
-=======
 import { UserTaskActivityDatum } from 'types/usertasks';
 import { loadUserTaskActivityData } from 'store/usertasks/operations';
->>>>>>> 2b48ac3b1850f037581bebc767a89685ce21ba40
 
 interface ProfilePageProps {
   userProfileItems: { label: string; count: number; onClick?: () => void }[];
@@ -220,9 +215,7 @@ const ProfilePage: React.FC = () => {
           longestStreakDuration={longestStreakDuration}
         />
 
-        {typeof challenges !== 'undefined' && (
-          <ChallengeSummaries challenges={challenges} />
-        )}
+        <ChallengeSummaries challenges={challenges} />
       </Box>
     </>
   );
