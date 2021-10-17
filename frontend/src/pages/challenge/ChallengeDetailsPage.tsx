@@ -186,16 +186,22 @@ const ChallengeDetailsPage: React.FC = () => {
         <Typography>{challenge.description}</Typography>
         <Typography>Recommended schedule</Typography>
         <Typography>{challenge.schedule}</Typography>
-        <Button onClick={() => setIsScheduleModalOpen(true)}>
-          Join Challenge!
-        </Button>
-        <ScheduleModal
-          isOpen={isScheduleModalOpen}
-          onClose={() => setIsScheduleModalOpen(false)}
-          onSubmit={(schedule: Schedule) =>
-            dispatch(joinChallenge(Number(challengeId), schedule))
-          }
-        />
+
+        {/* User has not enrolled in the challenge */}
+        {!userChallenge && (
+          <>
+            <Button onClick={() => setIsScheduleModalOpen(true)}>
+              Join Challenge!
+            </Button>
+            <ScheduleModal
+              isOpen={isScheduleModalOpen}
+              onClose={() => setIsScheduleModalOpen(false)}
+              onSubmit={(schedule: Schedule) =>
+                dispatch(joinChallenge(Number(challengeId), schedule))
+              }
+            />
+          </>
+        )}
 
         <SwipeableDrawer
           anchor="bottom"

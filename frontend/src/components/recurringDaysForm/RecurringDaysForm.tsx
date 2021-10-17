@@ -34,7 +34,7 @@ const RecurringDaysForm: React.FC<RecurringDaysFormProps> = ({
             <FormControlLabel
               key={day}
               value={day}
-              defaultChecked={initialSchedule[day]}
+              checked={initialSchedule[day]}
               control={
                 <Checkbox
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
