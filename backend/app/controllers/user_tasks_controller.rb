@@ -8,12 +8,16 @@ class UserTasksController < ApplicationController
   def mark_as_done
     @user_task = UserTask.find(params.require(:id))
     @user_task.update!(completed_at: Time.zone.now)
+
+    show_success_message('Successfully marked task as done!')
     render 'show', status: :ok
   end
 
   def mark_as_not_done
     @user_task = UserTask.find(params.require(:id))
     @user_task.update!(completed_at: nil)
+
+    show_success_message('Successfully marked task as not done!')
     render 'show', status: :ok
   end
 
