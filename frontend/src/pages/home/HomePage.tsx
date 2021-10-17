@@ -80,7 +80,7 @@ const HomePage: React.FC = () => {
         </Grid>
       </div>
       <div className={classes.tasksContainer}>
-        <UserTaskCarousel userTaskList={userTaskList} />
+        <UserTaskCarousel userTaskList={userTaskList} date={date} />
       </div>
     </div>
   );

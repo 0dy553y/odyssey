@@ -6,6 +6,8 @@ import { Link, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { EXPLORE_ROUTE } from '../../routing/routes';
 import { useHistory } from 'react-router-dom';
+import { isToday } from 'date-fns';
+import { displayDate } from '../../utils/formatting';
 
 import './UserTaskCarousel.scss';
 
@@ -24,13 +26,14 @@ const useStyles = makeStyles(() => ({
 
 interface Props {
   userTaskList: UserTaskListData[];
+  date: Date;
 }
 
-const UserTaskCarousel: React.FC<Props> = ({ userTaskList }: Props) => {
+const UserTaskCarousel: React.FC<Props> = ({ userTaskList, date }: Props) => {
   const classes = useStyles();
   const history = useHistory();
 
-  if (userTaskList.length == 0) {
+  if (userTaskList.length == 0 && isToday(date)) {
     return (
       <div className={classes.textContainer}>
         <Typography align="center" className={classes.text}>
@@ -39,6 +42,16 @@ const UserTaskCarousel: React.FC<Props> = ({ userTaskList }: Props) => {
           {'Why not head to the '}
           <Link onClick={() => history.push(EXPLORE_ROUTE)}> Explore tab</Link>
           {' and start a new challenge?'}
+        </Typography>
+      </div>
+    );
+  }
+
+  if (userTaskList.length == 0) {
+    return (
+      <div className={classes.textContainer}>
+        <Typography align="center" className={classes.text}>
+          {`You have no tasks on ${displayDate(date)}!`}
         </Typography>
       </div>
     );
