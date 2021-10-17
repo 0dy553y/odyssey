@@ -1,3 +1,4 @@
+import { Schedule } from './challenges';
 import { UserTaskListData } from './usertasks';
 
 export interface UserChallengeListData {
@@ -8,6 +9,7 @@ export interface UserChallengeListData {
 export interface UserChallengeData extends UserChallengeListData {
   enrolledDate: Date;
   userTasks: UserTaskListData[];
+  schedule: Schedule;
 }
 
 export interface CompletedUserChallengeListData {

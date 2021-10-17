@@ -1,0 +1,9 @@
+.date-slider .swiper-slide {
+  border-radius: 50%;
+}
+
+.date-slider .swiper-slide-active {
+  color: white;
+  background: black;
+  transition: background 0.5s ease-out;
+}
