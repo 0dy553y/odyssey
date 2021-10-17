@@ -11,4 +11,12 @@ class UserChallengesController < ApplicationController
 
     @user_tasks = current_user.user_tasks.includes(:task).where(user_challenge_id: @user_challenge.id)
   end
+
+  def all_ongoing_challenges
+    @user_challenges = current_user.user_challenges.where(completed_at: nil, forfeited_at: nil)
+  end
+
+  def all_completed_challenges
+    @user_challenges = current_user.user_challenges.where.not(completed_at: nil)
+  end
 end

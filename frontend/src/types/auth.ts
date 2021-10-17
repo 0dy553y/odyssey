@@ -15,6 +15,7 @@ export interface UserData {
   username: string;
   displayName?: string;
   avatar?: DataUrl;
+  registrationDate: Date;
 }
 
 export interface UserPutData {

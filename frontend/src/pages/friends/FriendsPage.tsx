@@ -10,27 +10,31 @@ const mockFriends: UserData[] = [
     id: 2,
     username: 'bobby',
     displayName: 'Bobby',
+    registrationDate: new Date(),
   },
   {
     id: 3,
     username: 'tommy',
     displayName: 'Tommy',
+    registrationDate: new Date(),
   },
   {
     id: 4,
     username: 'danny',
     displayName: 'Danny',
+    registrationDate: new Date(),
   },
   {
     id: 5,
     username: 'poppy',
+    registrationDate: new Date(),
   },
 ];
 
 const FriendsPage: React.FC = () => {
   const history = useHistory();
   return (
-    <Box>
+    <Box sx={{ padding: '2em 1.5em 0 1.5em' }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" onClick={() => history.goBack()}>
@@ -39,8 +43,8 @@ const FriendsPage: React.FC = () => {
         </Toolbar>
       </AppBar>
 
-      <Typography component="h1" variant="h5">
-        Your Friends
+      <Typography component="h1" variant="h4" style={{ fontFamily: 'Frock' }}>
+        Your friends
       </Typography>
 
       <FriendsList friends={mockFriends} />

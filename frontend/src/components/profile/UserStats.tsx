@@ -1,18 +1,15 @@
 import React from 'react';
 import { Grid, Typography } from '@mui/material';
-import { displayDate, displayDuration } from 'utils/formatting';
-import { Duration } from 'date-fns';
+import { displayDate } from 'utils/formatting';
 
 interface UserStatsProps {
   registrationDate: Date;
   challengesCompleted: number;
-  longestStreakDuration: Duration;
 }
 
 const UserStats: React.FC<UserStatsProps> = ({
   registrationDate,
   challengesCompleted,
-  longestStreakDuration,
 }) => {
   return (
     <Grid
@@ -22,7 +19,7 @@ const UserStats: React.FC<UserStatsProps> = ({
       justifyContent="center"
     >
       <Grid item xs={12}>
-        <Typography component="div" variant="h6">
+        <Typography component="div" variant="h5">
           Stats
         </Typography>
       </Grid>
@@ -35,13 +32,7 @@ const UserStats: React.FC<UserStatsProps> = ({
 
       <Grid item xs={12}>
         <Typography component="div" variant="body1">
-          Completed: {challengesCompleted}
-        </Typography>
-      </Grid>
-
-      <Grid item xs={12}>
-        <Typography component="div" variant="body1">
-          Longest streak: {displayDuration(longestStreakDuration)}
+          Completed challenges: {challengesCompleted}
         </Typography>
       </Grid>
     </Grid>

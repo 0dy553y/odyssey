@@ -1,4 +1,10 @@
-import { format, formatDuration, intervalToDuration } from 'date-fns';
+import {
+  format,
+  formatDuration,
+  intervalToDuration,
+  parseISO,
+  addMinutes,
+} from 'date-fns';
 
 export const displayUsername = (username: string): string => {
   return `@${username}`;
@@ -52,4 +58,14 @@ export const getFormattedStringFromDays = (numberOfDays: number): string => {
     months > 0 ? months + (months == 1 ? ' month ' : ' months ') : '';
   const daysDisplay = days > 0 ? days + (days == 1 ? ' day' : ' days') : '';
   return yearsDisplay + monthsDisplay + daysDisplay;
+};
+
+export const convertTimestampToHumanReadableFormat = (
+  timestamp: string
+): string => {
+  const parsedTime = parseISO(timestamp);
+  return format(
+    addMinutes(parsedTime, parsedTime.getTimezoneOffset()),
+    'dd MMM yyyy, h:mm a'
+  );
 };

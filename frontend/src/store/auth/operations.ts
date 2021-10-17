@@ -3,6 +3,7 @@ import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { HOME_ROUTE, LOGIN_ROUTE } from 'routing/routes';
+import { loadAllCategories } from 'store/categories/operations';
 import { resetSnackbars } from 'store/snackbars/actions';
 import { withStatusMessages } from 'utils/ui';
 import api from '../../api';
@@ -15,14 +16,18 @@ import {
 import { OperationResult } from '../../types/store';
 import { RootState } from '../index';
 import { resetAuth, setIsValidatingToken, setUser } from './actions';
-import { loadAllCategories } from 'store/categories/operations';
 
 export function login(loginData: LoginData, history: History): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     await withStatusMessages(dispatch, api.auth.login(loginData)).then(
       (response) => {
         const userData: UserData = response.payload.data;
-        dispatch(setUser(userData));
+        dispatch(
+          setUser({
+            ...userData,
+            registrationDate: new Date(userData.registrationDate),
+          })
+        );
         dispatch(loadAllCategories());
         history.push(HOME_ROUTE);
       }
@@ -63,7 +68,12 @@ export function validateToken(): OperationResult {
       .validateToken()
       .then((resp) => {
         const userData: UserData = resp.payload.data;
-        dispatch(setUser(userData));
+        dispatch(
+          setUser({
+            ...userData,
+            registrationDate: new Date(userData.registrationDate),
+          })
+        );
         dispatch(loadAllCategories());
       })
       .finally(() => dispatch(setIsValidatingToken(false)));
@@ -78,7 +88,12 @@ export function updateUser(
     await withStatusMessages(dispatch, api.auth.editUser(userPutData)).then(
       (resp) => {
         const userData: UserData = resp.payload.data;
-        dispatch(setUser(userData));
+        dispatch(
+          setUser({
+            ...userData,
+            registrationDate: new Date(userData.registrationDate),
+          })
+        );
         history.goBack();
       }
     );

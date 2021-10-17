@@ -18,6 +18,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
 }) => {
   return (
     <Avatar
+      style={{ marginBottom: '0.5em' }}
       className={className}
       src={src}
       {...stringAvatar(displayName ?? username)}

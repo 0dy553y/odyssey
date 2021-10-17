@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ListItem, ListItemText, ListItemAvatar } from '@mui/material';
 import { UserData } from 'types/auth';
-import UserAvatar from 'components/userAvatar';
+import UserAvatar from 'components/common/userAvatar';
 import { displayUsername } from 'utils/formatting';
 
 interface FriendsListItemProps {
