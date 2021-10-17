@@ -5,12 +5,14 @@ import CircularProgressWithLabel from 'components/common/circularProgressWithLab
 
 import './ChallengeSummaries.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadAllChallenges } from 'store/challenges/operations';
+import { loadAllChallenges, loadChallenge } from 'store/challenges/operations';
 import { RootState } from 'store';
-import { getChallengeList } from 'store/challenges/selectors';
+import { getChallenge, getChallengeList } from 'store/challenges/selectors';
 import CategoryListItem from 'components/category/CategoryListItem';
 import { Link } from 'react-router-dom';
 import { CATEGORY_ROUTE } from 'routing/routes';
+import { UserChallengeListData } from 'types/userchallenge';
+import challenge from 'pages/challenge';
 
 export interface ChallengeSummaryProps {
   id: number;
@@ -19,8 +21,13 @@ export interface ChallengeSummaryProps {
   remarks: string;
 }
 
+export interface ChallengeDetails {
+  name: string;
+  duration: number;
+}
+
 interface ChallengeSummariesProps {
-  challengeSummaries: ChallengeSummaryProps[];
+  challenges: UserChallengeListData[];
 }
 
 const useStyles = makeStyles<Theme, ChallengeSummariesProps>((theme) =>
@@ -39,43 +46,90 @@ const useStyles = makeStyles<Theme, ChallengeSummariesProps>((theme) =>
 );
 
 const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
-  const { challengeSummaries } = props;
-  const classes = useStyles(props);
+  const { challenges } = props;
+  // const classes = useStyles(props);
 
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(loadAllChallenges());
-  }, []);
+    console.log(challenges);
+    challenges.forEach((challenge) => {
+      console.log('called');
+      dispatch(loadChallenge(challenge.challengeId));
+    });
+  }, [challenges]);
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const challenges = useSelector((state: RootState) =>
-    getChallengeList(state)
-  )!;
+  // const getChallengeName = (challengeId: number): string => {
+  //   console.log(
+  //     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  //     useSelector((state: RootState) => getChallenge(state, challengeId))!.name
+  //   );
+  //   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  //   return useSelector((state: RootState) => getChallenge(state, challengeId))!
+  //     .name;
+  // };
 
-  const ChallengeSummary = ({
-    percentage,
-    label,
-    remarks,
-  }: ChallengeSummaryProps) => (
-    <Grid container className={classes.challengeSummary}>
-      <Stack direction="row" spacing={5} alignItems="center">
-        <CircularProgressWithLabel variant="determinate" value={percentage} />
+  // console.log(
+  //   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  //   useSelector((state: RootState) => getChallenge(state, 2)).duration
+  // );
 
-        <Stack direction="column" spacing={1} alignItems="flex-start">
-          <Typography
-            component="div"
-            variant="h6"
-            className={classes.challengeSummaryLabel}
-          >
-            {label}
-          </Typography>
-          <Typography component="div" variant="body1">
-            {remarks}hi
-          </Typography>
-        </Stack>
-      </Stack>
-    </Grid>
-  );
+  // console.log(
+  //   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  //   useSelector((state: RootState) => getChallenge(state, 1))!.name
+  // );
+
+  // console.log(
+  //   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  //   useSelector((state: RootState) => getChallenge(state, 1))!.name
+  // );
+
+  // var map = {};
+
+  // challenges.forEach((challenge) => {
+  //   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  //   const parentChallenge = useSelector((state: RootState) =>
+  //     getChallenge(state, challenge.challengeId)
+  //   );
+  //   console.log(parentChallenge);
+  // });
+  // export const getHeadingFromCategory = (title: string): string => {
+  //   switch (title) {
+  //     case 'Hobbies':
+  //       return 'learn a new hobby';
+  //     case 'Exercise':
+  //       return 'exercise more';
+  //     case 'Habits':
+  //       return 'pick up a habit';
+  //     default:
+  //       return 'invalid category';
+  //   }
+  // };
+
+  // const ChallengeSummary = ({
+  //   percentage,
+  //   label,
+  //   remarks,
+  // }: ChallengeSummaryProps) => (
+  //   <Grid container className={classes.challengeSummary}>
+  //     <Stack direction="row" spacing={5} alignItems="center">
+  //       <CircularProgressWithLabel variant="determinate" value={percentage} />
+
+  //       <Stack direction="column" spacing={1} alignItems="flex-start">
+  //         <Typography
+  //           component="div"
+  //           variant="h6"
+  //           className={classes.challengeSummaryLabel}
+  //         >
+  //           {label}
+  //         </Typography>
+  //         <Typography component="div" variant="body1">
+  //           {remarks}hi
+  //         </Typography>
+  //       </Stack>
+  //     </Stack>
+  //   </Grid>
+  // );
 
   return (
     <>
@@ -90,23 +144,29 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
             Ongoing challenges
           </Typography>
           <ul>
-            {challenges.map((challenge) => (
-              <li key={challenge.id}>
+            {/* {challenges.map((challenge) => (
+              <li key={challenge.challengeId}>
                 <Link
                   to={{
-                    pathname: `${CATEGORY_ROUTE}/1/${challenge.id}`,
+                    pathname: `${CATEGORY_ROUTE}/1/${challenge.challengeId}`,
                     state: { challenge: challenge },
                   }}
                   style={{ textDecoration: 'none' }}
                 >
                   <CategoryListItem
-                    name={challenge.name}
-                    duration={challenge.duration}
-                    percentageComplete={100}
+                    name={getChallengeName(challenge.challengeId)}
+                    duration={
+                      // // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                      // useSelector((state: RootState) =>
+                      //   getChallenge(state, challenge.challengeId)
+                      // )!.duration
+                      10
+                    }
+                    percentageComplete={challenge.percentCompleted}
                   />
                 </Link>
               </li>
-            ))}
+            ))} */}
           </ul>
         </Grid>
       </Grid>

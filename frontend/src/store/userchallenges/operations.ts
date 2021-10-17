@@ -40,7 +40,7 @@ export function loadAllOngoingUserChallenges(): OperationResult {
     const userChallenges: UserChallengeListData[] = response.payload.data;
     dispatch(
       updateOngoingUserChallengesListData({
-        data: { ...userChallenges },
+        data: [...userChallenges],
       })
     );
   };
