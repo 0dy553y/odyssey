@@ -69,7 +69,7 @@ const useStyles = makeStyles(() => ({
     left: 'calc(50% - 45px)',
     top: '-10px',
   },
-  whiteText: {
+  white: {
     color: 'white',
     opacity: '90%',
   },
@@ -124,12 +124,12 @@ const ChallengeDetailsPage: React.FC = () => {
             history.goBack();
           }}
         >
-          <IconButton edge="start">
+          <IconButton edge="start" className={classes.white}>
             <ChevronLeft />
           </IconButton>
         </div>
         <Box className={classes.spacer} />
-        <IconButton>
+        <IconButton className={classes.white}>
           <MoreVert />
         </IconButton>
       </Toolbar>
@@ -183,22 +183,22 @@ const ChallengeDetailsPage: React.FC = () => {
     >
       <Bar />
       <Box sx={{ marginLeft: '28px' }}>
-        <Typography className={classes.whiteText}>
+        <Typography className={classes.white}>
           {!!userChallenge ? '🔥 ONGOING' : '👻 UNENROLLED'}
         </Typography>
-        <Typography variant="h1" className={classes.whiteText}>
+        <Typography variant="h1" className={classes.white}>
           {challenge.name}
         </Typography>
-        <Typography className={classes.whiteText}>
+        <Typography className={classes.white}>
           {challenge.duration} days {challenge.createdBy}
         </Typography>
-        <Typography className={classes.whiteText}>
+        <Typography className={classes.white}>
           {challenge.description}
         </Typography>
-        <Typography className={classes.whiteText}>
+        <Typography className={classes.white}>
           Recommended schedule
         </Typography>
-        <Typography className={classes.whiteText}>
+        <Typography className={classes.white}>
           {challenge.schedule}
         </Typography>
         <Button> Join Challenge!</Button>
