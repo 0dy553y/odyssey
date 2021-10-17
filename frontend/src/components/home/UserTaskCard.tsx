@@ -8,6 +8,7 @@ import {
 } from '../../store/usertasks/operations';
 import { useDispatch } from 'react-redux';
 import { getHexCode } from 'utils/color';
+import { isAfter } from 'date-fns';
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -77,6 +78,7 @@ const UserTaskCard: React.FC<Props> = ({ userTask }: Props) => {
         <div className={classes.doneToggle}>
           <Switch
             checked={!!userTask.completedAt}
+            disabled={isAfter(new Date(userTask.scheduledFor), new Date())}
             onChange={handleDoneToggle}
           />
         </div>
