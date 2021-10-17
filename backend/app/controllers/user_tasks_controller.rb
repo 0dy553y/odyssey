@@ -6,13 +6,13 @@ class UserTasksController < ApplicationController
   end
 
   def mark_as_done
-    @user_task = user_tasks.find(params.require(:id))
+    @user_task = UserTask.find(params.require(:id))
     @user_task.update!(completed_at: Time.zone.now)
     render 'show', status: :ok
   end
 
   def mark_as_not_done
-    @user_task = user_tasks.find(params.require(:id))
+    @user_task = UserTask.find(params.require(:id))
     @user_task.update!(completed_at: nil)
     render 'show', status: :ok
   end

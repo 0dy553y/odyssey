@@ -18,7 +18,7 @@ export function markUserTaskAsDone(userTaskId: number): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userTasks.markUserTaskAsDone(userTaskId);
     const userTask: UserTaskData = response.payload.data;
-    dispatch(saveUserTaskForDay(userTask.scheduledFor, userTask));
+    dispatch(saveUserTaskForDay(new Date(userTask.scheduledFor), userTask));
   };
 }
 
@@ -26,6 +26,6 @@ export function markUserTaskAsNotDone(userTaskId: number): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userTasks.markUserTaskAsNotDone(userTaskId);
     const userTask: UserTaskData = response.payload.data;
-    dispatch(saveUserTaskForDay(userTask.scheduledFor, userTask));
+    dispatch(saveUserTaskForDay(new Date(userTask.scheduledFor), userTask));
   };
 }

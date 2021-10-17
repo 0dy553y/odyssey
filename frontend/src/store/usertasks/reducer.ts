@@ -5,6 +5,7 @@ import {
   UserTaskActions,
   UserTasksState,
 } from './types';
+import { getISOStringAtStartOfDay } from '../../utils/date';
 
 const initialState: UserTasksState = {
   tasksByDay: {},
@@ -14,11 +15,14 @@ const userTasksReducer = produce(
   (draft: UserTasksState, action: UserTaskActions) => {
     switch (action.type) {
       case SAVE_USER_TASK_LIST_FOR_DAY: {
-        draft.tasksByDay[action.date.toDateString()] = action.userTaskList;
+        const key = getISOStringAtStartOfDay(action.date);
+        console.log(key);
+        draft.tasksByDay[key] = action.userTaskList;
         break;
       }
       case SAVE_USER_TASK_FOR_DAY: {
-        const key = action.date.toDateString();
+        const key = getISOStringAtStartOfDay(action.date);
+        console.log(key);
         const userTaskIndex = draft.tasksByDay[key].findIndex(
           (userTask) => userTask.id === action.userTask.id
         );
