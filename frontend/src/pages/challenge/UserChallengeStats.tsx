@@ -1,52 +1,28 @@
 import React from 'react';
 import ChallengeProgressChart from 'components/challengeProgressChart';
 import { useTheme } from '@mui/styles';
-import {
-  Box,
-  Checkbox,
-  Divider,
-  FormControl,
-  FormControlLabel,
-  Grid,
-  Stack,
-  FormGroup,
-  Theme,
-  Typography,
-} from '@mui/material';
-import { sub } from 'date-fns';
-import { DayOfWeek } from 'types/date';
+import { Box, Divider, Grid, Stack, Theme, Typography } from '@mui/material';
 import { UserTaskListData } from 'types/usertasks';
+import RecurringDaysForm from 'components/recurringDaysForm';
+import { Schedule } from 'types/challenges';
 
 import './UserChallengeStats.scss';
 
 interface UserChallengeStatsProps {
   percentCompleted: number;
-  currentStreak: number;
-  longestStreak: number;
+  enrolledDate: Date;
   completedTasks: UserTaskListData[];
   totalNumberOfTasks: number;
+  schedule: Schedule;
 }
-
-const mockChallengeEnrolledDate = sub(new Date(), { months: 1 });
 
 const UserChallengeStats: React.FC<UserChallengeStatsProps> = ({
   percentCompleted,
-  currentStreak,
-  longestStreak,
+  enrolledDate,
   completedTasks,
   totalNumberOfTasks,
+  schedule,
 }) => {
-  const partialMockChallengeProgressChartProps = {
-    data: completedTasks.map((task) => {
-      return {
-        taskCompletionDate: task.completedAt,
-        taskIndex: task.taskIndex,
-      };
-    }),
-    totalNumberOfTasks: totalNumberOfTasks,
-    challengeEnrolledDate: mockChallengeEnrolledDate,
-  };
-
   const theme: Theme = useTheme();
 
   const statsLabel = (
@@ -78,22 +54,7 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = ({
         Recurring days
       </Typography>
 
-      <FormControl component="fieldset" className="day-checkbox-container">
-        <FormGroup>
-          <Stack direction="row" justifyContent="space-between" spacing={0}>
-            {Object.values(DayOfWeek).map((day) => (
-              <FormControlLabel
-                key={day}
-                value={day}
-                control={<Checkbox />}
-                label={day[0]}
-                labelPlacement="top"
-                className={'day-checkbox'}
-              />
-            ))}
-          </Stack>
-        </FormGroup>
-      </FormControl>
+      <RecurringDaysForm isEditable={false} schedule={schedule} />
 
       <Divider className="divider" />
 
@@ -107,13 +68,6 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = ({
             )}
           </Stack>
         </Grid>
-
-        <Grid item xs={6}>
-          <Stack>
-            {statsLabel(`${currentStreak}`, 'days in a row')}
-            {statsLabel(`${longestStreak}`, 'longest streak')}
-          </Stack>
-        </Grid>
       </Grid>
 
       <Typography component="div" variant="h6">
@@ -122,7 +76,17 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = ({
       <ChallengeProgressChart
         height={220}
         color={theme.palette.primary.main}
-        {...partialMockChallengeProgressChartProps}
+        data={completedTasks.map((task) => {
+          if (!task.completedAt) {
+            throw new Error('Completed task must have a completedAt date');
+          }
+          return {
+            taskCompletionDate: task.completedAt,
+            taskIndex: task.taskIndex,
+          };
+        })}
+        totalNumberOfTasks={totalNumberOfTasks}
+        challengeEnrolledDate={enrolledDate}
       />
     </Box>
   );

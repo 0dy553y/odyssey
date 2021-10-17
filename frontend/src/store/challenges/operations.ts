@@ -1,16 +1,18 @@
-import { ThunkDispatch } from 'redux-thunk';
-import { RootState } from '../index';
+import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { loadOngoingUserChallengeDataForChallenge } from 'store/userchallenges/operations';
 import api from '../../api';
 import {
   ChallengeData,
   ChallengeListData,
   ChallengePostData,
   ChallengePutData,
+  Schedule,
 } from '../../types/challenges';
-import { removeChallenge, saveChallenge, saveChallengeList } from './actions';
-import { batch } from 'react-redux';
 import { OperationResult } from '../../types/store';
+import { RootState } from '../index';
+import { removeChallenge, saveChallenge, saveChallengeList } from './actions';
 
 export function loadAllChallenges(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
@@ -25,6 +27,16 @@ export function loadChallenge(challengeId: number): OperationResult {
     const response = await api.challenges.getChallenge(challengeId);
     const challenge: ChallengeData = response.payload.data;
     dispatch(saveChallenge(challenge));
+  };
+}
+
+export function joinChallenge(
+  challengeId: number,
+  recurringDays: Schedule
+): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    await api.challenges.joinChallenge(challengeId, recurringDays);
+    dispatch(loadOngoingUserChallengeDataForChallenge(challengeId));
   };
 }
 

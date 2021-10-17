@@ -19,6 +19,7 @@ import { validateToken } from './store/auth/operations';
 import BottomNavigationBar from './components/common/BottomNavigationBar';
 import { RouteEntry } from './types/routes';
 import Notifier from 'components/notifier';
+import FeedbackOverlay from './components/common/FeedbackOverlay';
 
 import './App.scss';
 import 'slick-carousel/slick/slick.css';
@@ -101,6 +102,7 @@ function App(): JSX.Element {
       {!notAuthenticatedRoutes
         .map((route: RouteEntry) => route.path)
         .includes(location.pathname) && <BottomNavigationBar />}
+      <FeedbackOverlay />
     </Container>
   );
 }

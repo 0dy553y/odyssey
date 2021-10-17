@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_16_062020) do
+ActiveRecord::Schema.define(version: 2021_10_16_122609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,18 @@ ActiveRecord::Schema.define(version: 2021_10_16_062020) do
     t.index ["creator_id"], name: "index_challenges_on_creator_id"
   end
 
+  create_table "schedules", force: :cascade do |t|
+    t.boolean "monday", default: false
+    t.boolean "tuesday", default: false
+    t.boolean "wednesday", default: false
+    t.boolean "thursday", default: false
+    t.boolean "friday", default: false
+    t.boolean "saturday", default: false
+    t.boolean "sunday", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.bigint "challenge_id"
     t.string "name", null: false
@@ -86,7 +98,9 @@ ActiveRecord::Schema.define(version: 2021_10_16_062020) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "completed_at"
     t.datetime "forfeited_at"
+    t.bigint "schedule_id", null: false
     t.index ["challenge_id"], name: "index_user_challenges_on_challenge_id"
+    t.index ["schedule_id"], name: "index_user_challenges_on_schedule_id"
     t.index ["user_id"], name: "index_user_challenges_on_user_id"
   end
 
@@ -134,6 +148,7 @@ ActiveRecord::Schema.define(version: 2021_10_16_062020) do
   add_foreign_key "challenges", "users", column: "creator_id"
   add_foreign_key "tasks", "challenges"
   add_foreign_key "user_challenges", "challenges"
+  add_foreign_key "user_challenges", "schedules"
   add_foreign_key "user_challenges", "users"
   add_foreign_key "user_tasks", "tasks"
   add_foreign_key "user_tasks", "user_challenges"
