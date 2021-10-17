@@ -6,7 +6,6 @@ import {
   SAVE_CHALLENGE,
   SAVE_CHALLENGE_LIST,
 } from './types';
-import { ChallengeListData } from '../../types/challenges';
 
 const initialState: ChallengesState = {
   challengeList: [],
@@ -21,16 +20,10 @@ const challengesReducer = produce(
         break;
       }
       case SAVE_CHALLENGE: {
-        if (!draft.challengeList.includes(action.challenge)) {
-          draft.challengeList.push(action.challenge);
-        }
         draft.challenges[action.challenge.id] = action.challenge;
         break;
       }
       case REMOVE_CHALLENGE: {
-        draft.challengeList = draft.challengeList.filter(
-          (challenge: ChallengeListData) => challenge.id !== action.challengeId
-        );
         delete draft.challenges[action.challengeId];
         break;
       }
