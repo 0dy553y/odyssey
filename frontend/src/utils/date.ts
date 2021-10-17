@@ -1,4 +1,9 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import calendar from 'dayjs/plugin/calendar';
+
+dayjs.extend(relativeTime);
+dayjs.extend(calendar);
 
 export function getNeighbouringDates(date: Date, range: number): Date[] {
   const dates = [];
@@ -11,23 +16,20 @@ export function getNeighbouringDates(date: Date, range: number): Date[] {
 }
 
 export function getMonthString(date: Date): string {
-  return moment(date).format('MMMM');
+  return dayjs(date).format('MMMM');
 }
 
 export function getDayString(date: Date): string {
-  return moment(date).format('ddd');
+  return dayjs(date).format('ddd');
 }
 
 export function getDateFromNowString(date: Date): string {
-  const fromNow = moment(date).fromNow();
-  return moment(date).calendar(null, {
+  return dayjs(date).calendar(null, {
     lastWeek: '[Last] dddd',
     lastDay: '[Yesterday]',
     sameDay: '[Today]',
     nextDay: '[Tomorrow]',
     nextWeek: 'dddd',
-    sameElse: function () {
-      return '[' + fromNow + ']';
-    },
+    sameElse: () => dayjs(date).fromNow(),
   });
 }
