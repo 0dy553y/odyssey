@@ -1,7 +1,11 @@
 import { UserTaskListData } from './usertasks';
 
-export interface UserChallengeData {
-  enrolledDate: Date;
+export interface UserChallengeListData {
+  challengeId: number;
   percentCompleted: number;
+}
+
+export interface UserChallengeData extends UserChallengeListData {
+  enrolledDate: Date;
   userTasks: UserTaskListData[];
 }

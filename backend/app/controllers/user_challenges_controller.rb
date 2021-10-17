@@ -10,4 +10,8 @@ class UserChallengesController < ApplicationController
 
     @user_tasks = current_user.user_tasks.includes(:task).where(user_challenge_id: @user_challenge.id)
   end
+
+  def all_ongoing_challenges
+    @user_challenge = current_user.user_challenges.find_by(completed_at: nil, forfeited_at: nil)
+  end
 end
