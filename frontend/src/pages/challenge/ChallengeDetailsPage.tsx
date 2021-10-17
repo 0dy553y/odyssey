@@ -21,7 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import UserChallengeStats from './UserChallengeStats';
 import ChallengeMilestones from './ChallengeMilestones';
 import ScheduleModal from './ScheduleModal';
-import { loadChallenge } from 'store/challenges/operations';
+import { joinChallenge, loadChallenge } from 'store/challenges/operations';
 import { loadAllTasks } from 'store/tasks/operations';
 import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
@@ -192,7 +192,9 @@ const ChallengeDetailsPage: React.FC = () => {
         <ScheduleModal
           isOpen={isScheduleModalOpen}
           onClose={() => setIsScheduleModalOpen(false)}
-          onSubmit={(schedule: Schedule) => console.log(schedule)}
+          onSubmit={(schedule: Schedule) =>
+            dispatch(joinChallenge(Number(challengeId), schedule))
+          }
         />
 
         <SwipeableDrawer

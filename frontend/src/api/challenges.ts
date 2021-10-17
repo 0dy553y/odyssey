@@ -1,4 +1,3 @@
-import BaseAPI from './base';
 import { ApiPromise, EmptyPayload } from '../types/api';
 import {
   ChallengeData,
@@ -7,6 +6,7 @@ import {
   ChallengePutData,
   Schedule,
 } from '../types/challenges';
+import BaseAPI from './base';
 
 class ChallengesAPI extends BaseAPI {
   public static getChallengesUrl(): string {
@@ -30,8 +30,8 @@ class ChallengesAPI extends BaseAPI {
     recurringDays: Schedule
   ): ApiPromise<ChallengeData> {
     return this.post(
-      `${ChallengesAPI.getChallengesUrl()}/${challengeId}`,
-      recurringDays
+      `${ChallengesAPI.getChallengesUrl()}/${challengeId}/join`,
+      { schedule: recurringDays }
     );
   }
 

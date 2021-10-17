@@ -10,7 +10,6 @@ class ChallengesController < ApplicationController
   end
 
   def join
-    schedule = params[:schedule]
     challenge_id = params[:id]
     now = DateTime.now
     ActiveRecord::Base.transaction do
@@ -20,6 +19,8 @@ class ChallengesController < ApplicationController
         created_at: now,
         updated_at: now
       )
+      schedule = Schedule.new(schedule_params)
+      @user_challenge.schedule = schedule
       @user_challenge.save!
 
       create_user_tasks(@user_challenge, schedule, now)
@@ -55,13 +56,17 @@ class ChallengesController < ApplicationController
     params.require(:challenge).permit(:category_id, :name, :description, :schedule, :duration)
   end
 
+  def schedule_params
+    params.require(:schedule).permit(:monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday)
+  end
+
   def create_user_tasks(user_challenge, schedule, now)
     tasks = Task.where(challenge_id: user_challenge.challenge_id)
 
     schedule_date_pointer = now
     tasks.each do |task|
       # find next available time in schedule
-      schedule_date_pointer += 1.day until schedule[schedule_date_pointer.wday - 1]
+      schedule_date_pointer += 1.day until schedule[schedule_date_pointer.strftime('%A').downcase]
 
       user_task = UserTask.new(
         user_id: current_user.id,
