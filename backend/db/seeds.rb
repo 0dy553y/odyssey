@@ -62,6 +62,6 @@ end
 
 30.times do |i|
   description = "Write #{(i + 1).ordinalize} pages today"
-  Task.create(challenge_id: challenge_running.id, name: "Day #{i + 1}: What's up",
+  Task.create(challenge_id: challenge_journalling.id, name: "Day #{i + 1}: What's up",
               description: description, index: i)
 end
