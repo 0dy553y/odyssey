@@ -11,7 +11,7 @@ interface Props {
 }
 
 const DateCarousel: React.FC<Props> = ({ setDate }: Props) => {
-  const dateRange = 8;
+  const dateRange = 50;
   const previousIndex = dateRange;
   const [dates, setDates] = useState(
     getNeighbouringDates(new Date(), dateRange)
