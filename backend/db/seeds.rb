@@ -24,7 +24,7 @@ challenge_running = Challenge.create(category_id: category_exercise.id, name: 'C
                                      creator_id: user_odyssey.id,
                                      color: 0)
 user_challenge_running = UserChallenge.new(user_id: user_unclesoo.id, challenge_id: challenge_running.id,
-                                              started_at: 1.week.ago)
+                                           started_at: 1.week.ago)
 user_challenge_running.schedule = Schedule.new(saturday: true, sunday: true)
 user_challenge_running.save!
 
@@ -32,7 +32,7 @@ challenge_drinking = Challenge.create(category_id: category_habits.id, name: 'Wa
                                       description: 'Get hydrated with Jialin', schedule: 'Daily', duration: 36_464_572,
                                       creator_id: user_odyssey.id, color: 1)
 user_challenge_drinking = UserChallenge.new(user_id: user_unclesoo.id, challenge_id: challenge_drinking.id,
-                                               started_at: 2.weeks.ago)
+                                            started_at: 2.weeks.ago)
 user_challenge_drinking.schedule = Schedule.new(monday: true, tuesday: true, wednesday: true,
                                                 thursday: true, friday: true)
 user_challenge_drinking.save!
@@ -63,5 +63,5 @@ end
 30.times do |i|
   description = "Write #{(i + 1).ordinalize} pages today"
   Task.create(challenge_id: challenge_running.id, name: "Day #{i + 1}: What's up",
-                    description: description, index: i)
+              description: description, index: i)
 end
