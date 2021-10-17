@@ -26,6 +26,7 @@ const useStyles = makeStyles(() => ({
   headerNonCarouselItem: {
     marginLeft: 30,
     marginRight: 30,
+    width: 'auto',
   },
 }));
 
