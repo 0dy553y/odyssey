@@ -1,3 +1,5 @@
+import { DayOfWeek } from './date';
+
 export interface ChallengeListData {
   id: number;
   name: string;
@@ -36,12 +38,4 @@ export enum ChallengeStatus {
   FORFEITED,
 }
 
-export interface Schedule {
-  monday: boolean;
-  tuesday: boolean;
-  wednesday: boolean;
-  thursday: boolean;
-  friday: boolean;
-  saturday: boolean;
-  sunday: boolean;
-}
+export type Schedule = Record<DayOfWeek, boolean>;

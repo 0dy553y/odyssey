@@ -3,7 +3,8 @@ import ChallengeProgressChart from 'components/challengeProgressChart';
 import { useTheme } from '@mui/styles';
 import { Box, Divider, Grid, Stack, Theme, Typography } from '@mui/material';
 import { UserTaskListData } from 'types/usertasks';
-import RecurringDaysForm from 'components/recurringDaysForm/RecurringDaysForm';
+import RecurringDaysForm from 'components/recurringDaysForm';
+import { DayOfWeek } from 'types/date';
 
 import './UserChallengeStats.scss';
 
@@ -51,7 +52,18 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = ({
         Recurring days
       </Typography>
 
-      <RecurringDaysForm isEditable={false} />
+      <RecurringDaysForm
+        isEditable={false}
+        schedule={{
+          [DayOfWeek.Monday]: true,
+          [DayOfWeek.Tuesday]: false,
+          [DayOfWeek.Wednesday]: false,
+          [DayOfWeek.Thursday]: false,
+          [DayOfWeek.Friday]: false,
+          [DayOfWeek.Saturday]: false,
+          [DayOfWeek.Sunday]: true,
+        }}
+      />
 
       <Divider className="divider" />
 

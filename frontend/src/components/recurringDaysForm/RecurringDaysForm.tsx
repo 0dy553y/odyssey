@@ -7,14 +7,17 @@ import {
   Stack,
 } from '@mui/material';
 import { DayOfWeek } from 'types/date';
+import { Schedule } from 'types/challenges';
 
 import './RecurringDaysForm.scss';
 
 interface RecurringDaysFormProps {
   isEditable: boolean;
+  schedule: Schedule;
 }
 
 const RecurringDaysForm: React.FC<RecurringDaysFormProps> = ({
+  schedule,
   isEditable,
 }) => {
   return (
@@ -29,8 +32,8 @@ const RecurringDaysForm: React.FC<RecurringDaysFormProps> = ({
             <FormControlLabel
               key={day}
               value={day}
-              control={<Checkbox />}
-              label={day[0]}
+              control={<Checkbox checked={schedule[day]} />}
+              label={day[0].toLocaleUpperCase()}
               labelPlacement="top"
               className={'day-checkbox'}
             />
