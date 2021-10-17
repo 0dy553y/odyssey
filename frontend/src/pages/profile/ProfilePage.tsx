@@ -34,15 +34,10 @@ import {
   getAllCompletedUserChallenges,
   getAllOngoingUserChallenges,
 } from 'store/userchallenges/selectors';
+import { getUserTaskActivityData } from 'store/usertasks/selectors';
 import { RootState } from 'store';
 import { UserTaskActivityDatum } from 'types/usertasks';
 import { loadUserTaskActivityData } from 'store/usertasks/operations';
-
-interface ProfilePageProps {
-  userProfileItems: { label: string; count: number; onClick?: () => void }[];
-  registrationDate: Date;
-  activityMapData: UserTaskActivityDatum[];
-}
 
 export interface StyleProps {
   scrollbarWidth: number;
@@ -94,37 +89,31 @@ const ProfilePage: React.FC = () => {
     getAllCompletedUserChallenges(state)
   )!;
 
+  const userTaskActivityData: UserTaskActivityDatum[] = useSelector(
+    getUserTaskActivityData
+  );
+
   // TODO: replace these
-  const mockProps: ProfilePageProps = {
-    userProfileItems: [
-      {
-        label: 'friends',
-        count: 4,
-        onClick: () => history.push(FRIENDS_ROUTE),
-      },
-      {
-        label:
-          completedChallenges.length === 1
-            ? 'completed challenge'
-            : 'completed challenges',
-        count: completedChallenges.length,
-        onClick: () => history.push(COMPLETED_CHALLENGES_ROUTE),
-      },
-      { label: 'badges', count: 0, onClick: () => history.push(BADGE_ROUTE) },
-    ],
-    registrationDate: new Date('2021-10-03'),
-    activityMapData: [
-      { date: new Date('2021-10-02'), count: 6 },
-      { date: new Date('2021-09-22'), count: 3 },
-      { date: new Date('2021-09-30'), count: 2 },
-      { date: new Date('2021-10-03'), count: 2 },
-      { date: new Date('2021-10-01'), count: 1 },
-      { date: new Date('2021-09-15'), count: 9 },
-      { date: new Date('2021-09-14'), count: 2 },
-      { date: new Date('2021-09-07'), count: 1 },
-    ],
-  };
-  const { userProfileItems, registrationDate, activityMapData } = mockProps;
+  const userProfileItems: {
+    label: string;
+    count: number;
+    onClick: () => void;
+  }[] = [
+    {
+      label: 'friends',
+      count: 4,
+      onClick: () => history.push(FRIENDS_ROUTE),
+    },
+    {
+      label:
+        completedChallenges.length === 1
+          ? 'completed challenge'
+          : 'completed challenges',
+      count: completedChallenges.length,
+      onClick: () => history.push(COMPLETED_CHALLENGES_ROUTE),
+    },
+    { label: 'badges', count: 0, onClick: () => history.push(BADGE_ROUTE) },
+  ];
 
   const [menuAnchorEl, setMenuAnchorEl] = React.useState<null | HTMLElement>(
     null
@@ -182,11 +171,11 @@ const ProfilePage: React.FC = () => {
           <ProfileHeader user={user} userProfileItems={userProfileItems} />
         </Grid>
 
-        <ActivityMap activityMapData={activityMapData} />
+        <ActivityMap activityMapData={userTaskActivityData} />
 
         <UserStats
           challengesCompleted={completedChallenges.length}
-          registrationDate={registrationDate}
+          registrationDate={user.registrationDate}
         />
 
         <ChallengeSummaries challenges={ongoingChallenges} />

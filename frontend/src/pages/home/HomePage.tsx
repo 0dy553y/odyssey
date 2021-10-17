@@ -28,6 +28,11 @@ const useStyles = makeStyles(() => ({
     marginRight: 30,
     width: 'auto',
   },
+  tasksContainer: {
+    height: '100%',
+    marginTop: 10,
+    marginBottom: 15,
+  },
 }));
 
 const HomePage: React.FC = () => {
@@ -63,7 +68,9 @@ const HomePage: React.FC = () => {
               <Typography variant="h4">Hello,</Typography>
             </Grid>
             <Grid item>
-              <Typography variant="h4">{user.displayName}</Typography>
+              <Typography variant="h4">
+                {user.displayName ?? user.username}
+              </Typography>
             </Grid>
           </Grid>
           <Grid item className={classes.headerCarouselItem}>
@@ -74,7 +81,9 @@ const HomePage: React.FC = () => {
           </Grid>
         </Grid>
       </div>
-      <UserTaskCarousel userTaskList={userTaskList} />
+      <div className={classes.tasksContainer}>
+        <UserTaskCarousel userTaskList={userTaskList} date={date} />
+      </div>
     </div>
   );
 };
