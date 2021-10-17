@@ -20,6 +20,7 @@ import { RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
 import UserChallengeStats from './UserChallengeStats';
 import ChallengeMilestones from './ChallengeMilestones';
+import ScheduleModal from './ScheduleModal';
 import { loadChallenge } from 'store/challenges/operations';
 import { loadAllTasks } from 'store/tasks/operations';
 import { getChallenge } from 'store/challenges/selectors';
@@ -80,8 +81,10 @@ const privateTabs = [TabItem.YourStats];
 const ChallengeDetailsPage: React.FC = () => {
   const classes = useStyles();
   const history = useHistory();
-
   const dispatch = useDispatch();
+
+  const [isScheduleModalOpen, setIsScheduleModalOpen] =
+    useState<boolean>(false);
 
   useEffect(() => {
     dispatch(loadChallenge(Number(challengeId)));
@@ -183,7 +186,13 @@ const ChallengeDetailsPage: React.FC = () => {
         <Typography>{challenge.description}</Typography>
         <Typography>Recommended schedule</Typography>
         <Typography>{challenge.schedule}</Typography>
-        <Button> Join Challenge!</Button>
+        <Button onClick={() => setIsScheduleModalOpen(true)}>
+          Join Challenge!
+        </Button>
+        <ScheduleModal
+          isOpen={isScheduleModalOpen}
+          onClose={() => setIsScheduleModalOpen(false)}
+        />
 
         <SwipeableDrawer
           anchor="bottom"
