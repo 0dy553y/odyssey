@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface CategoryListProps {
   name: string;
-  completionDate: number;
+  completionDate: string;
 }
 
 const CategoryListItem: React.FC<CategoryListProps> = (props) => {

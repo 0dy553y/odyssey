@@ -1,13 +1,6 @@
 import React, { useEffect } from 'react';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
-import {
-  AppBar,
-  Box,
-  IconButton,
-  Skeleton,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadAllCompletedUserChallenges } from 'store/userchallenges/operations';
 import { Link, useHistory } from 'react-router-dom';
@@ -20,6 +13,7 @@ import CompletedChallengeListItem from 'components/completedChallenges/Completed
 import { ChallengeListData } from 'types/challenges';
 
 import './CompletedChallengesPage.scss';
+import { convertTimestampToHumanReadableFormat } from 'utils/formatting';
 
 const CompletedChallengesPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -44,10 +38,6 @@ const CompletedChallengesPage: React.FC = () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return parentChallenges.find((challenge) => challenge.id === challengeId)!;
   };
-
-  if (!parentChallenges) {
-    return <Skeleton />;
-  }
 
   return (
     <Box sx={{ padding: '2em 1.5em 0 1.5em' }}>
@@ -82,7 +72,9 @@ const CompletedChallengesPage: React.FC = () => {
                 >
                   <CompletedChallengeListItem
                     name={challengeDetails.name}
-                    completionDate={challenge.completedAt}
+                    completionDate={convertTimestampToHumanReadableFormat(
+                      challenge.completedAt
+                    )}
                   />
                 </Link>
               </li>

@@ -1,4 +1,5 @@
 import { format, formatDuration, intervalToDuration } from 'date-fns';
+import moment from 'moment';
 
 export const displayUsername = (username: string): string => {
   return `@${username}`;
@@ -52,4 +53,10 @@ export const getFormattedStringFromDays = (numberOfDays: number): string => {
     months > 0 ? months + (months == 1 ? ' month ' : ' months ') : '';
   const daysDisplay = days > 0 ? days + (days == 1 ? ' day' : ' days') : '';
   return yearsDisplay + monthsDisplay + daysDisplay;
+};
+
+export const convertTimestampToHumanReadableFormat = (
+  timestamp: number
+): string => {
+  return moment(timestamp).utc().format('MMMM Do YYYY, h:mm a');
 };
