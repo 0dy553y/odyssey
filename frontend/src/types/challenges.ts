@@ -28,8 +28,8 @@ export interface ChallengePutData {
 }
 
 export enum ChallengeColor {
-  BLUE = '#3836A6',
-  PURPLE = '#9F88E3',
+  BLUE,
+  PURPLE,
 }
 
 export enum ChallengeStatus {

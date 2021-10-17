@@ -19,12 +19,12 @@ import { validateToken } from './store/auth/operations';
 import BottomNavigationBar from './components/common/BottomNavigationBar';
 import { RouteEntry } from './types/routes';
 import Notifier from 'components/notifier';
+import FeedbackOverlay from './components/common/FeedbackOverlay';
 
 import './App.scss';
-import './react-slider.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import FeedbackOverlay from './components/common/FeedbackOverlay';
+import 'swiper/swiper-bundle.css';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -62,7 +62,7 @@ function App(): JSX.Element {
         }}
       />
       <div className="App-content-container">
-        <Container disableGutters maxWidth="xs">
+        <Container className="column-container" disableGutters maxWidth="xs">
           <Switch>
             {isValidatingToken ? (
               <Box

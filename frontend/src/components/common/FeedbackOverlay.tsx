@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: theme.palette.primary.main,
       color: 'white',
     },
+    zIndex: 1,
   },
   buttonContent: {
     display: 'flex',
