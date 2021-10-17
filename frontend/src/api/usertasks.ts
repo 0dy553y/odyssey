@@ -15,7 +15,7 @@ class UserTasksAPI extends BaseAPI {
 
   public getUserTaskActivityData(): ApiPromise<UserTaskActivityDatum[]> {
     return this.get(
-      `${UserTasksAPI.getUserTasksUrl()}/user_task_activity_data}`
+      `${UserTasksAPI.getUserTasksUrl()}/user_task_activity_data`
     );
   }
 }

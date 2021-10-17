@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from 'store/auth/selectors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -25,6 +25,7 @@ import { EDIT_PROFILE_ROUTE, FRIENDS_ROUTE } from 'routing/routes';
 import { logout } from 'store/auth/operations';
 import useScrollbarSize from 'react-scrollbar-size';
 import { UserTaskActivityDatum } from 'types/usertasks';
+import { loadUserTaskActivityData } from 'store/usertasks/operations';
 
 interface ProfilePageProps {
   userProfileItems: { label: string; count: number; onClick?: () => void }[];
@@ -142,6 +143,10 @@ const ProfilePage: React.FC = () => {
   const handleMenuClose = () => {
     setMenuAnchorEl(null);
   };
+
+  useEffect(() => {
+    dispatch(loadUserTaskActivityData());
+  }, []);
 
   return (
     <Box
