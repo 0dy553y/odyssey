@@ -6,7 +6,7 @@ import { Link, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { EXPLORE_ROUTE } from '../../routing/routes';
 import { useHistory } from 'react-router-dom';
-import { isToday } from 'date-fns';
+import { isBefore, isToday } from 'date-fns';
 import { displayDate } from '../../utils/formatting';
 
 import './UserTaskCarousel.scss';
@@ -51,7 +51,9 @@ const UserTaskCarousel: React.FC<Props> = ({ userTaskList, date }: Props) => {
     return (
       <div className={classes.textContainer}>
         <Typography align="center" className={classes.text}>
-          {`You have no tasks on ${displayDate(date)}!`}
+          {`You ${
+            isBefore(date, new Date()) ? 'had' : 'have'
+          } no tasks on ${displayDate(date)}!`}
         </Typography>
       </div>
     );
