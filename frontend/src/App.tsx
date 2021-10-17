@@ -23,6 +23,7 @@ import Notifier from 'components/notifier';
 import './App.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import 'swiper/swiper-bundle.css';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();

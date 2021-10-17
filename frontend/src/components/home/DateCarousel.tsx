@@ -1,19 +1,17 @@
 import React from 'react';
-import Slider from 'react-slick';
-import DateItem from './DateItem';
 import { getDatesInMonth } from '../../utils/date';
-
-import './DateCarousel.scss';
+import DateItem from './DateItem';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 const DateCarousel: React.FC = () => {
   return (
-    <Slider arrows={false} centerMode infinite={false} className="date-slider">
+    <Swiper centeredSlides slidesPerView={5}>
       {getDatesInMonth(9, 2021).map((date: Date) => (
-        <div key={date.toISOString()}>
+        <SwiperSlide key={date.toISOString()}>
           <DateItem date={date} />
-        </div>
+        </SwiperSlide>
       ))}
-    </Slider>
+    </Swiper>
   );
 };
 
