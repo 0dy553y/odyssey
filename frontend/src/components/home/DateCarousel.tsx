@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { getMonthString, getNeighbouringDates } from '../../utils/date';
+import {
+  getDateFromNowString,
+  getDayString,
+  getMonthString,
+  getNeighbouringDates,
+} from '../../utils/date';
 import DateItem from './DateItem';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperClass from 'swiper/types/swiper-class';
@@ -12,6 +17,10 @@ const useStyles = makeStyles(() => ({
   monthText: {
     textAlign: 'center',
     paddingBottom: 10,
+  },
+  dayText: {
+    textAlign: 'center',
+    paddingBottom: 0,
   },
 }));
 
@@ -97,6 +106,10 @@ const DateCarousel: React.FC<Props> = ({ setDate }: Props) => {
           </SwiperSlide>
         ))}
       </Swiper>
+      <div className={classes.dayText}>
+        <Typography variant="h6">{getDayString(selectedDate)}</Typography>
+        <Typography>{getDateFromNowString(selectedDate)}</Typography>
+      </div>
     </>
   );
 };

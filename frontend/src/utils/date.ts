@@ -13,3 +13,21 @@ export function getNeighbouringDates(date: Date, range: number): Date[] {
 export function getMonthString(date: Date): string {
   return moment(date).format('MMMM');
 }
+
+export function getDayString(date: Date): string {
+  return moment(date).format('ddd');
+}
+
+export function getDateFromNowString(date: Date): string {
+  const fromNow = moment(date).fromNow();
+  return moment(date).calendar(null, {
+    lastWeek: '[Last] dddd',
+    lastDay: '[Yesterday]',
+    sameDay: '[Today]',
+    nextDay: '[Tomorrow]',
+    nextWeek: 'dddd',
+    sameElse: function () {
+      return '[' + fromNow + ']';
+    },
+  });
+}
