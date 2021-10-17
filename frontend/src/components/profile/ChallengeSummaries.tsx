@@ -51,13 +51,22 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
 
   const dispatch = useDispatch();
 
+  // useEffect(() => {
+  //   console.log(challenges);
+  //   challenges.forEach((challenge) => {
+  //     console.log('called');
+  //     dispatch(loadChallenge(challenge.challengeId));
+  //   });
+  // }, [challenges]);
+
   useEffect(() => {
-    console.log(challenges);
-    challenges.forEach((challenge) => {
-      console.log('called');
-      dispatch(loadChallenge(challenge.challengeId));
-    });
-  }, [challenges]);
+    dispatch(loadAllChallenges());
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const allChallenges = useSelector((state: RootState) =>
+    getChallengeList(state)
+  )!;
 
   // const getChallengeName = (challengeId: number): string => {
   //   console.log(
@@ -71,7 +80,7 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
 
   // console.log(
   //   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  //   useSelector((state: RootState) => getChallenge(state, 2)).duration
+  //   useSelector((state: RootState) => getChallenge(state, 3)).duration
   // );
 
   // console.log(
