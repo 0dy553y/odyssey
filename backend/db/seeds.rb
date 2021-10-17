@@ -39,7 +39,7 @@ user_challenge_drinking.save!
 
 challenge_journalling = Challenge.new(category_id: category_habits.id, name: 'Journalling',
                                       description: 'Dear Diary', schedule: 'Daily', duration: 30,
-                                           creator_id: user_odyssey.id, color: 0)
+                                      creator_id: user_odyssey.id, color: 0)
 challenge_journalling.save!
 
 30.times do |i|
