@@ -27,8 +27,14 @@ import {
 } from 'routing/routes';
 import { logout } from 'store/auth/operations';
 import useScrollbarSize from 'react-scrollbar-size';
-import { loadAllOngoingUserChallenges } from 'store/userchallenges/operations';
-import { getAllOngoingUserChallenges } from 'store/userchallenges/selectors';
+import {
+  loadAllCompletedUserChallenges,
+  loadAllOngoingUserChallenges,
+} from 'store/userchallenges/operations';
+import {
+  getAllCompletedUserChallenges,
+  getAllOngoingUserChallenges,
+} from 'store/userchallenges/selectors';
 import { RootState } from 'store';
 import { UserTaskActivityDatum } from 'types/usertasks';
 import { loadUserTaskActivityData } from 'store/usertasks/operations';
@@ -36,7 +42,6 @@ import { loadUserTaskActivityData } from 'store/usertasks/operations';
 interface ProfilePageProps {
   userProfileItems: { label: string; count: number; onClick?: () => void }[];
   registrationDate: Date;
-  challengesCompleted: number;
   challengeSummaries: ChallengeSummaryProps[];
   activityMapData: UserTaskActivityDatum[];
 }
@@ -69,6 +74,28 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
 }));
 
 const ProfilePage: React.FC = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { width } = useScrollbarSize();
+  const classes = useStyles({ scrollbarWidth: width });
+
+  useEffect(() => {
+    dispatch(loadAllOngoingUserChallenges());
+    dispatch(loadAllCompletedUserChallenges());
+  }, []);
+
+  // user should never be undefined (assuming auth routing works)
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const user = useSelector(getUser)!; //
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const ongoingChallenges = useSelector((state: RootState) =>
+    getAllOngoingUserChallenges(state)
+  )!;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const completedChallenges = useSelector((state: RootState) =>
+    getAllCompletedUserChallenges(state)
+  )!;
+
   // TODO: replace these
   const mockProps: ProfilePageProps = {
     userProfileItems: [
@@ -79,13 +106,12 @@ const ProfilePage: React.FC = () => {
       },
       {
         label: 'completed challenges',
-        count: 16,
+        count: completedChallenges.length,
         onClick: () => history.push(COMPLETED_CHALLENGES_ROUTE),
       },
       { label: 'badges', count: 0 },
     ],
     registrationDate: new Date('2021-10-03'),
-    challengesCompleted: 16,
     challengeSummaries: [
       {
         id: 1,
@@ -123,29 +149,7 @@ const ProfilePage: React.FC = () => {
       { date: new Date('2021-09-07'), count: 1 },
     ],
   };
-  const {
-    userProfileItems,
-    registrationDate,
-    challengesCompleted,
-    activityMapData,
-  } = mockProps;
-
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const { width } = useScrollbarSize();
-  const classes = useStyles({ scrollbarWidth: width });
-
-  useEffect(() => {
-    dispatch(loadAllOngoingUserChallenges());
-  }, []);
-
-  // user should never be undefined (assuming auth routing works)
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const user = useSelector(getUser)!; //
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const challenges = useSelector((state: RootState) =>
-    getAllOngoingUserChallenges(state)
-  )!;
+  const { userProfileItems, registrationDate, activityMapData } = mockProps;
 
   const [menuAnchorEl, setMenuAnchorEl] = React.useState<null | HTMLElement>(
     null
@@ -206,11 +210,11 @@ const ProfilePage: React.FC = () => {
         <ActivityMap activityMapData={activityMapData} />
 
         <UserStats
-          challengesCompleted={challengesCompleted}
+          challengesCompleted={completedChallenges.length}
           registrationDate={registrationDate}
         />
 
-        <ChallengeSummaries challenges={challenges} />
+        <ChallengeSummaries challenges={ongoingChallenges} />
       </Box>
     </>
   );
