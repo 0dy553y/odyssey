@@ -14,7 +14,7 @@ import {
 import { TabPanel, TabContext, TabList } from '@mui/lab';
 import { ChevronLeft, MoreVert } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
-import { ChallengeData, ChallengeColor } from '../../types/challenges';
+import { ChallengeData } from '../../types/challenges';
 import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -68,6 +68,10 @@ const useStyles = makeStyles(() => ({
     position: 'absolute',
     left: 'calc(50% - 45px)',
     top: '-10px',
+  },
+  whiteText: {
+    color: 'white',
+    opacity: '90%',
   },
 }));
 
@@ -179,14 +183,24 @@ const ChallengeDetailsPage: React.FC = () => {
     >
       <Bar />
       <Box sx={{ marginLeft: '28px' }}>
-        <Status />
-        <Typography variant="h1">{challenge.name}</Typography>
-        <Typography>
+        <Typography className={classes.whiteText}>
+          {!!userChallenge ? '🔥 ONGOING' : '👻 UNENROLLED'}
+        </Typography>
+        <Typography variant="h1" className={classes.whiteText}>
+          {challenge.name}
+        </Typography>
+        <Typography className={classes.whiteText}>
           {challenge.duration} days {challenge.createdBy}
         </Typography>
-        <Typography>{challenge.description}</Typography>
-        <Typography>Recommended schedule</Typography>
-        <Typography>{challenge.schedule}</Typography>
+        <Typography className={classes.whiteText}>
+          {challenge.description}
+        </Typography>
+        <Typography className={classes.whiteText}>
+          Recommended schedule
+        </Typography>
+        <Typography className={classes.whiteText}>
+          {challenge.schedule}
+        </Typography>
         <Button> Join Challenge!</Button>
 
         <SwipeableDrawer

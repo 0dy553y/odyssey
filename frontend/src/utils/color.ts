@@ -7,6 +7,7 @@ export function getHexCode(color: ChallengeColor): string {
     case ChallengeColor.PURPLE:
       return '#9F88E3';
     default:
-      return '';
+      // Black
+      return '#000000';
   }
 }
