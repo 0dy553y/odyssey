@@ -1,3 +1,5 @@
+import { ChallengeColor } from './challenges';
+
 export interface UserTaskListData {
   id: number;
   name: string;
@@ -6,6 +8,7 @@ export interface UserTaskListData {
   description: string;
   completedAt?: Date;
   taskIndex: number;
+  challengeColor: ChallengeColor;
 }
 
 export type UserTaskData = UserTaskListData;

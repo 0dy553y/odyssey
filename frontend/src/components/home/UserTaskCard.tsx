@@ -7,10 +7,12 @@ import {
   markUserTaskAsNotDone,
 } from '../../store/usertasks/operations';
 import { useDispatch } from 'react-redux';
+import { getHexCode } from 'utils/color';
 
 const useStyles = makeStyles(() => ({
   card: {
-    backgroundColor: '#9F88E3',
+    backgroundColor: (userTask: UserTaskListData) =>
+      getHexCode(userTask.challengeColor),
     borderRadius: 25,
     height: '100%',
   },
@@ -43,7 +45,7 @@ interface Props {
 }
 
 const UserTaskCard: React.FC<Props> = ({ userTask }: Props) => {
-  const classes = useStyles();
+  const classes = useStyles(userTask);
   const dispatch = useDispatch();
 
   const status = !!userTask.completedAt ? '🎉 Completed!' : '🔥 Ongoing';
