@@ -22,7 +22,7 @@ const UserStats: React.FC<UserStatsProps> = ({
       justifyContent="center"
     >
       <Grid item xs={12}>
-        <Typography component="div" variant="h6">
+        <Typography component="div" variant="h5">
           Stats
         </Typography>
       </Grid>

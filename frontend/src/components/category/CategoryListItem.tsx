@@ -1,54 +1,57 @@
 import React from 'react';
-import { makeStyles } from '@mui/styles';
+import { makeStyles, useTheme } from '@mui/styles';
+import CheckIcon from '@mui/icons-material/Check';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import CircularProgress, {
   circularProgressClasses,
 } from '@mui/material/CircularProgress';
 import { getFormattedStringFromDays } from 'utils/formatting';
-import { Typography } from '@mui/material';
+import { Typography, Theme } from '@mui/material';
 
 import './CategoryListItem.scss';
 
-const useStyles = makeStyles(() => ({
-  setOpacity: {
+const useStyles = makeStyles((theme: Theme) => ({
+  innerRing: {
     opacity: 0.5,
     position: 'absolute',
   },
-  help: {
+  container: {
     display: 'flex',
+    position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
     padding: '0 0 2em 0',
   },
-  temp: {
-    // backgroundColor: 'red',
-  },
-  animateProgress: {
+  outerRing: {
     transition: '4s ease',
     transitionDelay: '4s',
+  },
+  fillIcon: {
+    fill: theme.palette.primary.main,
   },
 }));
 
 interface CategoryListProps {
   name: string;
   duration: number;
+  percentageComplete: number;
 }
 
 const CategoryListItem: React.FC<CategoryListProps> = (props) => {
   const classes = useStyles();
-  const { name, duration } = props;
+  const { name, duration, percentageComplete } = props;
 
   const [progress, setProgress] = React.useState(0);
 
   React.useEffect(() => {
-    setProgress(80);
+    setProgress(percentageComplete);
   }, []);
 
   return (
     <Box>
       <div>
-        <div className={classes.help}>
+        <div className={classes.container}>
           <div className="square"></div>
           <Grid item xs={9}>
             <Typography component="div" variant="h6">
@@ -58,7 +61,7 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
               {getFormattedStringFromDays(duration)}
             </Typography>
           </Grid>
-          <Grid item xs={2} className={classes.temp}>
+          <Grid item xs={2}>
             <CircularProgress
               color="primary"
               variant="determinate"
@@ -66,11 +69,12 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
                 [`& .${circularProgressClasses.circle}`]: {
                   strokeLinecap: 'round',
                 },
+                marginTop: '0.5em',
               }}
               value={100}
               size={50}
               thickness={7}
-              className={classes.setOpacity}
+              className={classes.innerRing}
             />
             <CircularProgress
               color="primary"
@@ -79,12 +83,23 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
                 [`& .${circularProgressClasses.circle}`]: {
                   strokeLinecap: 'round',
                 },
+                marginTop: '0.5em',
               }}
-              className={classes.animateProgress}
+              className={classes.outerRing}
               value={progress}
               size={50}
               thickness={7}
             />
+            {percentageComplete === 100 && (
+              <Box
+                sx={{
+                  marginTop: '-2.6em',
+                  marginLeft: '0.75em',
+                }}
+              >
+                <CheckIcon className={classes.fillIcon} />
+              </Box>
+            )}
           </Grid>
         </div>
       </div>

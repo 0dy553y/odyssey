@@ -1,10 +1,14 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { UserTaskListData } from 'types/usertasks';
+import { UserChallengeListData } from 'types/userchallenge';
 import api from '../../api';
 import { OperationResult } from '../../types/store';
 import { RootState } from '../index';
-import { updateOngoingUserChallengeData } from './actions';
+import {
+  updateOngoingUserChallengeData,
+  updateOngoingUserChallengesListData,
+} from './actions';
 
 export function loadOngoingUserChallengeDataForChallenge(
   challengeId: number
@@ -27,5 +31,13 @@ export function loadOngoingUserChallengeDataForChallenge(
         data: { ...response.payload.data, userTasks },
       })
     );
+  };
+}
+
+export function loadAllOngoingUserChallenges(): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    const response = await api.userChallenges.getAllOngoingUserChallengesData();
+    const userChallenges: UserChallengeListData[] = response.payload.data;
+    dispatch(updateOngoingUserChallengesListData(userChallenges));
   };
 }

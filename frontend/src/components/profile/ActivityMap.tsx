@@ -94,7 +94,7 @@ const ActivityMap: React.FC<ActivityMapProps> = (props) => {
 
   return (
     <Grid container justifyContent="space-between" alignItems="center">
-      <Typography component="span" variant="h6">
+      <Typography component="span" variant="h5">
         Activity Map
       </Typography>
 

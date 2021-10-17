@@ -21,7 +21,7 @@ import { getUser } from 'store/auth/selectors';
 import { updateUser } from 'store/auth/operations';
 import { compressThenConvertToBase64DataUrl } from 'utils/file';
 import { DataUrl, UserPutData } from 'types/auth';
-import UserAvatar from 'components/userAvatar';
+import UserAvatar from 'components/common/userAvatar';
 
 import './EditProfilePage.scss';
 

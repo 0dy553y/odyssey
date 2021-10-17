@@ -13,15 +13,19 @@ import {
   Toolbar,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import ProfileHeader from './ProfileHeader';
-import ActivityMap from './ActivityMap';
-import UserStats from './UserStats';
+import ProfileHeader from '../../components/profile/ProfileHeader';
+import ActivityMap from '../../components/profile/ActivityMap';
+import UserStats from '../../components/profile/UserStats';
 import ChallengeSummaries, {
   ChallengeSummaryProps,
-} from './ChallengeSummaries';
+} from '../../components/profile/ChallengeSummaries';
 import { useHistory } from 'react-router-dom';
 import { Duration } from 'date-fns';
-import { EDIT_PROFILE_ROUTE, FRIENDS_ROUTE } from 'routing/routes';
+import {
+  COMPLETED_CHALLENGES_ROUTE,
+  EDIT_PROFILE_ROUTE,
+  FRIENDS_ROUTE,
+} from 'routing/routes';
 import { logout } from 'store/auth/operations';
 import useScrollbarSize from 'react-scrollbar-size';
 import { UserTaskActivityDatum } from 'types/usertasks';
@@ -49,7 +53,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   profileHeaderContainer: {
     justifyContent: 'center',
     textAlign: 'center',
-    background: 'black',
+    background: '#1C1C1C',
     paddingBottom: theme.spacing(3),
     position: 'relative',
     borderRadius: '0 0 2em 2em',
@@ -72,7 +76,11 @@ const ProfilePage: React.FC = () => {
         count: 20,
         onClick: () => history.push(FRIENDS_ROUTE),
       },
-      { label: 'completed challenges', count: 16 },
+      {
+        label: 'completed challenges',
+        count: 16,
+        onClick: () => history.push(COMPLETED_CHALLENGES_ROUTE),
+      },
       { label: 'badges', count: 2 },
     ],
     registrationDate: new Date('2021-10-03'),
@@ -149,55 +157,57 @@ const ProfilePage: React.FC = () => {
   }, []);
 
   return (
-    <Box
-      className={classes.profilePageContainer}
-      sx={{ padding: '0 1.5em 0 1.5em' }}
-    >
-      <Grid container className={classes.profileHeaderContainer}>
-        <AppBar position="static">
-          <Toolbar>
-            <Box sx={{ flexGrow: 1 }} />
-            <IconButton edge="end" color="primary" onClick={handleMenuClick}>
-              <MoreVertIcon />
-            </IconButton>
-            <Menu
-              anchorEl={menuAnchorEl}
-              open={isMenuOpen}
-              onClose={handleMenuClose}
-            >
-              <MenuItem
-                onClick={() => {
-                  handleMenuClose();
-                  history.push(EDIT_PROFILE_ROUTE);
-                }}
+    <>
+      <Box
+        className={classes.profilePageContainer}
+        sx={{ padding: '0 1.5em 0 1.5em' }}
+      >
+        <Grid container className={classes.profileHeaderContainer}>
+          <AppBar position="static">
+            <Toolbar>
+              <Box sx={{ flexGrow: 1 }} />
+              <IconButton edge="end" color="primary" onClick={handleMenuClick}>
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                anchorEl={menuAnchorEl}
+                open={isMenuOpen}
+                onClose={handleMenuClose}
               >
-                Edit Profile
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  handleMenuClose();
-                  dispatch(logout(history));
-                }}
-              >
-                Logout
-              </MenuItem>
-            </Menu>
-          </Toolbar>
-        </AppBar>
+                <MenuItem
+                  onClick={() => {
+                    handleMenuClose();
+                    history.push(EDIT_PROFILE_ROUTE);
+                  }}
+                >
+                  Edit Profile
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    handleMenuClose();
+                    dispatch(logout(history));
+                  }}
+                >
+                  Logout
+                </MenuItem>
+              </Menu>
+            </Toolbar>
+          </AppBar>
 
-        <ProfileHeader user={user} userProfileItems={userProfileItems} />
-      </Grid>
+          <ProfileHeader user={user} userProfileItems={userProfileItems} />
+        </Grid>
 
-      <ActivityMap activityMapData={activityMapData} />
+        <ActivityMap activityMapData={activityMapData} />
 
-      <UserStats
-        challengesCompleted={challengesCompleted}
-        registrationDate={registrationDate}
-        longestStreakDuration={longestStreakDuration}
-      />
+        <UserStats
+          challengesCompleted={challengesCompleted}
+          registrationDate={registrationDate}
+          longestStreakDuration={longestStreakDuration}
+        />
 
-      <ChallengeSummaries challengeSummaries={challengeSummaries} />
-    </Box>
+        <ChallengeSummaries challengeSummaries={challengeSummaries} />
+      </Box>
+    </>
   );
 };
 
