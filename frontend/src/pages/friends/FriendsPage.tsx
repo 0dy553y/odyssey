@@ -10,20 +10,24 @@ const mockFriends: UserData[] = [
     id: 2,
     username: 'bobby',
     displayName: 'Bobby',
+    registrationDate: new Date(),
   },
   {
     id: 3,
     username: 'tommy',
     displayName: 'Tommy',
+    registrationDate: new Date(),
   },
   {
     id: 4,
     username: 'danny',
     displayName: 'Danny',
+    registrationDate: new Date(),
   },
   {
     id: 5,
     username: 'poppy',
+    registrationDate: new Date(),
   },
 ];
 

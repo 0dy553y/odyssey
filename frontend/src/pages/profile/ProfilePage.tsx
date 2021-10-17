@@ -41,7 +41,6 @@ import { loadUserTaskActivityData } from 'store/usertasks/operations';
 
 interface ProfilePageProps {
   userProfileItems: { label: string; count: number; onClick?: () => void }[];
-  registrationDate: Date;
 }
 
 export interface StyleProps {
@@ -116,10 +115,9 @@ const ProfilePage: React.FC = () => {
       },
       { label: 'badges', count: 0, onClick: () => history.push(BADGE_ROUTE) },
     ],
-    registrationDate: new Date('2021-10-03'),
   };
 
-  const { userProfileItems, registrationDate } = mockProps;
+  const { userProfileItems } = mockProps;
 
   const [menuAnchorEl, setMenuAnchorEl] = React.useState<null | HTMLElement>(
     null
@@ -181,7 +179,7 @@ const ProfilePage: React.FC = () => {
 
         <UserStats
           challengesCompleted={completedChallenges.length}
-          registrationDate={registrationDate}
+          registrationDate={user.registrationDate}
         />
 
         <ChallengeSummaries challenges={ongoingChallenges} />
