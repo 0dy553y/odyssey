@@ -59,7 +59,15 @@ const DateCarousel: React.FC<Props> = ({ setDate }: Props) => {
       <Swiper
         centeredSlides
         initialSlide={previousIndex}
-        slidesPerView={7}
+        slidesPerView={3}
+        breakpoints={{
+          '180': {
+            slidesPerView: 5,
+          },
+          '320': {
+            slidesPerView: 7,
+          },
+        }}
         watchSlidesProgress
         className="date-slider"
         onTransitionEnd={handleTransitionEnd}
