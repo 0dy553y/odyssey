@@ -38,6 +38,10 @@ export function loadAllOngoingUserChallenges(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userChallenges.getAllOngoingUserChallengesData();
     const userChallenges: UserChallengeListData[] = response.payload.data;
-    dispatch(updateOngoingUserChallengesListData(userChallenges));
+    dispatch(
+      updateOngoingUserChallengesListData({
+        data: { ...userChallenges },
+      })
+    );
   };
 }

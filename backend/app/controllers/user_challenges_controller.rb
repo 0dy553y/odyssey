@@ -12,6 +12,6 @@ class UserChallengesController < ApplicationController
   end
 
   def all_ongoing_challenges
-    @user_challenge = current_user.user_challenges.find_by(completed_at: nil, forfeited_at: nil)
+    @user_challenges = current_user.user_challenges.where(completed_at: nil, forfeited_at: nil)
   end
 end

@@ -20,9 +20,9 @@ export const userChallengesSlice = createSlice({
     },
     updateOngoingUserChallengesListData: (
       state,
-      action: PayloadAction<UserChallengeListData[]>
+      action: PayloadAction<{ data: UserChallengeListData[] }>
     ) => {
-      state.ongoingUserChallengesList = action.payload;
+      state.ongoingUserChallengesList = action.payload.data;
     },
   },
 });

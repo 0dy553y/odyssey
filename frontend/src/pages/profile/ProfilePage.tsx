@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from 'store/auth/selectors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -30,6 +30,9 @@ import {
 } from 'routing/routes';
 import { logout } from 'store/auth/operations';
 import useScrollbarSize from 'react-scrollbar-size';
+import { loadAllOngoingUserChallenges } from 'store/userchallenges/operations';
+import { getAllOngoingUserChallenges } from 'store/userchallenges/selectors';
+import { RootState } from 'store';
 
 interface ProfilePageProps {
   userProfileItems: { label: string; count: number; onClick?: () => void }[];
@@ -132,6 +135,10 @@ const ProfilePage: React.FC = () => {
     activityMapData,
   } = mockProps;
 
+  useEffect(() => {
+    dispatch(loadAllOngoingUserChallenges());
+  }, []);
+
   const dispatch = useDispatch();
   const history = useHistory();
   const { width } = useScrollbarSize();
@@ -140,6 +147,11 @@ const ProfilePage: React.FC = () => {
   // user should never be undefined (assuming auth routing works)
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const user = useSelector(getUser)!; //
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const challenges = useSelector((state: RootState) =>
+    getAllOngoingUserChallenges(state)
+  )!;
+  console.log(challenges);
 
   const [menuAnchorEl, setMenuAnchorEl] = React.useState<null | HTMLElement>(
     null
