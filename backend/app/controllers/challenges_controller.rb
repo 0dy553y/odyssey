@@ -26,7 +26,7 @@ class ChallengesController < ApplicationController
       create_user_tasks(@user_challenge, schedule, now)
     end
 
-    show_success_message("Successfully enrolled in the challenge!")
+    show_success_message('Successfully enrolled in the challenge!')
     render 'layouts/empty', status: :ok
   end
 
