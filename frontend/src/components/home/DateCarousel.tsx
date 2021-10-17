@@ -96,6 +96,7 @@ const DateCarousel: React.FC<Props> = ({ setDate }: Props) => {
           },
         }}
         watchSlidesProgress
+        slideToClickedSlide
         className="date-slider"
         onActiveIndexChange={handleActiveIndexChange}
         onTransitionEnd={handleTransitionEnd}
