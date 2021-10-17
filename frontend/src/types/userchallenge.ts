@@ -9,3 +9,8 @@ export interface UserChallengeData extends UserChallengeListData {
   enrolledDate: Date;
   userTasks: UserTaskListData[];
 }
+
+export interface CompletedUserChallengeListData {
+  challengeId: number;
+  completedAt: number;
+}

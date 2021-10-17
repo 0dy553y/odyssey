@@ -1,4 +1,8 @@
-import { UserChallengeData, UserChallengeListData } from 'types/userchallenge';
+import {
+  CompletedUserChallengeListData,
+  UserChallengeData,
+  UserChallengeListData,
+} from 'types/userchallenge';
 import { RootState } from '../index';
 import { UserChallengesState } from './types';
 
@@ -17,4 +21,10 @@ export function getAllOngoingUserChallenges(
   state: RootState
 ): UserChallengeListData[] | undefined {
   return getLocalState(state).ongoingUserChallengesList;
+}
+
+export function getAllCompletedUserChallenges(
+  state: RootState
+): CompletedUserChallengeListData[] | undefined {
+  return getLocalState(state).completedUserChallengesList;
 }

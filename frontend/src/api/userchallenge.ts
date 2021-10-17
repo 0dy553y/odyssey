@@ -1,4 +1,8 @@
-import { UserChallengeData, UserChallengeListData } from 'types/userchallenge';
+import {
+  CompletedUserChallengeListData,
+  UserChallengeData,
+  UserChallengeListData,
+} from 'types/userchallenge';
 import { ApiPromise } from '../types/api';
 import BaseAPI from './base';
 
@@ -20,6 +24,14 @@ class UserChallengesAPI extends BaseAPI {
   > {
     return this.get(
       `${UserChallengesAPI.getUserChallengesUrl()}/all_ongoing_challenges`
+    );
+  }
+
+  public getAllCompletedUserChallengesData(): ApiPromise<
+    CompletedUserChallengeListData[]
+  > {
+    return this.get(
+      `${UserChallengesAPI.getUserChallengesUrl()}/all_completed_challenges`
     );
   }
 }
