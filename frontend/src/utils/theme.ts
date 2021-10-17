@@ -4,6 +4,7 @@ const theme = createTheme({
   palette: {
     primary: {
       main: '#B892D5',
+      contrastText: 'white',
     },
     secondary: {
       main: '#ff4081',
@@ -34,6 +35,13 @@ const theme = createTheme({
           background: 'transparent',
           boxShadow: 'none',
           color: 'black',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          background: 'black',
         },
       },
     },

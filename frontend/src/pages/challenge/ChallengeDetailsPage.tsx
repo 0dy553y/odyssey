@@ -26,6 +26,7 @@ import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
 import { loadOngoingUserChallengeDataForChallenge } from 'store/userchallenges/operations';
 import { getOngoingUserChallengeData } from 'store/userchallenges/selectors';
+import { getHexCode } from 'utils/color';
 
 export interface ChallengeDetailsPageProps {
   challenge: ChallengeData;
@@ -38,10 +39,6 @@ const useStyles = makeStyles(() => ({
     left: 0,
     right: 0,
     height: '100vh',
-  },
-  appbar: {
-    background: 'transparent',
-    boxShadow: 'none',
   },
   spacer: {
     flexGrow: 1,
@@ -67,6 +64,14 @@ const useStyles = makeStyles(() => ({
     position: 'absolute',
     left: 'calc(50% - 45px)',
     top: '-10px',
+  },
+  white: {
+    color: 'white',
+  },
+  joinButton: {
+    marginTop: '28px',
+    borderRadius: '20px',
+    height: '60px',
   },
 }));
 
@@ -112,31 +117,24 @@ const ChallengeDetailsPage: React.FC = () => {
   const peekDrawerHeight = 200;
 
   const Bar = () => (
-    <AppBar position="static" className={classes.appbar}>
+    <AppBar position="static">
       <Toolbar>
         <div
           onClick={() => {
             history.goBack();
           }}
         >
-          <IconButton edge="start">
+          <IconButton edge="start" className={classes.white}>
             <ChevronLeft />
           </IconButton>
         </div>
         <Box className={classes.spacer} />
-        <IconButton>
+        <IconButton className={classes.white}>
           <MoreVert />
         </IconButton>
       </Toolbar>
     </AppBar>
   );
-
-  const Status = () =>
-    !!userChallenge ? (
-      <Typography>🔥 ONGOING</Typography>
-    ) : (
-      <Typography>👻 UNENROLLED</Typography>
-    );
 
   const tabPanelRenderer = (tabItem: TabItem) => {
     switch (tabItem) {
@@ -172,18 +170,29 @@ const ChallengeDetailsPage: React.FC = () => {
   }
 
   return (
-    <Paper className={classes.paper} sx={{ backgroundColor: challenge.color }}>
+    <Paper
+      className={classes.paper}
+      sx={{ backgroundColor: getHexCode(challenge.color) }}
+    >
       <Bar />
-      <Box sx={{ marginLeft: '28px' }}>
-        <Status />
-        <Typography variant="h1">{challenge.name}</Typography>
-        <Typography>
+      <Box sx={{ marginLeft: '28px', marginRight: '28px' }}>
+        <Typography className={classes.white}>
+          {!!userChallenge ? '🔥 ONGOING' : '👻 UNENROLLED'}
+        </Typography>
+        <Typography variant="h1" className={classes.white}>
+          {challenge.name}
+        </Typography>
+        <Typography className={classes.white}>
           {challenge.duration} days {challenge.createdBy}
         </Typography>
-        <Typography>{challenge.description}</Typography>
-        <Typography>Recommended schedule</Typography>
-        <Typography>{challenge.schedule}</Typography>
-        <Button> Join Challenge!</Button>
+        <Typography className={classes.white}>
+          {challenge.description}
+        </Typography>
+        <Typography className={classes.white}>Recommended schedule</Typography>
+        <Typography className={classes.white}>{challenge.schedule}</Typography>
+        <Button variant="contained" fullWidth className={classes.joinButton}>
+          <Typography variant="body1">Join Challenge!</Typography>
+        </Button>
 
         <SwipeableDrawer
           anchor="bottom"
