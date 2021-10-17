@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 const CompletedChallengesPage: React.FC = () => {
   const history = useHistory();
   return (
-    <Box>
+    <Box sx={{ padding: '2em 1.5em 0 1.5em' }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" onClick={() => history.goBack()}>
@@ -15,7 +15,7 @@ const CompletedChallengesPage: React.FC = () => {
         </Toolbar>
       </AppBar>
 
-      <Typography component="h1" variant="h5">
+      <Typography component="h1" variant="h4" style={{ fontFamily: 'Frock' }}>
         Your completed challenges
       </Typography>
     </Box>

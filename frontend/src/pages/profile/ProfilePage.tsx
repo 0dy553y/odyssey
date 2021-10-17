@@ -38,7 +38,6 @@ interface ProfilePageProps {
   userProfileItems: { label: string; count: number; onClick?: () => void }[];
   registrationDate: Date;
   challengesCompleted: number;
-  longestStreakDuration: Duration;
   challengeSummaries: ChallengeSummaryProps[];
   activityMapData: UserTaskActivityDatum[];
 }
@@ -88,7 +87,6 @@ const ProfilePage: React.FC = () => {
     ],
     registrationDate: new Date('2021-10-03'),
     challengesCompleted: 16,
-    longestStreakDuration: { months: 1, days: 50 },
     challengeSummaries: [
       {
         id: 1,
@@ -130,7 +128,6 @@ const ProfilePage: React.FC = () => {
     userProfileItems,
     registrationDate,
     challengesCompleted,
-    longestStreakDuration,
     activityMapData,
   } = mockProps;
 
@@ -212,7 +209,6 @@ const ProfilePage: React.FC = () => {
         <UserStats
           challengesCompleted={challengesCompleted}
           registrationDate={registrationDate}
-          longestStreakDuration={longestStreakDuration}
         />
 
         <ChallengeSummaries challenges={challenges} />

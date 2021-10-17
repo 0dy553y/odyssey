@@ -30,7 +30,7 @@ const mockFriends: UserData[] = [
 const FriendsPage: React.FC = () => {
   const history = useHistory();
   return (
-    <Box>
+    <Box sx={{ padding: '2em 1.5em 0 1.5em' }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" onClick={() => history.goBack()}>
@@ -39,7 +39,7 @@ const FriendsPage: React.FC = () => {
         </Toolbar>
       </AppBar>
 
-      <Typography component="h1" variant="h5">
+      <Typography component="h1" variant="h4" style={{ fontFamily: 'Frock' }}>
         Your friends
       </Typography>
 
