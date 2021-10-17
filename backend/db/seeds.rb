@@ -37,6 +37,11 @@ user_challenge_drinking.schedule = Schedule.new(monday: true, tuesday: true, wed
                                                 thursday: true, friday: true)
 user_challenge_drinking.save!
 
+challenge_journalling = Challenge.new(category_id: category_habits.id, name: 'Journalling',
+                                      description: 'Dear Diary', schedule: 'Daily', duration: 30,
+                                      creator_id: user_odyssey.id, color: 0)
+challenge_journalling.save!
+
 30.times do |i|
   description = "Welcome to the #{(i + 1).ordinalize} day of Couch to 5k. Today, you will run till you drop. Okay, go!"
   task = Task.create(challenge_id: challenge_running.id, name: "Day #{i + 1}: Warming Up",
@@ -53,4 +58,10 @@ end
   UserTask.create(user_id: user_unclesoo.id, user_challenge_id: user_challenge_drinking.id, task_id: task.id,
                   completed_at: i < 2.weeks.in_days ? 2.weeks.ago + i.days : nil,
                   scheduled_for: 2.weeks.ago + i.days)
+end
+
+30.times do |i|
+  description = "Write #{(i + 1).ordinalize} pages today"
+  Task.create(challenge_id: challenge_journalling.id, name: "Day #{i + 1}: What's up",
+              description: description, index: i)
 end
