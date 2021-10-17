@@ -19,6 +19,9 @@ const useStyles = makeStyles(() => ({
     color: 'white',
     opacity: 80,
   },
+  padding: {
+    height: 15,
+  },
 }));
 
 interface Props {
@@ -39,9 +42,10 @@ const UserTaskCard: React.FC<Props> = ({ userTask }: Props) => {
         <Typography align="left" variant="h5" className={classes.primaryText}>
           {userTask.name}
         </Typography>
-        <Typography align="left" className={classes.secondaryText}>
+        <Typography align="left" variant="h6" className={classes.secondaryText}>
           {userTask.challengeName}
         </Typography>
+        <div className={classes.padding} />
         <Typography align="left" className={classes.secondaryText}>
           {userTask.description}
         </Typography>
