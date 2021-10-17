@@ -213,7 +213,9 @@ const ProfilePage: React.FC = () => {
           longestStreakDuration={longestStreakDuration}
         />
 
-        <ChallengeSummaries challenges={challenges} />
+        {typeof challenges !== 'undefined' && (
+          <ChallengeSummaries challenges={challenges} />
+        )}
       </Box>
     </>
   );

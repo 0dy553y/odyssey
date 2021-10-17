@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 import CheckIcon from '@mui/icons-material/Check';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -13,7 +13,7 @@ import './CategoryListItem.scss';
 
 const useStyles = makeStyles((theme: Theme) => ({
   innerRing: {
-    opacity: 0.5,
+    opacity: 0.3,
     position: 'absolute',
   },
   container: {

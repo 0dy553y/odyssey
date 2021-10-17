@@ -83,8 +83,6 @@ const ExplorePage: React.FC = () => {
     getChallengeList(state)
   )!;
 
-  console.log(challenges);
-
   if (!category) {
     return <Skeleton />;
   }
