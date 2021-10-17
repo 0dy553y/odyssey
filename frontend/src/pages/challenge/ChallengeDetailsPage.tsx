@@ -159,6 +159,7 @@ const ChallengeDetailsPage: React.FC = () => {
               (userTask) => userTask.completedAt !== null
             )}
             totalNumberOfTasks={tasks.length}
+            schedule={userChallenge.schedule}
           />
         );
       default:
