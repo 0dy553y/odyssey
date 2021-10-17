@@ -16,9 +16,7 @@ import { makeStyles } from '@mui/styles';
 import ProfileHeader from '../../components/profile/ProfileHeader';
 import ActivityMap from '../../components/profile/ActivityMap';
 import UserStats from '../../components/profile/UserStats';
-import ChallengeSummaries, {
-  ChallengeSummaryProps,
-} from '../../components/profile/ChallengeSummaries';
+import ChallengeSummaries from '../../components/profile/ChallengeSummaries';
 import { useHistory } from 'react-router-dom';
 import {
   BADGE_ROUTE,
@@ -43,7 +41,6 @@ import { loadUserTaskActivityData } from 'store/usertasks/operations';
 interface ProfilePageProps {
   userProfileItems: { label: string; count: number; onClick?: () => void }[];
   registrationDate: Date;
-  challengeSummaries: ChallengeSummaryProps[];
   activityMapData: UserTaskActivityDatum[];
 }
 
@@ -113,32 +110,6 @@ const ProfilePage: React.FC = () => {
       { label: 'badges', count: 0, onClick: () => history.push(BADGE_ROUTE) },
     ],
     registrationDate: new Date('2021-10-03'),
-    challengeSummaries: [
-      {
-        id: 1,
-        percentage: 75,
-        label: 'Couch to 5k',
-        remarks: '🔥 4 day streak!',
-      },
-      {
-        id: 2,
-        percentage: 20,
-        label: 'Mermay',
-        remarks: 'Waddle right back in',
-      },
-      {
-        id: 3,
-        percentage: 50,
-        label: 'Marmay',
-        remarks: 'Waddle right back in',
-      },
-      {
-        id: 4,
-        percentage: 25,
-        label: 'Mermey',
-        remarks: 'Waddle right back in',
-      },
-    ],
     activityMapData: [
       { date: new Date('2021-10-02'), count: 6 },
       { date: new Date('2021-09-22'), count: 3 },

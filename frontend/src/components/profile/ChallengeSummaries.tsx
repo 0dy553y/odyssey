@@ -12,13 +12,6 @@ import { ChallengeListData } from 'types/challenges';
 
 import './ChallengeSummaries.scss';
 
-export interface ChallengeSummaryProps {
-  id: number;
-  percentage: number;
-  label: string;
-  remarks: string;
-}
-
 export interface ChallengeDetails {
   name: string;
   duration: number;
@@ -52,28 +45,34 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
         Ongoing challenges
       </Typography>
       <ul>
-        {challenges.map(function (challenge) {
-          const challengeDetails = getChallengeDetails(challenge.challengeId);
-          if (challengeDetails !== undefined) {
-            return (
-              <li key={challenge.challengeId}>
-                <Link
-                  to={{
-                    pathname: `${CATEGORY_ROUTE}/1/${challenge.challengeId}`,
-                    state: { challenge: challenge },
-                  }}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <CategoryListItem
-                    name={challengeDetails.name}
-                    duration={challengeDetails.duration}
-                    percentageComplete={challenge.percentCompleted}
-                  />
-                </Link>
-              </li>
-            );
-          }
-        })}
+        {challenges.length === 0 && (
+          <Typography variant="body1" className="no-results-message">
+            Join a challenge? &#128131;
+          </Typography>
+        )}
+        {challenges.length > 0 &&
+          challenges.map(function (challenge) {
+            const challengeDetails = getChallengeDetails(challenge.challengeId);
+            if (challengeDetails !== undefined) {
+              return (
+                <li key={challenge.challengeId}>
+                  <Link
+                    to={{
+                      pathname: `${CATEGORY_ROUTE}/1/${challenge.challengeId}`,
+                      state: { challenge: challenge },
+                    }}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <CategoryListItem
+                      name={challengeDetails.name}
+                      duration={challengeDetails.duration}
+                      percentageComplete={challenge.percentCompleted}
+                    />
+                  </Link>
+                </li>
+              );
+            }
+          })}
       </ul>
     </>
   );
