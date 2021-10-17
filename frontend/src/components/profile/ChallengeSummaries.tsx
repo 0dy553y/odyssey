@@ -54,23 +54,25 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
       <ul>
         {challenges.map(function (challenge) {
           const challengeDetails = getChallengeDetails(challenge.challengeId);
-          return (
-            <li key={challenge.challengeId}>
-              <Link
-                to={{
-                  pathname: `${CATEGORY_ROUTE}/1/${challenge.challengeId}`,
-                  state: { challenge: challenge },
-                }}
-                style={{ textDecoration: 'none' }}
-              >
-                <CategoryListItem
-                  name={challengeDetails.name}
-                  duration={challengeDetails.duration}
-                  percentageComplete={challenge.percentCompleted}
-                />
-              </Link>
-            </li>
-          );
+          if (challengeDetails !== undefined) {
+            return (
+              <li key={challenge.challengeId}>
+                <Link
+                  to={{
+                    pathname: `${CATEGORY_ROUTE}/1/${challenge.challengeId}`,
+                    state: { challenge: challenge },
+                  }}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <CategoryListItem
+                    name={challengeDetails.name}
+                    duration={challengeDetails.duration}
+                    percentageComplete={challenge.percentCompleted}
+                  />
+                </Link>
+              </li>
+            );
+          }
         })}
       </ul>
     </>

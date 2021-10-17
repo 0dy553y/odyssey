@@ -1,6 +1,13 @@
 import React, { useEffect } from 'react';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
-import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  IconButton,
+  Skeleton,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadAllCompletedUserChallenges } from 'store/userchallenges/operations';
 import { Link, useHistory } from 'react-router-dom';
@@ -38,6 +45,10 @@ const CompletedChallengesPage: React.FC = () => {
     return parentChallenges.find((challenge) => challenge.id === challengeId)!;
   };
 
+  if (!parentChallenges) {
+    return <Skeleton />;
+  }
+
   return (
     <Box sx={{ padding: '2em 1.5em 0 1.5em' }}>
       <AppBar position="static">
@@ -48,28 +59,35 @@ const CompletedChallengesPage: React.FC = () => {
         </Toolbar>
       </AppBar>
 
-      <Typography component="h1" variant="h4" style={{ fontFamily: 'Frock' }}>
+      <Typography
+        component="h1"
+        variant="h4"
+        className="header"
+        style={{ fontFamily: 'Frock' }}
+      >
         Your completed challenges
       </Typography>
       <ul>
         {completedChallenges.map(function (challenge) {
           const challengeDetails = getChallengeDetails(challenge.challengeId);
-          return (
-            <li key={challenge.challengeId}>
-              <Link
-                to={{
-                  pathname: `${CATEGORY_ROUTE}/1/${challenge.challengeId}`,
-                  state: { challenge: challenge },
-                }}
-                style={{ textDecoration: 'none' }}
-              >
-                <CompletedChallengeListItem
-                  name={challengeDetails.name}
-                  completionDate={challenge.completedAt}
-                />
-              </Link>
-            </li>
-          );
+          if (challengeDetails !== undefined) {
+            return (
+              <li key={challenge.challengeId}>
+                <Link
+                  to={{
+                    pathname: `${CATEGORY_ROUTE}/1/${challenge.challengeId}`,
+                    state: { challenge: challenge },
+                  }}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <CompletedChallengeListItem
+                    name={challengeDetails.name}
+                    completionDate={challenge.completedAt}
+                  />
+                </Link>
+              </li>
+            );
+          }
         })}
       </ul>
     </Box>
