@@ -9,6 +9,7 @@ import { useParams, Link } from 'react-router-dom';
 import { RootState } from 'store';
 import { getCategory } from 'store/categories/selectors';
 import { loadAllChallenges } from 'store/challenges/operations';
+import { loadCategory } from 'store/categories/operations';
 import { getChallengeList } from 'store/challenges/selectors';
 import { getHeadingFromCategory } from 'utils/naming';
 import Tabs from '@mui/material/Tabs';
@@ -75,6 +76,7 @@ const ExplorePage: React.FC = () => {
   )!;
 
   useEffect(() => {
+    dispatch(loadCategory(Number(categoryId)));
     dispatch(loadAllChallenges());
   }, []);
 
