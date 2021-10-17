@@ -52,6 +52,7 @@ const ExplorePage: React.FC = () => {
             <CategoryListItem
               name={challenge.name}
               duration={challenge.duration}
+              percentageComplete={80}
             />
           </Link>
         </li>
@@ -75,7 +76,10 @@ const ExplorePage: React.FC = () => {
         ))}
       {searchQuery.length == 0 && (
         <>
-          <Typography variant="h6" sx={{ fontStyle: 'italic' }}>
+          <Typography
+            variant="h6"
+            sx={{ fontStyle: 'italic', paddingBottom: '1em' }}
+          >
             I want to...
           </Typography>
           <ul>

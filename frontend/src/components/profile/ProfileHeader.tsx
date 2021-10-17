@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, IconButton, Stack, Typography } from '@mui/material';
 import { displayUsername } from 'utils/formatting';
 import { UserData } from 'types/auth';
-import UserAvatar from 'components/userAvatar';
+import UserAvatar from 'components/common/userAvatar';
 
 import './ProfileHeader.scss';
 
@@ -26,12 +26,17 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
       </IconButton>
 
       {user.displayName && (
-        <Typography component="h1" variant="h4">
+        <Typography component="h1" variant="h5">
           {user.displayName}
         </Typography>
       )}
 
-      <Typography component="h2" variant="h5" gutterBottom>
+      <Typography
+        component="h2"
+        variant="body1"
+        className="username"
+        gutterBottom
+      >
         {displayUsername(user.username)}
       </Typography>
 
@@ -43,7 +48,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
             sx={{ width: 1 / userProfileItems.length }}
             onClick={item.onClick}
           >
-            <Typography component="div" variant="body1">
+            <Typography component="div" variant="body1" className="hand-cursor">
               {item.count} <br />
               {item.label}
             </Typography>

@@ -1,0 +1,30 @@
+.profile-header {
+  .MuiTypography-root {
+    color: white;
+  }
+
+  .username {
+    color: rgb(235, 235, 235);
+    padding-bottom: 1em;
+  }
+
+  .avatar {
+    margin: -1em 0 -1em 0;
+    width: 17vh;
+    height: 17vh;
+  }
+
+  .user-profile-item-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hand-cursor {
+    cursor:pointer;
+  }
+
+  .hand-cursor:hover {
+    color: #e4c4ff;
+    transition: 0.5s ease;
+  }
+}

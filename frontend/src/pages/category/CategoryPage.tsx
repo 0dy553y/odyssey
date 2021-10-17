@@ -133,6 +133,7 @@ const ExplorePage: React.FC = () => {
                   <CategoryListItem
                     name={challenge.name}
                     duration={challenge.duration}
+                    percentageComplete={80}
                   />
                 </Link>
               </li>

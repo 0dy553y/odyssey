@@ -4,7 +4,11 @@ import { ThunkDispatch } from 'redux-thunk';
 import { OperationResult } from 'types/store';
 import { UserTaskData, UserTaskListData } from 'types/usertasks';
 import { RootState } from '../index';
-import { saveUserTaskForDay, saveUserTaskListForDay } from './actions';
+import {
+  saveUserTaskActivityData,
+  saveUserTaskForDay,
+  saveUserTaskListForDay,
+} from './actions';
 
 export function loadUserTasksForDay(date: Date): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
@@ -31,5 +35,23 @@ export function markUserTaskAsNotDone(userTaskId: number): OperationResult {
     const date = new Date(userTask.scheduledFor);
     date.setDate(date.getDate() + 1);
     dispatch(saveUserTaskForDay(date, userTask));
+  };
+}
+
+export function loadUserTaskActivityData(): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    const response = await api.userTasks.getUserTaskActivityData();
+    const data = response.payload.data;
+
+    dispatch(
+      saveUserTaskActivityData(
+        data.map((datum) => {
+          return {
+            ...datum,
+            date: new Date(datum.date),
+          };
+        })
+      )
+    );
   };
 }

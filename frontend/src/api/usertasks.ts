@@ -1,5 +1,9 @@
 import { ApiPromise } from '../types/api';
-import { UserTaskData, UserTaskListData } from '../types/usertasks';
+import {
+  UserTaskActivityDatum,
+  UserTaskData,
+  UserTaskListData,
+} from '../types/usertasks';
 import BaseAPI from './base';
 
 class UserTasksAPI extends BaseAPI {
@@ -24,6 +28,12 @@ class UserTasksAPI extends BaseAPI {
     return this.post(
       `${UserTasksAPI.getUserTasksUrl()}/${userTaskId}/mark_as_not_done`,
       null
+    );
+  }
+
+  public getUserTaskActivityData(): ApiPromise<UserTaskActivityDatum[]> {
+    return this.get(
+      `${UserTasksAPI.getUserTasksUrl()}/user_task_activity_data`
     );
   }
 }

@@ -22,6 +22,12 @@ const theme = createTheme({
     h2: {
       fontFamily: 'Frock',
     },
+    h5: {
+      fontSize: '20px',
+    },
+    h6: {
+      fontSize: '18px',
+    },
     body1: {
       fontFamily: 'CircularStdMedium',
     },

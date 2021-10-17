@@ -1,6 +1,7 @@
 import produce from 'immer';
 import {
   SAVE_USER_TASK_FOR_DAY,
+  SAVE_USER_TASK_ACTIVITY_DATA,
   SAVE_USER_TASK_LIST_FOR_DAY,
   UserTaskActions,
   UserTasksState,
@@ -9,6 +10,7 @@ import { getISOStringAtStartOfDay } from '../../utils/date';
 
 const initialState: UserTasksState = {
   tasksByDay: {},
+  userTaskActivityData: [],
 };
 
 const userTasksReducer = produce(
@@ -30,6 +32,9 @@ const userTasksReducer = produce(
           ...draft.tasksByDay[key].splice(userTaskIndex + 1),
         ];
         break;
+      }
+      case SAVE_USER_TASK_ACTIVITY_DATA: {
+        draft.userTaskActivityData = action.userTaskActivityData;
       }
     }
   },

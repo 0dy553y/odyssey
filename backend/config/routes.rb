@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       resources :user_tasks, only: [] do
         collection do
           get 'tasks_for_day', to: 'tasks_for_day'
+          get 'user_task_activity_data', to: 'user_task_activity_data'
         end
         member do
           post 'mark_as_done', to: 'mark_as_done'
@@ -34,6 +35,8 @@ Rails.application.routes.draw do
 
       namespace :user_challenges do
         get 'ongoing_user_challenge', to: 'ongoing_user_challenge'
+        get 'all_ongoing_challenges', to: 'all_ongoing_challenges'
+        get 'all_completed_challenges', to: 'all_completed_challenges'
       end
     end
   end

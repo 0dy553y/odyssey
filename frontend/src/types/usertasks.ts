@@ -9,3 +9,5 @@ export interface UserTaskListData {
 }
 
 export type UserTaskData = UserTaskListData;
+
+export type UserTaskActivityDatum = { date: Date; count: number };
