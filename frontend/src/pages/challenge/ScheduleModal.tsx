@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, useTheme } from '@mui/styles';
 import {
   Backdrop,
@@ -11,11 +11,13 @@ import {
   Typography,
 } from '@mui/material';
 import RecurringDaysForm from 'components/recurringDaysForm';
+import { Schedule } from 'types/challenges';
 import { DayOfWeek } from 'types/date';
 
 interface ScheduleModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSubmit: (schedule: Schedule) => void;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -34,9 +36,24 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose }) => {
+const ScheduleModal: React.FC<ScheduleModalProps> = ({
+  isOpen,
+  onClose,
+  onSubmit,
+}) => {
   const theme = useTheme();
   const classes = useStyles(theme);
+
+  const [schedule, setSchedule] = useState<Schedule>({
+    [DayOfWeek.Monday]: false,
+    [DayOfWeek.Tuesday]: false,
+    [DayOfWeek.Wednesday]: false,
+    [DayOfWeek.Thursday]: false,
+    [DayOfWeek.Friday]: false,
+    [DayOfWeek.Saturday]: false,
+    [DayOfWeek.Sunday]: false,
+  });
+
   return (
     <Modal
       open={isOpen}
@@ -55,18 +72,19 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose }) => {
 
           <RecurringDaysForm
             isEditable={true}
-            schedule={{
-              [DayOfWeek.Monday]: true,
-              [DayOfWeek.Tuesday]: true,
-              [DayOfWeek.Wednesday]: true,
-              [DayOfWeek.Thursday]: true,
-              [DayOfWeek.Friday]: true,
-              [DayOfWeek.Saturday]: true,
-              [DayOfWeek.Sunday]: true,
-            }}
+            initialSchedule={schedule}
+            onCheckboxChange={(day: DayOfWeek, isChecked: boolean) =>
+              setSchedule({
+                ...schedule,
+                [day]: isChecked,
+              })
+            }
           />
+
           <Stack direction="row" justifyContent="flex-end" alignItems="center">
-            <Button variant="contained">Join Challenge</Button>
+            <Button variant="contained" onClick={() => onSubmit(schedule)}>
+              Join Challenge
+            </Button>
           </Stack>
         </Box>
       </Fade>

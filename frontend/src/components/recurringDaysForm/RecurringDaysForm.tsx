@@ -13,12 +13,14 @@ import './RecurringDaysForm.scss';
 
 interface RecurringDaysFormProps {
   isEditable: boolean;
-  schedule: Schedule;
+  initialSchedule: Schedule;
+  onCheckboxChange?: (day: DayOfWeek, isChecked: boolean) => void;
 }
 
 const RecurringDaysForm: React.FC<RecurringDaysFormProps> = ({
-  schedule,
+  initialSchedule,
   isEditable,
+  onCheckboxChange,
 }) => {
   return (
     <FormControl
@@ -32,7 +34,14 @@ const RecurringDaysForm: React.FC<RecurringDaysFormProps> = ({
             <FormControlLabel
               key={day}
               value={day}
-              control={<Checkbox checked={schedule[day]} />}
+              defaultChecked={initialSchedule[day]}
+              control={
+                <Checkbox
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    onCheckboxChange && onCheckboxChange(day, e.target.checked)
+                  }
+                />
+              }
               label={day[0].toLocaleUpperCase()}
               labelPlacement="top"
               className={'day-checkbox'}

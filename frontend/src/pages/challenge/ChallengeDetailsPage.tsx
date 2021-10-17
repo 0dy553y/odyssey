@@ -14,7 +14,7 @@ import {
 import { TabPanel, TabContext, TabList } from '@mui/lab';
 import { ChevronLeft, MoreVert } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
-import { ChallengeData } from '../../types/challenges';
+import { ChallengeData, Schedule } from 'types/challenges';
 import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -192,6 +192,7 @@ const ChallengeDetailsPage: React.FC = () => {
         <ScheduleModal
           isOpen={isScheduleModalOpen}
           onClose={() => setIsScheduleModalOpen(false)}
+          onSubmit={(schedule: Schedule) => console.log(schedule)}
         />
 
         <SwipeableDrawer
