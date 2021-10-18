@@ -132,9 +132,6 @@ const ChallengeDetailsPage: React.FC = () => {
           </IconButton>
         </div>
         <Box className={classes.spacer} />
-        <IconButton className={classes.white}>
-          <MoreVert />
-        </IconButton>
       </Toolbar>
     </AppBar>
   );
