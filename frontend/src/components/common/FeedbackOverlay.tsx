@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 // Hardcoded since this feedback component is temporary.
-const feedbackLink = 'https://youtu.be/QJ7YeSoDYlY';
+const feedbackLink = 'https://forms.gle/uijbqmzCycegGyzr5';
 
 const FeedbackOverlay: React.FC = () => {
   const theme = useTheme();
