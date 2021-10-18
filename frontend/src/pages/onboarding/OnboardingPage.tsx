@@ -65,7 +65,7 @@ const OnboardingPage: React.FC = () => {
             history.push(REGISTER_ROUTE);
           }}
         >
-          Sign up
+          Register
         </Button>
       </Box>
     </Box>
