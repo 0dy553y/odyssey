@@ -14,6 +14,15 @@ import { loadAllChallenges } from 'store/challenges/operations';
 import { getChallengeList } from 'store/challenges/selectors';
 
 import './ExplorePage.scss';
+import {
+  loadAllCompletedUserChallenges,
+  loadAllOngoingUserChallenges,
+} from 'store/userchallenges/operations';
+import {
+  getAllCompletedUserChallenges,
+  getAllOngoingUserChallenges,
+} from 'store/userchallenges/selectors';
+import { getChallengePercentageComplete } from 'utils/progress';
 
 const ExplorePage: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -24,11 +33,23 @@ const ExplorePage: React.FC = () => {
 
   useEffect(() => {
     dispatch(loadAllChallenges());
+    dispatch(loadAllOngoingUserChallenges());
+    dispatch(loadAllCompletedUserChallenges());
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const challenges = useSelector((state: RootState) =>
     getChallengeList(state)
+  )!;
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const ongoingChallenges = useSelector((state: RootState) =>
+    getAllOngoingUserChallenges(state)
+  )!;
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const completedChallenges = useSelector((state: RootState) =>
+    getAllCompletedUserChallenges(state)
   )!;
 
   const eventhandler = (data: string) => {
@@ -52,7 +73,11 @@ const ExplorePage: React.FC = () => {
             <CategoryListItem
               name={challenge.name}
               duration={challenge.duration}
-              percentageComplete={80}
+              percentageComplete={getChallengePercentageComplete(
+                challenge.id,
+                completedChallenges,
+                ongoingChallenges
+              )}
             />
           </Link>
         </li>
