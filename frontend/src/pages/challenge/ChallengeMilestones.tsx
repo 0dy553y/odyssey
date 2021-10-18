@@ -14,7 +14,7 @@ import {
 import { makeStyles } from '@mui/styles';
 import { TaskListData } from '../../types/tasks';
 import { UserTaskListData } from '../../types/usertasks';
-import { markUserTaskAsDone } from '../../store/usertasks/operations';
+import { markUserTaskAsDoneFromChallenge } from '../../store/usertasks/operations';
 
 interface ChallengeMilestonesProps {
   tasks: TaskListData[];
@@ -59,7 +59,9 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
                   <Checkbox
                     icon={<RadioButtonUnchecked />}
                     checkedIcon={<CheckCircle />}
-                    onChange={() => dispatch(markUserTaskAsDone(t.id, true))}
+                    onChange={() =>
+                      dispatch(markUserTaskAsDoneFromChallenge(t.id))
+                    }
                     className={classes.checkbox}
                   />
                 ) : (
