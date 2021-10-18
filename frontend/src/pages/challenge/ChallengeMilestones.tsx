@@ -15,6 +15,7 @@ import { makeStyles } from '@mui/styles';
 import { TaskListData } from '../../types/tasks';
 import { UserTaskListData } from '../../types/usertasks';
 import { markUserTaskAsDoneFromChallenge } from '../../store/usertasks/operations';
+import { isBefore, isToday } from 'date-fns';
 
 interface ChallengeMilestonesProps {
   tasks: TaskListData[];
@@ -24,6 +25,9 @@ interface ChallengeMilestonesProps {
 const useStyles = makeStyles(() => ({
   opposite: { maxWidth: '1px', paddingLeft: '0px', paddingRight: '0px' },
   checkbox: { padding: '0px' },
+  overdue: { color: '#d1476a' },
+  future: { color: '#4b55e3' },
+  today: { color: '#0a943f' },
 }));
 
 const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
@@ -31,43 +35,77 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const completion: Record<number, boolean> = {};
-  let earliestUncompletedIndex = -1;
+  const isCompleted: Record<number, boolean> = {};
+  const scheduledFor: Record<number, Date> = {};
+  let earliestUncompletedTaskId = Number.MAX_SAFE_INTEGER;
   userTasks?.map((t: UserTaskListData) => {
-    completion[t.id] = !!t.completedAt;
-    if (!t.completedAt && earliestUncompletedIndex === -1) {
-      earliestUncompletedIndex = t.id;
+    isCompleted[t.taskId] = !!t.completedAt;
+    if (!t.completedAt) {
+      // User tasks array does not necessarily come back in order.
+      earliestUncompletedTaskId = Math.min(t.taskId, earliestUncompletedTaskId);
     }
+
+    scheduledFor[t.taskId] = t.scheduledFor;
   });
 
-  const isNextTask = (id: number): boolean => id === earliestUncompletedIndex;
+  const isNextTask = (taskId: number): boolean =>
+    taskId === earliestUncompletedTaskId;
+  const isEnrolled = userTasks && userTasks.length > 0;
+
+  const getDotStyle = (taskId: number) => {
+    // Unerolled, don't change style.
+    if (!isEnrolled) return;
+
+    // Don't change style for completed tasks.
+    if (isCompleted[taskId]) return;
+
+    if (isToday(scheduledFor[taskId])) {
+      return classes.today;
+    } else if (isBefore(scheduledFor[taskId], new Date())) {
+      return classes.overdue;
+    } else {
+      return classes.future;
+    }
+  };
+
+  const renderCorrectIcon = (taskId: number) => {
+    if (!isEnrolled) return <Circle />;
+
+    if (isCompleted[taskId]) {
+      return <CheckCircle />;
+    }
+
+    const userTask = userTasks.find((userTask) => userTask.taskId == taskId);
+
+    // Next task that is not in the future.
+    if (isNextTask(taskId) && !isBefore(new Date(), scheduledFor[taskId])) {
+      return (
+        <Checkbox
+          icon={<RadioButtonUnchecked />}
+          checkedIcon={<CheckCircle />}
+          onChange={() => {
+            if (!userTask) {
+              throw new Error('No matching user task found for task');
+            }
+            dispatch(markUserTaskAsDoneFromChallenge(userTask.id));
+          }}
+          className={classes.checkbox}
+        />
+      );
+    } else {
+      return <Circle />;
+    }
+  };
 
   return (
-    <Box>
+    <Box sx={{ marginTop: '24px' }}>
       <Timeline>
         {tasks.map((t: TaskListData, index: number) => (
           <TimelineItem key={t.id}>
             <TimelineOppositeContent className={classes.opposite} />
             <TimelineSeparator>
-              <TimelineDot>
-                {userTasks === null ||
-                (!completion[t.id] && !isNextTask(t.id)) ? (
-                  // Unenrolled, or tasks in the future.
-                  <Circle />
-                ) : isNextTask(t.id) ? (
-                  // Earliest uncompleted task.
-                  <Checkbox
-                    icon={<RadioButtonUnchecked />}
-                    checkedIcon={<CheckCircle />}
-                    onChange={() =>
-                      dispatch(markUserTaskAsDoneFromChallenge(t.id))
-                    }
-                    className={classes.checkbox}
-                  />
-                ) : (
-                  // Have completed. Shows a tick.
-                  <CheckCircle />
-                )}
+              <TimelineDot className={getDotStyle(t.id)}>
+                {renderCorrectIcon(t.id)}
               </TimelineDot>
               {index < tasks.length - 1 ? (
                 <TimelineConnector />
