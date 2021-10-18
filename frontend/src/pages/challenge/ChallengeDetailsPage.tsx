@@ -48,12 +48,11 @@ const useStyles = makeStyles(() => ({
     overflow: 'visible',
   },
   peekDrawer: {
-    position: 'absolute',
+    position: 'relative',
     backgroundColor: '#fff',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     visibility: 'visible',
-    overflow: 'auto',
     right: 0,
     left: 0,
   },
@@ -73,6 +72,10 @@ const useStyles = makeStyles(() => ({
     marginTop: '28px',
     borderRadius: '20px',
     height: '60px',
+  },
+  tabPanel: {
+    overflowY: 'scroll',
+    height: '75vh',
   },
 }));
 
@@ -250,7 +253,11 @@ const ChallengeDetailsPage: React.FC = () => {
               </TabList>
 
               {Object.values(TabItem).map((tabItem) => (
-                <TabPanel key={tabItem} value={tabItem}>
+                <TabPanel
+                  key={tabItem}
+                  value={tabItem}
+                  className={classes.tabPanel}
+                >
                   {tabPanelRenderer(tabItem)}
                 </TabPanel>
               ))}
