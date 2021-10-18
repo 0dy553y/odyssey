@@ -35,11 +35,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     '&>:not(:last-child)': {
       marginBottom: '0.3em',
     },
-    [theme.breakpoints.up('xs')]: {
-      width: '400',
-    },
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.only('xs')]: {
       width: '90vw',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '400px',
     },
   },
 }));
