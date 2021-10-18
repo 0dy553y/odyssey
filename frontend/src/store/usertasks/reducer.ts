@@ -1,12 +1,13 @@
 import produce from 'immer';
+import { getISOStringAtStartOfDay } from '../../utils/date';
 import {
-  SAVE_USER_TASK_FOR_DAY,
+  RESET_USER_TASKS,
   SAVE_USER_TASK_ACTIVITY_DATA,
+  SAVE_USER_TASK_FOR_DAY,
   SAVE_USER_TASK_LIST_FOR_DAY,
   UserTaskActions,
   UserTasksState,
 } from './types';
-import { getISOStringAtStartOfDay } from '../../utils/date';
 
 const initialState: UserTasksState = {
   tasksByDay: {},
@@ -35,6 +36,12 @@ const userTasksReducer = produce(
       }
       case SAVE_USER_TASK_ACTIVITY_DATA: {
         draft.userTaskActivityData = action.userTaskActivityData;
+        break;
+      }
+      case RESET_USER_TASKS: {
+        draft.tasksByDay = {};
+        draft.userTaskActivityData = [];
+        break;
       }
     }
   },

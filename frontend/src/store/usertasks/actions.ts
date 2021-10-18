@@ -4,12 +4,14 @@ import {
   UserTaskListData,
 } from '../../types/usertasks';
 import {
-  SAVE_USER_TASK_ACTIVITY_DATA,
-  SAVE_USER_TASK_FOR_DAY,
-  SAVE_USER_TASK_LIST_FOR_DAY,
+  ResetUserTasksAction,
+  RESET_USER_TASKS,
   SaveUserTaskActivityDataAction,
   SaveUserTaskForDayAction,
   SaveUserTaskListForDayAction,
+  SAVE_USER_TASK_ACTIVITY_DATA,
+  SAVE_USER_TASK_FOR_DAY,
+  SAVE_USER_TASK_LIST_FOR_DAY,
 } from './types';
 
 export function saveUserTaskListForDay(
@@ -40,5 +42,11 @@ export function saveUserTaskActivityData(
   return {
     type: SAVE_USER_TASK_ACTIVITY_DATA,
     userTaskActivityData,
+  };
+}
+
+export function resetUserTasks(): ResetUserTasksAction {
+  return {
+    type: RESET_USER_TASKS,
   };
 }

@@ -5,6 +5,8 @@ import { ThunkDispatch } from 'redux-thunk';
 import { HOME_ROUTE, LOGIN_ROUTE } from 'routing/routes';
 import { loadAllCategories } from 'store/categories/operations';
 import { resetSnackbars } from 'store/snackbars/actions';
+import { resetUserChallenges } from 'store/userchallenges/actions';
+import { resetUserTasks } from 'store/usertasks/actions';
 import { withStatusMessages } from 'utils/ui';
 import api from '../../api';
 import {
@@ -42,6 +44,8 @@ export function logout(history: History): OperationResult {
         // TODO: reset other store here as well
         dispatch(resetSnackbars());
         dispatch(resetAuth());
+        dispatch(resetUserChallenges());
+        dispatch(resetUserTasks());
       });
       history.push(LOGIN_ROUTE);
     });

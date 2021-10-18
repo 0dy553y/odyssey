@@ -10,6 +10,7 @@ export const SAVE_USER_TASK_LIST_FOR_DAY =
 export const SAVE_USER_TASK_FOR_DAY = 'usertasks/SAVE_USER_TASK_FOR_DAY';
 export const SAVE_USER_TASK_ACTIVITY_DATA =
   'usertasks/SAVE_USER_TASK_ACTIVITY_DATA';
+export const RESET_USER_TASKS = 'usertasks/RESET_USER_TASKS';
 
 // Action types
 export interface SaveUserTaskListForDayAction {
@@ -29,10 +30,15 @@ export interface SaveUserTaskActivityDataAction {
   userTaskActivityData: UserTaskActivityDatum[];
 }
 
+export interface ResetUserTasksAction {
+  type: typeof RESET_USER_TASKS;
+}
+
 export type UserTaskActions =
   | SaveUserTaskListForDayAction
   | SaveUserTaskForDayAction
-  | SaveUserTaskActivityDataAction;
+  | SaveUserTaskActivityDataAction
+  | ResetUserTasksAction;
 
 export interface UserTasksState {
   tasksByDay: Record<string, UserTaskListData[]>;

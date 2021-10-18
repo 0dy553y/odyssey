@@ -29,12 +29,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     padding: '0.6em',
     '&>:not(:last-child)': {
       marginBottom: '0.3em',
+    },
+    [theme.breakpoints.up('xs')]: {
+      width: '400',
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: '90vw',
     },
   },
 }));
