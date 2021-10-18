@@ -35,6 +35,11 @@ export const userChallengesSlice = createSlice({
     ) => {
       state.completedUserChallengesList = action.payload.data;
     },
+    resetUserChallenges: (state) => {
+      state.ongoingUserChallengeData = {};
+      state.ongoingUserChallengesList = [];
+      state.completedUserChallengesList = [];
+    },
   },
 });
 
