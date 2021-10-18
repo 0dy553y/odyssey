@@ -16,14 +16,13 @@ category_exercise = Category.create(title: 'Exercise')
 category_habits = Category.create(title: 'Habits')
 
 challenge_gratitude_desc = <<~DESCRIPTION
-  While it’s important to analyze and learn from bad events, sometimes we can think too much about what goes wrong and
-  not enough about what goes right in our lives. A gratitude journal encourages ourselves to pay attention to the good
-  things in life we might otherwise take for granted. In that way, we start to become more attuned to the everyday
-  sources of pleasure around us—and the emotional tone of our life can shift in profound ways.
+  A gratitude journal encourages ourselves to pay attention to the good things in life we might otherwise take for granted. 
+  In that way, we start to become more attuned to the everyday sources of pleasure around us.
 DESCRIPTION
 challenge_gratitude = Challenge.create(category_id: category_habits.id, name: 'Gratitude Journaling',
                                        description: challenge_gratitude_desc,
                                        duration: 3,
+                                       schedule: 'Daily',
                                        creator_id: user_odyssey.id,
                                        color: 0)
 Task.create(challenge_id: challenge_gratitude.id,
@@ -46,6 +45,7 @@ DESCRIPTION
 challenge_walking = Challenge.create(category_id: category_exercise.id, name: 'Gratitude Journaling',
                                      description: challenge_walking_desc,
                                      duration: 3,
+                                     schedule: 'Daily',
                                      creator_id: user_odyssey.id,
                                      color: 1)
 Task.create(challenge_id: challenge_walking.id,
