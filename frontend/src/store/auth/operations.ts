@@ -76,6 +76,9 @@ export function validateToken(): OperationResult {
         );
         dispatch(loadAllCategories());
       })
+      // Do nothing
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      .catch(() => {})
       .finally(() => dispatch(setIsValidatingToken(false)));
   };
 }

@@ -2,34 +2,7 @@ import React from 'react';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import { useHistory } from 'react-router-dom';
-import { UserData } from 'types/auth';
 import FriendsList from 'components/friendsList';
-
-const mockFriends: UserData[] = [
-  {
-    id: 2,
-    username: 'bobby',
-    displayName: 'Bobby',
-    registrationDate: new Date(),
-  },
-  {
-    id: 3,
-    username: 'tommy',
-    displayName: 'Tommy',
-    registrationDate: new Date(),
-  },
-  {
-    id: 4,
-    username: 'danny',
-    displayName: 'Danny',
-    registrationDate: new Date(),
-  },
-  {
-    id: 5,
-    username: 'poppy',
-    registrationDate: new Date(),
-  },
-];
 
 const FriendsPage: React.FC = () => {
   const history = useHistory();
@@ -47,7 +20,8 @@ const FriendsPage: React.FC = () => {
         Your friends
       </Typography>
 
-      <FriendsList friends={mockFriends} />
+      <Typography variant="body1">Coming soon :-)</Typography>
+      <FriendsList friends={[]} />
     </Box>
   );
 };

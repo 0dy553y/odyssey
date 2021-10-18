@@ -101,7 +101,7 @@ const ProfilePage: React.FC = () => {
   }[] = [
     {
       label: 'friends',
-      count: 4,
+      count: 0,
       onClick: () => history.push(FRIENDS_ROUTE),
     },
     {
