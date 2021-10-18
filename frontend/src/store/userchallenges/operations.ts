@@ -13,6 +13,7 @@ import {
   updateOngoingUserChallengeData,
   updateOngoingUserChallengesListData,
 } from './actions';
+import { startOfDay } from 'date-fns';
 
 export function loadOngoingUserChallengeDataForChallenge(
   challengeId: number
@@ -30,6 +31,7 @@ export function loadOngoingUserChallengeDataForChallenge(
       return {
         ...userTask,
         completedAt: userTask.completedAt && new Date(userTask.completedAt),
+        scheduledFor: startOfDay(new Date(userTask.scheduledFor)),
       };
     });
     dispatch(

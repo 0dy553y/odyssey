@@ -15,7 +15,7 @@ import { makeStyles } from '@mui/styles';
 import { TaskListData } from '../../types/tasks';
 import { UserTaskListData } from '../../types/usertasks';
 import { markUserTaskAsDoneFromChallenge } from '../../store/usertasks/operations';
-import { isBefore, isToday } from 'date-fns';
+import { isBefore, isToday, startOfDay } from 'date-fns';
 
 interface ChallengeMilestonesProps {
   tasks: TaskListData[];
@@ -44,7 +44,7 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
       earliestUncompletedIndex = t.id;
     }
 
-    scheduledFor[t.id] = new Date(t.scheduledFor);
+    scheduledFor[t.id] = t.scheduledFor;
   });
 
   const isNextTask = (id: number): boolean => id === earliestUncompletedIndex;
@@ -73,7 +73,8 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
       return <CheckCircle />;
     }
 
-    if (isNextTask(id) && isBefore(scheduledFor[id], new Date())) {
+    // Next task that is not in the future.
+    if (isNextTask(id) && isBefore(startOfDay(scheduledFor[id]), new Date())) {
       return (
         <Checkbox
           icon={<RadioButtonUnchecked />}
