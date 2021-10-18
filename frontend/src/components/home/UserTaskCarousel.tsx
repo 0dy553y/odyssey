@@ -2,6 +2,7 @@ import React from 'react';
 import { UserTaskListData } from '../../types/usertasks';
 import UserTaskCard from './UserTaskCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation, Mousewheel, Keyboard } from 'swiper';
 import { Link, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { EXPLORE_ROUTE } from '../../routing/routes';
@@ -59,12 +60,16 @@ const UserTaskCarousel: React.FC<Props> = ({ userTaskList, date }: Props) => {
     );
   }
 
+  SwiperCore.use([Navigation, Mousewheel, Keyboard]);
+
   return (
     <Swiper
       centeredSlides
       slidesPerView={1.3}
       spaceBetween={20}
       slideToClickedSlide
+      keyboard={{ enabled: true }}
+      mousewheel={true}
       className="task-slider"
     >
       {userTaskList.map((userTask: UserTaskListData) => (

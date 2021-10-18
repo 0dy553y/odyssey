@@ -3,7 +3,7 @@ import { Box, CircularProgress, Container } from '@mui/material';
 import { Global } from '@emotion/react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import {
-  LOGIN_ROUTE,
+  ONBOARDING_ROUTE,
   HOME_ROUTE,
   privateRoutes,
   publicRoutes,
@@ -36,7 +36,7 @@ function App(): JSX.Element {
   const defaultPrivateRouteProps: RouteWithRedirectProps = {
     // Redirect if user is not authenticated
     shouldRedirect: !user,
-    redirectPath: LOGIN_ROUTE,
+    redirectPath: ONBOARDING_ROUTE,
   };
 
   const defaultNotAuthenticatedRouteProps: RouteWithRedirectProps = {

@@ -7,6 +7,7 @@ import {
 } from '../../utils/date';
 import DateItem from './DateItem';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation, Mousewheel, Keyboard } from 'swiper';
 import SwiperClass from 'swiper/types/swiper-class';
 import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -78,6 +79,8 @@ const DateCarousel: React.FC<Props> = ({ setDate }: Props) => {
     swiper.slideTo(dateRange, 0, false);
   };
 
+  SwiperCore.use([Navigation, Mousewheel, Keyboard]);
+
   return (
     <>
       <div className={classes.monthText}>
@@ -97,12 +100,14 @@ const DateCarousel: React.FC<Props> = ({ setDate }: Props) => {
         }}
         watchSlidesProgress
         slideToClickedSlide
+        keyboard={{ enabled: true }}
+        mousewheel={true}
         className="date-slider"
         onActiveIndexChange={handleActiveIndexChange}
         onTransitionEnd={handleTransitionEnd}
       >
         {dates.map((date: Date) => (
-          <SwiperSlide key={date.toISOString()}>
+          <SwiperSlide key={date.toISOString()} className="hand-cursor">
             <DateItem date={date} />
           </SwiperSlide>
         ))}

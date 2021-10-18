@@ -8,6 +8,7 @@ import ExplorePage from '../pages/explore';
 import FeedPage from '../pages/feed';
 import HomePage from '../pages/home';
 import LoginPage from '../pages/login';
+import OnboardingPage from 'pages/onboarding/OnboardingPage';
 import ProfilePage from '../pages/profile';
 import RegistrationPage from '../pages/registration';
 import { RouteEntry } from '../types/routes';
@@ -23,9 +24,11 @@ export const EDIT_PROFILE_ROUTE = '/profile/edit';
 export const FRIENDS_ROUTE = '/friends';
 export const COMPLETED_CHALLENGES_ROUTE = '/completed';
 export const BADGE_ROUTE = '/badges';
+export const ONBOARDING_ROUTE = '/welcome';
 
 // Routes that are accessible only if user is not authenticated
 export const notAuthenticatedRoutes: RouteEntry[] = [
+  { path: ONBOARDING_ROUTE, component: OnboardingPage },
   { path: LOGIN_ROUTE, component: LoginPage },
   { path: REGISTER_ROUTE, component: RegistrationPage },
 ];

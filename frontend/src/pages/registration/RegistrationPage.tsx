@@ -33,6 +33,7 @@ const RegistrationPage: React.FC = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        padding: '2em 1.5em 0 1.5em',
       }}
     >
       <Typography component="h1" variant="h5">
