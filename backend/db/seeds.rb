@@ -15,10 +15,10 @@ User.create(username: 'unclesoo', display_name: 'Uncle Soo', password: 'password
 category_exercise = Category.create(title: 'Exercise')
 category_habits = Category.create(title: 'Habits')
 
-challenge_gratitude_desc = <<~DESCRIPTION
-  A gratitude journal encourages ourselves to pay attention to the good things in life we might otherwise take for granted.#{' 
-  In that way, we start to become more attuned to the everyday sources of pleasure around us.
-DESCRIPTION
+challenge_gratitude_desc = %(
+  A gratitude journal encourages ourselves to pay attention to the good things in life we might otherwise take for
+  granted. In that way we start to become more attuned to the everyday sources of pleasure around us.
+).squish
 challenge_gratitude = Challenge.create(category_id: category_habits.id,
                                        name: 'Gratitude Journaling',
                                        description: challenge_gratitude_desc,
@@ -39,10 +39,10 @@ Task.create(challenge_id: challenge_gratitude.id,
             description: 'Don’t complain for a day, and write about your experience.',
             index: 2)
 
-challenge_walking_desc = <<~DESCRIPTION
+challenge_walking_desc = %(
   Walking is a great way to improve or maintain your overall health. Just 30 minutes every day can increase
   cardiovascular fitness, strengthen bones, reduce excess body fat, and boost muscle power and endurance.
-DESCRIPTION
+).squish
 challenge_walking = Challenge.create(category_id: category_exercise.id,
                                      name: 'Walking',
                                      description: challenge_walking_desc,
