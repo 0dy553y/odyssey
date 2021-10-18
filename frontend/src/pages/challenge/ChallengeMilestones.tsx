@@ -15,7 +15,7 @@ import { makeStyles } from '@mui/styles';
 import { TaskListData } from '../../types/tasks';
 import { UserTaskListData } from '../../types/usertasks';
 import { markUserTaskAsDoneFromChallenge } from '../../store/usertasks/operations';
-import { isBefore } from 'date-fns';
+import { isBefore, isToday } from 'date-fns';
 
 interface ChallengeMilestonesProps {
   tasks: TaskListData[];
@@ -25,6 +25,9 @@ interface ChallengeMilestonesProps {
 const useStyles = makeStyles(() => ({
   opposite: { maxWidth: '1px', paddingLeft: '0px', paddingRight: '0px' },
   checkbox: { padding: '0px' },
+  overdue: { color: '#d1476a' },
+  future: { color: '#4b55e3' },
+  today: { color: '#0a943f' },
 }));
 
 const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
@@ -41,21 +44,39 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
       earliestUncompletedIndex = t.id;
     }
 
-    scheduledFor[t.id] = t.scheduledFor;
+    scheduledFor[t.id] = new Date(t.scheduledFor);
   });
 
+  console.log(userTasks);
+
   const isNextTask = (id: number): boolean => id === earliestUncompletedIndex;
+  const isEnrolled = userTasks && userTasks.length > 0;
+
+  const getDotStyle = (id: number) => {
+    // Unerolled, don't change style.
+    if (!isEnrolled) return;
+
+    // Don't change style for completed tasks.
+    if (completion[id]) return;
+
+    if (isToday(scheduledFor[id])) {
+      return classes.today;
+    } else if (isBefore(scheduledFor[id], new Date())) {
+      return classes.overdue;
+    } else {
+      return classes.future;
+    }
+  };
 
   return (
-    <Box>
+    <Box sx={{ marginTop: '24px' }}>
       <Timeline>
         {tasks.map((t: TaskListData, index: number) => (
           <TimelineItem key={t.id}>
             <TimelineOppositeContent className={classes.opposite} />
             <TimelineSeparator>
-              <TimelineDot>
-                {userTasks === null ||
-                (!completion[t.id] && !isNextTask(t.id)) ? (
+              <TimelineDot className={getDotStyle(t.id)}>
+                {!isEnrolled || (!completion[t.id] && !isNextTask(t.id)) ? (
                   // Unenrolled, or tasks in the future.
                   <Circle />
                 ) : isNextTask(t.id) &&
