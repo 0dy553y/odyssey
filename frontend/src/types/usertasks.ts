@@ -8,6 +8,7 @@ export interface UserTaskListData {
   description: string;
   completedAt?: Date;
   taskIndex: number;
+  taskId: number;
   challengeColor: ChallengeColor;
   challengeId: number;
 }
