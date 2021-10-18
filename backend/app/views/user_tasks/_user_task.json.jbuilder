@@ -7,3 +7,4 @@ json.scheduledFor user_task.scheduled_for.beginning_of_day
 json.description user_task.task.description
 json.completedAt user_task.completed_at
 json.challengeColor user_task.task.challenge.color
+json.challengeId user_task.task.challenge.id

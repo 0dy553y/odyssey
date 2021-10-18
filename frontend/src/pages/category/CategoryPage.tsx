@@ -1,19 +1,25 @@
 import React, { useEffect } from 'react';
-import Box from '@mui/material/Box';
+import {
+  AppBar,
+  Box,
+  Skeleton,
+  Tab,
+  Tabs,
+  IconButton,
+  Toolbar,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Skeleton from '@mui/material/Skeleton';
+import { ChevronLeft } from '@mui/icons-material';
 import CategoryHeader from '../../components/category/CategoryHeader';
 import CategoryListItem from '../../components/category/CategoryListItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import { RootState } from 'store';
 import { getCategory } from 'store/categories/selectors';
 import { loadAllChallenges } from 'store/challenges/operations';
 import { loadCategory } from 'store/categories/operations';
 import { getChallengeList } from 'store/challenges/selectors';
 import { getHeadingFromCategory } from 'utils/naming';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import { CATEGORY_ROUTE } from 'routing/routes';
 import {
   loadAllOngoingUserChallenges,
@@ -72,6 +78,7 @@ const StyledTab = styled((props: StyledTabProps) => (
 
 const ExplorePage: React.FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { categoryId } = useParams<{ categoryId: string }>();
 
   const [value, setValue] = React.useState(0);
@@ -112,6 +119,19 @@ const ExplorePage: React.FC = () => {
 
   return (
     <Box>
+      <AppBar position="absolute">
+        <Toolbar>
+          <div
+            onClick={() => {
+              history.goBack();
+            }}
+          >
+            <IconButton edge="start" sx={{ color: 'white' }}>
+              <ChevronLeft />
+            </IconButton>
+          </div>
+        </Toolbar>
+      </AppBar>
       <CategoryHeader
         title={category.title}
         heading={getHeadingFromCategory(category.title)}

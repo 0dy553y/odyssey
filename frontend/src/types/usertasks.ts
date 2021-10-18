@@ -9,6 +9,7 @@ export interface UserTaskListData {
   completedAt?: Date;
   taskIndex: number;
   challengeColor: ChallengeColor;
+  challengeId: number;
 }
 
 export type UserTaskData = UserTaskListData;

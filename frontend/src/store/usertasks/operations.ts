@@ -1,6 +1,7 @@
 import api from 'api';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
+import { loadOngoingUserChallengeDataForChallenge } from 'store/userchallenges/operations';
 import { OperationResult } from 'types/store';
 import { UserTaskData, UserTaskListData } from 'types/usertasks';
 import { RootState } from '../index';
@@ -23,8 +24,17 @@ export function markUserTaskAsDone(userTaskId: number): OperationResult {
     const response = await api.userTasks.markUserTaskAsDone(userTaskId);
     const userTask: UserTaskData = response.payload.data;
     const date = new Date(userTask.scheduledFor);
-    date.setDate(date.getDate());
     dispatch(saveUserTaskForDay(date, userTask));
+  };
+}
+
+export function markUserTaskAsDoneFromChallenge(
+  userTaskId: number
+): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    const response = await api.userTasks.markUserTaskAsDone(userTaskId);
+    const userTask: UserTaskData = response.payload.data;
+    dispatch(loadOngoingUserChallengeDataForChallenge(userTask.challengeId));
   };
 }
 
