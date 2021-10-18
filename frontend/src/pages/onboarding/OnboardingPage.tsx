@@ -34,11 +34,12 @@ const OnboardingPage: React.FC = () => {
   return (
     <Box
       sx={{
-        marginTop: 8,
+        marginTop: 5,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
       }}
+      className="onboarding-page"
     >
       <Typography className={classes.appName}>Odyssey</Typography>
       <img src={onboardingImage}></img>
