@@ -3,8 +3,6 @@ import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import './CategoryPreview.scss';
-
 const useStyles = makeStyles(() => ({
   backgroundImage: {
     flexShrink: 0,
