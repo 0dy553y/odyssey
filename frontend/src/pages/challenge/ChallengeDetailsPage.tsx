@@ -12,7 +12,7 @@ import {
   Paper,
 } from '@mui/material';
 import { TabPanel, TabContext, TabList } from '@mui/lab';
-import { ChevronLeft, MoreVert } from '@mui/icons-material';
+import { ChevronLeft } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
 import { ChallengeData, Schedule } from 'types/challenges';
 import { useHistory, useParams } from 'react-router-dom';
