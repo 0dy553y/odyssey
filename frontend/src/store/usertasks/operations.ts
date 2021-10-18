@@ -23,7 +23,7 @@ export function markUserTaskAsDone(userTaskId: number): OperationResult {
     const response = await api.userTasks.markUserTaskAsDone(userTaskId);
     const userTask: UserTaskData = response.payload.data;
     const date = new Date(userTask.scheduledFor);
-    date.setDate(date.getDate() + 1);
+    date.setDate(date.getDate());
     dispatch(saveUserTaskForDay(date, userTask));
   };
 }
@@ -33,7 +33,7 @@ export function markUserTaskAsNotDone(userTaskId: number): OperationResult {
     const response = await api.userTasks.markUserTaskAsNotDone(userTaskId);
     const userTask: UserTaskData = response.payload.data;
     const date = new Date(userTask.scheduledFor);
-    date.setDate(date.getDate() + 1);
+    date.setDate(date.getDate());
     dispatch(saveUserTaskForDay(date, userTask));
   };
 }
