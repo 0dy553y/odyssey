@@ -22,9 +22,15 @@ Rails.application.routes.draw do
         end
       end
 
-      namespace :user_tasks do
-        get 'tasks_for_day', to: 'tasks_for_day'
-        get 'user_task_activity_data', to: 'user_task_activity_data'
+      resources :user_tasks, only: [] do
+        collection do
+          get 'tasks_for_day', to: 'tasks_for_day'
+          get 'user_task_activity_data', to: 'user_task_activity_data'
+        end
+        member do
+          post 'mark_as_done', to: 'mark_as_done'
+          post 'mark_as_not_done', to: 'mark_as_not_done'
+        end
       end
 
       namespace :user_challenges do
