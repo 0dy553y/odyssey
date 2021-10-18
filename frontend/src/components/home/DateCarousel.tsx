@@ -107,7 +107,7 @@ const DateCarousel: React.FC<Props> = ({ setDate }: Props) => {
         onTransitionEnd={handleTransitionEnd}
       >
         {dates.map((date: Date) => (
-          <SwiperSlide key={date.toISOString()}>
+          <SwiperSlide key={date.toISOString()} className="hand-cursor">
             <DateItem date={date} />
           </SwiperSlide>
         ))}

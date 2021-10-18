@@ -10,6 +10,9 @@ const useStyles = makeStyles(() => ({
     alignContent: 'center',
     justifyContent: 'center',
   },
+  handCursor: {
+    cursor: 'pointer',
+  },
 }));
 
 interface Props {
@@ -21,7 +24,7 @@ const DateItem: React.FC<Props> = ({ date }: Props) => {
 
   return (
     <div className={classes.container}>
-      <Typography variant="h5" align="center">
+      <Typography variant="h5" align="center" className={classes.handCursor}>
         {date.getDate()}
       </Typography>
     </div>
