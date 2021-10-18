@@ -15,6 +15,15 @@ import { getHeadingFromCategory } from 'utils/naming';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { CATEGORY_ROUTE } from 'routing/routes';
+import {
+  loadAllOngoingUserChallenges,
+  loadAllCompletedUserChallenges,
+} from 'store/userchallenges/operations';
+import {
+  getAllOngoingUserChallenges,
+  getAllCompletedUserChallenges,
+} from 'store/userchallenges/selectors';
+import { getChallengePercentageComplete } from 'utils/progress';
 
 interface StyledTabProps {
   label: string;
@@ -78,11 +87,23 @@ const ExplorePage: React.FC = () => {
   useEffect(() => {
     dispatch(loadCategory(Number(categoryId)));
     dispatch(loadAllChallenges());
+    dispatch(loadAllOngoingUserChallenges());
+    dispatch(loadAllCompletedUserChallenges());
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const challenges = useSelector((state: RootState) =>
     getChallengeList(state)
+  )!;
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const ongoingChallenges = useSelector((state: RootState) =>
+    getAllOngoingUserChallenges(state)
+  )!;
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const completedChallenges = useSelector((state: RootState) =>
+    getAllCompletedUserChallenges(state)
   )!;
 
   if (!category) {
@@ -133,7 +154,11 @@ const ExplorePage: React.FC = () => {
                   <CategoryListItem
                     name={challenge.name}
                     duration={challenge.duration}
-                    percentageComplete={80}
+                    percentageComplete={getChallengePercentageComplete(
+                      challenge.id,
+                      completedChallenges,
+                      ongoingChallenges
+                    )}
                   />
                 </Link>
               </li>
