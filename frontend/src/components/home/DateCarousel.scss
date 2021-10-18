@@ -1,5 +1,10 @@
 .date-slider .swiper-slide {
   border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  padding: 18px;
+  box-sizing:border-box;
 }
 
 .date-slider .swiper-slide-active {

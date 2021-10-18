@@ -96,7 +96,7 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
             {percentageComplete === 100 && (
               <Box
                 sx={{
-                  marginTop: '0.60em',
+                  marginTop: '-0.60em',
                   marginLeft: '0.75em',
                 }}
               >

@@ -5,16 +5,21 @@ import Typography from '@mui/material/Typography';
 
 const useStyles = makeStyles(() => ({
   backgroundImage: {
+    flexShrink: 0,
     width: '100%',
     zIndex: -1,
     position: 'relative',
+    display: 'block',
     objectFit: 'cover',
     objectPosition: '100% 30%',
+    borderRadius: '2em',
+    height: '14em',
   },
   gradient: {
     display: 'inline-block',
     background:
       'linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)',
+    webkitMaskImage: '-webkit-radial-gradient(white, black)',
   },
   overlayText: {
     color: 'white',
