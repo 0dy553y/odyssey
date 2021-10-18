@@ -44,9 +44,9 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     dispatch(loadUserTasksForDay(date));
   }, [date]);
-  const userTaskList = useSelector((state: RootState) =>
-    getUserTaskListForDay(state, date)
-  );
+  const userTaskList = Array.from(
+    useSelector((state: RootState) => getUserTaskListForDay(state, date))
+  ).sort((a, b) => a.id - b.id);
 
   const user = useSelector(getUser);
   if (!user) {

@@ -19,7 +19,7 @@ Metrics/BlockLength:
     - 'config/routes.rb'
 
 Metrics/MethodLength:
-  Max: 15
+  Max: 20
   Exclude:
     - 'db/**/*'
 

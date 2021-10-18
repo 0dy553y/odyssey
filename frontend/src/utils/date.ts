@@ -23,6 +23,10 @@ export function getDayString(date: Date): string {
   return dayjs(date).format('ddd');
 }
 
+export function getISOStringAtStartOfDay(date: Date): string {
+  return dayjs(date).startOf('day').toISOString();
+}
+
 export function getDateFromNowString(date: Date): string {
   return dayjs(date).calendar(null, {
     lastWeek: '[Last] dddd',
