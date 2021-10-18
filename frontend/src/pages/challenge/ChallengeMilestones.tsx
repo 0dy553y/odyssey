@@ -39,12 +39,12 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
   const scheduledFor: Record<number, Date> = {};
   let earliestUncompletedIndex = -1;
   userTasks?.map((t: UserTaskListData) => {
-    isCompleted[t.id] = !!t.completedAt;
+    isCompleted[t.taskIndex] = !!t.completedAt;
     if (!t.completedAt && earliestUncompletedIndex === -1) {
       earliestUncompletedIndex = t.id;
     }
 
-    scheduledFor[t.id] = t.scheduledFor;
+    scheduledFor[t.taskIndex] = t.scheduledFor;
   });
 
   const isNextTask = (id: number): boolean => id === earliestUncompletedIndex;
