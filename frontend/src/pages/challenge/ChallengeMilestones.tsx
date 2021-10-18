@@ -47,8 +47,6 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
     scheduledFor[t.id] = new Date(t.scheduledFor);
   });
 
-  console.log(userTasks);
-
   const isNextTask = (id: number): boolean => id === earliestUncompletedIndex;
   const isEnrolled = userTasks && userTasks.length > 0;
 
