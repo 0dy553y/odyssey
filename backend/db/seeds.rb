@@ -16,7 +16,7 @@ category_exercise = Category.create(title: 'Exercise')
 category_habits = Category.create(title: 'Habits')
 
 challenge_gratitude_desc = <<~DESCRIPTION
-  A gratitude journal encourages ourselves to pay attention to the good things in life we might otherwise take for granted. 
+  A gratitude journal encourages ourselves to pay attention to the good things in life we might otherwise take for granted.#{' 
   In that way, we start to become more attuned to the everyday sources of pleasure around us.
 DESCRIPTION
 challenge_gratitude = Challenge.create(category_id: category_habits.id, name: 'Gratitude Journaling',
