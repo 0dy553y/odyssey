@@ -8,6 +8,7 @@ json.data do
     json.id user_task.id
     json.completedAt user_task.completed_at
     json.taskIndex user_task.task.index
+    json.scheduledFor user_task.scheduled_for
   end
   json.schedule do
     json.monday @user_challenge.schedule.monday
