@@ -13,7 +13,6 @@ import CompletedChallengeListItem from 'components/completedChallenges/Completed
 import { ChallengeListData } from 'types/challenges';
 
 import './CompletedChallengesPage.scss';
-import { convertTimestampToHumanReadableFormat } from 'utils/formatting';
 
 const CompletedChallengesPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -78,9 +77,7 @@ const CompletedChallengesPage: React.FC = () => {
                   >
                     <CompletedChallengeListItem
                       name={challengeDetails.name}
-                      completionDate={convertTimestampToHumanReadableFormat(
-                        challenge.completedAt.toString()
-                      )}
+                      completionDate={challenge.completedAt}
                     />
                   </Link>
                 </li>
