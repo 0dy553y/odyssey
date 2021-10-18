@@ -15,9 +15,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   innerRing: {
     opacity: 0.3,
     position: 'absolute',
-    transform: 'translateY(4px)',
-    display: 'inline-block',
-    top: '0%',
+    top: '-3%',
   },
   container: {
     display: 'flex',
@@ -30,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     transition: '4s ease',
     transitionDelay: '4s',
     position: 'absolute',
-    top: '0%',
+    top: '-3%',
   },
   fillIcon: {
     fill: theme.palette.primary.main,
@@ -98,7 +96,7 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
             {percentageComplete === 100 && (
               <Box
                 sx={{
-                  marginTop: '0.75em',
+                  marginTop: '0.60em',
                   marginLeft: '0.75em',
                 }}
               >
