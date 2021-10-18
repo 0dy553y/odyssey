@@ -19,7 +19,8 @@ challenge_gratitude_desc = <<~DESCRIPTION
   A gratitude journal encourages ourselves to pay attention to the good things in life we might otherwise take for granted.#{' 
   In that way, we start to become more attuned to the everyday sources of pleasure around us.
 DESCRIPTION
-challenge_gratitude = Challenge.create(category_id: category_habits.id, name: 'Gratitude Journaling',
+challenge_gratitude = Challenge.create(category_id: category_habits.id,
+                                       name: 'Gratitude Journaling',
                                        description: challenge_gratitude_desc,
                                        duration: 3,
                                        schedule: 'Daily',
@@ -42,7 +43,8 @@ challenge_walking_desc = <<~DESCRIPTION
   Walking is a great way to improve or maintain your overall health. Just 30 minutes every day can increase
   cardiovascular fitness, strengthen bones, reduce excess body fat, and boost muscle power and endurance.
 DESCRIPTION
-challenge_walking = Challenge.create(category_id: category_exercise.id, name: 'Gratitude Journaling',
+challenge_walking = Challenge.create(category_id: category_exercise.id,
+                                     name: 'Walking',
                                      description: challenge_walking_desc,
                                      duration: 3,
                                      schedule: 'Daily',
