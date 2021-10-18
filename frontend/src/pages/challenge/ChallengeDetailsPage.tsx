@@ -48,23 +48,23 @@ const useStyles = makeStyles(() => ({
     overflow: 'visible',
   },
   peekDrawer: {
-    position: 'absolute',
+    position: 'relative',
     backgroundColor: '#fff',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     visibility: 'visible',
-    overflow: 'auto',
     right: 0,
     left: 0,
   },
   puller: {
-    width: 90,
+    width: 100,
     height: 6,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
+    opacity: '80%',
     borderRadius: 3,
     position: 'absolute',
     left: 'calc(50% - 45px)',
-    top: '-10px',
+    top: '-14px',
   },
   white: {
     color: 'white',
@@ -73,6 +73,10 @@ const useStyles = makeStyles(() => ({
     marginTop: '28px',
     borderRadius: '20px',
     height: '60px',
+  },
+  tabPanel: {
+    overflowY: 'scroll',
+    height: '75vh',
   },
 }));
 
@@ -250,7 +254,11 @@ const ChallengeDetailsPage: React.FC = () => {
               </TabList>
 
               {Object.values(TabItem).map((tabItem) => (
-                <TabPanel key={tabItem} value={tabItem}>
+                <TabPanel
+                  key={tabItem}
+                  value={tabItem}
+                  className={classes.tabPanel}
+                >
                   {tabPanelRenderer(tabItem)}
                 </TabPanel>
               ))}
