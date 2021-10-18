@@ -37,50 +37,58 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
 
   const isCompleted: Record<number, boolean> = {};
   const scheduledFor: Record<number, Date> = {};
-  let earliestUncompletedIndex = Number.MAX_SAFE_INTEGER;
+  let earliestUncompletedTaskId = Number.MAX_SAFE_INTEGER;
   userTasks?.map((t: UserTaskListData) => {
     isCompleted[t.taskId] = !!t.completedAt;
     if (!t.completedAt) {
       // User tasks array does not necessarily come back in order.
-      earliestUncompletedIndex = Math.min(t.taskId, earliestUncompletedIndex);
+      earliestUncompletedTaskId = Math.min(t.taskId, earliestUncompletedTaskId);
     }
 
     scheduledFor[t.taskId] = t.scheduledFor;
   });
 
-  const isNextTask = (id: number): boolean => id === earliestUncompletedIndex;
+  const isNextTask = (taskId: number): boolean =>
+    taskId === earliestUncompletedTaskId;
   const isEnrolled = userTasks && userTasks.length > 0;
 
-  const getDotStyle = (id: number) => {
+  const getDotStyle = (taskId: number) => {
     // Unerolled, don't change style.
     if (!isEnrolled) return;
 
     // Don't change style for completed tasks.
-    if (isCompleted[id]) return;
+    if (isCompleted[taskId]) return;
 
-    if (isToday(scheduledFor[id])) {
+    if (isToday(scheduledFor[taskId])) {
       return classes.today;
-    } else if (isBefore(scheduledFor[id], new Date())) {
+    } else if (isBefore(scheduledFor[taskId], new Date())) {
       return classes.overdue;
     } else {
       return classes.future;
     }
   };
 
-  const renderCorrectIcon = (id: number) => {
+  const renderCorrectIcon = (taskId: number) => {
     if (!isEnrolled) return <Circle />;
 
-    if (isCompleted[id]) {
+    if (isCompleted[taskId]) {
       return <CheckCircle />;
     }
 
+    const userTask = userTasks.find((userTask) => userTask.taskId == taskId);
+
     // Next task that is not in the future.
-    if (isNextTask(id) && !isBefore(new Date(), scheduledFor[id])) {
+    if (isNextTask(taskId) && !isBefore(new Date(), scheduledFor[taskId])) {
       return (
         <Checkbox
           icon={<RadioButtonUnchecked />}
           checkedIcon={<CheckCircle />}
-          onChange={() => dispatch(markUserTaskAsDoneFromChallenge(id))}
+          onChange={() => {
+            if (!userTask) {
+              throw new Error('No matching user task found for task');
+            }
+            dispatch(markUserTaskAsDoneFromChallenge(userTask.id));
+          }}
           className={classes.checkbox}
         />
       );
