@@ -57,13 +57,14 @@ const useStyles = makeStyles(() => ({
     left: 0,
   },
   puller: {
-    width: 90,
+    width: 100,
     height: 6,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
+    opacity: '80%',
     borderRadius: 3,
     position: 'absolute',
     left: 'calc(50% - 45px)',
-    top: '-10px',
+    top: '-14px',
   },
   white: {
     color: 'white',
