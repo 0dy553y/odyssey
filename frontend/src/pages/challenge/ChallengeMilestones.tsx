@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Box, Checkbox, Typography } from '@mui/material';
 import { CheckCircle, RadioButtonUnchecked, Circle } from '@mui/icons-material';
 import {
@@ -13,6 +14,7 @@ import {
 import { makeStyles } from '@mui/styles';
 import { TaskListData } from '../../types/tasks';
 import { UserTaskListData } from '../../types/usertasks';
+import { markUserTaskAsDone } from '../../store/usertasks/operations';
 
 interface ChallengeMilestonesProps {
   tasks: TaskListData[];
@@ -26,6 +28,7 @@ const useStyles = makeStyles(() => ({
 
 const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
   const { tasks, userTasks } = props;
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   const completion: Record<number, boolean> = {};
@@ -37,6 +40,8 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
     }
   });
 
+  const isNextTask = (id: number): boolean => id === earliestUncompletedIndex;
+
   return (
     <Box>
       <Timeline>
@@ -45,14 +50,16 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
             <TimelineOppositeContent className={classes.opposite} />
             <TimelineSeparator>
               <TimelineDot>
-                {userTasks === null || !completion[t.id] ? (
+                {userTasks === null ||
+                (!completion[t.id] && !isNextTask(t.id)) ? (
                   // Unenrolled, or tasks in the future.
                   <Circle />
-                ) : t.id === earliestUncompletedIndex ? (
+                ) : isNextTask(t.id) ? (
                   // Earliest uncompleted task.
                   <Checkbox
                     icon={<RadioButtonUnchecked />}
                     checkedIcon={<CheckCircle />}
+                    onChange={() => dispatch(markUserTaskAsDone(t.id, true))}
                     className={classes.checkbox}
                   />
                 ) : (
