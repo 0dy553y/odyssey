@@ -56,7 +56,7 @@ const CategoryHeader: React.FC<CategoryHeaderProps> = (props) => {
     >
       <div className={classes.overlayText}>
         <Typography variant="h5">I want to...</Typography>
-        <Typography variant="h3" sx={{ paddingBottom: '0.5em', fontFamily: 'Frock' }}>{heading}</Typography>
+        <Typography variant="h1" sx={{ paddingBottom: '0.5em', fontFamily: 'Frock' }}>{heading}</Typography>
       </div>
       <img src={headerImage.default} className={classes.backgroundImage} />
     </Box>

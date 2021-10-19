@@ -64,7 +64,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: 3,
     position: 'absolute',
     left: 'calc(50% - 45px)',
-    top: '-14px',
+    top: '-10px',
   },
   white: {
     color: 'white',
@@ -72,7 +72,10 @@ const useStyles = makeStyles(() => ({
   joinButton: {
     marginTop: '28px',
     borderRadius: '20px',
-    height: '60px',
+    height: '50px',
+    maxWidth: '300px',
+    left: '50%',
+    transform: 'translateX(-50%)',
   },
   tabPanel: {
     overflowY: 'scroll',
@@ -82,7 +85,10 @@ const useStyles = makeStyles(() => ({
     fontWeight: 'bold',
   },
   topPadding: {
-    paddingTop: '1em',
+    paddingTop: '0.7em',
+  },
+  removeMargin: {
+    marginBottom: '-0.5em',
   },
 }));
 
@@ -127,7 +133,7 @@ const ChallengeDetailsPage: React.FC = () => {
     TabItem.Milestones
   );
 
-  const peekDrawerHeight = 200;
+  const peekDrawerHeight = 20;
 
   const Bar = () => (
     <AppBar position="static">
@@ -204,7 +210,28 @@ const ChallengeDetailsPage: React.FC = () => {
         >
           Recommended schedule
         </Typography>
-        <Typography className={classes.white}>{challenge.schedule}</Typography>
+        <Typography className={`${classes.white} ${classes.removeMargin}`}>
+          {challenge.schedule}
+        </Typography>
+        <Button
+          variant="outlined"
+          fullWidth
+          disableElevation
+          className={classes.joinButton}
+          sx={{
+            marginBottom: '-1.5em',
+            borderRadius: '1.5em',
+            backgroundColor: 'transparent',
+            color: 'white',
+            border: '1px white solid',
+            display: 'block',
+          }}
+          onClick={() => {
+            setIsDrawerOpen(true);
+          }}
+        >
+          <Typography variant="body1">View details</Typography>
+        </Button>
 
         {/* User has not enrolled in the challenge */}
         {/* TODO: ensure that user has < 3 challenges before allowing user to enroll */}
@@ -213,6 +240,7 @@ const ChallengeDetailsPage: React.FC = () => {
             <Button
               variant="contained"
               fullWidth
+              disableElevation
               className={classes.joinButton}
               onClick={() => setIsScheduleModalOpen(true)}
             >

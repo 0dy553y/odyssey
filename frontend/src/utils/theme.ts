@@ -17,7 +17,7 @@ const theme = createTheme({
     fontFamily: `"CircularStd", "Helvetica", "Arial", sans-serif, "Frock"`,
     h1: {
       fontFamily: 'Frock',
-      fontSize: 50,
+      fontSize: '40px',
     },
     h2: {
       fontFamily: 'Frock',
