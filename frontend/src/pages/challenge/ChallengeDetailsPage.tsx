@@ -50,8 +50,8 @@ const useStyles = makeStyles(() => ({
   peekDrawer: {
     position: 'relative',
     backgroundColor: '#fff',
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     visibility: 'visible',
     right: 0,
     left: 0,
@@ -77,6 +77,12 @@ const useStyles = makeStyles(() => ({
   tabPanel: {
     overflowY: 'scroll',
     height: '75vh',
+  },
+  bold: {
+    fontWeight: 'bold',
+  },
+  topPadding: {
+    paddingTop: '1em',
   },
 }));
 
@@ -186,13 +192,18 @@ const ChallengeDetailsPage: React.FC = () => {
         <Typography variant="h1" className={classes.white}>
           {challenge.name}
         </Typography>
-        <Typography className={classes.white}>
-          {challenge.duration} days {challenge.createdBy}
+        <Typography className={`${classes.white} ${classes.bold}`}>
+          {challenge.duration} days · Created by {challenge.createdBy}
         </Typography>
-        <Typography className={classes.white}>
+        <Typography className={`${classes.white} ${classes.topPadding}`}>
           {challenge.description}
         </Typography>
-        <Typography className={classes.white}>Recommended schedule</Typography>
+        <Typography
+          variant="h6"
+          className={`${classes.white} ${classes.topPadding} ${classes.bold}`}
+        >
+          Recommended schedule
+        </Typography>
         <Typography className={classes.white}>{challenge.schedule}</Typography>
 
         {/* User has not enrolled in the challenge */}
