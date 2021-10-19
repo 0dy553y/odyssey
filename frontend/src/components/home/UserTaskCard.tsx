@@ -76,11 +76,12 @@ const UserTaskCard: React.FC<Props> = ({ userTask }: Props) => {
           {userTask.description}
         </Typography>
         <div className={classes.doneToggle}>
-          <Switch
-            checked={!!userTask.completedAt}
-            disabled={isAfter(new Date(userTask.scheduledFor), new Date())}
-            onChange={handleDoneToggle}
-          />
+          {!isAfter(new Date(userTask.scheduledFor), new Date()) && (
+            <Switch
+              checked={!!userTask.completedAt}
+              onChange={handleDoneToggle}
+            />
+          )}
         </div>
       </div>
     </Card>
