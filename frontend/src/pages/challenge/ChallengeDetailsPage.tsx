@@ -69,13 +69,21 @@ const useStyles = makeStyles(() => ({
   white: {
     color: 'white',
   },
-  joinButton: {
+  button: {
     marginTop: '28px',
     borderRadius: '20px',
     height: '50px',
     maxWidth: '300px',
     left: '50%',
     transform: 'translateX(-50%)',
+  },
+  viewDetailsButton: {
+    marginBottom: '-1.5em',
+    borderRadius: '1.5em',
+    backgroundColor: 'transparent',
+    color: 'white',
+    border: '1px white solid',
+    display: 'block',
   },
   tabPanel: {
     overflowY: 'scroll',
@@ -217,15 +225,7 @@ const ChallengeDetailsPage: React.FC = () => {
           variant="outlined"
           fullWidth
           disableElevation
-          className={classes.joinButton}
-          sx={{
-            marginBottom: '-1.5em',
-            borderRadius: '1.5em',
-            backgroundColor: 'transparent',
-            color: 'white',
-            border: '1px white solid',
-            display: 'block',
-          }}
+          className={`${classes.button} ${classes.viewDetailsButton}`}
           onClick={() => {
             setIsDrawerOpen(true);
           }}
@@ -241,7 +241,7 @@ const ChallengeDetailsPage: React.FC = () => {
               variant="contained"
               fullWidth
               disableElevation
-              className={classes.joinButton}
+              className={classes.button}
               onClick={() => setIsScheduleModalOpen(true)}
             >
               <Typography variant="body1">Join Challenge!</Typography>
