@@ -7,6 +7,7 @@ import {
   HOME_ROUTE,
   privateRoutes,
   publicRoutes,
+  mainRoutes,
   notAuthenticatedRoutes,
 } from './routing/routes';
 import RouteWithRedirect, {
@@ -99,7 +100,7 @@ function App(): JSX.Element {
           </Switch>
         </Container>
       </div>
-      {!notAuthenticatedRoutes
+      {mainRoutes
         .map((route: RouteEntry) => route.path)
         .includes(location.pathname) && <BottomNavigationBar />}
       <FeedbackOverlay />

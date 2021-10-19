@@ -50,8 +50,8 @@ const useStyles = makeStyles(() => ({
   peekDrawer: {
     position: 'relative',
     backgroundColor: '#fff',
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
     visibility: 'visible',
     right: 0,
     left: 0,
@@ -64,19 +64,39 @@ const useStyles = makeStyles(() => ({
     borderRadius: 3,
     position: 'absolute',
     left: 'calc(50% - 45px)',
-    top: '-14px',
+    top: '-10px',
   },
   white: {
     color: 'white',
   },
-  joinButton: {
+  button: {
     marginTop: '28px',
     borderRadius: '20px',
-    height: '60px',
+    height: '50px',
+    maxWidth: '300px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+  },
+  viewDetailsButton: {
+    marginBottom: '-1.5em',
+    borderRadius: '1.5em',
+    backgroundColor: 'transparent',
+    color: 'white',
+    border: '1px white solid',
+    display: 'block',
   },
   tabPanel: {
     overflowY: 'scroll',
     height: '75vh',
+  },
+  bold: {
+    fontWeight: 'bold',
+  },
+  topPadding: {
+    paddingTop: '0.7em',
+  },
+  removeMargin: {
+    marginBottom: '-0.5em',
   },
 }));
 
@@ -121,7 +141,7 @@ const ChallengeDetailsPage: React.FC = () => {
     TabItem.Milestones
   );
 
-  const peekDrawerHeight = 200;
+  const peekDrawerHeight = 20;
 
   const Bar = () => (
     <AppBar position="static">
@@ -186,14 +206,32 @@ const ChallengeDetailsPage: React.FC = () => {
         <Typography variant="h1" className={classes.white}>
           {challenge.name}
         </Typography>
-        <Typography className={classes.white}>
-          {challenge.duration} days {challenge.createdBy}
+        <Typography className={`${classes.white} ${classes.bold}`}>
+          {challenge.duration} days · Created by {challenge.createdBy}
         </Typography>
-        <Typography className={classes.white}>
+        <Typography className={`${classes.white} ${classes.topPadding}`}>
           {challenge.description}
         </Typography>
-        <Typography className={classes.white}>Recommended schedule</Typography>
-        <Typography className={classes.white}>{challenge.schedule}</Typography>
+        <Typography
+          variant="h6"
+          className={`${classes.white} ${classes.topPadding} ${classes.bold}`}
+        >
+          Recommended schedule
+        </Typography>
+        <Typography className={`${classes.white} ${classes.removeMargin}`}>
+          {challenge.schedule}
+        </Typography>
+        <Button
+          variant="outlined"
+          fullWidth
+          disableElevation
+          className={`${classes.button} ${classes.viewDetailsButton}`}
+          onClick={() => {
+            setIsDrawerOpen(true);
+          }}
+        >
+          <Typography variant="body1">View details</Typography>
+        </Button>
 
         {/* User has not enrolled in the challenge */}
         {/* TODO: ensure that user has < 3 challenges before allowing user to enroll */}
@@ -202,7 +240,8 @@ const ChallengeDetailsPage: React.FC = () => {
             <Button
               variant="contained"
               fullWidth
-              className={classes.joinButton}
+              disableElevation
+              className={classes.button}
               onClick={() => setIsScheduleModalOpen(true)}
             >
               <Typography variant="body1">Join Challenge!</Typography>
@@ -237,18 +276,22 @@ const ChallengeDetailsPage: React.FC = () => {
           <Box className={classes.peekDrawer} sx={{ top: -peekDrawerHeight }}>
             <Box className={classes.puller} />
             <TabContext value={currentTabItem}>
-              <TabList
-                onChange={(_: React.SyntheticEvent, newValue: TabItem) => {
-                  setCurrentTabItem(newValue);
-                }}
-              >
-                {Object.values(TabItem).map((tabItem) => {
-                  if (privateTabs.includes(tabItem) && !userChallenge) {
-                    return null;
-                  }
-                  return <Tab key={tabItem} label={tabItem} value={tabItem} />;
-                })}
-              </TabList>
+              <Box sx={{ padding: '0.5em 0 0 2em' }}>
+                <TabList
+                  onChange={(_: React.SyntheticEvent, newValue: TabItem) => {
+                    setCurrentTabItem(newValue);
+                  }}
+                >
+                  {Object.values(TabItem).map((tabItem) => {
+                    if (privateTabs.includes(tabItem) && !userChallenge) {
+                      return null;
+                    }
+                    return (
+                      <Tab key={tabItem} label={tabItem} value={tabItem} />
+                    );
+                  })}
+                </TabList>
+              </Box>
 
               {Object.values(TabItem).map((tabItem) => (
                 <TabPanel
