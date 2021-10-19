@@ -51,7 +51,7 @@ const UserTaskCard: React.FC<Props> = ({ userTask }: Props) => {
 
   const status = !!userTask.completedAt
     ? '🎉 Completed!'
-    : isAfter(new Date(userTask.scheduledFor), new Date())
+    : isAfter(userTask.scheduledFor, new Date())
     ? '💪 Upcoming'
     : '🔥 Ongoing';
 
@@ -80,7 +80,7 @@ const UserTaskCard: React.FC<Props> = ({ userTask }: Props) => {
           {userTask.description}
         </Typography>
         <div className={classes.doneToggle}>
-          {!isAfter(new Date(userTask.scheduledFor), new Date()) && (
+          {!isAfter(userTask.scheduledFor, new Date()) && (
             <Switch
               checked={!!userTask.completedAt}
               onChange={handleDoneToggle}

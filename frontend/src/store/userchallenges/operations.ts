@@ -14,6 +14,7 @@ import {
   updateOngoingUserChallengeData,
   updateOngoingUserChallengesListData,
 } from './actions';
+import { mapUserTaskDateStringsIntoDateObjects } from '../usertasks/operations';
 
 export function loadOngoingUserChallengeDataForChallenge(
   challengeId: number
@@ -27,13 +28,9 @@ export function loadOngoingUserChallengeDataForChallenge(
       return;
     }
 
-    const userTasks: UserTaskListData[] = data.userTasks.map((userTask) => {
-      return {
-        ...userTask,
-        completedAt: userTask.completedAt && new Date(userTask.completedAt),
-        scheduledFor: startOfDay(new Date(userTask.scheduledFor)),
-      };
-    });
+    const userTasks: UserTaskListData[] = data.userTasks.map(
+      mapUserTaskDateStringsIntoDateObjects
+    );
     dispatch(
       updateOngoingUserChallengeData({
         challengeId,
