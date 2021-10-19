@@ -36,6 +36,14 @@ export const notAuthenticatedRoutes: RouteEntry[] = [
 // Public routes that are accessible regardless of authentication status
 export const publicRoutes: RouteEntry[] = [];
 
+// Route that appear on the navbar
+export const mainRoutes: RouteEntry[] = [
+  { path: PROFILE_ROUTE, component: ProfilePage, exact: true },
+  { path: HOME_ROUTE, component: HomePage, exact: true },
+  { path: FEED_ROUTE, component: FeedPage, exact: true },
+  { path: EXPLORE_ROUTE, component: ExplorePage },
+];
+
 export const privateRoutes: RouteEntry[] = [
   { path: EDIT_PROFILE_ROUTE, component: EditProfilePage, exact: true },
   { path: PROFILE_ROUTE, component: ProfilePage, exact: true },

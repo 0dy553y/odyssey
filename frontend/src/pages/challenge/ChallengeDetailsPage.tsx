@@ -50,8 +50,8 @@ const useStyles = makeStyles(() => ({
   peekDrawer: {
     position: 'relative',
     backgroundColor: '#fff',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
     visibility: 'visible',
     right: 0,
     left: 0,
@@ -248,18 +248,22 @@ const ChallengeDetailsPage: React.FC = () => {
           <Box className={classes.peekDrawer} sx={{ top: -peekDrawerHeight }}>
             <Box className={classes.puller} />
             <TabContext value={currentTabItem}>
-              <TabList
-                onChange={(_: React.SyntheticEvent, newValue: TabItem) => {
-                  setCurrentTabItem(newValue);
-                }}
-              >
-                {Object.values(TabItem).map((tabItem) => {
-                  if (privateTabs.includes(tabItem) && !userChallenge) {
-                    return null;
-                  }
-                  return <Tab key={tabItem} label={tabItem} value={tabItem} />;
-                })}
-              </TabList>
+              <Box sx={{ padding: '0.5em 0 0 2em' }}>
+                <TabList
+                  onChange={(_: React.SyntheticEvent, newValue: TabItem) => {
+                    setCurrentTabItem(newValue);
+                  }}
+                >
+                  {Object.values(TabItem).map((tabItem) => {
+                    if (privateTabs.includes(tabItem) && !userChallenge) {
+                      return null;
+                    }
+                    return (
+                      <Tab key={tabItem} label={tabItem} value={tabItem} />
+                    );
+                  })}
+                </TabList>
+              </Box>
 
               {Object.values(TabItem).map((tabItem) => (
                 <TabPanel
