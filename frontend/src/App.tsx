@@ -21,6 +21,7 @@ import BottomNavigationBar from './components/common/BottomNavigationBar';
 import { RouteEntry } from './types/routes';
 import Notifier from 'components/notifier';
 import FeedbackOverlay from './components/common/FeedbackOverlay';
+import { useCache } from 'components/common/cacheProvider';
 
 import './App.scss';
 import 'slick-carousel/slick/slick.css';
@@ -30,6 +31,7 @@ import 'swiper/swiper-bundle.css';
 function App(): JSX.Element {
   const dispatch = useDispatch();
   const location = useLocation();
+  const { isLatestVersion, refreshCacheAndReload } = useCache();
 
   const user = useSelector(getUser);
   const isValidatingToken = useSelector(getIsValidatingToken);
@@ -48,6 +50,10 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(validateToken());
+
+    if (!isLatestVersion) {
+      refreshCacheAndReload();
+    }
   }, []);
 
   return (
