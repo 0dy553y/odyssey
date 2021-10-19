@@ -87,7 +87,7 @@ const useStyles = makeStyles(() => ({
   },
   tabPanel: {
     overflowY: 'scroll',
-    height: '75vh',
+    height: '45vh',
   },
   bold: {
     fontWeight: 'bold',
