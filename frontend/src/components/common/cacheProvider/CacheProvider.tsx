@@ -14,12 +14,11 @@ const CacheProvider: React.FC = (props) => {
   const [isLatestVersion, setIsLatestVersion] = useState<boolean>(true);
 
   const refreshCacheAndReload = () => {
-    // Service worker cache should be cleared with caches.delete()
     if (caches) {
-      // Service worker cache should be cleared with caches.delete()
       caches
         .keys()
         .then(async function (names) {
+          // Service worker cache should be cleared with caches.delete()
           for (const name of names) await caches.delete(name);
         })
         .then(() => {
@@ -52,9 +51,7 @@ const CacheProvider: React.FC = (props) => {
       const a = Number(versionsA.shift());
 
       const b = Number(versionsB.shift());
-      // eslint-disable-next-line no-continue
       if (a === b) continue;
-      // eslint-disable-next-line no-restricted-globals
       return a > b || isNaN(b);
     }
     return false;
