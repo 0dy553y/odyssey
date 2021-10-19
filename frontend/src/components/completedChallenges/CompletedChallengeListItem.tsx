@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Typography, Theme } from '@mui/material';
+import { displayDateWithTimestamp } from 'utils/formatting';
 
 import './CompletedChallengeListItem.scss';
 
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface CategoryListProps {
   name: string;
-  completionDate: string;
+  completionDate: Date;
 }
 
 const CategoryListItem: React.FC<CategoryListProps> = (props) => {
@@ -38,7 +39,7 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
               {name}
             </Typography>
             <Typography component="div" variant="body1">
-              Completed at: {completionDate}
+              Completed at: {displayDateWithTimestamp(completionDate)}
             </Typography>
           </Grid>
         </div>

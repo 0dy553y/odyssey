@@ -1,10 +1,11 @@
+import { startOfDay } from 'date-fns';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { UserTaskListData } from 'types/usertasks';
 import {
   CompletedUserChallengeListData,
   UserChallengeListData,
 } from 'types/userchallenge';
+import { UserTaskListData } from 'types/usertasks';
 import api from '../../api';
 import { OperationResult } from '../../types/store';
 import { RootState } from '../index';
@@ -13,7 +14,6 @@ import {
   updateOngoingUserChallengeData,
   updateOngoingUserChallengesListData,
 } from './actions';
-import { startOfDay } from 'date-fns';
 
 export function loadOngoingUserChallengeDataForChallenge(
   challengeId: number
@@ -64,7 +64,12 @@ export function loadAllCompletedUserChallenges(): OperationResult {
     const response =
       await api.userChallenges.getAllCompletedUserChallengesData();
     const userChallenges: CompletedUserChallengeListData[] =
-      response.payload.data;
+      response.payload.data.map((userChallenge) => {
+        return {
+          ...userChallenge,
+          completedAt: new Date(userChallenge.completedAt),
+        };
+      });
     dispatch(
       updateCompletedUserChallengesListData({
         data: [...userChallenges],
