@@ -11,6 +11,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
 import theme from './utils/theme';
 import { CssBaseline } from '@mui/material';
+import { CacheProvider } from 'components/common/cacheProvider';
 
 const store = configureStore();
 
@@ -20,9 +21,11 @@ ReactDOM.render(
       <ThemeProvider theme={theme}>
         <CssBaseline>
           <SnackbarProvider autoHideDuration={3000}>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
+            <CacheProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </CacheProvider>
           </SnackbarProvider>
         </CssBaseline>
       </ThemeProvider>
