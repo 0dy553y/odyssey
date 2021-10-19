@@ -49,7 +49,11 @@ const UserTaskCard: React.FC<Props> = ({ userTask }: Props) => {
   const classes = useStyles(userTask);
   const dispatch = useDispatch();
 
-  const status = !!userTask.completedAt ? '🎉 Completed!' : '🔥 Ongoing';
+  const status = !!userTask.completedAt
+    ? '🎉 Completed!'
+    : isAfter(new Date(userTask.scheduledFor), new Date())
+    ? '💪 Upcoming'
+    : '🔥 Ongoing';
 
   const handleDoneToggle = () => {
     if (!userTask.completedAt) {
