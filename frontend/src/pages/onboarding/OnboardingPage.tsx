@@ -93,7 +93,7 @@ const OnboardingPage: React.FC = () => {
             <br />
             <br />
             Odyssey community-based app for completing challenges, which are
-            lists of tasks to be completed regularly and typically in increasing
+            a series of tasks to be completed regularly and typically in increasing
             intensity. These challenges serve to either help users to form
             habits or healthy routines, or are hobby-based challenges that
             encourage and motivate users to explore deeper into interests and
