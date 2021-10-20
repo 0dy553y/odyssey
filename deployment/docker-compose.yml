@@ -21,6 +21,8 @@ services:
     image: ghcr.io/0dy553y/odyssey-backend:latest
     container_name: odyssey-backend
     restart: always
+    volumes:
+      - ./file_storage:/backend/storage
     depends_on:
       - database
     networks:
