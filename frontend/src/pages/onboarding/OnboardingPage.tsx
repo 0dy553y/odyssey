@@ -92,8 +92,8 @@ const OnboardingPage: React.FC = () => {
             viewing on mobile.
             <br />
             <br />
-            Odyssey community-based app for completing challenges, which are a
-            series of tasks to be completed regularly and typically in
+            Odyssey is a community-based app for completing challenges, which
+            are a series of tasks to be completed regularly and typically in
             increasing increasing intensity. These challenges serve to either
             help users to habits or healthy routines, or are hobby-based
             challenges that encourage and motivate users to explore deeper into
