@@ -103,8 +103,9 @@ const OnboardingPage: React.FC = () => {
             We are still in the midst of user testing and developing more
             features. To enable you to try out our features easily, we have
             provided a limited set of short test challenges that can be done
-            with minimum hassle. Any feedback that you provide would be very
-            appreciated!
+            with minimum hassle. Please drop us feedback by clicking on the
+            Feedback tab to the left of the screen. Any feedback that you
+            provide would be very appreciated!
             <br />
             <br />
             &#10084;&#65039; from the Odyssey Team
