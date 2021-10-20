@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   justify-items: center;
-  padding: 1.3vw;
+  padding: calc(min(1.3vw, 18px));
   box-sizing:border-box;
 }
 
