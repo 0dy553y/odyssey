@@ -1,6 +1,6 @@
 import React from 'react';
 import { UserTaskListData } from '../../types/usertasks';
-import { Card, Switch, Typography } from '@mui/material';
+import { Card, Switch, Stack, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import {
   markUserTaskAsDone,
@@ -35,9 +35,6 @@ const useStyles = makeStyles(() => ({
   },
   doneToggle: {
     flexGrow: 1,
-    position: 'absolute',
-    bottom: 25,
-    right: 25,
   },
 }));
 
@@ -79,14 +76,20 @@ const UserTaskCard: React.FC<Props> = ({ userTask }: Props) => {
         <Typography align="left" className={classes.secondaryText}>
           {userTask.description}
         </Typography>
-        <div className={classes.doneToggle}>
+        <Stack
+          direction="row"
+          justifyContent="flex-end"
+          alignItems="flex-end"
+          spacing={2}
+          className={classes.doneToggle}
+        >
           {!isAfter(userTask.scheduledFor, new Date()) && (
             <Switch
               checked={!!userTask.completedAt}
               onChange={handleDoneToggle}
             />
           )}
-        </div>
+        </Stack>
       </div>
     </Card>
   );

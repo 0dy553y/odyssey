@@ -8,12 +8,12 @@ import { UserTaskListData } from 'types/usertasks';
 import api from '../../api';
 import { OperationResult } from '../../types/store';
 import { RootState } from '../index';
+import { mapUserTaskDateStringsIntoDateObjects } from '../usertasks/operations';
 import {
   updateCompletedUserChallengesListData,
   updateOngoingUserChallengeData,
   updateOngoingUserChallengesListData,
 } from './actions';
-import { mapUserTaskDateStringsIntoDateObjects } from '../usertasks/operations';
 
 export function loadOngoingUserChallengeDataForChallenge(
   challengeId: number
