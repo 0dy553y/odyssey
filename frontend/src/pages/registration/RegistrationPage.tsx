@@ -46,7 +46,13 @@ const RegistrationPage: React.FC = () => {
               name="username"
               control={control}
               defaultValue=""
-              rules={{ required: 'Username is required' }}
+              rules={{
+                required: 'Username is required',
+                pattern: {
+                  value: /^[a-zA-Z0-9_.]*$/,
+                  message: 'Username cannot contain special characters.',
+                },
+              }}
               render={({ field }) => (
                 <TextField
                   {...field}
