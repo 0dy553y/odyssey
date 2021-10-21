@@ -6,11 +6,15 @@ import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { MapComponent } from './MapComponent';
 
 const Character: React.FC = () => {
-  const materials = useLoader(MTLLoader, '/astronaut.mtl');
-  const astronaut = useLoader(OBJLoader, '/astronaut.obj', (loader: any) => {
-    materials.preload();
-    loader.setMaterials(materials);
-  });
+  const materials = useLoader(MTLLoader, '/models/astronaut.mtl');
+  const astronaut = useLoader(
+    OBJLoader,
+    '/models/astronaut.obj',
+    (loader: any) => {
+      materials.preload();
+      loader.setMaterials(materials);
+    }
+  );
   return <primitive object={astronaut} scale={0.4} />;
 };
 

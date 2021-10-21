@@ -10,8 +10,8 @@ interface ModelProps {
 }
 
 const Model: React.FC<ModelProps> = ({ fileName, scale = 1 }) => {
-  const materials = useLoader(MTLLoader, `/${fileName}.mtl`);
-  const obj = useLoader(OBJLoader, `/${fileName}.obj`, (loader: any) => {
+  const materials = useLoader(MTLLoader, `/models/${fileName}.mtl`);
+  const obj = useLoader(OBJLoader, `/models/${fileName}.obj`, (loader: any) => {
     materials.preload();
     loader.setMaterials(materials);
   });
