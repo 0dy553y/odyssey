@@ -6,6 +6,9 @@ class UserChallenge < ApplicationRecord
   has_many :user_tasks, dependent: :destroy
   belongs_to :schedule
 
+  scope :ongoing, -> { where(completed_at: nil, forfeited_at: nil) }
+  scope :completed, -> { where.not(completed_at: nil) }
+
   def percent_completed
     user_tasks.completed.count * 1.0 / user_tasks.count * 100
   end
