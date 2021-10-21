@@ -27,7 +27,7 @@ module Auth
     end
 
     def render_create_error
-      if @resource.errors.full_messages.count > 0
+      if @resource.errors.full_messages.count.positive?
         @resource.errors.full_messages.each do |err_msg|
           show_error_message(err_msg)
         end
