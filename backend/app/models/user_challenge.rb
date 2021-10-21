@@ -10,6 +10,10 @@ class UserChallenge < ApplicationRecord
     user_tasks.completed.count * 1.0 / user_tasks.count * 100
   end
 
+  def completed?
+    completed_at.present?
+  end
+
   def set_completion_status
     is_challenge_completed = user_tasks.completed.count == user_tasks.count
 
