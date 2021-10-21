@@ -27,7 +27,14 @@ module Auth
     end
 
     def render_create_error
-      show_error_message("Unable to register with username '#{@resource.username}'")
+      if @resource.errors.full_messages.count > 0
+        @resource.errors.full_messages.each do |err_msg|
+          show_error_message(err_msg)
+        end
+      else
+        show_error_message("Unable to register with username '#{@resource.username}'")
+      end
+
       render 'auth/user', status: :unprocessable_entity
     end
 
