@@ -10,6 +10,7 @@ import { OperationResult } from '../../types/store';
 import { RootState } from '../index';
 import { mapUserTaskDateStringsIntoDateObjects } from '../usertasks/operations';
 import {
+  removeOngoingUserChallengeData,
   updateCompletedUserChallengesListData,
   updateOngoingUserChallengeData,
   updateOngoingUserChallengesListData,
@@ -23,7 +24,9 @@ export function loadOngoingUserChallengeDataForChallenge(
       challengeId
     );
     const data = response.payload.data;
+
     if (!data) {
+      dispatch(removeOngoingUserChallengeData({ challengeId }));
       return;
     }
 

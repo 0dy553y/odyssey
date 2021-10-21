@@ -23,6 +23,12 @@ export const userChallengesSlice = createSlice({
       state.ongoingUserChallengeData[action.payload.challengeId] =
         action.payload.data;
     },
+    removeOngoingUserChallengeData: (
+      state,
+      action: PayloadAction<{ challengeId: number }>
+    ) => {
+      delete state.ongoingUserChallengeData[action.payload.challengeId];
+    },
     updateOngoingUserChallengesListData: (
       state,
       action: PayloadAction<{ data: UserChallengeListData[] }>

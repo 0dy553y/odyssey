@@ -1,6 +1,16 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
-import { Backdrop, Box, Fade, Modal, Theme, Typography } from '@mui/material';
+import {
+  Backdrop,
+  Box,
+  Fade,
+  Modal,
+  Link,
+  Theme,
+  Typography,
+} from '@mui/material';
+import { EXPLORE_ROUTE } from '../../routing/routes';
 
 interface ChallengeCompletedModalProps {
   challengeName: string;
@@ -35,6 +45,7 @@ const ChallengeCompletedModal: React.FC<ChallengeCompletedModalProps> = ({
   onClose,
 }) => {
   const theme = useTheme();
+  const history = useHistory();
   const classes = useStyles(theme);
 
   return (
@@ -50,9 +61,14 @@ const ChallengeCompletedModal: React.FC<ChallengeCompletedModalProps> = ({
       <Fade in={isOpen}>
         <Box className={classes.modal}>
           <Typography component="div" variant="h6">
-            Congratulations on completing &apos;{challengeName}&apos;.
+            Congratulations on completing &apos;{challengeName}&apos;! Why not
+            head to the
+            <Link onClick={() => history.push(EXPLORE_ROUTE)}>
+              {' '}
+              Explore tab{' '}
+            </Link>
+            and start a new challenge?
           </Typography>
-          {/* TODO: add form to allow users to post directly to feed? */}
         </Box>
       </Fade>
     </Modal>

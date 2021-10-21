@@ -25,7 +25,7 @@ export function loadUserTasksForDay(date: Date): OperationResult {
 function markUserTaskAsDone(
   userTaskId: number,
   onChallengeCompleted: (completedChallengeName: string) => void,
-  onApiComplete: (
+  onOperationComplete: (
     dispatch: ThunkDispatch<RootState, undefined, AnyAction>,
     userTask: UserTaskData
   ) => void
@@ -39,7 +39,7 @@ function markUserTaskAsDone(
       onChallengeCompleted(userTask.challengeName);
     }
 
-    onApiComplete(dispatch, userTask);
+    onOperationComplete(dispatch, userTask);
   };
 }
 
