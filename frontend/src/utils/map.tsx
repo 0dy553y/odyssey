@@ -28,6 +28,9 @@ export function translate(
 // })}
 //
 // Builds a wall of height 5 and width 10, facing default direction forward.
+// The base coordinates sets the "bottom left" corner of the pattern.
+// Pass in widthIncrement and heightIncrement when the repeating block is not 1x1.
+// For example, to repeat an arch of 2x3 dimensions.
 export function buildRepeated({
   buildBlock,
   base,
