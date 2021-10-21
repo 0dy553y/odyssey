@@ -8,7 +8,12 @@ import { translate, buildRepeated, buildArch } from '../../utils/map';
 import theme from './DemoMapTheme';
 
 function Map(): JSX.Element {
+  // Coordinates of starting point.
   const base: Vector3 = [-1, -4, 5];
+
+  // How far away is the camera.
+  // To provide an isometric view, the camera
+  // must have the same value for it's x, y, and z coordinates.
   const d = 35;
 
   return (

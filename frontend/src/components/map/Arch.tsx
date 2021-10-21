@@ -16,7 +16,7 @@ const Arch: React.FC<ArchProps> = ({
 }) => {
   const archShape = new THREE.Shape();
 
-  // prevent z fighting.
+  // Prevent z fighting.
   const offset = 0.001;
 
   const left = -width / 2 + offset;

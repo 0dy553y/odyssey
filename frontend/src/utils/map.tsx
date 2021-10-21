@@ -4,6 +4,8 @@ import { Direction, Axis, TranslationVector } from '../types/map';
 import { Arch, Columns } from '../components/map';
 import { Vector3 } from '@react-three/fiber';
 
+// Returns a Vector3 that is base + translationVector.
+// The translation vector does not need to specify values for all three axes.
 export function translate(
   base: Vector3,
   translationVector: TranslationVector
@@ -24,6 +26,7 @@ export function translate(
 //   height: 5,
 //   width: 10
 // })}
+//
 // Builds a wall of height 5 and width 10, facing default direction forward.
 export function buildRepeated({
   buildBlock,
@@ -72,6 +75,9 @@ export function buildRepeated({
 //   width: 2,
 //   height: 3,
 // }),
+//
+// Builds an arch of width 2 and height 3.
+// The base coordinates sets the "bottom left" corner of the arch.
 export function buildArch({
   base,
   height = 1,

@@ -9,6 +9,9 @@ interface ModelProps {
   scale?: number;
 }
 
+// Loads a voxel model.
+// To add a new model, add its .obj, .mtl, and .png files under
+// the directory public/models. They must have the same fileName.
 const Model: React.FC<ModelProps> = ({ fileName, scale = 1 }) => {
   const materials = useLoader(MTLLoader, `/models/${fileName}.mtl`);
   const obj = useLoader(OBJLoader, `/models/${fileName}.obj`, (loader: any) => {

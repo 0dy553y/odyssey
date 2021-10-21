@@ -1,6 +1,8 @@
 import { Direction } from '../types/map';
 import { Vector2 } from '@react-three/fiber';
 
+// Returns an angle, in radians, of how much to rotate an object
+// such that it faces the input direction.
 export const getRotation = (direction: Direction): number => {
   const r = Math.PI / 2;
 
