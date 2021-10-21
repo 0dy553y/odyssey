@@ -7,7 +7,7 @@ import { MapComponent } from './MapComponent';
 
 const Character: React.FC = () => {
   const materials = useLoader(MTLLoader, '/astronaut.mtl');
-  const astronaut = useLoader(OBJLoader, '/astronaut.obj', (loader) => {
+  const astronaut = useLoader(OBJLoader, '/astronaut.obj', (loader: any) => {
     materials.preload();
     loader.setMaterials(materials);
   });
