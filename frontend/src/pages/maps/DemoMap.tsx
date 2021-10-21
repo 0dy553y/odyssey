@@ -7,8 +7,8 @@ import { Direction, Axis } from '../../types/map';
 import { translate, buildRepeated, buildArch } from '../../utils/map';
 import theme from './DemoMapTheme';
 
-function Map() {
-  const base = [-1, -4, 5];
+function Map(): JSX.Element {
+  const base: Vector3 = [-1, -4, 5];
   const d = 35;
 
   return (

@@ -17,7 +17,7 @@ interface MapComponentProps {
 
 // Higher order component that can be used to wrap around any
 // map component to provide position, direction and color.
-export function MapComponent<Type>(WrappedComponent: React.FC<Type & Color>) {
+export function MapComponent<Type>(WrappedComponent: any) {
   const buildBlock: React.FC<MapComponentProps> = ({
     position,
     direction = Direction.FORWARD,

@@ -4,11 +4,15 @@ import { Direction, Axis, TranslationVector } from '../types/map';
 import { Arch, Columns } from '../components/map';
 import { Vector3 } from '@react-three/fiber';
 
-export function translate(base: Vector3, translationVector: TranslationVector) {
+export function translate(
+  base: Vector3,
+  translationVector: TranslationVector
+): Vector3 {
+  const b = base as number[];
   const deltaX = translationVector[Axis.X] ?? 0;
   const deltaY = translationVector[Axis.Y] ?? 0;
   const deltaZ = translationVector[Axis.Z] ?? 0;
-  return [base[0] + deltaX, base[1] + deltaY, base[2] + deltaZ];
+  return [b[0] + deltaX, b[1] + deltaY, b[2] + deltaZ];
 }
 
 // Example usage:
@@ -38,7 +42,7 @@ export function buildRepeated({
   heightIncrement?: number;
   widthIncrement?: number;
 }) {
-  const directionVector = getDirectionVector(repeatDirection);
+  const directionVector = getDirectionVector(repeatDirection) as number[];
   const deltaX = directionVector[0] * widthIncrement;
   const deltaZ = directionVector[1] * widthIncrement;
   return (
@@ -83,7 +87,7 @@ export function buildArch({
   direction?: Direction;
   key?: number;
 }) {
-  const directionVector = getDirectionVector(direction);
+  const directionVector = getDirectionVector(direction) as number[];
   const xIncrement = directionVector[0];
   const zIncrement = directionVector[1];
 
