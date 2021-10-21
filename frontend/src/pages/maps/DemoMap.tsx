@@ -107,7 +107,7 @@ function Map(): JSX.Element {
             removeEventListener={undefined}
             dispatchEvent={undefined}
           />
-          <Stars factor={10} radius={80} />
+          <Stars factor={10} radius={50} />
         </Canvas>
       </ThemeProvider>
     </Suspense>
