@@ -1,40 +1,37 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
+import { Container } from '@mui/material';
 
 const useStyles = makeStyles(() => ({
   headerContainer: {
-    height: '40px',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'black',
-    zIndex: 1,
     display: 'flex',
     flexDirection: 'column',
-    padding: '10px',
+    height: '40px',
+    position: 'relative',
+    flex: '1 0 40px',
   },
   headerText: {
     textAlign: 'center',
     color: 'white',
-    fontSize: '16px',
-    fontWeight: 400,
+    fontSize: '30px',
   },
 }));
 
-interface CollapsedHeaderProps {
+interface ExpandedHeaderProps {
   name: string;
 }
 
-const CollapsedHeader: React.FC<CollapsedHeaderProps> = (props) => {
+const ExpandedHeader: React.FC<ExpandedHeaderProps> = (props) => {
   const classes = useStyles();
   const { name } = props;
 
   return (
     <div className={classes.headerContainer}>
-      <span className={classes.headerText}>{name}</span>
+      <div>
+        <span>{name}</span>
+      </div>
     </div>
   );
 };
 
-export default CollapsedHeader;
+export default ExpandedHeader;
