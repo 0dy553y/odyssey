@@ -9,6 +9,10 @@ class UserTask < ApplicationRecord
     self.scheduled_for = scheduled_for.beginning_of_day
   end
 
+  after_update do
+    user_challenge.set_completion_status
+  end
+
   scope :completed, -> { where.not(completed_at: nil) }
 
   def completed?
