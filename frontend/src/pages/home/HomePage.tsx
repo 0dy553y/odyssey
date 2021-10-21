@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import { loadUserTasksForDay } from '../../store/usertasks/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import UserTaskCarousel from '../../components/home/UserTaskCarousel';
@@ -10,6 +10,7 @@ import { getUser } from '../../store/auth/selectors';
 import { useHistory } from 'react-router-dom';
 import { LOGIN_ROUTE } from '../../routing/routes';
 import DateCarousel from '../../components/home/DateCarousel';
+import ChallengeCompletedModal from 'components/challengeCompletedModal';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -35,11 +36,35 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+interface ChallengeCompletedModalState {
+  isOpen: boolean;
+  completedChallengeName?: string;
+}
+
 const HomePage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+
   const [date, setDate] = useState(new Date());
+  const [challengeCompletedModalState, setChallengeCompletedModalState] =
+    useReducer(
+      (
+        state: ChallengeCompletedModalState,
+        newState: Partial<ChallengeCompletedModalState>
+      ) => ({
+        ...state,
+        ...newState,
+      }),
+      { isOpen: false, completedChallengeName: undefined }
+    );
+
+  const onChallengeCompleted = (completedChallengeName: string) => {
+    setChallengeCompletedModalState({
+      isOpen: true,
+      completedChallengeName: completedChallengeName,
+    });
+  };
 
   useEffect(() => {
     dispatch(loadUserTasksForDay(date));
@@ -82,8 +107,20 @@ const HomePage: React.FC = () => {
         </Grid>
       </div>
       <div className={classes.tasksContainer}>
-        <UserTaskCarousel userTaskList={userTaskList} date={date} />
+        <UserTaskCarousel
+          userTaskList={userTaskList}
+          date={date}
+          onChallengeCompleted={onChallengeCompleted}
+        />
       </div>
+
+      {challengeCompletedModalState.completedChallengeName && (
+        <ChallengeCompletedModal
+          isOpen={challengeCompletedModalState.isOpen}
+          challengeName={challengeCompletedModalState.completedChallengeName}
+          onClose={() => setChallengeCompletedModalState({ isOpen: false })}
+        />
+      )}
     </div>
   );
 };
