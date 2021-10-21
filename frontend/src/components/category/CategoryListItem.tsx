@@ -24,6 +24,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     padding: '0 0 2em 0',
   },
+  circularProgress: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   outerRing: {
     transition: '4s ease',
     transitionDelay: '4s',
@@ -53,58 +58,49 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
 
   return (
     <Box>
-      <div>
-        <div className={classes.container}>
-          <div className="square-pic"></div>
-          <Grid item xs={9}>
-            <Typography component="div" variant="h6">
-              {name}
-            </Typography>
-            <Typography component="div" variant="body1">
-              {getFormattedStringFromDays(duration)}
-            </Typography>
-          </Grid>
-          <Grid item xs={2}>
-            <CircularProgress
-              color="primary"
-              variant="determinate"
-              sx={{
-                [`& .${circularProgressClasses.circle}`]: {
-                  strokeLinecap: 'round',
-                },
-                marginTop: '0.5em',
-              }}
-              value={100}
-              size={50}
-              thickness={7}
-              className={classes.innerRing}
-            />
-            <CircularProgress
-              color="primary"
-              variant="determinate"
-              sx={{
-                [`& .${circularProgressClasses.circle}`]: {
-                  strokeLinecap: 'round',
-                },
-                marginTop: '0.5em',
-              }}
-              className={classes.outerRing}
-              value={progress}
-              size={50}
-              thickness={7}
-            />
-            {percentageComplete === 100 && (
-              <Box
-                sx={{
-                  marginTop: '-0.60em',
-                  marginLeft: '0.75em',
-                }}
-              >
-                <CheckIcon className={classes.fillIcon} />
-              </Box>
-            )}
-          </Grid>
-        </div>
+      <div className={classes.container}>
+        <div className="square-pic"></div>
+        <Grid item xs={9}>
+          <Typography component="div" variant="h6">
+            {name}
+          </Typography>
+          <Typography component="div" variant="body1">
+            {getFormattedStringFromDays(duration)}
+          </Typography>
+        </Grid>
+        <Grid item xs={2} className={classes.circularProgress}>
+          <CircularProgress
+            color="primary"
+            variant="determinate"
+            sx={{
+              [`& .${circularProgressClasses.circle}`]: {
+                strokeLinecap: 'round',
+              },
+              marginTop: '0.5em',
+            }}
+            value={100}
+            size={50}
+            thickness={7}
+            className={classes.innerRing}
+          />
+          <CircularProgress
+            color="primary"
+            variant="determinate"
+            sx={{
+              [`& .${circularProgressClasses.circle}`]: {
+                strokeLinecap: 'round',
+              },
+              marginTop: '0.5em',
+            }}
+            className={classes.outerRing}
+            value={progress}
+            size={50}
+            thickness={7}
+          />
+          {percentageComplete === 100 && (
+            <CheckIcon className={classes.fillIcon} />
+          )}
+        </Grid>
       </div>
     </Box>
   );
