@@ -5,7 +5,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { Box, Character, Ladder, Model, Stairs } from '../../components/map';
 import { Direction, Axis } from '../../types/map';
 import { translate, buildRepeated, buildArch } from '../../utils/map';
-import theme from './SpaceMapTheme';
+import theme from './DemoMapTheme';
 
 function Map() {
   const base = [-1, -4, 5];
@@ -28,9 +28,6 @@ function Map() {
           fileName="InterstellarRunner"
           direction={Direction.RIGHT}
         />
-        {/* {pos.map((p, index) => {
-        return <Box key={index} position={p} height={0.2} />;
-      })} */}
         <Stairs position={base} direction={Direction.FORWARD} />
         {buildRepeated({
           buildBlock: (key: number, position: Vector3) => (

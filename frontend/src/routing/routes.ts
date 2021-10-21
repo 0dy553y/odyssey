@@ -11,6 +11,7 @@ import LoginPage from '../pages/login';
 import OnboardingPage from 'pages/onboarding/OnboardingPage';
 import ProfilePage from '../pages/profile';
 import RegistrationPage from '../pages/registration';
+import { DemoMap } from '../pages/maps';
 import { RouteEntry } from '../types/routes';
 
 export const HOME_ROUTE = '/';
@@ -25,6 +26,8 @@ export const FRIENDS_ROUTE = '/friends';
 export const COMPLETED_CHALLENGES_ROUTE = '/completed';
 export const BADGE_ROUTE = '/badges';
 export const ONBOARDING_ROUTE = '/welcome';
+// TODO: remove when no longer needed.
+export const DEMO_MAP_ROUTE = '/map/demo';
 
 // Routes that are accessible only if user is not authenticated
 export const notAuthenticatedRoutes: RouteEntry[] = [
@@ -70,4 +73,5 @@ export const privateRoutes: RouteEntry[] = [
     exact: true,
   },
   { path: EXPLORE_ROUTE, component: ExplorePage },
+  { path: DEMO_MAP_ROUTE, component: DemoMap },
 ];
