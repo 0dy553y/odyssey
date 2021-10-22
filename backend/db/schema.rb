@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_22_063751) do
+ActiveRecord::Schema.define(version: 2021_10_22_115606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,16 @@ ActiveRecord::Schema.define(version: 2021_10_22_063751) do
     t.index ["first_user_id"], name: "index_friendships_on_first_user_id"
     t.index ["second_user_id"], name: "index_friendships_on_second_user_id"
     t.check_constraint "first_user_id < second_user_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.bigint "creator_id", null: false
+    t.bigint "challenge_id", null: false
+    t.string "body", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["challenge_id"], name: "index_posts_on_challenge_id"
+    t.index ["creator_id"], name: "index_posts_on_creator_id"
   end
 
   create_table "schedules", force: :cascade do |t|
@@ -171,6 +181,8 @@ ActiveRecord::Schema.define(version: 2021_10_22_063751) do
   add_foreign_key "friend_requests", "users", column: "sender_id"
   add_foreign_key "friendships", "users", column: "first_user_id"
   add_foreign_key "friendships", "users", column: "second_user_id"
+  add_foreign_key "posts", "challenges"
+  add_foreign_key "posts", "users", column: "creator_id"
   add_foreign_key "tasks", "challenges"
   add_foreign_key "user_challenges", "challenges"
   add_foreign_key "user_challenges", "schedules"
