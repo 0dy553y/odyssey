@@ -1,4 +1,5 @@
 import { format, formatDuration, intervalToDuration } from 'date-fns';
+import { ReactionEmoji } from 'types/posts';
 
 export const displayUsername = (username: string): string => {
   return `@${username}`;
@@ -56,4 +57,21 @@ export const getFormattedStringFromDays = (numberOfDays: number): string => {
     months > 0 ? months + (months == 1 ? ' month ' : ' months ') : '';
   const daysDisplay = days > 0 ? days + (days == 1 ? ' day' : ' days') : '';
   return yearsDisplay + monthsDisplay + daysDisplay;
+};
+
+export const displayReactionEmoji = (emoji: ReactionEmoji): string => {
+  switch (emoji) {
+    case ReactionEmoji.Smiley:
+      return '😃';
+    case ReactionEmoji.Poop:
+      return '💩';
+    case ReactionEmoji.PartyPopper:
+      return '🎉';
+    case ReactionEmoji.SparklingHeart:
+      return '💖';
+    case ReactionEmoji.Crying:
+      return '😭';
+    case ReactionEmoji.MoonFace:
+      return '🌚️';
+  }
 };

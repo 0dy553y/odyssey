@@ -12,7 +12,7 @@ export interface ReactionListData {
   creator: Omit<UserData, 'registrationDate'>;
 }
 
-enum ReactionEmoji {
+export enum ReactionEmoji {
   Smiley = 0,
   Poop = 1,
   PartyPopper = 2,
