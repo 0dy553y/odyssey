@@ -1,6 +1,6 @@
 import { UserData } from './auth';
 
-export interface PostsListData {
+export interface PostListData {
   id: number;
   body: string;
   creator: Omit<UserData, 'registrationDate'>;
