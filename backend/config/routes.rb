@@ -38,6 +38,8 @@ Rails.application.routes.draw do
         get 'all_ongoing_challenges', to: 'all_ongoing_challenges'
         get 'all_completed_challenges', to: 'all_completed_challenges'
       end
+
+      resources :friends, only: :index
     end
   end
 end
