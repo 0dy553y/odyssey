@@ -39,6 +39,10 @@ class User < ApplicationRecord
     self.provider = 'username' if provider.blank?
   end
 
+  def friendships
+    from_friendships + to_friendships
+  end
+
   def friends
     from_friends + to_friends
   end

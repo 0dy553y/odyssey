@@ -39,7 +39,7 @@ Rails.application.routes.draw do
         get 'all_completed_challenges', to: 'all_completed_challenges'
       end
 
-      resources :friends, only: :index
+      resources :friends, only: %i[index destroy]
     end
   end
 end
