@@ -5,6 +5,12 @@ class FriendRequestsController < ApplicationController
     @friend_requests = current_user.received_friend_requests
   end
 
+  def create
+    @friend_request = FriendRequest.create!(sender_id: current_user.id, receiver_id: params.require(:receiver_id))
+
+    render 'layouts/empty', status: :created
+  end
+
   def destroy
     friend_request = FriendRequest.find(params.require(:id))
     if friend_request.receiver_id != current_user.id
