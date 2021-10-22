@@ -20,8 +20,10 @@ class FriendRequestsController < ApplicationController
     end
     first_user_id = [friend_request.sender_id, friend_request.receiver_id].min
     second_user_id = [friend_request.sender_id, friend_request.receiver_id].max
-    friend_request.destroy!
-    Friendship.create!(first_user_id: first_user_id, second_user_id: second_user_id)
+    ActiveRecord::Base.transaction do
+      friend_request.destroy!
+      Friendship.create!(first_user_id: first_user_id, second_user_id: second_user_id)
+    end
 
     render 'layouts/empty', status: :ok
   end
