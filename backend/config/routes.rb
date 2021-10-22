@@ -40,7 +40,7 @@ Rails.application.routes.draw do
       end
 
       resources :friends, only: %i[index destroy]
-      resources :friend_requests, only: :index
+      resources :friend_requests, only: %i[index destroy]
     end
   end
 end
