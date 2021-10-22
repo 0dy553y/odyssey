@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Typography from '@mui/material/Typography';
+import { useSpring } from 'react-spring';
 import { Box } from '@mui/system';
 import { loadChallenge } from 'store/challenges/operations';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,6 +40,8 @@ const ChallengeDetailsPage: React.FC = () => {
     getOngoingUserChallengeData(state, Number(challengeId))
   );
 
+  const [{ y }, setY] = useSpring(() => ({ y: 0 }));
+
   if (!challenge) {
     return <Skeleton />;
   }
@@ -49,8 +52,11 @@ const ChallengeDetailsPage: React.FC = () => {
       <JoinChallengeButton />
       <ChallengeContent
         challenge={challenge}
+        userChallenge={userChallenge}
         tasks={tasks}
         userTasks={userChallenge?.userTasks ?? []}
+        y={y}
+        setY={setY}
       />
     </Box>
   );

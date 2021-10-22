@@ -9,10 +9,11 @@ const useStyles = makeStyles(() => ({
     height: '50px',
     maxWidth: '300px',
     left: '50%',
-    transform: 'translateX(-50%)',
+    transform: 'translateX(-50%) translateY(280px)',
     alignSelf: 'center',
     position: 'absolute',
     zIndex: 1,
+    textTransform: 'none',
   },
 }));
 

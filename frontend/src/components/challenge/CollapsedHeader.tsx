@@ -17,8 +17,8 @@ const useStyles = makeStyles(() => ({
   headerText: {
     textAlign: 'center',
     color: 'white',
-    fontSize: '16px',
-    fontWeight: 400,
+    fontSize: '18px',
+    fontFamily: 'Frock',
   },
 }));
 

@@ -116,7 +116,6 @@ const ChallengeDetailsPage2: React.FC = () => {
     useState<boolean>(false);
 
   useEffect(() => {
-    console.log('ho');
     dispatch(loadChallenge(Number(challengeId)));
     dispatch(loadAllTasks(Number(challengeId)));
     dispatch(loadOngoingUserChallengeDataForChallenge(Number(challengeId)));
