@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { Canvas, Vector3 } from '@react-three/fiber';
 import { OrbitControls, Stars } from '@react-three/drei';
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from '@mui/styles';
 import { Box, Character, Ladder, Model, Stairs } from '../../components/map';
 import { Direction, Axis } from '../../types/map';
 import { translate, buildRepeated, buildArch } from '../../utils/map';
