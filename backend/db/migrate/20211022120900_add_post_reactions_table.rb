@@ -9,6 +9,8 @@ class AddPostReactionsTable < ActiveRecord::Migration[6.1]
       t.integer :emoji, null: false
 
       t.timestamps
+
+      t.index %i[post_id creator_id emoji], unique: true
     end
   end
 end
