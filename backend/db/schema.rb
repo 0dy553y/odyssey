@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 2021_10_22_120900) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["creator_id"], name: "index_post_reactions_on_creator_id"
+    t.index ["post_id", "creator_id", "emoji"], name: "index_post_reactions_on_post_id_and_creator_id_and_emoji", unique: true
     t.index ["post_id"], name: "index_post_reactions_on_post_id"
   end
 
