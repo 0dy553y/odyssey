@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_16_122609) do
+ActiveRecord::Schema.define(version: 2021_10_22_063751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,27 @@ ActiveRecord::Schema.define(version: 2021_10_16_122609) do
     t.integer "color", default: 0, null: false
     t.index ["category_id"], name: "index_challenges_on_category_id"
     t.index ["creator_id"], name: "index_challenges_on_creator_id"
+  end
+
+  create_table "friend_requests", force: :cascade do |t|
+    t.bigint "sender_id"
+    t.bigint "receiver_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["receiver_id"], name: "index_friend_requests_on_receiver_id"
+    t.index ["sender_id", "receiver_id"], name: "index_friend_requests_on_sender_id_and_receiver_id", unique: true
+    t.index ["sender_id"], name: "index_friend_requests_on_sender_id"
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.bigint "first_user_id"
+    t.bigint "second_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["first_user_id", "second_user_id"], name: "index_friendships_on_first_user_id_and_second_user_id", unique: true
+    t.index ["first_user_id"], name: "index_friendships_on_first_user_id"
+    t.index ["second_user_id"], name: "index_friendships_on_second_user_id"
+    t.check_constraint "first_user_id < second_user_id"
   end
 
   create_table "schedules", force: :cascade do |t|
@@ -146,6 +167,10 @@ ActiveRecord::Schema.define(version: 2021_10_16_122609) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "challenges", "categories"
   add_foreign_key "challenges", "users", column: "creator_id"
+  add_foreign_key "friend_requests", "users", column: "receiver_id"
+  add_foreign_key "friend_requests", "users", column: "sender_id"
+  add_foreign_key "friendships", "users", column: "first_user_id"
+  add_foreign_key "friendships", "users", column: "second_user_id"
   add_foreign_key "tasks", "challenges"
   add_foreign_key "user_challenges", "challenges"
   add_foreign_key "user_challenges", "schedules"

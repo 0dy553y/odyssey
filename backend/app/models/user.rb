@@ -14,6 +14,21 @@ class User < ApplicationRecord
   has_many :tasks, through: :user_tasks
   has_many :created_challenges, class_name: 'Challenge',
                                 foreign_key: :creator_id, inverse_of: :creator, dependent: :nullify
+
+  has_many :sent_friend_requests, class_name: 'FriendRequest',
+                                  foreign_key: :sender_id, inverse_of: :sender, dependent: :destroy
+  has_many :sent_pending_friends, through: :sent_friend_requests, class_name: 'User', source: :sender
+  has_many :received_friend_requests, class_name: 'FriendRequest',
+                                      foreign_key: :receiver_id, inverse_of: :receiver, dependent: :destroy
+  has_many :received_pending_friends, through: :received_friend_requests, class_name: 'User', source: :receiver
+
+  has_many :from_friendships, class_name: 'Friendship',
+                              foreign_key: :second_user_id, inverse_of: :first_user, dependent: :destroy
+  has_many :from_friends, through: :from_friendships, class_name: 'User', source: :first_user
+  has_many :to_friendships, class_name: 'Friendship',
+                            foreign_key: :first_user_id, inverse_of: :second_user, dependent: :destroy
+  has_many :to_friends, through: :to_friendships, class_name: 'User', source: :second_user
+
   has_one_attached :avatar
 
   validates :email, uniqueness: { case_sensitive: false, if: -> { provider == 'email' } }
@@ -31,6 +46,14 @@ class User < ApplicationRecord
   before_validation do
     self.uid = username if uid.blank?
     self.provider = 'username' if provider.blank?
+  end
+
+  def friendships
+    from_friendships + to_friendships
+  end
+
+  def friends
+    from_friends + to_friends
   end
 
   def email_required?
