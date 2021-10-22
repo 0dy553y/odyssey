@@ -3,7 +3,7 @@ import { UserTaskListData } from '../../types/usertasks';
 import { Card, Switch, Stack, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import {
-  markUserTaskAsDone,
+  markUserTaskAsDoneFromHome,
   markUserTaskAsNotDone,
 } from '../../store/usertasks/operations';
 import { useDispatch } from 'react-redux';
@@ -40,9 +40,13 @@ const useStyles = makeStyles(() => ({
 
 interface Props {
   userTask: UserTaskListData;
+  onChallengeCompleted: (completedChallengeName: string) => void;
 }
 
-const UserTaskCard: React.FC<Props> = ({ userTask }: Props) => {
+const UserTaskCard: React.FC<Props> = ({
+  userTask,
+  onChallengeCompleted,
+}: Props) => {
   const classes = useStyles(userTask);
   const dispatch = useDispatch();
 
@@ -54,7 +58,7 @@ const UserTaskCard: React.FC<Props> = ({ userTask }: Props) => {
 
   const handleDoneToggle = () => {
     if (!userTask.completedAt) {
-      dispatch(markUserTaskAsDone(userTask.id));
+      dispatch(markUserTaskAsDoneFromHome(userTask.id, onChallengeCompleted));
     } else {
       dispatch(markUserTaskAsNotDone(userTask.id));
     }

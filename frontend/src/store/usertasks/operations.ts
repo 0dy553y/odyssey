@@ -22,27 +22,52 @@ export function loadUserTasksForDay(date: Date): OperationResult {
   };
 }
 
-export function markUserTaskAsDone(userTaskId: number): OperationResult {
-  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.userTasks.markUserTaskAsDone(userTaskId);
-    const userTask: UserTaskData = mapUserTaskDateStringsIntoDateObjects(
-      response.payload.data
-    );
-    const date = new Date(userTask.scheduledFor);
-    dispatch(saveUserTaskForDay(date, userTask));
-  };
-}
-
-export function markUserTaskAsDoneFromChallenge(
-  userTaskId: number
+function markUserTaskAsDone(
+  userTaskId: number,
+  onChallengeCompleted: (completedChallengeName: string) => void,
+  onOperationComplete: (
+    dispatch: ThunkDispatch<RootState, undefined, AnyAction>,
+    userTask: UserTaskData
+  ) => void
 ): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userTasks.markUserTaskAsDone(userTaskId);
     const userTask: UserTaskData = mapUserTaskDateStringsIntoDateObjects(
       response.payload.data
     );
-    dispatch(loadOngoingUserChallengeDataForChallenge(userTask.challengeId));
+    if (userTask.isChallengeCompleted) {
+      onChallengeCompleted(userTask.challengeName);
+    }
+
+    onOperationComplete(dispatch, userTask);
   };
+}
+
+export function markUserTaskAsDoneFromHome(
+  userTaskId: number,
+  onChallengeCompleted: (completedChallengeName: string) => void
+): OperationResult {
+  return markUserTaskAsDone(
+    userTaskId,
+    onChallengeCompleted,
+    (dispatch, userTask) => {
+      const date = new Date(userTask.scheduledFor);
+      dispatch(saveUserTaskForDay(date, userTask));
+    }
+  );
+}
+
+export function markUserTaskAsDoneFromChallenge(
+  userTaskId: number,
+  onChallengeCompleted: (completedChallengeName: string) => void
+): OperationResult {
+  return markUserTaskAsDone(
+    userTaskId,
+    onChallengeCompleted,
+    (dispatch, userTask) => {
+      dispatch(loadOngoingUserChallengeDataForChallenge(userTask.challengeId));
+    }
+  );
 }
 
 export function markUserTaskAsNotDone(userTaskId: number): OperationResult {
