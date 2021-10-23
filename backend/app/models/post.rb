@@ -4,7 +4,7 @@ class Post < ApplicationRecord
   belongs_to :creator, class_name: 'User'
   belongs_to :challenge, class_name: 'Challenge'
 
-  has_many :post_reactions
+  has_many :post_reactions, dependent: :destroy
 
   validates :body, presence: { message: "can't be blank." }
 
