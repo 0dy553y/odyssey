@@ -13,6 +13,7 @@ import { PostListData, ReactionEmoji, ReactionListData } from 'types/posts';
 import { displayDateWithTimestamp, displayUsername } from 'utils/formatting';
 import { getDateFromNowString } from 'utils/date';
 import { ReactionChip } from './ReactionChip';
+import { ReactionPicker } from './ReactionPicker';
 
 interface FeedPostProps {
   post: PostListData;
@@ -25,6 +26,11 @@ const useStyles = makeStyles(() => ({
   },
   emojiChip: {
     margin: 2,
+  },
+  reactionPicker: {
+    marginLeft: 2,
+    display: 'flex',
+    alignItems: 'center',
   },
 }));
 
@@ -96,7 +102,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({ post, currentUserId }) => {
         primary={creator.displayName ?? displayUsername(creator.username)}
         secondary={
           <>
-            <Grid container>
+            <Grid container alignItems="center">
               <Grid item>{post.body}</Grid>
               <Grid item xs={12}>
                 <Tooltip
@@ -127,6 +133,11 @@ export const FeedPost: React.FC<FeedPostProps> = ({ post, currentUserId }) => {
                   </Grid>
                 );
               })}
+              <Grid item className={classes.reactionPicker}>
+                <ReactionPicker
+                  onReactionSelect={(emoji) => console.log(emoji)}
+                />
+              </Grid>
             </Grid>
           </>
         }
