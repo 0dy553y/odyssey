@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, InputBase, Button } from '@mui/material';
+import { Box, Typography, InputBase, Button, Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import obebebe from '../../assets/gifs/obebebe.gif';
 
@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
   },
   emailInput: {
     padding: '0.7em',
-    minWidth: '30px',
+    minWidth: '50px',
     width: '40vw',
     maxWidth: '300px',
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
@@ -48,6 +48,7 @@ const useStyles = makeStyles(() => ({
   astronaut: {
     display: 'inline-block',
     height: '20em',
+    objectFit: 'none',
   },
   text: {
     display: 'inline-block',
@@ -64,26 +65,50 @@ const EmailBar: React.FC = () => {
   return (
     <>
       <Box className={classes.landingHeader} id="form">
-        <img className={classes.astronaut} src={obebebe} />
-        <Box className="text">
-          <Typography variant="h4" className={classes.headerText}>
-            Don&apos;t miss out on our takeoff 🚀
-          </Typography>
-          <Typography className={classes.cta}>
-            Odyssey will be ready very soon. Join us for early access and keep
-            up with updates and our release!
-          </Typography>
-          <Box className={classes.emailField}>
-            <InputBase
-              className={classes.emailInput}
-              placeholder="Your email"
-            ></InputBase>
-            <Button className={classes.emailButton}>Join</Button>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          spacing={{ xs: 1, sm: 2, md: 5 }}
+        >
+          <img className={classes.astronaut} src={obebebe} />
+          <Box className="text">
+            <Typography variant="h4" className={classes.headerText}>
+              Don&apos;t miss out on our takeoff 🚀
+            </Typography>
+            <Typography className={classes.cta}>
+              Odyssey will be ready very soon. Join us for early access and keep
+              up with updates and our release!
+            </Typography>
+            <Box className={classes.emailField}>
+              <InputBase
+                className={classes.emailInput}
+                placeholder="Your email"
+              ></InputBase>
+              <Button className={classes.emailButton}>Join</Button>
+            </Box>
           </Box>
-        </Box>
+        </Stack>
       </Box>
     </>
   );
 };
 
+/* 
+<Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          spacing={{ xs: 1, sm: 2, md: 5 }}
+        >
+          <Box>
+            <img src={obebebe} />
+          </Box>
+          <Box className="side-description">
+            <Typography variant="body1" className="top-description">
+              CELEBRATE EVERY MILESTONE
+            </Typography>
+            <Typography variant="h4">
+              Challenge yourself and your friends to reach your goals. And why
+              not have fun while at it?
+            </Typography>
+          </Box>
+        </Stack>
+*/
 export default EmailBar;

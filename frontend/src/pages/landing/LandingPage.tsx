@@ -21,11 +21,9 @@ const LandingPage: React.FC = () => {
       <Navbar />
       <Masthead />
       <Section content="Whether you are trying to run your first 5k or pick up reading again, starting something new can be pretty damn hard." />
-      {/* <div className="escape-maxwidth"> */}
-      <img className="runnin" src={runnin} />
-      {/* </div> */}
-      <Section content="But it doesn't have to be this way. Imagine — no more excuses, no more holding back." />
       <img className="study" src={study} />
+      <Section content="But it doesn't have to be this way. Imagine — no more excuses, no more holding back." />
+      <img className="runnin" src={runnin} />
       <Box className="section">
         <InView threshold={1}>
           {({ inView, ref }) => (
@@ -36,8 +34,8 @@ const LandingPage: React.FC = () => {
               transition={{ duration: 1, ease: 'easeOut' }}
             >
               <Typography variant="h4">
-                Meet Odyssey: the app that supports and guides you through every
-                step of your journey.
+                Meet <span className="special-underline">Odyssey</span>: the app
+                that supports and guides you through every step of your journey.
               </Typography>
             </motion.div>
           )}

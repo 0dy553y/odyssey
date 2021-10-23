@@ -25,6 +25,7 @@ const useStyles = makeStyles(() => ({
     display: 'inline-block',
     float: 'left',
     transform: 'translateX(3em)',
+    fontWeight: 'bold',
   },
 }));
 
