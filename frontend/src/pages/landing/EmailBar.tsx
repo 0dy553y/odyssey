@@ -9,14 +9,13 @@ const useStyles = makeStyles(() => ({
     background: 'linear-gradient(to right, #7B70BF , #BF8E82)',
     position: 'relative',
     borderRadius: '2em',
-    margin: '5em -45vw 1em -45vw',
+    margin: '10em -45vw 1em -45vw',
     minWidth: '90vw',
     left: '50%',
     right: '50%',
     width: '90vw',
     padding: '3em',
     display: 'Flex',
-    // flexDirection: 'column',
   },
   headerText: {
     color: 'white',
@@ -47,11 +46,8 @@ const useStyles = makeStyles(() => ({
     },
   },
   astronaut: {
-    // zIndex: 1,
-    // position: 'absolute',
     display: 'inline-block',
     height: '20em',
-    // left: 0,
   },
   text: {
     display: 'inline-block',
@@ -67,7 +63,7 @@ const EmailBar: React.FC = () => {
 
   return (
     <>
-      <Box className={classes.landingHeader}>
+      <Box className={classes.landingHeader} id="form">
         <img className={classes.astronaut} src={obebebe} />
         <Box className="text">
           <Typography variant="h4" className={classes.headerText}>

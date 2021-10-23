@@ -12,6 +12,38 @@
         mix-blend-mode: difference;
         transition: transform .2s;
     }
+
+    .description-segment {
+        position: relative;
+        margin: 5em -40vw 1em -40vw;
+        min-width: '80vw';
+        left: 50%;
+        right: 50%;
+        width: 80vw;
+        overflow: hidden;
+        vertical-align: middle;
+        text-align: center;
+    }
+    
+    .side-description {
+        padding-top: 5em;
+        text-align: center;
+        display: inline-block;
+    }
+    
+    .top-description {
+        color: #0785A5;
+        margin-bottom: 1em;
+    }
+
+    .side-image {
+        max-width: 100%;
+    }
+
+    .side-image-message {
+        max-width: 100%;
+        transform: translateY(50%);
+    }
     margin-left: 1.5em;
     margin-right: 1.5em;
 }

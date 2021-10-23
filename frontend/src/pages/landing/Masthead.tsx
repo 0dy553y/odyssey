@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import mastheadImage from '../../assets/images/masthead.png';
 
@@ -33,11 +33,8 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     position: 'relative',
     display: 'block',
-    // objectFit: 'cover',
-    // objectPosition: '100% 0%',
     borderRadius: '2em',
     height: 'auto',
-    // position: 'absolute',
     maxHeight: '45em',
     left: 0,
     bottom: 0,
@@ -58,6 +55,21 @@ const LandingHeader: React.FC = () => {
         <Typography variant="h3" className={classes.mainText}>
           Reach new heights.
         </Typography>
+        <Button
+          sx={{
+            backgroundColor: 'rgba(0, 0, 0, 1)',
+            borderRadius: '1em',
+            color: 'white',
+            padding: '0.8em 1em 0.8em 1em',
+            marginTop: '2.2em',
+            '&:hover': {
+              backgroundColor: 'rgba(0, 0, 0, 1)',
+            },
+          }}
+          href="#form"
+        >
+          Sign up now
+        </Button>
       </Box>
     </>
   );
