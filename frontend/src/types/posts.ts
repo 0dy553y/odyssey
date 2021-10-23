@@ -3,6 +3,7 @@ import { UserData } from './auth';
 export interface PostListData {
   id: number;
   body: string;
+  createdAt: Date;
   creator: Omit<UserData, 'registrationDate'>;
   reactions: ReactionListData[];
 }

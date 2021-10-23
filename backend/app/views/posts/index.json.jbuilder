@@ -3,6 +3,7 @@
 json.data @posts do |post|
   json.id post.id
   json.body post.body
+  json.createdAt post.created_at
   json.creator do
     json.partial! 'users/user', user: post.creator
   end
