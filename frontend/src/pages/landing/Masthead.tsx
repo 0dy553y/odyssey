@@ -15,19 +15,18 @@ const useStyles = makeStyles(() => ({
     left: '50%',
     right: '50%',
     width: '90vw',
-    marginBottom: '4em',
+    marginBottom: '5em',
     textAlign: 'center',
     backgroundPosition: 'center center',
-  },
-  mastheadText: {
-    color: 'white',
   },
   subText: {
     paddingTop: '2em',
     paddingBottom: '1em',
+    color: '#CEE4EA',
   },
   mainText: {
     fontSize: 'calc(min(5vw, 25px)',
+    color: 'white',
   },
   mastheadImage: {
     flexShrink: 0,
@@ -55,14 +54,8 @@ const LandingHeader: React.FC = () => {
         className={classes.landingHeader}
         style={{ backgroundImage: `url(${mastheadImage})` }}
       >
-        <Typography className={`${classes.mastheadText} ${classes.subText}`}>
-          COMING SOON
-        </Typography>
-        {/* <img src={mastheadImage} className={classes.mastheadImage} /> */}
-        <Typography
-          variant="h3"
-          className={`${classes.mastheadText} ${classes.mainText}`}
-        >
+        <Typography className={classes.subText}>COMING SOON</Typography>
+        <Typography variant="h3" className={classes.mainText}>
           Reach new heights.
         </Typography>
       </Box>

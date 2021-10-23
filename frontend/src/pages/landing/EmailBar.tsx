@@ -71,7 +71,7 @@ const EmailBar: React.FC = () => {
         <img className={classes.astronaut} src={obebebe} />
         <Box className="text">
           <Typography variant="h4" className={classes.headerText}>
-            Don&apos;t miss out on our takeoff 🧑‍🚀
+            Don&apos;t miss out on our takeoff 🚀
           </Typography>
           <Typography className={classes.cta}>
             Odyssey will be ready very soon. Join us for early access and keep
