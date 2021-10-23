@@ -1,0 +1,18 @@
+.reaction-chip.MuiChip-root {
+  &.MuiChip-filled {
+    background: black;
+
+    .MuiTypography-root {
+      color: white;
+    }
+  }
+
+  .MuiChip-label {
+    margin-left: 0.3em;
+    margin-right: 0.3em;
+  }
+
+  .MuiChip-icon {
+    margin-left: 0.5em !important;
+  }
+}
