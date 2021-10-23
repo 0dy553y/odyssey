@@ -20,8 +20,7 @@ const FriendsPage: React.FC = () => {
         Your friends
       </Typography>
 
-      <Typography variant="body1">Coming soon :-)</Typography>
-      <FriendsList friends={[]} />
+      <FriendsList />
     </Box>
   );
 };
