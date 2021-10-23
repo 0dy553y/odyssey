@@ -1,13 +1,13 @@
 import BaseAPI from './base';
 import { ApiPromise, EmptyPayload } from '../types/api';
-import { FriendsListData } from '../types/friends';
+import { FriendListData } from '../types/friends';
 
 class FriendsAPI extends BaseAPI {
   protected static getFriendsUrl(): string {
     return 'friends';
   }
 
-  public getFriendsList(): ApiPromise<FriendsListData[]> {
+  public getFriendList(): ApiPromise<FriendListData[]> {
     return this.get(FriendsAPI.getFriendsUrl());
   }
 

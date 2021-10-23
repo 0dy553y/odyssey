@@ -1,10 +1,10 @@
 import React from 'react';
 import { Divider, List } from '@mui/material';
-import { UserData } from 'types/auth';
 import { FriendsListItem } from './FriendsListItem';
+import { FriendListData } from '../../types/friends';
 
 interface FriendsListProps {
-  friends: UserData[];
+  friends: FriendListData[];
 }
 
 const FriendsList: React.FC<FriendsListProps> = ({ friends }) => {
