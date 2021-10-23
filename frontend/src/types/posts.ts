@@ -14,10 +14,10 @@ export interface ReactionListData {
 }
 
 export enum ReactionEmoji {
-  Smiley = 0,
-  Poop = 1,
-  PartyPopper = 2,
-  SparklingHeart = 3,
-  Crying = 4,
-  MoonFace = 5,
+  Smiley = 'Smiley',
+  Poop = 'Poop',
+  PartyPopper = 'Party Popper',
+  SparklingHeart = 'Sparkling Heart',
+  Crying = 'Crying',
+  MoonFace = 'Moon Face',
 }

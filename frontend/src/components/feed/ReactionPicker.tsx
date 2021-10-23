@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     boxShadow:
       'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
   },
+  emojiButton: {
+    color: 'black',
+  },
 }));
 
 export const ReactionPicker: React.FC<ReactionPickerProps> = ({
@@ -62,14 +65,23 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = ({
         transition
       >
         {({ TransitionProps }) => (
-          <ClickAwayListener
-            onClickAway={() => {
-              console.log('WTF');
-              setIsOpen(false);
-            }}
-          >
+          <ClickAwayListener onClickAway={() => setIsOpen(false)}>
             <Fade {...TransitionProps} timeout={100}>
-              <Box className={classes.popover}>The content of the Popper.</Box>
+              <Box className={classes.popover}>
+                {Object.values(ReactionEmoji).map((emoji) => (
+                  <IconButton
+                    size="small"
+                    key={emoji}
+                    className={classes.emojiButton}
+                    onClick={() => {
+                      onReactionSelect(emoji);
+                      setIsOpen(false);
+                    }}
+                  >
+                    {displayReactionEmoji(emoji as ReactionEmoji)}
+                  </IconButton>
+                ))}
+              </Box>
             </Fade>
           </ClickAwayListener>
         )}
