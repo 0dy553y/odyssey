@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 const useStyles = makeStyles(() => ({
   section: {
-    marginBottom: '6em',
+    // marginBottom: '6em',
   },
 }));
 

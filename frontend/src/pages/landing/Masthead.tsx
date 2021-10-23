@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
     left: '50%',
     right: '50%',
     width: '90vw',
-    marginBottom: '5em',
+    marginBottom: '8em',
     textAlign: 'center',
     backgroundPosition: 'center center',
   },

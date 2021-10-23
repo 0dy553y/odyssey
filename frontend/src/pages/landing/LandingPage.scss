@@ -16,7 +16,7 @@
     .description-segment {
         position: relative;
         margin: 5em -40vw 1em -40vw;
-        min-width: '80vw';
+        min-width: 80vw;
         left: 50%;
         right: 50%;
         width: 80vw;
@@ -24,9 +24,14 @@
         vertical-align: middle;
         text-align: center;
     }
+
+    .section {
+        margin-bottom: 7em;
+    }
     
     .side-description {
         padding-top: 5em;
+        padding-bottom: 2em;
         text-align: center;
         display: inline-block;
     }
@@ -42,7 +47,29 @@
 
     .side-image-message {
         max-width: 100%;
-        transform: translateY(50%);
+        transform: translateY(0%);
+        padding-top: 5em;
+    }
+
+    .runnin {
+        transform: translateX(-150%) translateY(-40%);
+        margin-bottom: -5em;
+    }
+
+    .study {
+        transform: translateX(250%) translateY(-40%);
+        margin-bottom: -5em;
+    }
+
+    .escape-maxwidth {
+        height: 3em;
+        position: relative;
+        border-radius: 2em;
+        margin: 5em -45vw 1em -45vw;
+        min-width: 90vw;
+        left: 50%;
+        right: 50%;
+        width: 90vw;
     }
     margin-left: 1.5em;
     margin-right: 1.5em;

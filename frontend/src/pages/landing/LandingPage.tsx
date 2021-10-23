@@ -6,8 +6,12 @@ import Footer from './Footer';
 import Section from './Section';
 import EmailBar from './EmailBar';
 import obebebe from '../../assets/gifs/obebebe.gif';
+import runnin from '../../assets/gifs/runnin.gif';
+import study from '../../assets/gifs/study.gif';
 import explore from '../../assets/images/explore.png';
 import message from '../../assets/images/message.png';
+import { InView } from 'react-intersection-observer';
+import { motion } from 'framer-motion';
 
 import './LandingPage.scss';
 
@@ -17,8 +21,28 @@ const LandingPage: React.FC = () => {
       <Navbar />
       <Masthead />
       <Section content="Whether you are trying to run your first 5k or pick up reading again, starting something new can be pretty damn hard." />
+      {/* <div className="escape-maxwidth"> */}
+      <img className="runnin" src={runnin} />
+      {/* </div> */}
       <Section content="But it doesn't have to be this way. Imagine — no more excuses, no more holding back." />
-      <Section content="Meet Odyssey: an app that supports and guides you through every step of your journey." />
+      <img className="study" src={study} />
+      <Box className="section">
+        <InView threshold={1}>
+          {({ inView, ref }) => (
+            <motion.div
+              ref={ref}
+              initial={{ opacity: 0, y: 50 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              transition={{ duration: 1, ease: 'easeOut' }}
+            >
+              <Typography variant="h4">
+                Meet Odyssey: the app that supports and guides you through every
+                step of your journey.
+              </Typography>
+            </motion.div>
+          )}
+        </InView>
+      </Box>
       <div style={{ paddingBottom: '5em' }}></div>
       <Box className="description-segment">
         <Stack
@@ -31,7 +55,7 @@ const LandingPage: React.FC = () => {
             </Typography>
             <Typography variant="h4">
               No matter your interests or goals, there&apos;s something for you
-              in Odyssey&apos;s lineup of curated challenges, carefully designed
+              in Odyssey&apos;s lineup of curated challenges: carefully designed
               to increment in difficulty at a suitable pace.
             </Typography>
           </Box>
