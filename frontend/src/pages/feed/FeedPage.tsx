@@ -83,10 +83,14 @@ const FeedPage: React.FC = () => {
       <Typography variant="h5">Upcoming :-)</Typography>
       <img src="https://i.redd.it/ox49yfg9vn461.jpg" style={{ width: '80%' }} />
 
-      <FeedPost post={mockPost} currentUserId={1} />
-      <FeedPost post={mockPost} currentUserId={1} />
-      <FeedPost post={mockPost} currentUserId={1} />
-      <FeedPost post={mockPost} currentUserId={1} />
+      {process.env.NODE_ENV === 'development' && (
+        <>
+          <FeedPost post={mockPost} currentUserId={1} />
+          <FeedPost post={mockPost} currentUserId={1} />
+          <FeedPost post={mockPost} currentUserId={1} />
+          <FeedPost post={mockPost} currentUserId={1} />
+        </>
+      )}
     </>
   );
 };
