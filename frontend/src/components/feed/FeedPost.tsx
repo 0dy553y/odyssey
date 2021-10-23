@@ -98,50 +98,44 @@ export const FeedPost: React.FC<FeedPostProps> = ({ post, currentUserId }) => {
           displayName={creator.displayName}
         />
       </ListItemAvatar>
-      <ListItemText
-        primary={creator.displayName ?? displayUsername(creator.username)}
-        secondary={
-          <>
-            <Grid container alignItems="center">
-              <Grid item>{post.body}</Grid>
-              <Grid item xs={12}>
-                <Tooltip
-                  arrow
-                  title={displayDateWithTimestamp(post.createdAt)}
-                  leaveTouchDelay={1500}
-                  enterTouchDelay={50}
-                >
-                  <Typography
-                    component="span"
-                    variant="subtitle2"
-                    className={classes.subtitle}
-                  >
-                    {getDateFromNowString(post.createdAt)}
-                  </Typography>
-                </Tooltip>
-              </Grid>
+      <Grid container alignItems="center">
+        <ListItemText
+          primary={creator.displayName ?? displayUsername(creator.username)}
+        />
+        <Grid item>{post.body}</Grid>
+        <Grid item xs={12}>
+          <Tooltip
+            arrow
+            title={displayDateWithTimestamp(post.createdAt)}
+            leaveTouchDelay={1500}
+            enterTouchDelay={50}
+          >
+            <Typography
+              component="span"
+              variant="subtitle2"
+              className={classes.subtitle}
+            >
+              {getDateFromNowString(post.createdAt)}
+            </Typography>
+          </Tooltip>
+        </Grid>
 
-              {aggregatedReactionData.map((data) => {
-                return (
-                  <Grid item key={data.emoji} className={classes.emojiChip}>
-                    <ReactionChip
-                      reaction={data.emoji}
-                      count={data.count}
-                      hasReacted={data.hasReacted}
-                      onClick={() => console.log('HELLO')}
-                    />
-                  </Grid>
-                );
-              })}
-              <Grid item className={classes.reactionPicker}>
-                <ReactionPicker
-                  onReactionSelect={(emoji) => console.log(emoji)}
-                />
-              </Grid>
+        {aggregatedReactionData.map((data) => {
+          return (
+            <Grid item key={data.emoji} className={classes.emojiChip}>
+              <ReactionChip
+                reaction={data.emoji}
+                count={data.count}
+                hasReacted={data.hasReacted}
+                onClick={() => console.log('HELLO')}
+              />
             </Grid>
-          </>
-        }
-      />
+          );
+        })}
+        <Grid item className={classes.reactionPicker}>
+          <ReactionPicker onReactionSelect={(emoji) => console.log(emoji)} />
+        </Grid>
+      </Grid>
     </ListItem>
   );
 };
