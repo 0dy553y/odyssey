@@ -2,27 +2,45 @@ import React, { useState, useRef } from 'react';
 import SentimentSatisfiedRoundedIcon from '@mui/icons-material/SentimentSatisfiedRounded';
 import AddIcon from '@mui/icons-material/Add';
 import {
-  Avatar,
   Badge,
   Box,
   ClickAwayListener,
   Fade,
   IconButton,
   Popper,
-  Typography,
+  Theme,
 } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { ReactionEmoji } from 'types/posts';
 import { displayReactionEmoji } from 'utils/formatting';
-
-import './ReactionPicker.scss';
 
 interface ReactionPickerProps {
   onReactionSelect: (emoji: ReactionEmoji) => void;
 }
 
+const orangeColor = '#ffad14';
+const useStyles = makeStyles((theme: Theme) => ({
+  addIcon: {
+    fontSize: 'medium',
+    color: orangeColor,
+  },
+  smileyIcon: {
+    color: orangeColor,
+  },
+  popover: {
+    padding: theme.spacing(1),
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: theme.spacing(3),
+    boxShadow:
+      'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
+  },
+}));
+
 export const ReactionPicker: React.FC<ReactionPickerProps> = ({
   onReactionSelect,
 }) => {
+  const classes = useStyles();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const buttonRef = useRef<null | HTMLButtonElement>(null);
 
@@ -31,13 +49,18 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = ({
       <IconButton onClick={() => setIsOpen(true)} ref={buttonRef}>
         <Badge
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          badgeContent={<AddIcon className="add-icon" />}
+          badgeContent={<AddIcon className={classes.addIcon} />}
         >
-          <SentimentSatisfiedRoundedIcon className="smiley-icon" />
+          <SentimentSatisfiedRoundedIcon className={classes.smileyIcon} />
         </Badge>
       </IconButton>
 
-      <Popper open={isOpen} anchorEl={buttonRef.current} transition>
+      <Popper
+        open={isOpen}
+        anchorEl={buttonRef.current}
+        placement="top"
+        transition
+      >
         {({ TransitionProps }) => (
           <ClickAwayListener
             onClickAway={() => {
@@ -46,9 +69,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = ({
             }}
           >
             <Fade {...TransitionProps} timeout={100}>
-              <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
-                The content of the Popper.
-              </Box>
+              <Box className={classes.popover}>The content of the Popper.</Box>
             </Fade>
           </ClickAwayListener>
         )}
