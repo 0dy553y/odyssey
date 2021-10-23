@@ -1,4 +1,8 @@
 .reaction-chip.MuiChip-root {
+  .MuiTypography-root {
+    font-size: small;
+  }
+
   &.MuiChip-filled {
     background: black;
 
@@ -13,6 +17,6 @@
   }
 
   .MuiChip-icon {
-    margin-left: 0.5em !important;
+    margin-left: 0.6em !important;
   }
 }
