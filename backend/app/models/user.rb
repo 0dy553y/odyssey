@@ -66,4 +66,8 @@ class User < ApplicationRecord
   def will_save_change_to_email?
     false
   end
+
+  def valid_for_authentication?
+    super && !is_system_account
+  end
 end
