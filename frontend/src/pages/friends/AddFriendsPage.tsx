@@ -32,8 +32,6 @@ const AddFriendsPage: React.FC = () => {
       });
   }, [searchQuery]);
 
-  console.log(users);
-
   return (
     <Box sx={{ padding: '2em 1.5em 0 1.5em' }}>
       <AppBar position="static">

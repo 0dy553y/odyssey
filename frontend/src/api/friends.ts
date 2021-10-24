@@ -14,7 +14,7 @@ class FriendsAPI extends BaseAPI {
   public searchUsersByUsername(
     username: string
   ): ApiPromise<AddFriendListData[]> {
-    return this.get(`${FriendsAPI.getFriendsUrl()}?query=${username}`);
+    return this.get(`${FriendsAPI.getFriendsUrl()}/search?query=${username}`);
   }
 
   public deleteFriend(userId: number): ApiPromise<EmptyPayload> {
