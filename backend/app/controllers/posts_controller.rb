@@ -3,7 +3,7 @@
 class PostsController < ApplicationController
   def index
     friend_ids = current_user.friends.pluck(:id)
-    friend_and_self_ids = friend_ids + [current_user.ids]
+    friend_and_self_ids = friend_ids + [current_user.id]
 
     @posts = Post.includes(:post_reactions, :creator).where(creator_id: friend_and_self_ids)
   end
