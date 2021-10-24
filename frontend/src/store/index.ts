@@ -22,11 +22,14 @@ import userChallengesReducer from './userchallenges/reducer';
 import { UserChallengesState } from './userchallenges/types';
 import userTasksReducer from './usertasks/reducer';
 import { UserTasksState } from './usertasks/types';
+import { FriendsState } from './friends/types';
+import friendsReducer from './friends/reducer';
 
 export interface RootState {
   auth: AuthState;
   categories: CategoriesState;
   challenges: ChallengesState;
+  friends: FriendsState;
   posts: PostsState;
   snackbars: SnackbarsState;
   tasks: TasksState;
@@ -38,6 +41,7 @@ export const rootReducer = combineReducers({
   auth: authReducer,
   categories: categoriesReducer,
   challenges: challengesReducer,
+  friends: friendsReducer,
   posts: postsReducer,
   snackbars: snackbarsReducer,
   tasks: tasksReducer,

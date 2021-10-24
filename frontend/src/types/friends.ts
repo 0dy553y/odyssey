@@ -1,10 +1,11 @@
 import { DataUrl } from './auth';
 
-export interface FriendsListData {
+export interface FriendListData {
   id: number;
   username: string;
   displayName: string;
   avatar?: DataUrl;
 }
 
-export type FriendsData = FriendsListData;
+export type FriendData = FriendListData;
+export type AddFriendListData = FriendListData;

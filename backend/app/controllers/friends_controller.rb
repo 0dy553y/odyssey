@@ -8,6 +8,10 @@ class FriendsController < ApplicationController
     @friends = current_user.friends
   end
 
+  def search
+    @users = User.where('username LIKE ?', "%#{params.require(:query)}%")
+  end
+
   def destroy
     id = params.require(:id)
     friendship = Friendship

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector, batch } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { getUser } from 'store/auth/selectors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {
@@ -38,6 +38,9 @@ import { getUserTaskActivityData } from 'store/usertasks/selectors';
 import { RootState } from 'store';
 import { UserTaskActivityDatum } from 'types/usertasks';
 import { loadUserTaskActivityData } from 'store/usertasks/operations';
+import { loadAllFriends } from '../../store/friends/operations';
+import { FriendListData } from '../../types/friends';
+import { getFriendList } from '../../store/friends/selectors';
 
 export interface StyleProps {
   scrollbarWidth: number;
@@ -76,6 +79,7 @@ const ProfilePage: React.FC = () => {
     batch(() => {
       dispatch(loadAllOngoingUserChallenges());
       dispatch(loadAllCompletedUserChallenges());
+      dispatch(loadAllFriends());
       dispatch(loadUserTaskActivityData());
     });
   }, []);
@@ -96,6 +100,8 @@ const ProfilePage: React.FC = () => {
     getUserTaskActivityData
   );
 
+  const friends: FriendListData[] = useSelector(getFriendList);
+
   // TODO: replace these
   const userProfileItems: {
     label: string;
@@ -103,8 +109,8 @@ const ProfilePage: React.FC = () => {
     onClick: () => void;
   }[] = [
     {
-      label: 'friends',
-      count: 0,
+      label: `friend${friends.length === 1 ? '' : 's'}`,
+      count: friends.length,
       onClick: () => history.push(FRIENDS_ROUTE),
     },
     {

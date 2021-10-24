@@ -14,6 +14,7 @@ import ProfilePage from '../pages/profile';
 import RegistrationPage from '../pages/registration';
 import { DemoMap } from '../pages/maps';
 import { RouteEntry } from '../types/routes';
+import AddFriendsPage from '../pages/friends/AddFriendsPage';
 
 export const HOME_ROUTE = '/';
 export const LOGIN_ROUTE = '/login';
@@ -24,6 +25,7 @@ export const PROFILE_ROUTE = '/profile';
 export const CATEGORY_ROUTE = '/category';
 export const EDIT_PROFILE_ROUTE = '/profile/edit';
 export const FRIENDS_ROUTE = '/friends';
+export const ADD_FRIENDS_ROUTE = '/friends/add';
 export const COMPLETED_CHALLENGES_ROUTE = '/completed';
 export const BADGE_ROUTE = '/badges';
 export const ONBOARDING_ROUTE = '/welcome';
@@ -60,6 +62,7 @@ export const privateRoutes: RouteEntry[] = [
     path: CATEGORY_ROUTE + '/:categoryId/:challengeId',
     component: ChallengeDetailsPage,
   },
+  { path: ADD_FRIENDS_ROUTE, component: AddFriendsPage, exact: true },
   { path: FRIENDS_ROUTE, component: FriendsPage, exact: true },
   {
     path: COMPLETED_CHALLENGES_ROUTE,
