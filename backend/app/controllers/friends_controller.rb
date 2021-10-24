@@ -9,7 +9,7 @@ class FriendsController < ApplicationController
   end
 
   def search
-    @users = User.where('username LIKE ?', "%#{params.require(:query)}%").where(is_system_account: false)
+    @users = User.where('username ILIKE ?', "%#{params.require(:query)}%").where(is_system_account: false)
   end
 
   def destroy
