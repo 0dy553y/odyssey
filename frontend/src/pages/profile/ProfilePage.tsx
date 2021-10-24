@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, batch } from 'react-redux';
 import { getUser } from 'store/auth/selectors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {
@@ -73,8 +73,11 @@ const ProfilePage: React.FC = () => {
   const classes = useStyles({ scrollbarWidth: width });
 
   useEffect(() => {
-    dispatch(loadAllOngoingUserChallenges());
-    dispatch(loadAllCompletedUserChallenges());
+    batch(() => {
+      dispatch(loadAllOngoingUserChallenges());
+      dispatch(loadAllCompletedUserChallenges());
+      dispatch(loadUserTaskActivityData());
+    });
   }, []);
 
   // user should never be undefined (assuming auth routing works)
@@ -125,10 +128,6 @@ const ProfilePage: React.FC = () => {
   const handleMenuClose = () => {
     setMenuAnchorEl(null);
   };
-
-  useEffect(() => {
-    dispatch(loadUserTaskActivityData());
-  }, []);
 
   return (
     <>
