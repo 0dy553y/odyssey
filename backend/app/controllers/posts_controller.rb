@@ -18,9 +18,9 @@ class PostsController < ApplicationController
   end
 
   def add_reaction
-    post = Post.find(params[:id])
-    post.post_reactions << PostReaction.new(reaction_params)
-    post.save!
+    @post = Post.find(params[:id])
+    @post.post_reactions << PostReaction.new(reaction_params)
+    @post.save!
 
     render 'posts/show', status: :created
   end
@@ -36,7 +36,6 @@ class PostsController < ApplicationController
 
   def reaction_params
     params
-      .require(:reaction)
       .permit( :emoji)
       .with_defaults(creator_id: current_user.id)
   end

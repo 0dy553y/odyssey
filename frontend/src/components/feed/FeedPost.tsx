@@ -18,6 +18,7 @@ import { ReactionPicker } from './ReactionPicker';
 interface FeedPostProps {
   post: PostListData;
   currentUserId: number;
+  addReaction: (reaction: ReactionEmoji) => void;
 }
 
 const useStyles = makeStyles(() => ({
@@ -80,7 +81,11 @@ const getAggregatedReactions = (
   return aggregatedData;
 };
 
-export const FeedPost: React.FC<FeedPostProps> = ({ post, currentUserId }) => {
+export const FeedPost: React.FC<FeedPostProps> = ({
+  post,
+  currentUserId,
+  addReaction,
+}) => {
   const classes = useStyles();
 
   const creator = post.creator;
@@ -135,7 +140,9 @@ export const FeedPost: React.FC<FeedPostProps> = ({ post, currentUserId }) => {
           );
         })}
         <Grid item className={classes.reactionPicker}>
-          <ReactionPicker onReactionSelect={(emoji) => console.log(emoji)} />
+          <ReactionPicker
+            onReactionSelect={(reaction) => addReaction(reaction)}
+          />
         </Grid>
       </Grid>
     </ListItem>
