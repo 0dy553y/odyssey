@@ -109,7 +109,9 @@ function App(): JSX.Element {
       {mainRoutes
         .map((route: RouteEntry) => route.path)
         .includes(location.pathname) && <BottomNavigationBar />}
-      <FeedbackOverlay />
+      {privateRoutes
+        .map((route: RouteEntry) => route.path)
+        .includes(location.pathname) && <FeedbackOverlay />}
     </Container>
   );
 }
