@@ -1,6 +1,6 @@
 import BaseAPI from './base';
 import { ApiPromise, EmptyPayload } from '../types/api';
-import { FriendListData } from '../types/friends';
+import { AddFriendListData, FriendListData } from '../types/friends';
 
 class FriendsAPI extends BaseAPI {
   protected static getFriendsUrl(): string {
@@ -9,6 +9,12 @@ class FriendsAPI extends BaseAPI {
 
   public getFriendList(): ApiPromise<FriendListData[]> {
     return this.get(FriendsAPI.getFriendsUrl());
+  }
+
+  public searchUsersByUsername(
+    username: string
+  ): ApiPromise<AddFriendListData[]> {
+    return this.get(`${FriendsAPI.getFriendsUrl()}?query=${username}`);
   }
 
   public deleteFriend(userId: number): ApiPromise<EmptyPayload> {

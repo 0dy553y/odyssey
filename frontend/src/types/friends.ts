@@ -8,3 +8,4 @@ export interface FriendListData {
 }
 
 export type FriendData = FriendListData;
+export type AddFriendListData = FriendListData;
