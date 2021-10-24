@@ -12,7 +12,7 @@ class LandingEmailsController < ApplicationController
       render :show, status: :created, location: @landing_email
     else
       show_error_message('Something failed... please try again later :-(')
-      render json: @landing_email.errors, status: :unprocessable_entity
+      render 'layouts/empty', status: :unprocessable_entity
     end
   end
 
