@@ -6,6 +6,7 @@ import mastheadImage from '../../assets/images/masthead.png';
 const useStyles = makeStyles(() => ({
   landingHeader: {
     height: '45em',
+    minHeight: '80vh',
     backgroundColor: '#1695B6',
     backgroundSize: 'cover',
     position: 'relative',
