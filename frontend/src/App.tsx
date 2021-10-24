@@ -22,10 +22,10 @@ import { RouteEntry } from './types/routes';
 import Notifier from 'components/notifier';
 import FeedbackOverlay from './components/common/FeedbackOverlay';
 import { useCache } from 'components/common/cacheProvider';
+import GoogleAnalytics from './GoogleAnalytics';
 
 import './App.scss';
 import 'swiper/swiper-bundle.css';
-import GoogleAnalytics from './GoogleAnalytics';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
