@@ -52,9 +52,10 @@ const LandingPage: React.FC = () => {
               MAKE IT HAPPEN
             </Typography>
             <Typography variant="h4">
-              No matter your interests or goals, there&apos;s something for you
-              in Odyssey&apos;s lineup of curated challenges: carefully designed
-              to increment in difficulty at a suitable pace.
+              No matter your interests or goals, there&apos;s something for you.
+              Odyssey&apos;s lineup of curated challenges are carefully designed
+              to increment in difficulty at a suitable pace to make your journey
+              a breeze.
             </Typography>
           </Box>
           <Box>
@@ -76,7 +77,9 @@ const LandingPage: React.FC = () => {
             </Typography>
             <Typography variant="h4">
               Challenge yourself and your friends to reach your goals. And why
-              not have fun while at it?
+              not have fun while at it? Map your journey together through
+              unknown worlds and collect your pot of gold at the end of each
+              rainbow.
             </Typography>
           </Box>
         </Stack>

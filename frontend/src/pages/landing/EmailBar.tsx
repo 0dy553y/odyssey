@@ -1,7 +1,17 @@
 import React from 'react';
-import { Box, Typography, InputBase, Button, Stack } from '@mui/material';
+import {
+  Box,
+  Typography,
+  InputBase,
+  Button,
+  Stack,
+  Tooltip,
+  FormHelperText,
+} from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import obebebe from '../../assets/gifs/obebebe.gif';
+import { useDispatch } from 'react-redux';
+import { useForm, Controller } from 'react-hook-form';
 
 const useStyles = makeStyles(() => ({
   landingHeader: {
@@ -59,8 +69,24 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+interface EarlyAccessFormState {
+  email: string;
+}
+
 const EmailBar: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    getValues,
+  } = useForm<EarlyAccessFormState>();
+
+  const onSubmit = handleSubmit(
+    (data: EarlyAccessFormState) => console.log(data)
+    // dispatch(saveEmail({ ...data }, history))
+  );
 
   return (
     <>
@@ -78,13 +104,43 @@ const EmailBar: React.FC = () => {
               Odyssey will be ready very soon. Join us for early access and keep
               up with updates and our release!
             </Typography>
-            <Box className={classes.emailField}>
-              <InputBase
-                className={classes.emailInput}
-                placeholder="Your email"
-              ></InputBase>
-              <Button className={classes.emailButton}>Join</Button>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={onSubmit}
+              className={classes.emailField}
+            >
+              <Controller
+                name="email"
+                control={control}
+                defaultValue=""
+                rules={{
+                  required: 'Email is required!',
+                  pattern: {
+                    value: /.+@.+\..+/,
+                    message: 'Please enter a valid email format.',
+                  },
+                }}
+                render={({ field }) => (
+                  <InputBase
+                    {...field}
+                    required
+                    className={classes.emailInput}
+                    placeholder="Your email"
+                    error={!!errors.email}
+                  ></InputBase>
+                )}
+              />
+              <Button type="submit" className={classes.emailButton}>
+                Join
+              </Button>
+              <br style={{ clear: 'both' }} />
+              <br style={{ clear: 'both' }} />
+              <br style={{ clear: 'both' }} />
             </Box>
+            <Typography className={classes.cta}>
+              {errors.email?.message}
+            </Typography>
           </Box>
         </Stack>
       </Box>
@@ -92,23 +148,4 @@ const EmailBar: React.FC = () => {
   );
 };
 
-/* 
-<Stack
-          direction={{ xs: 'column', sm: 'row' }}
-          spacing={{ xs: 1, sm: 2, md: 5 }}
-        >
-          <Box>
-            <img src={obebebe} />
-          </Box>
-          <Box className="side-description">
-            <Typography variant="body1" className="top-description">
-              CELEBRATE EVERY MILESTONE
-            </Typography>
-            <Typography variant="h4">
-              Challenge yourself and your friends to reach your goals. And why
-              not have fun while at it?
-            </Typography>
-          </Box>
-        </Stack>
-*/
 export default EmailBar;

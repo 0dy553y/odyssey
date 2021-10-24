@@ -31,6 +31,7 @@ const Footer: React.FC = () => {
   const classes = useStyles();
 
   const instagramLink = 'https://instagram.com/odyssey.app';
+  const facebookLink = 'https://www.facebook.com/Odyssey-112445401208984/';
 
   return (
     <>
@@ -39,10 +40,12 @@ const Footer: React.FC = () => {
           Made with &#10084;&#65039; by Team Odyssey
         </Typography>
         <span className={classes.alignRight}>
-          <a href={instagramLink}>
-            <InstagramIcon className={classes.socialsIcon} target="_blank" />
+          <a href={instagramLink} target="_blank" rel="noreferrer">
+            <InstagramIcon className={classes.socialsIcon} />
           </a>
-          <FacebookIcon className={classes.socialsIcon} />
+          <a href={facebookLink} target="_blank" rel="noreferrer">
+            <FacebookIcon className={classes.socialsIcon} />
+          </a>
         </span>
       </Box>
     </>
