@@ -14,6 +14,7 @@ import api from '../../api';
 import { ApiResponse } from '../../types/api';
 import { AddFriendListData } from '../../types/friends';
 import SearchIcon from '@mui/icons-material/Search';
+import AddFriendsList from '../../components/friendsList/AddFriendsList';
 
 const AddFriendsPage: React.FC = () => {
   const history = useHistory();
@@ -57,6 +58,7 @@ const AddFriendsPage: React.FC = () => {
         }}
         onChange={(event) => setSearchQuery(event.target.value)}
       />
+      <AddFriendsList users={users} />
     </Box>
   );
 };
