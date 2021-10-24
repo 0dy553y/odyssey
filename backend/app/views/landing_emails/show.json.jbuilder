@@ -1,1 +1,6 @@
-json.partial! "landing_emails/landing_email", landing_email: @landing_email
+# frozen_string_literal: true
+
+json.data do
+  json.id @landing_email.id
+  json.email @landing_email.email
+end
