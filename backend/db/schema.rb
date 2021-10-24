@@ -94,6 +94,27 @@ ActiveRecord::Schema.define(version: 2021_10_24_042910) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "post_reactions", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.bigint "creator_id", null: false
+    t.string "emoji", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["creator_id"], name: "index_post_reactions_on_creator_id"
+    t.index ["post_id", "creator_id", "emoji"], name: "index_post_reactions_on_post_id_and_creator_id_and_emoji", unique: true
+    t.index ["post_id"], name: "index_post_reactions_on_post_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.bigint "creator_id", null: false
+    t.bigint "challenge_id", null: false
+    t.string "body", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["challenge_id"], name: "index_posts_on_challenge_id"
+    t.index ["creator_id"], name: "index_posts_on_creator_id"
+  end
+
   create_table "schedules", force: :cascade do |t|
     t.boolean "monday", default: false
     t.boolean "tuesday", default: false
@@ -177,6 +198,10 @@ ActiveRecord::Schema.define(version: 2021_10_24_042910) do
   add_foreign_key "friend_requests", "users", column: "sender_id"
   add_foreign_key "friendships", "users", column: "first_user_id"
   add_foreign_key "friendships", "users", column: "second_user_id"
+  add_foreign_key "post_reactions", "posts"
+  add_foreign_key "post_reactions", "users", column: "creator_id"
+  add_foreign_key "posts", "challenges"
+  add_foreign_key "posts", "users", column: "creator_id"
   add_foreign_key "tasks", "challenges"
   add_foreign_key "user_challenges", "challenges"
   add_foreign_key "user_challenges", "schedules"

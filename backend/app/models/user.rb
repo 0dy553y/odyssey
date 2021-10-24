@@ -29,6 +29,9 @@ class User < ApplicationRecord
                             foreign_key: :first_user_id, inverse_of: :second_user, dependent: :destroy
   has_many :to_friends, through: :to_friendships, class_name: 'User', source: :second_user
 
+  has_many :posts, class_name: 'Post',
+                   foreign_key: :creator_id, inverse_of: :creator, dependent: :destroy
+
   has_one_attached :avatar
 
   validates :email, uniqueness: { case_sensitive: false, if: -> { provider == 'email' } }
