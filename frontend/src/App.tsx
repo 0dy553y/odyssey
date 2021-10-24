@@ -25,6 +25,7 @@ import { useCache } from 'components/common/cacheProvider';
 
 import './App.scss';
 import 'swiper/swiper-bundle.css';
+import GoogleAnalytics from './GoogleAnalytics';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ function App(): JSX.Element {
 
   return (
     <Container className="App" component="main" disableGutters maxWidth={false}>
+      <GoogleAnalytics />
       <ScrollToTop />
       <Notifier />
       <Global
