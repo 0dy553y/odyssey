@@ -24,8 +24,6 @@ import FeedbackOverlay from './components/common/FeedbackOverlay';
 import { useCache } from 'components/common/cacheProvider';
 
 import './App.scss';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import 'swiper/swiper-bundle.css';
 
 function App(): JSX.Element {
