@@ -15,8 +15,19 @@ import { ApiResponse } from '../../types/api';
 import { AddFriendListData } from '../../types/friends';
 import SearchIcon from '@mui/icons-material/Search';
 import AddFriendsList from '../../components/friendsList/AddFriendsList';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles(() => ({
+  textField: {
+    borderRadius: 25,
+    backgroundColor: 'white',
+    padding: 10,
+    marginTop: 20,
+  },
+}));
 
 const AddFriendsPage: React.FC = () => {
+  const classes = useStyles();
   const history = useHistory();
   const [users, setUsers] = useState<AddFriendListData[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -49,12 +60,15 @@ const AddFriendsPage: React.FC = () => {
       <TextField
         fullWidth
         placeholder="Search by username"
+        className={classes.textField}
+        variant="standard"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
               <SearchIcon />
             </InputAdornment>
           ),
+          disableUnderline: true,
         }}
         onChange={(event) => setSearchQuery(event.target.value)}
       />
