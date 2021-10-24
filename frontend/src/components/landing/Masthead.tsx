@@ -8,6 +8,7 @@ import { Parallax, Background } from 'react-parallax';
 const useStyles = makeStyles(() => ({
   landingHeader: {
     height: '45em',
+    minHeight: '80vh',
     backgroundColor: '#1695B6',
     backgroundSize: 'cover',
     position: 'relative',
