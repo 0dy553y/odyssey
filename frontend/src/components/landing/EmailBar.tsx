@@ -8,7 +8,6 @@ import { registerEmail } from 'store/landingemails/operations';
 
 const useStyles = makeStyles(() => ({
   landingHeader: {
-    height: '20em',
     background: 'linear-gradient(to right, #7B70BF , #BF8E82)',
     position: 'relative',
     borderRadius: '2em',
@@ -55,6 +54,8 @@ const useStyles = makeStyles(() => ({
   },
   text: {
     display: 'inline-block',
+    marginLeft: '2em',
+    paddingLeft: '2em',
   },
   cta: {
     color: 'white',
@@ -82,7 +83,7 @@ const EmailBar: React.FC = () => {
   return (
     <Box className={classes.landingHeader} id="form">
       <Stack
-        direction={{ xs: 'column', sm: 'row' }}
+        direction={{ xs: 'column', sm: 'column', md: 'row' }}
         spacing={{ xs: 1, sm: 2, md: 5 }}
       >
         <img className={classes.astronaut} src={obebebe} />

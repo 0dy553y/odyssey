@@ -1,10 +1,10 @@
 import React from 'react';
-import Navbar from 'components/landingPage/LandingNavbar';
+import Navbar from 'components/landing/LandingNavbar';
 import { Box, Stack, Typography } from '@mui/material';
-import Masthead from 'components/landingPage/Masthead';
-import Footer from 'components/landingPage/Footer';
-import Section from 'components/landingPage/Section';
-import EmailBar from 'components/landingPage/EmailBar';
+import Masthead from 'components/landing/Masthead';
+import Footer from 'components/landing/Footer';
+import Section from 'components/landing/Section';
+import EmailBar from 'components/landing/EmailBar';
 import obebebe from 'assets/gifs/obebebe.gif';
 import runnin from 'assets/gifs/runnin.gif';
 import study from 'assets/gifs/study.gif';
@@ -20,7 +20,7 @@ const LandingPage: React.FC = () => {
     <Box className="landing-page">
       <Navbar />
       <Masthead />
-      <Section content="Whether you are trying to run your first 5k or pick up reading again, starting something new can be pretty damn hard." />
+      <Section content="Whether you are trying to run your first 5km or pick up reading again, starting something new can be pretty hard." />
       <img className="study" src={study} />
       <Section content="But it doesn't have to be this way. Imagine — no more excuses, no more holding back." />
       <img className="runnin" src={runnin} />
