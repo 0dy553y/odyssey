@@ -3,8 +3,6 @@ import { Box, Typography, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import mastheadImage from '../../assets/images/masthead.png';
 
-import { Parallax, Background } from 'react-parallax';
-
 const useStyles = makeStyles(() => ({
   landingHeader: {
     height: '45em',
