@@ -46,7 +46,12 @@ Rails.application.routes.draw do
       end
       resources :friend_requests, only: %i[index create update destroy]
 
-      resources :posts, only: %i[index create]
+      resources :posts, only: %i[index create] do
+        member do
+          post 'add_reaction', to: 'add_reaction'
+          post 'remove_reaction', to: 'remove_reaction'
+        end
+      end
     end
   end
 end

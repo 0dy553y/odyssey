@@ -12,6 +12,8 @@ import categoriesReducer from './categories/reducer';
 import { CategoriesState } from './categories/types';
 import challengesReducer from './challenges/reducer';
 import { ChallengesState } from './challenges/types';
+import postsReducer from './posts/reducer';
+import { PostsState } from './posts/types';
 import snackbarsReducer from './snackbars/reducer';
 import { SnackbarsState } from './snackbars/types';
 import tasksReducer from './tasks/reducer';
@@ -28,6 +30,7 @@ export interface RootState {
   categories: CategoriesState;
   challenges: ChallengesState;
   friends: FriendsState;
+  posts: PostsState;
   snackbars: SnackbarsState;
   tasks: TasksState;
   userTasks: UserTasksState;
@@ -39,6 +42,7 @@ export const rootReducer = combineReducers({
   categories: categoriesReducer,
   challenges: challengesReducer,
   friends: friendsReducer,
+  posts: postsReducer,
   snackbars: snackbarsReducer,
   tasks: tasksReducer,
   userTasks: userTasksReducer,

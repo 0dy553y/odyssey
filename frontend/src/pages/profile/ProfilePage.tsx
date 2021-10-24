@@ -80,6 +80,7 @@ const ProfilePage: React.FC = () => {
       dispatch(loadAllOngoingUserChallenges());
       dispatch(loadAllCompletedUserChallenges());
       dispatch(loadAllFriends());
+      dispatch(loadUserTaskActivityData());
     });
   }, []);
 
@@ -133,10 +134,6 @@ const ProfilePage: React.FC = () => {
   const handleMenuClose = () => {
     setMenuAnchorEl(null);
   };
-
-  useEffect(() => {
-    dispatch(loadUserTaskActivityData());
-  }, []);
 
   return (
     <>
