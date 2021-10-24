@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :landing_emails
-  def api_resources(res, &block)
-    resources res, except: %i[new edit], &block
-  end
-
   scope :api, defaults: { format: 'json' } do
     scope :v1, defaults: { format: 'json' } do
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
@@ -13,6 +8,11 @@ Rails.application.routes.draw do
         sessions: 'auth/sessions',
         token_validations: 'auth/token_validations'
       }
+
+      resources :landing_emails
+      def api_resources(res, &block)
+        resources res, except: %i[new edit], &block
+      end
 
       # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
       resources :categories, only: %i[index show]

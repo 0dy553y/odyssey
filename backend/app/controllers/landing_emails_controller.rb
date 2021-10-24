@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class LandingEmailsController < ApplicationController
+  skip_before_action :authenticate_user!
   # POST /landing_emails
   # POST /landing_emails.json
   def create
@@ -14,7 +17,8 @@ class LandingEmailsController < ApplicationController
   end
 
   private
-    def landing_email_params
-      params.require(:landing_email).permit(:email)
-    end
+
+  def landing_email_params
+    params.require(:landing_email).permit(:email)
+  end
 end
