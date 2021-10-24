@@ -41,6 +41,8 @@ Rails.application.routes.draw do
 
       resources :friends, only: %i[index destroy]
       resources :friend_requests, only: %i[index create update destroy]
+
+      resources :posts, only: %i[index create]
     end
   end
 end

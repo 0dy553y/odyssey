@@ -1,11 +1,12 @@
 import AuthAPI from './auth';
 import CategoriesAPI from './categories';
 import ChallengesAPI from './challenges';
+import FriendRequestsAPI from './friendrequests';
+import FriendsAPI from './friends';
+import PostsAPI from './posts';
 import TasksAPI from './tasks';
 import UserChallengesAPI from './userchallenge';
 import UserTasksAPI from './usertasks';
-import FriendsAPI from './friends';
-import FriendRequestsAPI from './friendrequests';
 
 const api = Object.freeze({
   auth: new AuthAPI(),
@@ -13,6 +14,7 @@ const api = Object.freeze({
   challenges: new ChallengesAPI(),
   friends: new FriendsAPI(),
   friendRequests: new FriendRequestsAPI(),
+  posts: new PostsAPI(),
   tasks: new TasksAPI(),
   userTasks: new UserTasksAPI(),
   userChallenges: new UserChallengesAPI(),
