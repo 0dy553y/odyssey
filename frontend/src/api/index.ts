@@ -6,6 +6,7 @@ import UserChallengesAPI from './userchallenge';
 import UserTasksAPI from './usertasks';
 import FriendsAPI from './friends';
 import FriendRequestsAPI from './friendrequests';
+import LandingEmailsAPI from './landingemails';
 
 const api = Object.freeze({
   auth: new AuthAPI(),
@@ -16,6 +17,7 @@ const api = Object.freeze({
   tasks: new TasksAPI(),
   userTasks: new UserTasksAPI(),
   userChallenges: new UserChallengesAPI(),
+  landingEmails: new LandingEmailsAPI(),
 });
 
 export default api;

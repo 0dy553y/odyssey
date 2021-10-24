@@ -1,17 +1,10 @@
 import React from 'react';
-import {
-  Box,
-  Typography,
-  InputBase,
-  Button,
-  Stack,
-  Tooltip,
-  FormHelperText,
-} from '@mui/material';
+import { Box, Typography, InputBase, Button, Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import obebebe from '../../assets/gifs/obebebe.gif';
 import { useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
+import { registerEmail } from 'store/landingemails/operations';
 
 const useStyles = makeStyles(() => ({
   landingHeader: {
@@ -83,9 +76,8 @@ const EmailBar: React.FC = () => {
     getValues,
   } = useForm<EarlyAccessFormState>();
 
-  const onSubmit = handleSubmit(
-    (data: EarlyAccessFormState) => console.log(data)
-    // dispatch(saveEmail({ ...data }, history))
+  const onSubmit = handleSubmit((data: EarlyAccessFormState) =>
+    dispatch(registerEmail({ ...data }))
   );
 
   return (

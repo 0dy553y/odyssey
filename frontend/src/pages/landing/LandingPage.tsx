@@ -41,7 +41,7 @@ const LandingPage: React.FC = () => {
           )}
         </InView>
       </Box>
-      <div style={{ paddingBottom: '5em' }}></div>
+      <div style={{ paddingBottom: '3em' }}></div>
       <Box className="description-segment">
         <Stack
           direction={{ xs: 'column', sm: 'row' }}

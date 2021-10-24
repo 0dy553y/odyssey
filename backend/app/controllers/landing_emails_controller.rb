@@ -2,8 +2,8 @@
 
 class LandingEmailsController < ApplicationController
   skip_before_action :authenticate_user!
+
   # POST /landing_emails
-  # POST /landing_emails.json
   def create
     @landing_email = LandingEmail.new(landing_email_params)
 
