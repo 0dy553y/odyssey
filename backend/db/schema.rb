@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2021_10_22_120900) do
   create_table "post_reactions", force: :cascade do |t|
     t.bigint "post_id", null: false
     t.bigint "creator_id", null: false
-    t.integer "emoji", null: false
+    t.string "emoji", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["creator_id"], name: "index_post_reactions_on_creator_id"
