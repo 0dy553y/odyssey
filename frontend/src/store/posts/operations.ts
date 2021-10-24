@@ -9,7 +9,12 @@ import { setPostList } from './actions';
 export function loadAllPosts(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.posts.getPostsList();
-    const posts: PostListData[] = response.payload.data;
+    const posts: PostListData[] = response.payload.data.map((datum) => {
+      return {
+        ...datum,
+        createdAt: new Date(datum.createdAt),
+      };
+    });
     dispatch(setPostList(posts));
   };
 }

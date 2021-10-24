@@ -1,82 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import { FeedPost } from 'components/feed/FeedPost';
 import { subDays } from 'date-fns/esm';
-import { ReactionEmoji } from 'types/posts';
+import { loadAllPosts } from 'store/posts/operations';
+import { getPostList } from 'store/posts/selectors';
 
 const FeedPage: React.FC = () => {
-  const mockPost = {
-    id: 1,
-    body: `After a very LONG journey, I finally have reached the PINNACLE and completed the 3-day
-    'Walking' challenge!!! I want to take time to thank my friends, family, and colleagues!
-    Thank you for continuing to believe in me and pushing me towards success.
-    Never ever give up folks. If you want something, go get it! Perseverance, GRIT,
-    and passion go a long way.
-    `,
-    createdAt: subDays(new Date(), 7),
-    creator: {
-      id: 1,
-      username: 'bobby',
-    },
-    reactions: [
-      {
-        emoji: ReactionEmoji.Crying,
-        creator: {
-          id: 1,
-          username: 'bobby',
-        },
-      },
-      {
-        emoji: ReactionEmoji.Crying,
-        creator: {
-          id: 2,
-          username: 'robby',
-        },
-      },
-      {
-        emoji: ReactionEmoji.Crying,
-        creator: {
-          id: 3,
-          username: 'poppy',
-        },
-      },
-      {
-        emoji: ReactionEmoji.Smiley,
-        creator: {
-          id: 1,
-          username: 'bobby',
-        },
-      },
-      {
-        emoji: ReactionEmoji.MoonFace,
-        creator: {
-          id: 1,
-          username: 'bobby',
-        },
-      },
-      {
-        emoji: ReactionEmoji.PartyPopper,
-        creator: {
-          id: 1,
-          username: 'bobby',
-        },
-      },
-      {
-        emoji: ReactionEmoji.Poop,
-        creator: {
-          id: 1,
-          username: 'bobby',
-        },
-      },
-      {
-        emoji: ReactionEmoji.SparklingHeart,
-        creator: {
-          id: 1,
-          username: 'bobby',
-        },
-      },
-    ],
-  };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadAllPosts());
+  }, []);
+
+  const posts = useSelector(getPostList);
 
   return (
     <>
@@ -85,10 +22,9 @@ const FeedPage: React.FC = () => {
 
       {process.env.NODE_ENV === 'development' && (
         <>
-          <FeedPost post={mockPost} currentUserId={1} />
-          <FeedPost post={mockPost} currentUserId={1} />
-          <FeedPost post={mockPost} currentUserId={1} />
-          <FeedPost post={mockPost} currentUserId={1} />
+          {posts.map((post) => (
+            <FeedPost key={post.id} post={post} currentUserId={1} />
+          ))}
         </>
       )}
     </>

@@ -102,7 +102,9 @@ export const FeedPost: React.FC<FeedPostProps> = ({ post, currentUserId }) => {
         <ListItemText
           primary={creator.displayName ?? displayUsername(creator.username)}
         />
-        <Grid item>{post.body}</Grid>
+        <Grid item xs={12}>
+          {post.body}
+        </Grid>
         <Grid item xs={12}>
           <Tooltip
             arrow
