@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import { FeedPost } from 'components/feed/FeedPost';
-import { subDays } from 'date-fns/esm';
 import { loadAllPosts } from 'store/posts/operations';
 import { getPostList } from 'store/posts/selectors';
 
