@@ -48,7 +48,7 @@ export function buildRepeated({
   heightIncrement?: number;
   widthIncrement?: number;
 }) {
-  const directionVector = getDirectionVector(repeatDirection) as number[];
+  const directionVector = getDirectionVector(repeatDirection);
   const deltaX = directionVector[0] * widthIncrement;
   const deltaZ = directionVector[1] * widthIncrement;
   return (
