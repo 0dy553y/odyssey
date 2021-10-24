@@ -21,3 +21,7 @@ export enum ReactionEmoji {
   Crying = '😭',
   MoonFace = '🌚️',
 }
+
+export interface ReactionPostData {
+  emoji: ReactionEmoji;
+}

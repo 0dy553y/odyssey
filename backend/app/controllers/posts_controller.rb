@@ -12,9 +12,17 @@ class PostsController < ApplicationController
   end
 
   def create
-    Post.create!(post_params)
+    @post = Post.create!(post_params)
 
-    render 'layouts/empty', status: :created
+    render 'posts/show', status: :created
+  end
+
+  def add_reaction
+    post = Post.find(params[:id])
+    post.post_reactions << PostReaction.new(reaction_params)
+    post.save!
+
+    render 'posts/show', status: :created
   end
 
   private
@@ -23,6 +31,13 @@ class PostsController < ApplicationController
     params
       .require(:post)
       .permit(:challenge_id, :body)
+      .with_defaults(creator_id: current_user.id)
+  end
+
+  def reaction_params
+    params
+      .require(:reaction)
+      .permit( :emoji)
       .with_defaults(creator_id: current_user.id)
   end
 end

@@ -13,6 +13,21 @@ export const postsSlice = createSlice({
     setPostList: (state, action: PayloadAction<PostListData[]>): void => {
       state.postList = action.payload;
     },
+    updatePost: (state, action: PayloadAction<PostListData>): void => {
+      const newPost = action.payload;
+
+      const ids = state.postList.map((post) => post.id);
+      const idx = ids.indexOf(newPost.id);
+
+      if (idx === -1) {
+        throw new Error('Post does not exist');
+      }
+
+      state.postList = state.postList
+        .slice(0, idx)
+        .concat([newPost])
+        .concat(state.postList.slice(idx + 1));
+    },
   },
 });
 
