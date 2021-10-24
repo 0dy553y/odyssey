@@ -3,6 +3,7 @@ import CategoriesAPI from './categories';
 import ChallengesAPI from './challenges';
 import FriendRequestsAPI from './friendrequests';
 import FriendsAPI from './friends';
+import LandingEmailsAPI from './landingemails';
 import PostsAPI from './posts';
 import TasksAPI from './tasks';
 import UserChallengesAPI from './userchallenge';
@@ -18,6 +19,7 @@ const api = Object.freeze({
   tasks: new TasksAPI(),
   userTasks: new UserTasksAPI(),
   userChallenges: new UserChallengesAPI(),
+  landingEmails: new LandingEmailsAPI(),
 });
 
 export default api;

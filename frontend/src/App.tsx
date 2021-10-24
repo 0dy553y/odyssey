@@ -69,7 +69,7 @@ function App(): JSX.Element {
         }}
       />
       <div className="App-content-container">
-        <Container className="column-container" disableGutters maxWidth="xs">
+        <Container className="column-container" disableGutters maxWidth="sm">
           <Switch>
             {isValidatingToken ? (
               <Box
@@ -109,7 +109,9 @@ function App(): JSX.Element {
       {mainRoutes
         .map((route: RouteEntry) => route.path)
         .includes(location.pathname) && <BottomNavigationBar />}
-      <FeedbackOverlay />
+      {privateRoutes
+        .map((route: RouteEntry) => route.path)
+        .includes(location.pathname) && <FeedbackOverlay />}
     </Container>
   );
 }

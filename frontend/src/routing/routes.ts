@@ -7,6 +7,7 @@ import CompletedChallengesPage from 'pages/completedChallenges/CompletedChalleng
 import ExplorePage from '../pages/explore';
 import FeedPage from '../pages/feed';
 import HomePage from '../pages/home';
+import LandingPage from 'pages/landing/LandingPage';
 import LoginPage from '../pages/login';
 import OnboardingPage from 'pages/onboarding/OnboardingPage';
 import ProfilePage from '../pages/profile';
@@ -26,6 +27,7 @@ export const FRIENDS_ROUTE = '/friends';
 export const COMPLETED_CHALLENGES_ROUTE = '/completed';
 export const BADGE_ROUTE = '/badges';
 export const ONBOARDING_ROUTE = '/welcome';
+export const LANDING_ROUTE = '/landing';
 // TODO: remove when no longer needed.
 export const DEMO_MAP_ROUTE = '/map/demo';
 
@@ -37,7 +39,9 @@ export const notAuthenticatedRoutes: RouteEntry[] = [
 ];
 
 // Public routes that are accessible regardless of authentication status
-export const publicRoutes: RouteEntry[] = [];
+export const publicRoutes: RouteEntry[] = [
+  { path: LANDING_ROUTE, component: LandingPage },
+];
 
 // Route that appear on the navbar
 export const mainRoutes: RouteEntry[] = [
