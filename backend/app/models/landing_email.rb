@@ -1,0 +1,2 @@
+class LandingEmail < ApplicationRecord
+end
