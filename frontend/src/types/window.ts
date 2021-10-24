@@ -1,5 +1,6 @@
 export type Env = {
   BASE_SERVER_URL: string;
+  GOOGLE_ANALYTICS_ID: string;
 };
 
 declare global {
