@@ -128,3 +128,41 @@ export function buildArch({
     </group>
   );
 }
+
+export function buildDiagonalRepeated({
+  buildBlock,
+  base,
+  width = 1,
+  repeatDirection = Direction.FORWARD,
+  heightIncrement = 0,
+  widthIncrement = 1,
+  buildCallback = (position) => {
+    return;
+  },
+}: {
+  buildBlock: (key: number, position: Vector3) => JSX.Element;
+  base: Vector3;
+  height?: number;
+  width?: number;
+  repeatDirection?: Direction;
+  heightIncrement?: number;
+  widthIncrement?: number;
+  buildCallback?: (position: Vector3) => void;
+}) {
+  const directionVector = getDirectionVector(repeatDirection);
+  const deltaX = directionVector[0] * widthIncrement;
+  const deltaZ = directionVector[1] * widthIncrement;
+  return (
+    <>
+      {[...Array(width)].map((_, index) => {
+        const blockPosition = translate(base, {
+          [Axis.X]: index * deltaX,
+          [Axis.Y]: index * heightIncrement,
+          [Axis.Z]: index * deltaZ,
+        });
+        buildCallback(blockPosition);
+        return buildBlock(index, blockPosition);
+      })}
+    </>
+  );
+}
