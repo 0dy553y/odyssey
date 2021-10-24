@@ -1,7 +1,6 @@
 import React from 'react';
 import { Chip, Typography } from '@mui/material';
 import { ReactionEmoji } from 'types/posts';
-import { displayReactionEmoji } from 'utils/formatting';
 
 import './ReactionChip.scss';
 
@@ -22,7 +21,7 @@ export const ReactionChip: React.FC<ReactionChipProps> = ({
     <Chip
       className="reaction-chip"
       onClick={onClick}
-      icon={<Typography>{displayReactionEmoji(reaction)}</Typography>}
+      icon={<Typography>{reaction}</Typography>}
       label={<Typography>{count}</Typography>}
       variant={hasReacted ? 'filled' : 'outlined'}
     />

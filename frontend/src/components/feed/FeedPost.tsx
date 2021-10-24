@@ -127,7 +127,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({ post, currentUserId }) => {
                 reaction={data.emoji}
                 count={data.count}
                 hasReacted={data.hasReacted}
-                onClick={() => console.log('HELLO')}
+                onClick={() => console.log('HELLO', data.emoji)}
               />
             </Grid>
           );

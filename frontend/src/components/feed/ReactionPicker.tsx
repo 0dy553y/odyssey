@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { ReactionEmoji } from 'types/posts';
-import { displayReactionEmoji } from 'utils/formatting';
 
 interface ReactionPickerProps {
   onReactionSelect: (emoji: ReactionEmoji) => void;
@@ -78,7 +77,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = ({
                       setIsOpen(false);
                     }}
                   >
-                    {displayReactionEmoji(emoji as ReactionEmoji)}
+                    {emoji}
                   </IconButton>
                 ))}
               </Box>
