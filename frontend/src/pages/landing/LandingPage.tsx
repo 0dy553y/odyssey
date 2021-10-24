@@ -1,15 +1,15 @@
 import React from 'react';
-import Navbar from './LandingNavbar';
+import Navbar from 'components/landingPage/LandingNavbar';
 import { Box, Stack, Typography } from '@mui/material';
-import Masthead from './Masthead';
-import Footer from './Footer';
-import Section from './Section';
-import EmailBar from './EmailBar';
-import obebebe from '../../assets/gifs/obebebe.gif';
-import runnin from '../../assets/gifs/runnin.gif';
-import study from '../../assets/gifs/study.gif';
-import explore from '../../assets/images/explore.png';
-import message from '../../assets/images/message.png';
+import Masthead from 'components/landingPage/Masthead';
+import Footer from 'components/landingPage/Footer';
+import Section from 'components/landingPage/Section';
+import EmailBar from 'components/landingPage/EmailBar';
+import obebebe from 'assets/gifs/obebebe.gif';
+import runnin from 'assets/gifs/runnin.gif';
+import study from 'assets/gifs/study.gif';
+import explore from 'assets/images/explore.png';
+import message from 'assets/images/message.png';
 import { InView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 

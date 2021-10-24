@@ -1,14 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import { InView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
-
-const useStyles = makeStyles(() => ({
-  section: {
-    // marginBottom: '6em',
-  },
-}));
 
 interface SectionProps {
   content: string;
@@ -16,10 +9,9 @@ interface SectionProps {
 
 const Section: React.FC<SectionProps> = (props) => {
   const { content } = props;
-  const classes = useStyles();
 
   return (
-    <Box className={classes.section}>
+    <Box>
       <InView threshold={1}>
         {({ inView, ref }) => (
           <motion.div

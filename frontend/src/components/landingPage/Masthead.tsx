@@ -46,32 +46,30 @@ const LandingHeader: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <>
-      <Box
-        className={classes.landingHeader}
-        style={{ backgroundImage: `url(${mastheadImage})` }}
-      >
-        <Typography className={classes.subText}>COMING SOON</Typography>
-        <Typography variant="h3" className={classes.mainText}>
-          Reach new heights.
-        </Typography>
-        <Button
-          sx={{
+    <Box
+      className={classes.landingHeader}
+      style={{ backgroundImage: `url(${mastheadImage})` }}
+    >
+      <Typography className={classes.subText}>COMING SOON</Typography>
+      <Typography variant="h3" className={classes.mainText}>
+        Reach new heights.
+      </Typography>
+      <Button
+        sx={{
+          backgroundColor: 'rgba(0, 0, 0, 1)',
+          borderRadius: '1em',
+          color: 'white',
+          padding: '0.8em 1em 0.8em 1em',
+          marginTop: '2.2em',
+          '&:hover': {
             backgroundColor: 'rgba(0, 0, 0, 1)',
-            borderRadius: '1em',
-            color: 'white',
-            padding: '0.8em 1em 0.8em 1em',
-            marginTop: '2.2em',
-            '&:hover': {
-              backgroundColor: 'rgba(0, 0, 0, 1)',
-            },
-          }}
-          href="#form"
-        >
-          Sign up now
-        </Button>
-      </Box>
-    </>
+          },
+        }}
+        href="#form"
+      >
+        Sign up now
+      </Button>
+    </Box>
   );
 };
 

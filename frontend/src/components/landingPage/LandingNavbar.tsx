@@ -33,14 +33,12 @@ const LandingNavbar: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <>
-      <AppBar className={classes.navbar}>
-        <img className={classes.logo} src={icon} />
-        <Typography variant="h5" className={classes.title}>
-          Odyssey
-        </Typography>
-      </AppBar>
-    </>
+    <AppBar className={classes.navbar}>
+      <img className={classes.logo} src={icon} />
+      <Typography variant="h5" className={classes.title}>
+        Odyssey
+      </Typography>
+    </AppBar>
   );
 };
 

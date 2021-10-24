@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Link } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -34,21 +34,19 @@ const Footer: React.FC = () => {
   const facebookLink = 'https://www.facebook.com/Odyssey-112445401208984/';
 
   return (
-    <>
-      <Box className={classes.landingHeader}>
-        <Typography className={classes.alignLeft}>
-          Made with &#10084;&#65039; by Team Odyssey
-        </Typography>
-        <span className={classes.alignRight}>
-          <a href={instagramLink} target="_blank" rel="noreferrer">
-            <InstagramIcon className={classes.socialsIcon} />
-          </a>
-          <a href={facebookLink} target="_blank" rel="noreferrer">
-            <FacebookIcon className={classes.socialsIcon} />
-          </a>
-        </span>
-      </Box>
-    </>
+    <Box className={classes.landingHeader}>
+      <Typography className={classes.alignLeft}>
+        Made with &#10084;&#65039; by Team Odyssey
+      </Typography>
+      <span className={classes.alignRight}>
+        <a href={instagramLink} target="_blank" rel="noreferrer">
+          <InstagramIcon className={classes.socialsIcon} />
+        </a>
+        <a href={facebookLink} target="_blank" rel="noreferrer">
+          <FacebookIcon className={classes.socialsIcon} />
+        </a>
+      </span>
+    </Box>
   );
 };
 
