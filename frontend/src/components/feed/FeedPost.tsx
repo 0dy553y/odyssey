@@ -19,6 +19,7 @@ interface FeedPostProps {
   post: PostListData;
   currentUserId: number;
   addReaction: (reaction: ReactionEmoji) => void;
+  removeReaction: (reaction: ReactionEmoji) => void;
 }
 
 const useStyles = makeStyles(() => ({
@@ -85,6 +86,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({
   post,
   currentUserId,
   addReaction,
+  removeReaction,
 }) => {
   const classes = useStyles();
 
@@ -134,7 +136,13 @@ export const FeedPost: React.FC<FeedPostProps> = ({
                 reaction={data.emoji}
                 count={data.count}
                 hasReacted={data.hasReacted}
-                onClick={() => console.log('HELLO', data.emoji)}
+                onClick={() => {
+                  if (data.hasReacted) {
+                    removeReaction(data.emoji);
+                  } else {
+                    addReaction(data.emoji);
+                  }
+                }}
               />
             </Grid>
           );

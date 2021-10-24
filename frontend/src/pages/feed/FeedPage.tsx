@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import { FeedPost } from 'components/feed/FeedPost';
-import { loadAllPosts, addReactionToPost } from 'store/posts/operations';
+import {
+  loadAllPosts,
+  addReactionToPost,
+  removeReactionFromPost,
+} from 'store/posts/operations';
 import { getPostList } from 'store/posts/selectors';
 import { getUser } from 'store/auth/selectors';
 import { ReactionEmoji } from 'types/posts';
@@ -32,6 +36,9 @@ const FeedPage: React.FC = () => {
               currentUserId={user.id}
               addReaction={(reaction: ReactionEmoji) => {
                 dispatch(addReactionToPost(post.id, reaction));
+              }}
+              removeReaction={(reaction: ReactionEmoji) => {
+                dispatch(removeReactionFromPost(post.id, reaction));
               }}
             />
           ))}

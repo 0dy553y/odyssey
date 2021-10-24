@@ -35,3 +35,20 @@ export function addReactionToPost(
     dispatch(updatePost(post));
   };
 }
+
+export function removeReactionFromPost(
+  postId: number,
+  emoji: ReactionEmoji
+): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    const response = await api.posts.removeReaction(postId, {
+      emoji,
+    });
+
+    const post: PostListData = {
+      ...response.payload.data,
+      createdAt: new Date(response.payload.data.createdAt),
+    };
+    dispatch(updatePost(post));
+  };
+}

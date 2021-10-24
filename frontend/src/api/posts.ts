@@ -20,6 +20,16 @@ class PostsAPI extends BaseAPI {
       reactionPostData
     );
   }
+
+  public removeReaction(
+    postId: number,
+    reactionPostData: ReactionPostData
+  ): ApiPromise<PostListData> {
+    return this.post(
+      `${PostsAPI.getPostsUrl()}/${postId}/remove_reaction`,
+      reactionPostData
+    );
+  }
 }
 
 export default PostsAPI;

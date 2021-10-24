@@ -22,7 +22,15 @@ class PostsController < ApplicationController
     @post.post_reactions << PostReaction.new(reaction_params)
     @post.save!
 
-    render 'posts/show', status: :created
+    render 'posts/show', status: :ok
+  end
+
+  def remove_reaction
+    reaction = PostReaction.where(post_id: params[:id]).find_by(reaction_params)
+    @post = reaction.post
+    reaction.destroy!
+
+    render 'posts/show', status: :ok
   end
 
   private
