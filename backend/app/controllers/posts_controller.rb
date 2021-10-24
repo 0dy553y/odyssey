@@ -44,7 +44,7 @@ class PostsController < ApplicationController
 
   def reaction_params
     params
-      .permit( :emoji)
+      .permit(:emoji)
       .with_defaults(creator_id: current_user.id)
   end
 end
