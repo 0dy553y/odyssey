@@ -47,6 +47,8 @@ const SpaceMap: React.FC = () => {
 
   return (
     <Suspense fallback={<div />}>
+      <button onClick={() => moveCharacterBackward()}> previous </button>
+      <button onClick={() => moveCharacterForward()}> next </button>
       <Canvas camera={{ zoom: 15, position: [d, d, d] }} orthographic={true}>
         <color attach="background" args={['#010101']} />
         {/*  x: red, y: green, z: blue */}
@@ -88,8 +90,6 @@ const SpaceMap: React.FC = () => {
         />
         <Stars factor={10} radius={60} saturation={1} fade />
       </Canvas>
-      <button onClick={() => moveCharacterBackward()}> previous </button>
-      <button onClick={() => moveCharacterForward()}> next </button>
     </Suspense>
   );
 };

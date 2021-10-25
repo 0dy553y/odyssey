@@ -11,7 +11,6 @@ import { useSpring, animated, config } from '@react-spring/three';
 import { Direction } from '../../types/map';
 import { getRotation } from '../../utils/direction';
 import { DirectionPosition } from '../../types/map';
-import * as THREE from 'three';
 
 interface CharacterProps {
   position: Vector3;
