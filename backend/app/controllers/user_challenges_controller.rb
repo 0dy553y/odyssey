@@ -3,7 +3,7 @@
 class UserChallengesController < ApplicationController
   def all_user_challenges_for_challenge
     @user_challenges = UserChallenge
-                         .where(user_id: current_user.id, challenge_id: params.require(:challenge_id))
+                       .where(user_id: current_user.id, challenge_id: params.require(:challenge_id))
                        .includes(:schedule, :user_tasks)
   end
 
