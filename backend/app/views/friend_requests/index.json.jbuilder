@@ -2,6 +2,7 @@
 
 json.data @friend_requests do |friend_request|
   json.id friend_request.id
+  json.sentAt friend_request.created_at
   sender = friend_request.sender
   json.sender do
     json.id sender.id
