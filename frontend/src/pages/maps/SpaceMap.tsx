@@ -1,16 +1,11 @@
 import React, { useState, useRef } from 'react';
 import SpaceMapStructure from './SpaceMapStructure';
 import { Canvas } from '@react-three/fiber';
-import { MapControls, Stars } from '@react-three/drei';
+import { OrbitControls, Stars } from '@react-three/drei';
 import { Character } from '../../components/map';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Direction } from '../../types/map';
 import { DirectionPosition } from '../../types/map';
-
-interface MapProps {
-  numSteps: number;
-  currentStep: number;
-}
 
 const SpaceMap: React.FC = () => {
   const numSteps = 30;
@@ -55,7 +50,7 @@ const SpaceMap: React.FC = () => {
       <Canvas camera={{ zoom: 15, position: [d, d, d] }} orthographic={true}>
         <color attach="background" args={['#010101']} />
         {/*  x: red, y: green, z: blue */}
-        <axesHelper args={[5]} />
+        {/* <axesHelper args={[5]} /> */}
         <EffectComposer>
           <Bloom
             luminanceThreshold={0.8}
@@ -85,7 +80,12 @@ const SpaceMap: React.FC = () => {
           position={charPosition.pos}
           direction={charPosition.direction}
         />
-        <MapControls />
+        <OrbitControls
+          addEventListener={undefined}
+          hasEventListener={undefined}
+          removeEventListener={undefined}
+          dispatchEvent={undefined}
+        />
         <Stars factor={10} radius={60} saturation={1} fade />
       </Canvas>
       <button onClick={() => moveCharacterBackward()}> previous </button>
