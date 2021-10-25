@@ -1,21 +1,72 @@
-import React from 'react';
-import { useLoader } from '@react-three/fiber';
+import React, {
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
+import { useLoader, Vector3 } from '@react-three/fiber';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
+import { useSpring, animated, config } from '@react-spring/three';
+import { Direction } from '../../types/map';
+import { getRotation } from '../../utils/direction';
+import { DirectionPosition } from '../../types/map';
 
-import { MapComponent } from './MapComponent';
+interface CharacterProps {
+  position: Vector3;
+  direction: Direction;
+}
 
-const Character: React.FC = () => {
-  const materials = useLoader(MTLLoader, '/models/astronaut.mtl');
-  const astronaut = useLoader(
-    OBJLoader,
-    '/models/astronaut.obj',
-    (loader: any) => {
-      materials.preload();
-      loader.setMaterials(materials);
-    }
+const Character = (props: CharacterProps, ref) => {
+  const { position, direction } = props;
+  const materials = useLoader(MTLLoader, '/astronaut.mtl');
+  const astronaut = useLoader(OBJLoader, '/astronaut.obj', (loader) => {
+    materials.preload();
+    loader.setMaterials(materials);
+  });
+  const characterRef = useRef();
+  const [flip, set] = useState(false);
+  const { pos } = useSpring({
+    from: { pos: position },
+    reset: false,
+    config: config.gentle,
+  });
+
+  useImperativeHandle(ref, () => ({
+    moveCharacter: (
+      oldDirectionPosition: DirectionPosition,
+      newDirectionPosition: DirectionPosition
+    ) => {
+      pos.start({
+        from: oldDirectionPosition.pos as number[],
+        to: newDirectionPosition.pos as number[],
+      });
+      characterRef.current.rotation.y = getRotation(
+        newDirectionPosition.direction
+      );
+    },
+  }));
+
+  // Idle hovering animation.
+  const { localPos } = useSpring({
+    reset: true,
+    from: { localPos: [0, 0.2, 0] },
+    reverse: flip,
+    localPos: [0, 1, 0],
+    delay: 200,
+    config: { ...config.slow, duration: 800 },
+    onRest: () => set(!flip),
+  });
+
+  return (
+    <animated.group
+      ref={characterRef}
+      position={pos}
+      rotation={[0, getRotation(direction), 0]}
+    >
+      <animated.primitive position={localPos} object={astronaut} scale={0.4} />
+    </animated.group>
   );
-  return <primitive object={astronaut} scale={0.4} />;
 };
 
-export default MapComponent(Character);
+export default forwardRef(Character);
