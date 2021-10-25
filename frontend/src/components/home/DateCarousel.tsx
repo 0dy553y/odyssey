@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   getDateFromNowString,
   getDayString,
@@ -13,6 +13,7 @@ import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import './DateCarousel.scss';
+import dayjs from 'dayjs';
 
 const useStyles = makeStyles(() => ({
   monthText: {
@@ -26,17 +27,31 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface Props {
+  date: Date;
   setDate: (date: Date) => void;
 }
 
-const DateCarousel: React.FC<Props> = ({ setDate }: Props) => {
+const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
   const dateRange = 50;
   const previousIndex = dateRange;
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(date);
   const [dates, setDates] = useState(
     getNeighbouringDates(selectedDate, dateRange)
   );
   const classes = useStyles();
+
+  useEffect(() => {
+    const diff = dayjs(date).diff(selectedDate, 'day');
+    if (diff == 0) {
+      return;
+    }
+    if (diff > 0) {
+      shiftDatesRight(diff);
+    } else {
+      shiftDatesLeft(-diff);
+    }
+    setSelectedDate(date);
+  }, [date]);
 
   const shiftDatesLeft = (by: number) => {
     if (by <= 0) {
