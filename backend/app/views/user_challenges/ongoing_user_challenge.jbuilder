@@ -12,12 +12,6 @@ json.data do
     json.scheduledFor user_task.scheduled_for
   end
   json.schedule do
-    json.monday @user_challenge.schedule.monday
-    json.tuesday @user_challenge.schedule.tuesday
-    json.wednesday @user_challenge.schedule.wednesday
-    json.thursday @user_challenge.schedule.thursday
-    json.friday @user_challenge.schedule.friday
-    json.saturday @user_challenge.schedule.saturday
-    json.sunday @user_challenge.schedule.sunday
+    json.partial! 'schedules/schedule', schedule: @user_challenge.schedule
   end
 end
