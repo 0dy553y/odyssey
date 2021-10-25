@@ -20,18 +20,18 @@ export function getOngoingUserChallengeData(
 export function getAllUserChallengesDataForChallenge(
   state: RootState,
   challengeId: number
-): UserChallengeData[] | undefined {
-  return getLocalState(state).allUserChallengesData[challengeId];
+): UserChallengeData[] {
+  return getLocalState(state).allUserChallengesData[challengeId] ?? [];
 }
 
 export function getAllOngoingUserChallenges(
   state: RootState
-): UserChallengeListData[] | undefined {
+): UserChallengeListData[] {
   return getLocalState(state).ongoingUserChallengesList;
 }
 
 export function getAllCompletedUserChallenges(
   state: RootState
-): CompletedUserChallengeListData[] | undefined {
+): CompletedUserChallengeListData[] {
   return getLocalState(state).completedUserChallengesList;
 }

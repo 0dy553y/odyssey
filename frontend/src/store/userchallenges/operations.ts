@@ -62,6 +62,8 @@ export function loadAllUserChallengesDataForChallenge(
       return {
         ...userChallenge,
         enrolledDate: new Date(userChallenge.enrolledDate),
+        completedAt:
+          userChallenge.completedAt && new Date(userChallenge.completedAt),
         userTasks: userChallenge.userTasks.map(
           mapUserTaskDateStringsIntoDateObjects
         ),

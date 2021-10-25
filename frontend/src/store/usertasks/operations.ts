@@ -2,7 +2,7 @@ import api from 'api';
 import { startOfDay } from 'date-fns';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { loadOngoingUserChallengeDataForChallenge } from 'store/userchallenges/operations';
+import { loadAllUserChallengesDataForChallenge } from 'store/userchallenges/operations';
 import { OperationResult } from 'types/store';
 import { UserTaskData, UserTaskListData } from 'types/usertasks';
 import { RootState } from '../index';
@@ -65,7 +65,7 @@ export function markUserTaskAsDoneFromChallenge(
     userTaskId,
     onChallengeCompleted,
     (dispatch, userTask) => {
-      dispatch(loadOngoingUserChallengeDataForChallenge(userTask.challengeId));
+      dispatch(loadAllUserChallengesDataForChallenge(userTask.challengeId));
     }
   );
 }
