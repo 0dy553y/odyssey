@@ -35,9 +35,9 @@ Rails.application.routes.draw do
       end
 
       namespace :user_challenges do
-        get 'ongoing_user_challenge', to: 'ongoing_user_challenge'
         get 'all_ongoing_challenges', to: 'all_ongoing_challenges'
         get 'all_completed_challenges', to: 'all_completed_challenges'
+        get 'all_user_challenges_for_challenge', to: 'all_user_challenges_for_challenge'
       end
 
       resources :friends, only: %i[index destroy] do

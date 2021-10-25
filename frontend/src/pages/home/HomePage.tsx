@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import UserTaskCarousel from '../../components/home/UserTaskCarousel';
 import { getUserTaskListForDay } from '../../store/usertasks/selectors';
 import { RootState } from '../../store';
-import { Grid, Skeleton, Typography } from '@mui/material';
+import { Grid, IconButton, Skeleton, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { getUser } from '../../store/auth/selectors';
 import { useHistory } from 'react-router-dom';
-import { LOGIN_ROUTE } from '../../routing/routes';
+import { LOGIN_ROUTE, NOTIFICATIONS_ROUTE } from '../../routing/routes';
 import DateCarousel from '../../components/home/DateCarousel';
 import ChallengeCompletedModal from 'components/challengeCompletedModal';
+import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -33,6 +34,9 @@ const useStyles = makeStyles(() => ({
     height: '100%',
     marginTop: 10,
     marginBottom: 15,
+  },
+  controlsContainer: {
+    textAlign: 'right',
   },
 }));
 
@@ -86,16 +90,26 @@ const HomePage: React.FC = () => {
           <Grid
             item
             container
-            direction="column"
+            direction="row"
             className={classes.headerNonCarouselItem}
           >
-            <Grid item>
-              <Typography variant="h4">Hello,</Typography>
+            <Grid item container direction="column" xs={10}>
+              <Grid item>
+                <Typography variant="h4">Hello,</Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="h4">
+                  {user.displayName ?? user.username}
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Typography variant="h4">
-                {user.displayName ?? user.username}
-              </Typography>
+            <Grid item xs={2} className={classes.controlsContainer}>
+              <IconButton
+                size="large"
+                onClick={() => history.push(NOTIFICATIONS_ROUTE)}
+              >
+                <NotificationsOutlinedIcon fontSize="inherit" />
+              </IconButton>
             </Grid>
           </Grid>
           <Grid item className={classes.headerCarouselItem}>

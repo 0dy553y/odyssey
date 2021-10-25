@@ -6,6 +6,8 @@ class UserChallenge < ApplicationRecord
   has_many :user_tasks, dependent: :destroy
   belongs_to :schedule
 
+  default_scope -> { order(created_at: :asc) }
+
   scope :ongoing, -> { where(completed_at: nil, forfeited_at: nil) }
   scope :completed, -> { where.not(completed_at: nil) }
 

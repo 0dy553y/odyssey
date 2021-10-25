@@ -7,7 +7,7 @@ import {
 type ChallengeId = number;
 
 export interface UserChallengesState {
-  ongoingUserChallengeData: Record<ChallengeId, UserChallengeData>;
+  allUserChallengesData: Record<ChallengeId, UserChallengeData[]>;
   ongoingUserChallengesList: UserChallengeListData[];
   completedUserChallengesList: CompletedUserChallengeListData[];
 }
