@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFriendRequestList } from '../../store/notifications/selectors';
+import { loadAllFriendRequests } from '../../store/notifications/operations';
 
 const useStyles = makeStyles(() => ({
   textContainer: {
@@ -18,9 +21,12 @@ const useStyles = makeStyles(() => ({
 
 const NotificationsList: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadAllFriendRequests());
+  }, []);
 
-  // TODO: Implement this.
-  const notifications = [];
+  const notifications = useSelector(getFriendRequestList);
 
   if (notifications.length == 0) {
     return (

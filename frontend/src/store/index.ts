@@ -24,12 +24,15 @@ import userTasksReducer from './usertasks/reducer';
 import { UserTasksState } from './usertasks/types';
 import { FriendsState } from './friends/types';
 import friendsReducer from './friends/reducer';
+import { NotificationsState } from './notifications/types';
+import notificationsReducer from './notifications/reducer';
 
 export interface RootState {
   auth: AuthState;
   categories: CategoriesState;
   challenges: ChallengesState;
   friends: FriendsState;
+  notifications: NotificationsState;
   posts: PostsState;
   snackbars: SnackbarsState;
   tasks: TasksState;
@@ -42,6 +45,7 @@ export const rootReducer = combineReducers({
   categories: categoriesReducer,
   challenges: challengesReducer,
   friends: friendsReducer,
+  notifications: notificationsReducer,
   posts: postsReducer,
   snackbars: snackbarsReducer,
   tasks: tasksReducer,
