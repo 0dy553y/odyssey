@@ -14,14 +14,20 @@ import {
   displayUsername,
 } from '../../utils/formatting';
 import { getDateFromNowString } from '../../utils/date';
-import { ReactionChip } from '../feed/ReactionChip';
-import { ReactionPicker } from '../feed/ReactionPicker';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles(() => ({
+  subtitle: {
+    color: '#A5A5A5',
+  },
+}));
 
 interface Props {
   friendRequest: FriendRequestListData;
 }
 
 const NotificationsListItem: React.FC<Props> = ({ friendRequest }: Props) => {
+  const classes = useStyles();
   const sender = friendRequest.sender;
 
   return (
@@ -44,22 +50,22 @@ const NotificationsListItem: React.FC<Props> = ({ friendRequest }: Props) => {
         <Grid item xs={12}>
           sent you a friend request!
         </Grid>
-        {/*<Grid item xs={12}>*/}
-        {/*  <Tooltip*/}
-        {/*    arrow*/}
-        {/*    title={displayDateWithTimestamp(post.createdAt)}*/}
-        {/*    leaveTouchDelay={1500}*/}
-        {/*    enterTouchDelay={50}*/}
-        {/*  >*/}
-        {/*    <Typography*/}
-        {/*      component="span"*/}
-        {/*      variant="subtitle2"*/}
-        {/*      className={classes.subtitle}*/}
-        {/*    >*/}
-        {/*      {getDateFromNowString(post.createdAt)}*/}
-        {/*    </Typography>*/}
-        {/*  </Tooltip>*/}
-        {/*</Grid>*/}
+        <Grid item xs={12}>
+          <Tooltip
+            arrow
+            title={displayDateWithTimestamp(friendRequest.sentAt)}
+            leaveTouchDelay={1500}
+            enterTouchDelay={50}
+          >
+            <Typography
+              component="span"
+              variant="subtitle2"
+              className={classes.subtitle}
+            >
+              {getDateFromNowString(friendRequest.sentAt)}
+            </Typography>
+          </Tooltip>
+        </Grid>
       </Grid>
     </ListItem>
   );

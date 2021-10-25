@@ -9,7 +9,14 @@ import { saveFriendRequestList } from './actions';
 export function loadAllFriendRequests(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.friendRequests.getFriendRequestsList();
-    const friendRequests: FriendRequestListData[] = response.payload.data;
+    const friendRequests: FriendRequestListData[] = response.payload.data.map(
+      (friendRequest) => {
+        return {
+          ...friendRequest,
+          sentAt: new Date(friendRequest.sentAt),
+        };
+      }
+    );
     dispatch(saveFriendRequestList(friendRequests));
   };
 }
