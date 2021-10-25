@@ -12,7 +12,9 @@ const NextDisc: React.FC<NextDiscProps> = ({ color, thickness = 0.2 }) => {
   const ref = useRef();
 
   useFrame(({ clock }) => {
-    ref.current.rotation.y = clock.getElapsedTime() / 2;
+    if (ref.current !== undefined) {
+      (ref.current as any).rotation.y = clock.getElapsedTime() / 2;
+    }
   });
 
   return (
