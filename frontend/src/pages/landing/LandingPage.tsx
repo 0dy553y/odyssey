@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from 'components/landing/LandingNavbar';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack, Theme, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import Masthead from 'components/landing/Masthead';
 import Footer from 'components/landing/Footer';
 import Section from 'components/landing/Section';
@@ -13,18 +14,77 @@ import message from 'assets/images/message.png';
 import { InView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 
-import './LandingPage.scss';
+const useStyles = makeStyles((theme: Theme) => ({
+  landingPage: {
+    marginLeft: '1.5em',
+    marginRight: '1.5em',
+    [theme.breakpoints.only('xs')]: {
+      overflowX: 'hidden',
+    },
+  },
+  descriptionSegment: {
+    position: 'relative',
+    margin: '5em -40vw 1em -40vw',
+    minWidth: '80vw',
+    left: '50%',
+    right: '50%',
+    width: '80vw',
+    overflow: 'hidden',
+    verticalAlign: 'middle',
+    textAlign: 'center',
+  },
+  section: {
+    marginBottom: '7em',
+  },
+  sideDescription: {
+    paddingTop: '5em',
+    paddingBottom: '2em',
+    textAlign: 'center',
+    display: 'inline-block',
+  },
+  topDescription: {
+    color: '#0785a5',
+    marginBottom: '1em',
+  },
+  sideImage: {
+    maxWidth: '100%',
+  },
+  sideImageMessage: {
+    maxWidth: '100%',
+    paddingTop: '20%',
+  },
+  runnin: {
+    transform: 'translateX(-150%) translateY(-40%)',
+    marginBottom: '-5em',
+  },
+  study: {
+    transform: 'translateX(250%) translateY(-40%)',
+    marginBottom: '-5em',
+  },
+  specialUnderline: {
+    background: 'linear-gradient(to bottom, #88d8fd 0%, #88d8fd 100%)',
+    backgroundPosition: '0 100%',
+    backgroundRepeat: 'repeat-x',
+    backgroundSize: '4px 4px',
+    transition: 'background-size 0.5s',
+    '&:hover': {
+      backgroundSize: '4px 50px',
+    },
+  },
+}));
 
 const LandingPage: React.FC = () => {
+  const classes = useStyles();
+
   return (
-    <Box className="landing-page">
+    <Box className={classes.landingPage}>
       <Navbar />
       <Masthead />
       <Section content="Whether you are trying to run your first 5km or pick up reading again, starting something new can be pretty hard." />
-      <img className="study" src={study} />
+      <img className={classes.study} src={study} />
       <Section content="But it doesn't have to be this way. Imagine — no more excuses, no more holding back." />
-      <img className="runnin" src={runnin} />
-      <Box className="section">
+      <img className={classes.runnin} src={runnin} />
+      <Box className={classes.section}>
         <InView threshold={1}>
           {({ inView, ref }) => (
             <motion.div
@@ -34,21 +94,22 @@ const LandingPage: React.FC = () => {
               transition={{ duration: 1, ease: 'easeOut' }}
             >
               <Typography variant="h4">
-                Meet <span className="special-underline">Odyssey</span>: the app
-                that supports and guides you through every step of your journey.
+                Meet <span className={classes.specialUnderline}>Odyssey</span>:
+                the app that supports and guides you through every step of your
+                journey.
               </Typography>
             </motion.div>
           )}
         </InView>
       </Box>
       <div style={{ paddingBottom: '3em' }}></div>
-      <Box className="description-segment">
+      <Box className={classes.descriptionSegment}>
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
           spacing={{ xs: 1, sm: 2, md: 5 }}
         >
-          <Box className="side-description">
-            <Typography variant="body1" className="top-description">
+          <Box className={classes.sideDescription}>
+            <Typography variant="body1" className={classes.topDescription}>
               MAKE IT HAPPEN
             </Typography>
             <Typography variant="h4">
@@ -59,11 +120,11 @@ const LandingPage: React.FC = () => {
             </Typography>
           </Box>
           <Box>
-            <img className="side-image" src={explore} />
+            <img className={classes.sideImage} src={explore} />
           </Box>
         </Stack>
       </Box>
-      <Box className="description-segment">
+      <Box className={classes.descriptionSegment}>
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
           spacing={{ xs: 1, sm: 2, md: 5 }}
@@ -71,8 +132,8 @@ const LandingPage: React.FC = () => {
           <Box>
             <img src={obebebe} />
           </Box>
-          <Box className="side-description">
-            <Typography variant="body1" className="top-description">
+          <Box className={classes.sideDescription}>
+            <Typography variant="body1" className={classes.topDescription}>
               CELEBRATE EVERY MILESTONE
             </Typography>
             <Typography variant="h4">
@@ -84,13 +145,13 @@ const LandingPage: React.FC = () => {
           </Box>
         </Stack>
       </Box>
-      <Box className="description-segment">
+      <Box className={classes.descriptionSegment}>
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
           spacing={{ xs: 1, sm: 2, md: 5 }}
         >
-          <Box className="side-description">
-            <Typography variant="body1" className="top-description">
+          <Box className={classes.sideDescription}>
+            <Typography variant="body1" className={classes.topDescription}>
               FIND YOUR FLOCK
             </Typography>
             <Typography variant="h4">
@@ -99,7 +160,7 @@ const LandingPage: React.FC = () => {
             </Typography>
           </Box>
           <Box>
-            <img className="side-image-message" src={message} />
+            <img className={classes.sideImageMessage} src={message} />
           </Box>
         </Stack>
       </Box>
