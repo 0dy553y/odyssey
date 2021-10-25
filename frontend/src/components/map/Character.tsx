@@ -20,11 +20,15 @@ interface CharacterProps {
 
 const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
   const { position, direction } = props;
-  const materials = useLoader(MTLLoader, '/astronaut.mtl');
-  const astronaut = useLoader(OBJLoader, '/astronaut.obj', (loader: any) => {
-    materials.preload();
-    loader.setMaterials(materials);
-  });
+  const materials = useLoader(MTLLoader, '/models/astronaut.mtl');
+  const astronaut = useLoader(
+    OBJLoader,
+    '/models/astronaut.obj',
+    (loader: any) => {
+      materials.preload();
+      loader.setMaterials(materials);
+    }
+  );
   const characterRef = useRef();
   const [flip, set] = useState(false);
   const { pos } = useSpring({
@@ -64,10 +68,14 @@ const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
   return (
     <animated.group
       ref={characterRef}
-      position={new THREE.Vector3(pos.get()[0], pos.get()[1], pos.get()[2])}
+      position={pos as any as Vector3}
       rotation={[0, getRotation(direction), 0]}
     >
-      <animated.primitive position={localPos} object={astronaut} scale={0.4} />
+      <animated.primitive
+        position={localPos as any as Vector3}
+        object={astronaut}
+        scale={0.4}
+      />
     </animated.group>
   );
 };
