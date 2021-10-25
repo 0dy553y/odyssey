@@ -40,15 +40,14 @@ const NotificationsListItem: React.FC<Props> = ({ friendRequest }: Props) => {
         />
       </ListItemAvatar>
       <Grid container alignItems="center">
-        <ListItemText
-          primary={
-            sender.displayName
-              ? `${sender.displayName} (${displayUsername(sender.username)})`
-              : displayUsername(sender.username)
-          }
-        />
         <Grid item xs={12}>
-          sent you a friend request!
+          <ListItemText
+            primary={`${
+              sender.displayName
+                ? `${sender.displayName} (${displayUsername(sender.username)})`
+                : displayUsername(sender.username)
+            } sent you a friend request!`}
+          />
         </Grid>
         <Grid item xs={12}>
           <Tooltip
