@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
 import { Vector3 } from '@react-three/fiber';
-import { Box, Island, Disc, NextDisc } from '../../components/map';
+import { Island, Disc, NextDisc } from '../../components/map';
+
 import { Direction, Axis } from '../../types/map';
 import { translate, buildDiagonalRepeated } from '../../utils/map';
 import { DirectionPosition } from '../../types/map';
@@ -12,17 +18,21 @@ interface MapProps {
   width: number;
   widthIncrement: number;
   heightIncrement: number;
-  setStepPositions: (pos: Vector3[]) => void;
+  onMapMounted: (
+    pos: Vector3[],
+    setStep: React.Dispatch<React.SetStateAction<number>>
+  ) => void;
 }
 
-const SpaceMapStructure: React.FC<MapProps> = ({
-  numSteps,
-  currentStep,
-  width,
-  widthIncrement,
-  heightIncrement,
-  setStepPositions,
-}) => {
+const SpaceMapStructure = (props: MapProps, ref) => {
+  const {
+    numSteps,
+    currentStep,
+    width,
+    widthIncrement,
+    heightIncrement,
+    onMapMounted,
+  } = props;
   const numStages = Math.floor(numSteps / width);
   let base = [width * widthIncrement, -4, width * widthIncrement];
   let currentDirection = Direction.RIGHT;
@@ -30,7 +40,15 @@ const SpaceMapStructure: React.FC<MapProps> = ({
   const [step, setStep] = useState(currentStep);
   const stepPositions: DirectionPosition[] = [];
 
-  useEffect(() => setStepPositions(stepPositions), []);
+  useEffect(() => {
+    onMapMounted(stepPositions, setStep);
+  }, []);
+
+  useImperativeHandle(ref, () => ({
+    setCurrentStep: (step: number) => {
+      setStep(step);
+    },
+  }));
 
   const buidDisc = (
     key: number,
@@ -41,7 +59,7 @@ const SpaceMapStructure: React.FC<MapProps> = ({
       return (
         <NextDisc key={key} position={position} colorOverride={'#ffffff'} />
       );
-    } else if (index <= currentStep) {
+    } else if (index <= step) {
       return <Disc key={key} position={position} colorOverride={'#569874'} />;
     }
     return <Disc key={key} position={position} />;
@@ -90,7 +108,10 @@ const SpaceMapStructure: React.FC<MapProps> = ({
             />
           </>
         );
-        stepPositions.push({ pos: base.slice(), direction: currentDirection });
+        stepPositions.push({
+          pos: endPosition.slice(),
+          direction: currentDirection,
+        });
         currentDirection = nextDirection;
         base = translate(endPosition, {
           [Axis.X]: dv[0] + nextDv[0] * (widthIncrement + 1),
@@ -101,9 +122,8 @@ const SpaceMapStructure: React.FC<MapProps> = ({
         return stage;
       })}
       {buildDiagonalRepeated({
-        buildBlock: (key: number, position: Vector3) => (
-          <Disc key={key} position={position} />
-        ),
+        buildBlock: (key: number, position: Vector3) =>
+          buidDisc(key, position, numStages * width + key + 1),
         base: base,
         width: numSteps % width,
         widthIncrement: widthIncrement,
@@ -120,4 +140,4 @@ const SpaceMapStructure: React.FC<MapProps> = ({
   );
 };
 
-export default SpaceMapStructure;
+export default forwardRef(SpaceMapStructure);
