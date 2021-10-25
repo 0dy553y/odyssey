@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { Typography } from '@mui/material';
+import { Divider, List, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFriendRequestList } from '../../store/notifications/selectors';
 import { loadAllFriendRequests } from '../../store/notifications/operations';
+import NotificationsListItem from './NotificationsListItem';
 
 const useStyles = makeStyles(() => ({
   textContainer: {
@@ -26,9 +27,9 @@ const NotificationsList: React.FC = () => {
     dispatch(loadAllFriendRequests());
   }, []);
 
-  const notifications = useSelector(getFriendRequestList);
+  const friendRequests = useSelector(getFriendRequestList);
 
-  if (notifications.length == 0) {
+  if (friendRequests.length == 0) {
     return (
       <div className={classes.textContainer}>
         <Typography align="center" className={classes.text}>
@@ -38,7 +39,22 @@ const NotificationsList: React.FC = () => {
     );
   }
 
-  return <></>;
+  return (
+    <List>
+      {friendRequests.map((friendRequest, idx) => {
+        return (
+          <React.Fragment key={friendRequest.id}>
+            <NotificationsListItem friendRequest={friendRequest} />
+
+            {/* include divider for all except last notification */}
+            {idx !== friendRequests.length - 1 && (
+              <Divider variant="inset" component="li" />
+            )}
+          </React.Fragment>
+        );
+      })}
+    </List>
+  );
 };
 
 export default NotificationsList;
