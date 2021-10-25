@@ -12,7 +12,9 @@ interface MapProps {
   currentStep: number;
 }
 
-const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
+const SpaceMap: React.FC = () => {
+  const numSteps = 30;
+  let currentStep = 10;
   const [stepPositions, setStepPositions] = useState<DirectionPosition[]>([]);
   const [charPosition, setCharPosition] = useState<DirectionPosition>({
     pos: [0, 0, 0],
