@@ -18,10 +18,7 @@ interface MapProps {
   width: number;
   widthIncrement: number;
   heightIncrement: number;
-  onMapMounted: (
-    pos: Vector3[],
-    setStep: React.Dispatch<React.SetStateAction<number>>
-  ) => void;
+  onMapMounted: (pos: DirectionPosition[]) => void;
 }
 
 const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
@@ -41,7 +38,7 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
   const stepPositions: DirectionPosition[] = [];
 
   useEffect(() => {
-    onMapMounted(stepPositions, setStep);
+    onMapMounted(stepPositions);
   }, []);
 
   useImperativeHandle(ref, () => ({
