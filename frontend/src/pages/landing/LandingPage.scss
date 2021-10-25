@@ -76,6 +76,9 @@
         background-size: 4px 50px;
     }
 
-    margin-left: 1.5em;
-    margin-right: 1.5em;
+    .margin-text {
+        margin-left: 1.5em;
+        margin-right: 1.5em;
+        overflow-x: hidden;
+    }
 }
