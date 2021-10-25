@@ -10,13 +10,6 @@ function getLocalState(state: RootState): UserChallengesState {
   return state.userChallenges;
 }
 
-export function getOngoingUserChallengeData(
-  state: RootState,
-  challengeId: number
-): UserChallengeData | undefined {
-  return getLocalState(state).ongoingUserChallengeData[challengeId];
-}
-
 export function getAllUserChallengesDataForChallenge(
   state: RootState,
   challengeId: number

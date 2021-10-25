@@ -25,17 +25,10 @@ import { joinChallenge, loadChallenge } from 'store/challenges/operations';
 import { loadAllTasks } from 'store/tasks/operations';
 import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
-import {
-  loadAllUserChallengesDataForChallenge,
-  loadOngoingUserChallengeDataForChallenge,
-} from 'store/userchallenges/operations';
-import {
-  getAllUserChallengesDataForChallenge,
-  getOngoingUserChallengeData,
-} from 'store/userchallenges/selectors';
+import { loadAllUserChallengesDataForChallenge } from 'store/userchallenges/operations';
+import { getAllUserChallengesDataForChallenge } from 'store/userchallenges/selectors';
 import { getHexCode } from 'utils/color';
 import ChallengeCompletedModal from 'components/challengeCompletedModal';
-import { EXPLORE_ROUTE } from 'routing/routes';
 
 export interface ChallengeDetailsPageProps {
   challenge: ChallengeData;

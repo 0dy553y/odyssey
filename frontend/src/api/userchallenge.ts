@@ -11,14 +11,6 @@ class UserChallengesAPI extends BaseAPI {
     return 'user_challenges';
   }
 
-  public getOngoingUserChallengeData(
-    challengeId: number
-  ): ApiPromise<UserChallengeData> {
-    return this.get(
-      `${UserChallengesAPI.getUserChallengesUrl()}/ongoing_user_challenge?challenge_id=${challengeId}`
-    );
-  }
-
   public getAllUserChallengesDataForChallenge(
     challengeId: number
   ): ApiPromise<UserChallengeData[]> {

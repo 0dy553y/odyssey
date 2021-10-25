@@ -8,7 +8,6 @@ import { UserChallengesState } from './types';
 
 const initialState: UserChallengesState = {
   allUserChallengesData: {},
-  ongoingUserChallengeData: {},
   ongoingUserChallengesList: [],
   completedUserChallengesList: [],
 };
@@ -17,19 +16,6 @@ export const userChallengesSlice = createSlice({
   name: 'userChallenges',
   initialState,
   reducers: {
-    updateOngoingUserChallengeData: (
-      state,
-      action: PayloadAction<{ challengeId: number; data: UserChallengeData }>
-    ) => {
-      state.ongoingUserChallengeData[action.payload.challengeId] =
-        action.payload.data;
-    },
-    removeOngoingUserChallengeData: (
-      state,
-      action: PayloadAction<{ challengeId: number }>
-    ) => {
-      delete state.ongoingUserChallengeData[action.payload.challengeId];
-    },
     updateAllUserChallengesData: (
       state,
       action: PayloadAction<{ challengeId: number; data: UserChallengeData[] }>
@@ -50,7 +36,7 @@ export const userChallengesSlice = createSlice({
       state.completedUserChallengesList = action.payload.data;
     },
     resetUserChallenges: (state) => {
-      state.ongoingUserChallengeData = {};
+      state.allUserChallengesData = {};
       state.ongoingUserChallengesList = [];
       state.completedUserChallengesList = [];
     },

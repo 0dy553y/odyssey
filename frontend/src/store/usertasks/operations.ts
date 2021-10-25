@@ -100,7 +100,7 @@ export function loadUserTaskActivityData(): OperationResult {
   };
 }
 
-// Exporting only to be used in loadOngoingUserChallengeDataForChallenge
+// Exporting only to be used in loadAllUserChallengesDataForChallenge
 // in userchallenges operation
 export function mapUserTaskDateStringsIntoDateObjects(
   userTask: UserTaskListData | UserTaskData
