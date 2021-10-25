@@ -17,6 +17,11 @@ import {
 } from '../../utils/formatting';
 import { getDateFromNowString } from '../../utils/date';
 import { makeStyles } from '@mui/styles';
+import { useDispatch } from 'react-redux';
+import {
+  acceptFriendRequest,
+  rejectFriendRequest,
+} from '../../store/notifications/operations';
 
 const useStyles = makeStyles((theme: Theme) => ({
   subtitle: {
@@ -38,6 +43,7 @@ interface Props {
 
 const NotificationsListItem: React.FC<Props> = ({ friendRequest }: Props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const sender = friendRequest.sender;
 
   return (
@@ -76,12 +82,20 @@ const NotificationsListItem: React.FC<Props> = ({ friendRequest }: Props) => {
           </Tooltip>
         </Grid>
         <Grid item xs={4}>
-          <Button variant="text" className={classes.acceptButton}>
+          <Button
+            variant="text"
+            className={classes.acceptButton}
+            onClick={() => dispatch(acceptFriendRequest(friendRequest.id))}
+          >
             Accept
           </Button>
         </Grid>
         <Grid item xs={4}>
-          <Button variant="text" className={classes.rejectButton}>
+          <Button
+            variant="text"
+            className={classes.rejectButton}
+            onClick={() => dispatch(rejectFriendRequest(friendRequest.id))}
+          >
             Reject
           </Button>
         </Grid>

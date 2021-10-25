@@ -4,7 +4,7 @@ import { RootState } from '../index';
 import { AnyAction } from 'redux';
 import api from '../../api';
 import { FriendRequestListData } from '../../types/friendrequests';
-import { saveFriendRequestList } from './actions';
+import { removeFriendRequest, saveFriendRequestList } from './actions';
 
 export function loadAllFriendRequests(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
@@ -18,5 +18,19 @@ export function loadAllFriendRequests(): OperationResult {
       }
     );
     dispatch(saveFriendRequestList(friendRequests));
+  };
+}
+
+export function acceptFriendRequest(friendRequestId: number): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    await api.friendRequests.acceptFriendRequest(friendRequestId);
+    dispatch(removeFriendRequest(friendRequestId));
+  };
+}
+
+export function rejectFriendRequest(friendRequestId: number): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    await api.friendRequests.rejectFriendRequest(friendRequestId);
+    dispatch(removeFriendRequest(friendRequestId));
   };
 }
