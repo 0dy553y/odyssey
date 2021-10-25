@@ -41,10 +41,16 @@ const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
   const classes = useStyles();
 
   useEffect(() => {
-    console.log(date);
-    console.log(selectedDate);
     const diff = dayjs(date).diff(selectedDate, 'day');
-    console.log(diff);
+    if (diff == 0) {
+      return;
+    }
+    if (diff > 0) {
+      shiftDatesRight(diff);
+    } else {
+      shiftDatesLeft(-diff);
+    }
+    setSelectedDate(date);
   }, [date]);
 
   const shiftDatesLeft = (by: number) => {
