@@ -11,23 +11,24 @@ import { useSpring, animated, config } from '@react-spring/three';
 import { Direction } from '../../types/map';
 import { getRotation } from '../../utils/direction';
 import { DirectionPosition } from '../../types/map';
+import * as THREE from 'three';
 
 interface CharacterProps {
   position: Vector3;
   direction: Direction;
 }
 
-const Character = (props: CharacterProps, ref) => {
+const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
   const { position, direction } = props;
   const materials = useLoader(MTLLoader, '/astronaut.mtl');
-  const astronaut = useLoader(OBJLoader, '/astronaut.obj', (loader) => {
+  const astronaut = useLoader(OBJLoader, '/astronaut.obj', (loader: any) => {
     materials.preload();
     loader.setMaterials(materials);
   });
   const characterRef = useRef();
   const [flip, set] = useState(false);
   const { pos } = useSpring({
-    from: { pos: position },
+    from: { pos: position as number[] },
     reset: false,
     config: config.gentle,
   });
@@ -41,9 +42,11 @@ const Character = (props: CharacterProps, ref) => {
         from: oldDirectionPosition.pos as number[],
         to: newDirectionPosition.pos as number[],
       });
-      characterRef.current.rotation.y = getRotation(
-        newDirectionPosition.direction
-      );
+      if (characterRef.current !== undefined) {
+        (characterRef.current as any).rotation.y = getRotation(
+          newDirectionPosition.direction
+        );
+      }
     },
   }));
 
@@ -61,7 +64,7 @@ const Character = (props: CharacterProps, ref) => {
   return (
     <animated.group
       ref={characterRef}
-      position={pos}
+      position={new THREE.Vector3(pos.get()[0], pos.get()[1], pos.get()[2])}
       rotation={[0, getRotation(direction), 0]}
     >
       <animated.primitive position={localPos} object={astronaut} scale={0.4} />

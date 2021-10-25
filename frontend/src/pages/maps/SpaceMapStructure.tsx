@@ -24,7 +24,7 @@ interface MapProps {
   ) => void;
 }
 
-const SpaceMapStructure = (props: MapProps, ref) => {
+const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
   const {
     numSteps,
     currentStep,
