@@ -1,14 +1,13 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import calendar from 'dayjs/plugin/calendar';
+import { startOfDay } from 'date-fns';
 
 dayjs.extend(relativeTime);
-dayjs.extend(calendar);
 
 export function getNeighbouringDates(date: Date, range: number): Date[] {
   const dates = [];
   for (let i = -range; i <= range; i++) {
-    const newDate = new Date();
+    const newDate = startOfDay(new Date());
     newDate.setDate(date.getDate() + i);
     dates.push(newDate);
   }

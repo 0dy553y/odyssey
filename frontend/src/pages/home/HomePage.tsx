@@ -12,6 +12,8 @@ import { LOGIN_ROUTE, NOTIFICATIONS_ROUTE } from '../../routing/routes';
 import DateCarousel from '../../components/home/DateCarousel';
 import ChallengeCompletedModal from 'components/challengeCompletedModal';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
+import TodayIcon from '@mui/icons-material/Today';
+import { startOfDay } from 'date-fns';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -50,7 +52,7 @@ const HomePage: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(startOfDay(new Date()));
   const [challengeCompletedModalState, setChallengeCompletedModalState] =
     useReducer(
       (
@@ -93,7 +95,7 @@ const HomePage: React.FC = () => {
             direction="row"
             className={classes.headerNonCarouselItem}
           >
-            <Grid item container direction="column" xs={10}>
+            <Grid item container direction="column" xs={6} sm={9}>
               <Grid item>
                 <Typography variant="h4">Hello,</Typography>
               </Grid>
@@ -103,17 +105,29 @@ const HomePage: React.FC = () => {
                 </Typography>
               </Grid>
             </Grid>
-            <Grid item xs={2} className={classes.controlsContainer}>
+            <Grid
+              item
+              direction="row"
+              xs={6}
+              sm={3}
+              className={classes.controlsContainer}
+            >
               <IconButton
                 size="large"
                 onClick={() => history.push(NOTIFICATIONS_ROUTE)}
               >
                 <NotificationsOutlinedIcon fontSize="inherit" />
               </IconButton>
+              <IconButton
+                size="large"
+                onClick={() => setDate(startOfDay(new Date()))}
+              >
+                <TodayIcon fontSize="inherit" />
+              </IconButton>
             </Grid>
           </Grid>
           <Grid item className={classes.headerCarouselItem}>
-            <DateCarousel setDate={setDate} />
+            <DateCarousel date={date} setDate={setDate} />
           </Grid>
           <Grid item className={classes.headerNonCarouselItem}>
             <Typography variant="h5">Your Tasks</Typography>
