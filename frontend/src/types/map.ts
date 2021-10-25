@@ -3,10 +3,10 @@ import { Vector3 } from '@react-three/fiber';
 export enum Direction {
   // Facing negative x axis.
   FORWARD,
-  // Facing positive x axis.
-  BACKWARD,
   // Facing positive z axis.
   LEFT,
+  // Facing positive x axis.
+  BACKWARD,
   // Facing negative z axis.
   RIGHT,
 }
