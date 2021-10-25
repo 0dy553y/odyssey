@@ -6,7 +6,6 @@ import Box from './Box';
 import Ladder from './Ladder';
 import { Vector3 } from '@react-three/fiber';
 import { useSpring, animated, config } from '@react-spring/three';
-import * as THREE from 'three';
 
 interface IslandProps {
   ladderHeight?: number;
@@ -16,16 +15,14 @@ const Island: React.FC<IslandProps & Color> = ({ ladderHeight = 1 }) => {
   const { pos } = useSpring({
     reset: true,
     reverse: flip,
-    from: { pos: [0, 0, 0] },
-    pos: [0, 0.5, 0],
+    from: { pos: [0, 0, 0] as Vector3 },
+    pos: [0, 0.5, 0] as Vector3,
     delay: 200,
     config: config.molasses,
     onRest: () => set(!flip),
   });
   return (
-    <animated.group
-      position={new THREE.Vector3(pos.get()[0], pos.get()[1], pos.get()[2])}
-    >
+    <animated.group position={pos as any as Vector3}>
       {buildRepeated({
         buildBlock: (key: number, position: Vector3) =>
           buildRepeated({

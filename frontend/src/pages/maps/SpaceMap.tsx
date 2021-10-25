@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Suspense } from 'react';
 import SpaceMapStructure from './SpaceMapStructure';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stars } from '@react-three/drei';
@@ -46,7 +46,7 @@ const SpaceMap: React.FC = () => {
   const d = 35;
 
   return (
-    <>
+    <Suspense fallback={<div />}>
       <Canvas camera={{ zoom: 15, position: [d, d, d] }} orthographic={true}>
         <color attach="background" args={['#010101']} />
         {/*  x: red, y: green, z: blue */}
@@ -90,7 +90,7 @@ const SpaceMap: React.FC = () => {
       </Canvas>
       <button onClick={() => moveCharacterBackward()}> previous </button>
       <button onClick={() => moveCharacterForward()}> next </button>
-    </>
+    </Suspense>
   );
 };
 
