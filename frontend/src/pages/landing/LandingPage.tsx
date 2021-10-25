@@ -20,26 +20,29 @@ const LandingPage: React.FC = () => {
     <Box className="landing-page">
       <Navbar />
       <Masthead />
-      <Section content="Whether you are trying to run your first 5km or pick up reading again, starting something new can be pretty hard." />
-      <img className="study" src={study} />
-      <Section content="But it doesn't have to be this way. Imagine — no more excuses, no more holding back." />
-      <img className="runnin" src={runnin} />
-      <Box className="section">
-        <InView threshold={1}>
-          {({ inView, ref }) => (
-            <motion.div
-              ref={ref}
-              initial={{ opacity: 0, y: 50 }}
-              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ duration: 1, ease: 'easeOut' }}
-            >
-              <Typography variant="h4">
-                Meet <span className="special-underline">Odyssey</span>: the app
-                that supports and guides you through every step of your journey.
-              </Typography>
-            </motion.div>
-          )}
-        </InView>
+      <Box className="margin-text">
+        <Section content="Whether you are trying to run your first 5km or pick up reading again, starting something new can be pretty hard." />
+        <img className="study" src={study} />
+        <Section content="But it doesn't have to be this way. Imagine — no more excuses, no more holding back." />
+        <img className="runnin" src={runnin} />
+        <Box className="section">
+          <InView threshold={1}>
+            {({ inView, ref }) => (
+              <motion.div
+                ref={ref}
+                initial={{ opacity: 0, y: 50 }}
+                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                transition={{ duration: 1, ease: 'easeOut' }}
+              >
+                <Typography variant="h4">
+                  Meet <span className="special-underline">Odyssey</span>: the
+                  app that supports and guides you through every step of your
+                  journey.
+                </Typography>
+              </motion.div>
+            )}
+          </InView>
+        </Box>
       </Box>
       <div style={{ paddingBottom: '3em' }}></div>
       <Box className="description-segment">
