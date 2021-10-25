@@ -31,7 +31,7 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
     onMapMounted,
   } = props;
   const numStages = Math.floor(numSteps / width);
-  let base = [width * widthIncrement, -4, width * widthIncrement];
+  let base: Vector3 = [width * widthIncrement, -4, width * widthIncrement];
   let currentDirection = Direction.RIGHT;
 
   const [step, setStep] = useState(currentStep);
@@ -49,7 +49,7 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
 
   const buidDisc = (
     key: number,
-    position: number,
+    position: Vector3,
     index: number
   ): JSX.Element => {
     if (index === step + 1) {
@@ -66,8 +66,8 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
     <>
       {[...Array(numStages)].map((_, i) => {
         const nextDirection = nextDirectionACW(currentDirection);
-        const dv = getDirectionVector(currentDirection);
-        const nextDv = getDirectionVector(nextDirection);
+        const dv = getDirectionVector(currentDirection) as number[];
+        const nextDv = getDirectionVector(nextDirection) as number[];
         const stageIncrement = 3;
 
         const endPosition = translate(base, {
@@ -106,7 +106,7 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
           </>
         );
         stepPositions.push({
-          pos: endPosition.slice(),
+          pos: endPosition,
           direction: currentDirection,
         });
         currentDirection = nextDirection;

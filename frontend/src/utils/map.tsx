@@ -47,8 +47,8 @@ export function buildRepeated({
   repeatDirection?: Direction;
   heightIncrement?: number;
   widthIncrement?: number;
-}) {
-  const directionVector = getDirectionVector(repeatDirection);
+}): JSX.Element {
+  const directionVector = getDirectionVector(repeatDirection) as number[];
   const deltaX = directionVector[0] * widthIncrement;
   const deltaZ = directionVector[1] * widthIncrement;
   return (
@@ -95,7 +95,7 @@ export function buildArch({
   columnWidthOverride?: number;
   direction?: Direction;
   key?: number;
-}) {
+}): JSX.Element {
   const directionVector = getDirectionVector(direction) as number[];
   const xIncrement = directionVector[0];
   const zIncrement = directionVector[1];
@@ -136,7 +136,7 @@ export function buildDiagonalRepeated({
   repeatDirection = Direction.FORWARD,
   heightIncrement = 0,
   widthIncrement = 1,
-  buildCallback = (position) => {
+  buildCallback = (_) => {
     return;
   },
 }: {
@@ -148,8 +148,8 @@ export function buildDiagonalRepeated({
   heightIncrement?: number;
   widthIncrement?: number;
   buildCallback?: (position: Vector3) => void;
-}) {
-  const directionVector = getDirectionVector(repeatDirection);
+}): JSX.Element {
+  const directionVector = getDirectionVector(repeatDirection) as number[];
   const deltaX = directionVector[0] * widthIncrement;
   const deltaZ = directionVector[1] * widthIncrement;
   return (
