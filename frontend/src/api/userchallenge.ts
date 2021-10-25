@@ -19,6 +19,14 @@ class UserChallengesAPI extends BaseAPI {
     );
   }
 
+  public getAllUserChallengesDataForChallenge(
+    challengeId: number
+  ): ApiPromise<UserChallengeData[]> {
+    return this.get(
+      `${UserChallengesAPI.getUserChallengesUrl()}/all_user_challenges_for_challenge?challenge_id=${challengeId}`
+    );
+  }
+
   public getAllOngoingUserChallengesData(): ApiPromise<
     UserChallengeListData[]
   > {

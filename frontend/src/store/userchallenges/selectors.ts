@@ -12,9 +12,16 @@ function getLocalState(state: RootState): UserChallengesState {
 
 export function getOngoingUserChallengeData(
   state: RootState,
-  categoryId: number
+  challengeId: number
 ): UserChallengeData | undefined {
-  return getLocalState(state).ongoingUserChallengeData[categoryId];
+  return getLocalState(state).ongoingUserChallengeData[challengeId];
+}
+
+export function getAllUserChallengesDataForChallenge(
+  state: RootState,
+  challengeId: number
+): UserChallengeData[] | undefined {
+  return getLocalState(state).allUserChallengesData[challengeId];
 }
 
 export function getAllOngoingUserChallenges(

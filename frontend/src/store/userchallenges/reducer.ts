@@ -7,6 +7,7 @@ import {
 import { UserChallengesState } from './types';
 
 const initialState: UserChallengesState = {
+  allUserChallengesData: {},
   ongoingUserChallengeData: {},
   ongoingUserChallengesList: [],
   completedUserChallengesList: [],
@@ -28,6 +29,13 @@ export const userChallengesSlice = createSlice({
       action: PayloadAction<{ challengeId: number }>
     ) => {
       delete state.ongoingUserChallengeData[action.payload.challengeId];
+    },
+    updateAllUserChallengesData: (
+      state,
+      action: PayloadAction<{ challengeId: number; data: UserChallengeData[] }>
+    ) => {
+      state.allUserChallengesData[action.payload.challengeId] =
+        action.payload.data;
     },
     updateOngoingUserChallengesListData: (
       state,

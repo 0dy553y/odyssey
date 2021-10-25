@@ -2,6 +2,7 @@ import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import {
   CompletedUserChallengeListData,
+  UserChallengeData,
   UserChallengeListData,
 } from 'types/userchallenge';
 import { UserTaskListData } from 'types/usertasks';
@@ -11,6 +12,7 @@ import { RootState } from '../index';
 import { mapUserTaskDateStringsIntoDateObjects } from '../usertasks/operations';
 import {
   removeOngoingUserChallengeData,
+  updateAllUserChallengesData,
   updateCompletedUserChallengesListData,
   updateOngoingUserChallengeData,
   updateOngoingUserChallengesListData,
@@ -41,6 +43,35 @@ export function loadOngoingUserChallengeDataForChallenge(
           enrolledDate: new Date(data.enrolledDate),
           userTasks,
         },
+      })
+    );
+  };
+}
+
+export function loadAllUserChallengesDataForChallenge(
+  challengeId: number
+): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    const response =
+      await api.userChallenges.getAllUserChallengesDataForChallenge(
+        challengeId
+      );
+    const data = response.payload.data;
+
+    const userChallenges: UserChallengeData[] = data.map((userChallenge) => {
+      return {
+        ...userChallenge,
+        enrolledDate: new Date(userChallenge.enrolledDate),
+        userTasks: userChallenge.userTasks.map(
+          mapUserTaskDateStringsIntoDateObjects
+        ),
+      };
+    });
+
+    dispatch(
+      updateAllUserChallengesData({
+        challengeId,
+        data: userChallenges,
       })
     );
   };
