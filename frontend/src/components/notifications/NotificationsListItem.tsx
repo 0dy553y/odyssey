@@ -1,10 +1,12 @@
 import React from 'react';
 import { FriendRequestListData } from '../../types/friendrequests';
 import {
+  Button,
   Grid,
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Theme,
   Tooltip,
   Typography,
 } from '@mui/material';
@@ -16,9 +18,17 @@ import {
 import { getDateFromNowString } from '../../utils/date';
 import { makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   subtitle: {
     color: '#A5A5A5',
+  },
+  acceptButton: {
+    color: theme.palette.primary.main,
+    backgroundColor: 'transparent',
+  },
+  rejectButton: {
+    color: theme.palette.secondary.main,
+    backgroundColor: 'transparent',
   },
 }));
 
@@ -49,7 +59,7 @@ const NotificationsListItem: React.FC<Props> = ({ friendRequest }: Props) => {
             } sent you a friend request!`}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={4}>
           <Tooltip
             arrow
             title={displayDateWithTimestamp(friendRequest.sentAt)}
@@ -64,6 +74,16 @@ const NotificationsListItem: React.FC<Props> = ({ friendRequest }: Props) => {
               {getDateFromNowString(friendRequest.sentAt)}
             </Typography>
           </Tooltip>
+        </Grid>
+        <Grid item xs={4}>
+          <Button variant="text" className={classes.acceptButton}>
+            Accept
+          </Button>
+        </Grid>
+        <Grid item xs={4}>
+          <Button variant="text" className={classes.rejectButton}>
+            Reject
+          </Button>
         </Grid>
       </Grid>
     </ListItem>
