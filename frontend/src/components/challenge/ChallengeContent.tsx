@@ -62,8 +62,6 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
     setY({ y: xy[1] });
   });
 
-  const [isScheduleModalOpen, setIsScheduleModalOpen] =
-    useState<boolean>(false);
   const [challengeCompletedModalState, setChallengeCompletedModalState] =
     useReducer(
       (
