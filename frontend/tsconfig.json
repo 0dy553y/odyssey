@@ -13,10 +13,9 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "src",
-    "watch": true
+    "baseUrl": "src"
   },
-  "compileOnSave": true,
   "include": ["src"]
 }
