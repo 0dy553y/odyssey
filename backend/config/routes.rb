@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  def api_resources(res, &block)
-    resources res, except: %i[new edit], &block
-  end
-
   scope :api, defaults: { format: 'json' } do
     scope :v1, defaults: { format: 'json' } do
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
@@ -12,6 +8,11 @@ Rails.application.routes.draw do
         sessions: 'auth/sessions',
         token_validations: 'auth/token_validations'
       }
+
+      resources :landing_emails
+      def api_resources(res, &block)
+        resources res, except: %i[new edit], &block
+      end
 
       # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
       resources :categories, only: %i[index show]
@@ -34,9 +35,23 @@ Rails.application.routes.draw do
       end
 
       namespace :user_challenges do
-        get 'ongoing_user_challenge', to: 'ongoing_user_challenge'
         get 'all_ongoing_challenges', to: 'all_ongoing_challenges'
         get 'all_completed_challenges', to: 'all_completed_challenges'
+        get 'all_user_challenges_for_challenge', to: 'all_user_challenges_for_challenge'
+      end
+
+      resources :friends, only: %i[index destroy] do
+        collection do
+          get 'search', to: 'search'
+        end
+      end
+      resources :friend_requests, only: %i[index create update destroy]
+
+      resources :posts, only: %i[index create] do
+        member do
+          post 'add_reaction', to: 'add_reaction'
+          post 'remove_reaction', to: 'remove_reaction'
+        end
       end
     end
   end

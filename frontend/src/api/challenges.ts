@@ -38,7 +38,7 @@ class ChallengesAPI extends BaseAPI {
   public addChallenge(
     challengePostData: ChallengePostData
   ): ApiPromise<ChallengeData> {
-    return this.post(`${ChallengesAPI.getChallengesUrl()}`, challengePostData);
+    return this.post(ChallengesAPI.getChallengesUrl(), challengePostData);
   }
 
   public editChallenge(

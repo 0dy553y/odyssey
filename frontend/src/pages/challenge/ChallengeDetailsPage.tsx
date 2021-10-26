@@ -3,26 +3,33 @@ import Typography from '@mui/material/Typography';
 import { useSpring } from 'react-spring';
 import { Box } from '@mui/system';
 import { loadChallenge } from 'store/challenges/operations';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { loadAllTasks } from 'store/tasks/operations';
-import { loadOngoingUserChallengeDataForChallenge } from 'store/userchallenges/operations';
+import { loadAllUserChallengesDataForChallenge } from 'store/userchallenges/operations';
 import { useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
-import { getOngoingUserChallengeData } from 'store/userchallenges/selectors';
+import { getAllUserChallengesDataForChallenge } from 'store/userchallenges/selectors';
 import CollapsedHeader from 'components/challenge/CollapsedHeader';
 import { Skeleton } from '@mui/material';
 import JoinChallengeButton from 'components/challenge/JoinChallengeButton';
 import ChallengeContent from 'components/challenge/ChallengeContent';
 
+interface ChallengeCompletedModalState {
+  isOpen: boolean;
+  completedChallengeName?: string;
+}
+
 const ChallengeDetailsPage: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadChallenge(Number(challengeId)));
-    dispatch(loadAllTasks(Number(challengeId)));
-    dispatch(loadOngoingUserChallengeDataForChallenge(Number(challengeId)));
+    batch(() => {
+      dispatch(loadChallenge(Number(challengeId)));
+      dispatch(loadAllTasks(Number(challengeId)));
+      dispatch(loadAllUserChallengesDataForChallenge(Number(challengeId)));
+    });
   }, []);
 
   const { challengeId } = useParams<{ challengeId: string }>();
@@ -36,9 +43,14 @@ const ChallengeDetailsPage: React.FC = () => {
     getTaskList(state, Number(challengeId))
   )!;
 
-  const userChallenge = useSelector((state: RootState) =>
-    getOngoingUserChallengeData(state, Number(challengeId))
+  const userChallenges = useSelector((state: RootState) =>
+    getAllUserChallengesDataForChallenge(state, Number(challengeId))
   );
+
+  const userChallenge =
+    userChallenges.length === 0
+      ? undefined
+      : userChallenges[userChallenges.length - 1];
 
   const [{ y }, setY] = useSpring(() => ({ y: 0 }));
 

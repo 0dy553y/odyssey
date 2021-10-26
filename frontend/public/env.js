@@ -9,4 +9,5 @@
 
 window.env = {
   BASE_SERVER_URL: 'http://localhost:3000/api/v1',
+  GOOGLE_ANALYTICS_ID: '',
 };

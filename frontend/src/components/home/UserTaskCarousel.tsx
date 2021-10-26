@@ -31,9 +31,14 @@ const useStyles = makeStyles(() => ({
 interface Props {
   userTaskList: UserTaskListData[];
   date: Date;
+  onChallengeCompleted: (completedChallengeName: string) => void;
 }
 
-const UserTaskCarousel: React.FC<Props> = ({ userTaskList, date }: Props) => {
+const UserTaskCarousel: React.FC<Props> = ({
+  userTaskList,
+  date,
+  onChallengeCompleted,
+}: Props) => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -83,7 +88,10 @@ const UserTaskCarousel: React.FC<Props> = ({ userTaskList, date }: Props) => {
     >
       {userTaskList.map((userTask: UserTaskListData) => (
         <SwiperSlide key={userTask.id}>
-          <UserTaskCard userTask={userTask} />
+          <UserTaskCard
+            userTask={userTask}
+            onChallengeCompleted={onChallengeCompleted}
+          />
         </SwiperSlide>
       ))}
     </Swiper>

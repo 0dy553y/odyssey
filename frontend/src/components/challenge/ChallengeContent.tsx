@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Box, Button, Skeleton, Typography, Tab } from '@mui/material';
 import { TaskListData } from 'types/tasks';
@@ -46,6 +46,11 @@ interface ChallengeContentProps {
   setY: SpringRef<{ y: number }>;
 }
 
+interface ChallengeCompletedModalState {
+  isOpen: boolean;
+  completedChallengeName?: string;
+}
+
 const privateTabs = [TabItem.YourStats];
 
 const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
@@ -56,6 +61,27 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
     console.log(xy[1]);
     setY({ y: xy[1] });
   });
+
+  const [isScheduleModalOpen, setIsScheduleModalOpen] =
+    useState<boolean>(false);
+  const [challengeCompletedModalState, setChallengeCompletedModalState] =
+    useReducer(
+      (
+        state: ChallengeCompletedModalState,
+        newState: Partial<ChallengeCompletedModalState>
+      ) => ({
+        ...state,
+        ...newState,
+      }),
+      { isOpen: false, completedChallengeName: undefined }
+    );
+
+  const onChallengeCompleted = (completedChallengeName: string) => {
+    setChallengeCompletedModalState({
+      isOpen: true,
+      completedChallengeName: completedChallengeName,
+    });
+  };
 
   const [currentTabItem, setCurrentTabItem] = useState<TabItem>(
     TabItem.Milestones
@@ -68,6 +94,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
           <ChallengeMilestones
             tasks={tasks}
             userTasks={userChallenge?.userTasks ?? []}
+            onChallengeCompleted={onChallengeCompleted}
           />
         );
       case TabItem.YourStats:

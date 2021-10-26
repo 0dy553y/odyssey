@@ -10,21 +10,21 @@ function getLocalState(state: RootState): UserChallengesState {
   return state.userChallenges;
 }
 
-export function getOngoingUserChallengeData(
+export function getAllUserChallengesDataForChallenge(
   state: RootState,
-  categoryId: number
-): UserChallengeData | undefined {
-  return getLocalState(state).ongoingUserChallengeData[categoryId];
+  challengeId: number
+): UserChallengeData[] {
+  return getLocalState(state).allUserChallengesData[challengeId] ?? [];
 }
 
 export function getAllOngoingUserChallenges(
   state: RootState
-): UserChallengeListData[] | undefined {
+): UserChallengeListData[] {
   return getLocalState(state).ongoingUserChallengesList;
 }
 
 export function getAllCompletedUserChallenges(
   state: RootState
-): CompletedUserChallengeListData[] | undefined {
+): CompletedUserChallengeListData[] {
   return getLocalState(state).completedUserChallengesList;
 }

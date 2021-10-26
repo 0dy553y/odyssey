@@ -1,0 +1,87 @@
+diff --git a/node_modules/@react-three/drei/core/MeshDistortMaterial.d.ts b/node_modules/@react-three/drei/core/MeshDistortMaterial.d.ts
+deleted file mode 100644
+index 539c2b4..0000000
+--- a/node_modules/@react-three/drei/core/MeshDistortMaterial.d.ts
++++ /dev/null
+@@ -1,25 +0,0 @@
+-import * as React from 'react';
+-import { MeshPhysicalMaterial, MeshPhysicalMaterialParameters } from 'three';
+-declare type DistortMaterialType = JSX.IntrinsicElements['meshPhysicalMaterial'] & {
+-    time?: number;
+-    distort?: number;
+-    radius?: number;
+-};
+-declare global {
+-    namespace JSX {
+-        interface IntrinsicElements {
+-            distortMaterialImpl: DistortMaterialType;
+-        }
+-    }
+-}
+-export declare const MeshDistortMaterial: React.ForwardRefExoticComponent<Pick<Omit<import("@react-three/fiber").Node<MeshPhysicalMaterial, [MeshPhysicalMaterialParameters]>, "color" | undefined> & {
+-    color?: import("@react-three/fiber").Color | undefined;
+-} & {
+-    time?: number | undefined;
+-    distort?: number | undefined;
+-    radius?: number | undefined;
+-} & {
+-    speed?: number | undefined;
+-    factor?: number | undefined;
+-}, "visible" | "attach" | "attachArray" | "attachObject" | "args" | "children" | "key" | "onUpdate" | "dispose" | "type" | "id" | "uuid" | "name" | "userData" | "toJSON" | "clone" | "copy" | "addEventListener" | "hasEventListener" | "removeEventListener" | "dispatchEvent" | "color" | "map" | "time" | "transparent" | "fog" | "opacity" | "speed" | "alphaTest" | "alphaToCoverage" | "blendDst" | "blendDstAlpha" | "blendEquation" | "blendEquationAlpha" | "blending" | "blendSrc" | "blendSrcAlpha" | "clipIntersection" | "clippingPlanes" | "clipShadows" | "colorWrite" | "defines" | "depthFunc" | "depthTest" | "depthWrite" | "stencilWrite" | "stencilFunc" | "stencilRef" | "stencilWriteMask" | "stencilFuncMask" | "stencilFail" | "stencilZFail" | "stencilZPass" | "isMaterial" | "needsUpdate" | "polygonOffset" | "polygonOffsetFactor" | "polygonOffsetUnits" | "precision" | "premultipliedAlpha" | "dithering" | "side" | "shadowSide" | "toneMapped" | "vertexColors" | "version" | "onBeforeCompile" | "customProgramCacheKey" | "setValues" | "roughness" | "metalness" | "lightMap" | "lightMapIntensity" | "aoMap" | "aoMapIntensity" | "emissive" | "emissiveIntensity" | "emissiveMap" | "bumpMap" | "bumpScale" | "normalMap" | "normalMapType" | "normalScale" | "displacementMap" | "displacementScale" | "displacementBias" | "roughnessMap" | "metalnessMap" | "alphaMap" | "envMap" | "envMapIntensity" | "refractionRatio" | "wireframe" | "wireframeLinewidth" | "wireframeLinecap" | "wireframeLinejoin" | "skinning" | "vertexTangents" | "morphTargets" | "morphNormals" | "flatShading" | "isMeshStandardMaterial" | "reflectivity" | "clearcoat" | "clearcoatMap" | "clearcoatRoughness" | "clearcoatRoughnessMap" | "clearcoatNormalScale" | "clearcoatNormalMap" | "ior" | "sheen" | "transmission" | "transmissionMap" | "radius" | "distort" | "factor"> & React.RefAttributes<unknown>>;
+-export {};
+diff --git a/node_modules/@react-three/drei/core/MeshWobbleMaterial.d.ts b/node_modules/@react-three/drei/core/MeshWobbleMaterial.d.ts
+deleted file mode 100644
+index 8f05dc3..0000000
+--- a/node_modules/@react-three/drei/core/MeshWobbleMaterial.d.ts
++++ /dev/null
+@@ -1,25 +0,0 @@
+-import * as React from 'react';
+-import { MeshStandardMaterial, MeshStandardMaterialParameters } from 'three';
+-declare type WobbleMaterialType = JSX.IntrinsicElements['meshStandardMaterial'] & {
+-    time?: number;
+-    factor?: number;
+-    speed?: number;
+-};
+-declare global {
+-    namespace JSX {
+-        interface IntrinsicElements {
+-            wobbleMaterialImpl: WobbleMaterialType;
+-        }
+-    }
+-}
+-export declare const MeshWobbleMaterial: React.ForwardRefExoticComponent<Pick<Omit<import("@react-three/fiber").Node<MeshStandardMaterial, [MeshStandardMaterialParameters]>, "color" | undefined> & {
+-    color?: import("@react-three/fiber").Color | undefined;
+-} & {
+-    time?: number | undefined;
+-    factor?: number | undefined;
+-    speed?: number | undefined;
+-} & {
+-    speed?: number | undefined;
+-    factor?: number | undefined;
+-}, "visible" | "attach" | "attachArray" | "attachObject" | "args" | "children" | "key" | "onUpdate" | "dispose" | "type" | "id" | "uuid" | "name" | "userData" | "toJSON" | "clone" | "copy" | "addEventListener" | "hasEventListener" | "removeEventListener" | "dispatchEvent" | "color" | "map" | "time" | "transparent" | "fog" | "opacity" | "speed" | "alphaTest" | "alphaToCoverage" | "blendDst" | "blendDstAlpha" | "blendEquation" | "blendEquationAlpha" | "blending" | "blendSrc" | "blendSrcAlpha" | "clipIntersection" | "clippingPlanes" | "clipShadows" | "colorWrite" | "defines" | "depthFunc" | "depthTest" | "depthWrite" | "stencilWrite" | "stencilFunc" | "stencilRef" | "stencilWriteMask" | "stencilFuncMask" | "stencilFail" | "stencilZFail" | "stencilZPass" | "isMaterial" | "needsUpdate" | "polygonOffset" | "polygonOffsetFactor" | "polygonOffsetUnits" | "precision" | "premultipliedAlpha" | "dithering" | "side" | "shadowSide" | "toneMapped" | "vertexColors" | "version" | "onBeforeCompile" | "customProgramCacheKey" | "setValues" | "roughness" | "metalness" | "lightMap" | "lightMapIntensity" | "aoMap" | "aoMapIntensity" | "emissive" | "emissiveIntensity" | "emissiveMap" | "bumpMap" | "bumpScale" | "normalMap" | "normalMapType" | "normalScale" | "displacementMap" | "displacementScale" | "displacementBias" | "roughnessMap" | "metalnessMap" | "alphaMap" | "envMap" | "envMapIntensity" | "refractionRatio" | "wireframe" | "wireframeLinewidth" | "wireframeLinecap" | "wireframeLinejoin" | "skinning" | "vertexTangents" | "morphTargets" | "morphNormals" | "flatShading" | "isMeshStandardMaterial" | "factor"> & React.RefAttributes<unknown>>;
+-export {};
+diff --git a/node_modules/@react-three/drei/core/PointMaterial.d.ts b/node_modules/@react-three/drei/core/PointMaterial.d.ts
+deleted file mode 100644
+index 140ece2..0000000
+--- a/node_modules/@react-three/drei/core/PointMaterial.d.ts
++++ /dev/null
+@@ -1,19 +0,0 @@
+-import * as THREE from 'three';
+-import * as React from 'react';
+-declare type PointMaterialType = JSX.IntrinsicElements['shaderMaterial'] & {
+-    scale?: number;
+-};
+-declare global {
+-    namespace JSX {
+-        interface IntrinsicElements {
+-            pointMaterialImpl: PointMaterialType;
+-        }
+-    }
+-}
+-export declare class PointMaterialImpl extends THREE.ShaderMaterial {
+-    constructor();
+-    get scale(): any;
+-    set scale(v: any);
+-}
+-export declare const PointMaterial: React.ForwardRefExoticComponent<React.RefAttributes<unknown>>;
+-export {};

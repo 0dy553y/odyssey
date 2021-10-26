@@ -11,6 +11,7 @@ export interface UserTaskListData {
   taskId: number;
   challengeColor: ChallengeColor;
   challengeId: number;
+  isChallengeCompleted: boolean;
 }
 
 export type UserTaskData = UserTaskListData;

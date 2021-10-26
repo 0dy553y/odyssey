@@ -1,7 +1,7 @@
 import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { loadOngoingUserChallengeDataForChallenge } from 'store/userchallenges/operations';
+import { loadAllUserChallengesDataForChallenge } from 'store/userchallenges/operations';
 import { withStatusMessages } from 'utils/ui';
 import api from '../../api';
 import {
@@ -40,7 +40,7 @@ export function joinChallenge(
       dispatch,
       api.challenges.joinChallenge(challengeId, recurringDays)
     ).then(() => {
-      dispatch(loadOngoingUserChallengeDataForChallenge(challengeId));
+      dispatch(loadAllUserChallengesDataForChallenge(challengeId));
     });
   };
 }

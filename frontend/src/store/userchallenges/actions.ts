@@ -1,7 +1,7 @@
 import { userChallengesSlice } from './reducer';
 
 export const {
-  updateOngoingUserChallengeData,
+  updateAllUserChallengesData,
   updateOngoingUserChallengesListData,
   updateCompletedUserChallengesListData,
   resetUserChallenges,

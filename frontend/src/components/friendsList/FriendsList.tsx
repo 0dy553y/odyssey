@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Divider, List } from '@mui/material';
-import { UserData } from 'types/auth';
 import { FriendsListItem } from './FriendsListItem';
+import { FriendListData } from '../../types/friends';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadAllFriends } from '../../store/friends/operations';
+import { getFriendList } from '../../store/friends/selectors';
 
-interface FriendsListProps {
-  friends: UserData[];
-}
+const FriendsList: React.FC = () => {
+  const dispatch = useDispatch();
 
-const FriendsList: React.FC<FriendsListProps> = ({ friends }) => {
+  useEffect(() => {
+    dispatch(loadAllFriends());
+  }, []);
+
+  const friends: FriendListData[] = useSelector(getFriendList);
+
   return (
     <List>
       {friends.map((friend, idx) => {

@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import { loadUserTasksForDay } from '../../store/usertasks/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import UserTaskCarousel from '../../components/home/UserTaskCarousel';
 import { getUserTaskListForDay } from '../../store/usertasks/selectors';
 import { RootState } from '../../store';
-import { Grid, Skeleton, Typography } from '@mui/material';
+import { Grid, IconButton, Skeleton, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { getUser } from '../../store/auth/selectors';
 import { useHistory } from 'react-router-dom';
-import { LOGIN_ROUTE } from '../../routing/routes';
+import { LOGIN_ROUTE, NOTIFICATIONS_ROUTE } from '../../routing/routes';
 import DateCarousel from '../../components/home/DateCarousel';
+import ChallengeCompletedModal from 'components/challengeCompletedModal';
+import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
+import TodayIcon from '@mui/icons-material/Today';
+import { startOfDay } from 'date-fns';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -33,13 +37,40 @@ const useStyles = makeStyles(() => ({
     marginTop: 10,
     marginBottom: 15,
   },
+  controlsContainer: {
+    textAlign: 'right',
+  },
 }));
+
+interface ChallengeCompletedModalState {
+  isOpen: boolean;
+  completedChallengeName?: string;
+}
 
 const HomePage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-  const [date, setDate] = useState(new Date());
+
+  const [date, setDate] = useState(startOfDay(new Date()));
+  const [challengeCompletedModalState, setChallengeCompletedModalState] =
+    useReducer(
+      (
+        state: ChallengeCompletedModalState,
+        newState: Partial<ChallengeCompletedModalState>
+      ) => ({
+        ...state,
+        ...newState,
+      }),
+      { isOpen: false, completedChallengeName: undefined }
+    );
+
+  const onChallengeCompleted = (completedChallengeName: string) => {
+    setChallengeCompletedModalState({
+      isOpen: true,
+      completedChallengeName: completedChallengeName,
+    });
+  };
 
   useEffect(() => {
     dispatch(loadUserTasksForDay(date));
@@ -61,20 +92,42 @@ const HomePage: React.FC = () => {
           <Grid
             item
             container
-            direction="column"
+            direction="row"
             className={classes.headerNonCarouselItem}
           >
-            <Grid item>
-              <Typography variant="h4">Hello,</Typography>
+            <Grid item container direction="column" xs={6} sm={9}>
+              <Grid item>
+                <Typography variant="h4">Hello,</Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="h4">
+                  {user.displayName ?? user.username}
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Typography variant="h4">
-                {user.displayName ?? user.username}
-              </Typography>
+            <Grid
+              item
+              direction="row"
+              xs={6}
+              sm={3}
+              className={classes.controlsContainer}
+            >
+              <IconButton
+                size="large"
+                onClick={() => history.push(NOTIFICATIONS_ROUTE)}
+              >
+                <NotificationsOutlinedIcon fontSize="inherit" />
+              </IconButton>
+              <IconButton
+                size="large"
+                onClick={() => setDate(startOfDay(new Date()))}
+              >
+                <TodayIcon fontSize="inherit" />
+              </IconButton>
             </Grid>
           </Grid>
           <Grid item className={classes.headerCarouselItem}>
-            <DateCarousel setDate={setDate} />
+            <DateCarousel date={date} setDate={setDate} />
           </Grid>
           <Grid item className={classes.headerNonCarouselItem}>
             <Typography variant="h5">Your Tasks</Typography>
@@ -82,8 +135,20 @@ const HomePage: React.FC = () => {
         </Grid>
       </div>
       <div className={classes.tasksContainer}>
-        <UserTaskCarousel userTaskList={userTaskList} date={date} />
+        <UserTaskCarousel
+          userTaskList={userTaskList}
+          date={date}
+          onChallengeCompleted={onChallengeCompleted}
+        />
       </div>
+
+      {challengeCompletedModalState.completedChallengeName && (
+        <ChallengeCompletedModal
+          isOpen={challengeCompletedModalState.isOpen}
+          challengeName={challengeCompletedModalState.completedChallengeName}
+          onClose={() => setChallengeCompletedModalState({ isOpen: false })}
+        />
+      )}
     </div>
   );
 };

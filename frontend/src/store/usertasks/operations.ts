@@ -2,7 +2,7 @@ import api from 'api';
 import { startOfDay } from 'date-fns';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { loadOngoingUserChallengeDataForChallenge } from 'store/userchallenges/operations';
+import { loadAllUserChallengesDataForChallenge } from 'store/userchallenges/operations';
 import { OperationResult } from 'types/store';
 import { UserTaskData, UserTaskListData } from 'types/usertasks';
 import { RootState } from '../index';
@@ -22,27 +22,52 @@ export function loadUserTasksForDay(date: Date): OperationResult {
   };
 }
 
-export function markUserTaskAsDone(userTaskId: number): OperationResult {
-  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.userTasks.markUserTaskAsDone(userTaskId);
-    const userTask: UserTaskData = mapUserTaskDateStringsIntoDateObjects(
-      response.payload.data
-    );
-    const date = new Date(userTask.scheduledFor);
-    dispatch(saveUserTaskForDay(date, userTask));
-  };
-}
-
-export function markUserTaskAsDoneFromChallenge(
-  userTaskId: number
+function markUserTaskAsDone(
+  userTaskId: number,
+  onChallengeCompleted: (completedChallengeName: string) => void,
+  onOperationComplete: (
+    dispatch: ThunkDispatch<RootState, undefined, AnyAction>,
+    userTask: UserTaskData
+  ) => void
 ): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userTasks.markUserTaskAsDone(userTaskId);
     const userTask: UserTaskData = mapUserTaskDateStringsIntoDateObjects(
       response.payload.data
     );
-    dispatch(loadOngoingUserChallengeDataForChallenge(userTask.challengeId));
+    if (userTask.isChallengeCompleted) {
+      onChallengeCompleted(userTask.challengeName);
+    }
+
+    onOperationComplete(dispatch, userTask);
   };
+}
+
+export function markUserTaskAsDoneFromHome(
+  userTaskId: number,
+  onChallengeCompleted: (completedChallengeName: string) => void
+): OperationResult {
+  return markUserTaskAsDone(
+    userTaskId,
+    onChallengeCompleted,
+    (dispatch, userTask) => {
+      const date = new Date(userTask.scheduledFor);
+      dispatch(saveUserTaskForDay(date, userTask));
+    }
+  );
+}
+
+export function markUserTaskAsDoneFromChallenge(
+  userTaskId: number,
+  onChallengeCompleted: (completedChallengeName: string) => void
+): OperationResult {
+  return markUserTaskAsDone(
+    userTaskId,
+    onChallengeCompleted,
+    (dispatch, userTask) => {
+      dispatch(loadAllUserChallengesDataForChallenge(userTask.challengeId));
+    }
+  );
 }
 
 export function markUserTaskAsNotDone(userTaskId: number): OperationResult {
@@ -75,7 +100,7 @@ export function loadUserTaskActivityData(): OperationResult {
   };
 }
 
-// Exporting only to be used in loadOngoingUserChallengeDataForChallenge
+// Exporting only to be used in loadAllUserChallengesDataForChallenge
 // in userchallenges operation
 export function mapUserTaskDateStringsIntoDateObjects(
   userTask: UserTaskListData | UserTaskData

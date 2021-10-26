@@ -22,10 +22,9 @@ import { RouteEntry } from './types/routes';
 import Notifier from 'components/notifier';
 import FeedbackOverlay from './components/common/FeedbackOverlay';
 import { useCache } from 'components/common/cacheProvider';
+import GoogleAnalytics from './GoogleAnalytics';
 
 import './App.scss';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import 'swiper/swiper-bundle.css';
 
 function App(): JSX.Element {
@@ -58,6 +57,7 @@ function App(): JSX.Element {
 
   return (
     <Container className="App" component="main" disableGutters maxWidth={false}>
+      <GoogleAnalytics />
       <ScrollToTop />
       <Notifier />
       <Global
@@ -69,7 +69,7 @@ function App(): JSX.Element {
         }}
       />
       <div className="App-content-container">
-        <Container className="column-container" disableGutters maxWidth="xs">
+        <Container className="column-container" disableGutters maxWidth="sm">
           <Switch>
             {isValidatingToken ? (
               <Box
@@ -109,7 +109,9 @@ function App(): JSX.Element {
       {mainRoutes
         .map((route: RouteEntry) => route.path)
         .includes(location.pathname) && <BottomNavigationBar />}
-      <FeedbackOverlay />
+      {privateRoutes
+        .map((route: RouteEntry) => route.path)
+        .includes(location.pathname) && <FeedbackOverlay />}
     </Container>
   );
 }

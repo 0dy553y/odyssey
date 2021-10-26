@@ -1,14 +1,13 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import calendar from 'dayjs/plugin/calendar';
+import { startOfDay } from 'date-fns';
 
 dayjs.extend(relativeTime);
-dayjs.extend(calendar);
 
 export function getNeighbouringDates(date: Date, range: number): Date[] {
   const dates = [];
   for (let i = -range; i <= range; i++) {
-    const newDate = new Date();
+    const newDate = startOfDay(new Date());
     newDate.setDate(date.getDate() + i);
     dates.push(newDate);
   }
@@ -28,12 +27,28 @@ export function getISOStringAtStartOfDay(date: Date): string {
 }
 
 export function getDateFromNowString(date: Date): string {
-  return dayjs(date).calendar(null, {
-    lastWeek: '[Last] dddd',
+  const format = {
     lastDay: '[Yesterday]',
     sameDay: '[Today]',
     nextDay: '[Tomorrow]',
-    nextWeek: 'dddd',
     sameElse: () => dayjs(date).fromNow(),
-  });
+  };
+  const referenceStartOfDay = dayjs().startOf('d');
+  const diff = referenceStartOfDay.diff(date, 'd', true);
+  const sameElse = 'sameElse';
+  const retVal =
+    diff < -2
+      ? sameElse
+      : diff < -1
+      ? 'nextDay'
+      : diff < 0
+      ? 'sameDay'
+      : diff < 1
+      ? 'lastDay'
+      : sameElse;
+  const currentFormat = format[retVal];
+  if (typeof currentFormat === 'function') {
+    return currentFormat();
+  }
+  return dayjs(date).format(currentFormat);
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import {
   AppBar,
   Button,
@@ -17,7 +17,7 @@ import { makeStyles } from '@mui/styles';
 import { ChallengeData, Schedule } from 'types/challenges';
 import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import UserChallengeStats from './UserChallengeStats';
 import ChallengeMilestones from './ChallengeMilestones';
 import ScheduleModal from './ScheduleModal';
@@ -25,9 +25,10 @@ import { joinChallenge, loadChallenge } from 'store/challenges/operations';
 import { loadAllTasks } from 'store/tasks/operations';
 import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
-import { loadOngoingUserChallengeDataForChallenge } from 'store/userchallenges/operations';
-import { getOngoingUserChallengeData } from 'store/userchallenges/selectors';
+import { loadAllUserChallengesDataForChallenge } from 'store/userchallenges/operations';
+import { getAllUserChallengesDataForChallenge } from 'store/userchallenges/selectors';
 import { getHexCode } from 'utils/color';
+import ChallengeCompletedModal from 'components/challengeCompletedModal';
 
 export interface ChallengeDetailsPageProps {
   challenge: ChallengeData;
@@ -107,6 +108,11 @@ enum TabItem {
 
 const privateTabs = [TabItem.YourStats];
 
+interface ChallengeCompletedModalState {
+  isOpen: boolean;
+  completedChallengeName?: string;
+}
+
 const ChallengeDetailsPage2: React.FC = () => {
   const classes = useStyles();
   const history = useHistory();
@@ -114,11 +120,28 @@ const ChallengeDetailsPage2: React.FC = () => {
 
   const [isScheduleModalOpen, setIsScheduleModalOpen] =
     useState<boolean>(false);
+  const [challengeCompletedModalState, setChallengeCompletedModalState] =
+    useReducer(
+      (
+        state: ChallengeCompletedModalState,
+        newState: Partial<ChallengeCompletedModalState>
+      ) => ({
+        ...state,
+        ...newState,
+      }),
+      { isOpen: false, completedChallengeName: undefined }
+    );
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [currentTabItem, setCurrentTabItem] = useState<TabItem>(
+    TabItem.Milestones
+  );
 
   useEffect(() => {
-    dispatch(loadChallenge(Number(challengeId)));
-    dispatch(loadAllTasks(Number(challengeId)));
-    dispatch(loadOngoingUserChallengeDataForChallenge(Number(challengeId)));
+    batch(() => {
+      dispatch(loadChallenge(Number(challengeId)));
+      dispatch(loadAllTasks(Number(challengeId)));
+      dispatch(loadAllUserChallengesDataForChallenge(Number(challengeId)));
+    });
   }, []);
 
   const { challengeId } = useParams<{ challengeId: string }>();
@@ -132,16 +155,20 @@ const ChallengeDetailsPage2: React.FC = () => {
     getTaskList(state, Number(challengeId))
   )!;
 
-  const userChallenge = useSelector((state: RootState) =>
-    getOngoingUserChallengeData(state, Number(challengeId))
+  const userChallenges = useSelector((state: RootState) =>
+    getAllUserChallengesDataForChallenge(state, Number(challengeId))
   );
 
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [currentTabItem, setCurrentTabItem] = useState<TabItem>(
-    TabItem.Milestones
-  );
+  // For now, we only show information related to the latest user challenge
+  const userChallenge =
+    userChallenges.length === 0
+      ? undefined
+      : userChallenges[userChallenges.length - 1];
 
   const peekDrawerHeight = 20;
+
+  const isEnrolled = !!userChallenge;
+  const isChallengeCompleted = isEnrolled && !!userChallenge.completedAt;
 
   const Bar = () => (
     <AppBar position="static">
@@ -160,6 +187,13 @@ const ChallengeDetailsPage2: React.FC = () => {
     </AppBar>
   );
 
+  const onChallengeCompleted = (completedChallengeName: string) => {
+    setChallengeCompletedModalState({
+      isOpen: true,
+      completedChallengeName: completedChallengeName,
+    });
+  };
+
   const tabPanelRenderer = (tabItem: TabItem) => {
     switch (tabItem) {
       case TabItem.Milestones:
@@ -167,6 +201,7 @@ const ChallengeDetailsPage2: React.FC = () => {
           <ChallengeMilestones
             tasks={tasks}
             userTasks={userChallenge?.userTasks ?? []}
+            onChallengeCompleted={onChallengeCompleted}
           />
         );
       case TabItem.YourStats:
@@ -201,7 +236,11 @@ const ChallengeDetailsPage2: React.FC = () => {
       <Bar />
       <Box sx={{ marginLeft: '28px', marginRight: '28px' }}>
         <Typography className={classes.white}>
-          {!!userChallenge ? '🔥 ONGOING' : '👻 UNENROLLED'}
+          {!isEnrolled
+            ? '👻 UNENROLLED'
+            : !isChallengeCompleted
+            ? '🔥 ONGOING'
+            : '🎉 COMPLETED'}
         </Typography>
         <Typography variant="h1" className={classes.white}>
           {challenge.name}
@@ -235,7 +274,7 @@ const ChallengeDetailsPage2: React.FC = () => {
 
         {/* User has not enrolled in the challenge */}
         {/* TODO: ensure that user has < 3 challenges before allowing user to enroll */}
-        {!userChallenge && (
+        {!isEnrolled && (
           <>
             <Button
               variant="contained"
@@ -306,6 +345,16 @@ const ChallengeDetailsPage2: React.FC = () => {
           </Box>
         </SwipeableDrawer>
       </Box>
+
+      {challengeCompletedModalState.completedChallengeName && (
+        <ChallengeCompletedModal
+          isOpen={challengeCompletedModalState.isOpen}
+          challengeName={challengeCompletedModalState.completedChallengeName}
+          onClose={() => {
+            setChallengeCompletedModalState({ isOpen: false });
+          }}
+        />
+      )}
     </Paper>
   );
 };
