@@ -12,6 +12,7 @@ import { TabPanel, TabContext, TabList } from '@mui/lab';
 import ChallengeMilestones from 'pages/challenge/ChallengeMilestones';
 import { SpringRef, animated, SpringValue } from 'react-spring';
 import { useScroll } from 'react-use-gesture';
+import ChallengeCompletedModal from 'components/challengeCompletedModal';
 
 const useStyles = makeStyles(() => ({
   contentContainer: {
@@ -142,6 +143,15 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
           ))}
         </TabContext>
       </div>
+      {challengeCompletedModalState.completedChallengeName && (
+        <ChallengeCompletedModal
+          isOpen={challengeCompletedModalState.isOpen}
+          challengeName={challengeCompletedModalState.completedChallengeName}
+          onClose={() => {
+            setChallengeCompletedModalState({ isOpen: false });
+          }}
+        />
+      )}
     </animated.div>
   );
 };

@@ -18,6 +18,7 @@ import ChallengeContent from 'components/challenge/ChallengeContent';
 import { makeStyles } from '@mui/styles';
 import { Schedule } from 'types/challenges';
 import { ChevronLeft } from '@mui/icons-material';
+import { is } from 'immer/dist/internal';
 
 const useStyles = makeStyles(() => ({
   joinButton: {
@@ -121,22 +122,26 @@ const ChallengeDetailsPage: React.FC = () => {
   return (
     <Box>
       <CollapsedHeader name={challenge.name} />
-      <Button
-        variant="contained"
-        fullWidth
-        disableElevation
-        className={classes.joinButton}
-        onClick={() => setIsScheduleModalOpen(true)}
-      >
-        <Typography variant="body1">Join Challenge!</Typography>
-      </Button>
-      <ScheduleModal
-        isOpen={isScheduleModalOpen}
-        onClose={() => setIsScheduleModalOpen(false)}
-        onSubmit={(schedule: Schedule) =>
-          dispatch(joinChallenge(Number(challengeId), schedule))
-        }
-      />
+      {!isEnrolled && (
+        <>
+          <Button
+            variant="contained"
+            fullWidth
+            disableElevation
+            className={classes.joinButton}
+            onClick={() => setIsScheduleModalOpen(true)}
+          >
+            <Typography variant="body1">Join Challenge!</Typography>
+          </Button>
+          <ScheduleModal
+            isOpen={isScheduleModalOpen}
+            onClose={() => setIsScheduleModalOpen(false)}
+            onSubmit={(schedule: Schedule) =>
+              dispatch(joinChallenge(Number(challengeId), schedule))
+            }
+          />
+        </>
+      )}
       <ChallengeContent
         challenge={challenge}
         userChallenge={userChallenge}
