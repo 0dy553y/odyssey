@@ -12,7 +12,7 @@ import LoginPage from '../pages/login';
 import OnboardingPage from 'pages/onboarding/OnboardingPage';
 import ProfilePage from '../pages/profile';
 import RegistrationPage from '../pages/registration';
-import { DemoMap } from '../pages/maps';
+import { DemoMap, SpaceMap } from '../pages/maps';
 import { RouteEntry } from '../types/routes';
 import AddFriendsPage from '../pages/friends/AddFriendsPage';
 import NotificationsPage from '../pages/notifications/NotificationsPage';
@@ -34,6 +34,7 @@ export const ONBOARDING_ROUTE = '/welcome';
 export const LANDING_ROUTE = '/landing';
 // TODO: remove when no longer needed.
 export const DEMO_MAP_ROUTE = '/map/demo';
+export const MAP_ROUTE = '/map';
 
 // Routes that are accessible only if user is not authenticated
 export const notAuthenticatedRoutes: RouteEntry[] = [
@@ -84,4 +85,9 @@ export const privateRoutes: RouteEntry[] = [
   },
   { path: EXPLORE_ROUTE, component: ExplorePage },
   { path: DEMO_MAP_ROUTE, component: DemoMap },
+  {
+    path: MAP_ROUTE + '/:challengeId',
+    component: SpaceMap,
+    exact: true,
+  },
 ];

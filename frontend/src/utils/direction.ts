@@ -30,3 +30,13 @@ export const getDirectionVector = (d: Direction): Vector2 => {
       return [0, -1];
   }
 };
+
+// Clockwise.
+export function nextDirectionCW(currentDirection: Direction): Direction {
+  return (currentDirection - 1) % 4;
+}
+
+// Anti-clockwise.
+export function nextDirectionACW(currentDirection: Direction): Direction {
+  return (currentDirection + 1) % 4;
+}
