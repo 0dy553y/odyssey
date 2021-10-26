@@ -37,13 +37,13 @@ export function getDateFromNowString(date: Date): string {
   const diff = referenceStartOfDay.diff(date, 'd', true);
   const sameElse = 'sameElse';
   const retVal =
-    diff < -2
+    diff < -1
       ? sameElse
-      : diff < -1
-      ? 'nextDay'
       : diff < 0
-      ? 'sameDay'
+      ? 'nextDay'
       : diff < 1
+      ? 'sameDay'
+      : diff < 2
       ? 'lastDay'
       : sameElse;
   const currentFormat = format[retVal];
