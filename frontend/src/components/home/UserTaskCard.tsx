@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { UserTaskListData } from '../../types/usertasks';
-import { Card, Switch, Stack, Typography } from '@mui/material';
+import { Card, IconButton, Switch, Stack, Typography } from '@mui/material';
+import MapIcon from '@mui/icons-material/Map';
 import { makeStyles } from '@mui/styles';
 import {
   markUserTaskAsDoneFromHome,
@@ -9,6 +11,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { getHexCode } from 'utils/color';
 import { isAfter } from 'date-fns';
+import { MAP_ROUTE } from '../../routing/routes';
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -87,6 +90,12 @@ const UserTaskCard: React.FC<Props> = ({
           spacing={2}
           className={classes.doneToggle}
         >
+          <IconButton
+            component={Link}
+            to={`${MAP_ROUTE}/${userTask.challengeId}`}
+          >
+            <MapIcon />
+          </IconButton>
           {!isAfter(userTask.scheduledFor, new Date()) && (
             <Switch
               checked={!!userTask.completedAt}
