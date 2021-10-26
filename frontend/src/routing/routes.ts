@@ -12,7 +12,7 @@ import LoginPage from '../pages/login';
 import OnboardingPage from 'pages/onboarding/OnboardingPage';
 import ProfilePage from '../pages/profile';
 import RegistrationPage from '../pages/registration';
-import { DemoMap, SpaceMap } from '../pages/maps';
+import { DemoMap, SpaceMap, MapsPage } from '../pages/maps';
 import { RouteEntry } from '../types/routes';
 import AddFriendsPage from '../pages/friends/AddFriendsPage';
 import NotificationsPage from '../pages/notifications/NotificationsPage';
@@ -86,8 +86,7 @@ export const privateRoutes: RouteEntry[] = [
   { path: EXPLORE_ROUTE, component: ExplorePage },
   { path: DEMO_MAP_ROUTE, component: DemoMap },
   {
-    path: MAP_ROUTE + '/:challengeId',
-    component: SpaceMap,
-    exact: true,
+    path: MAP_ROUTE,
+    component: MapsPage,
   },
 ];

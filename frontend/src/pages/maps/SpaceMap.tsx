@@ -7,9 +7,12 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Direction } from '../../types/map';
 import { DirectionPosition } from '../../types/map';
 
-const SpaceMap: React.FC = () => {
-  const numSteps = 30;
-  let currentStep = 10;
+interface MapProps {
+  numSteps: number;
+  currentStep: number;
+}
+
+const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
   const [stepPositions, setStepPositions] = useState<DirectionPosition[]>([]);
   const [charPosition, setCharPosition] = useState<DirectionPosition>({
     pos: [0, 0, 0],
@@ -20,6 +23,7 @@ const SpaceMap: React.FC = () => {
   const heightIncrement = 0.5;
   const characterRef = useRef();
   const mapRef = useRef();
+  console.log(charPosition);
 
   const moveCharacterForward = () => {
     currentStep = currentStep + 1;
@@ -47,19 +51,22 @@ const SpaceMap: React.FC = () => {
 
   return (
     <Suspense fallback={<div />}>
-      <button onClick={() => moveCharacterBackward()}> previous </button>
-      <button onClick={() => moveCharacterForward()}> next </button>
-      <Canvas camera={{ zoom: 15, position: [d, d, d] }} orthographic={true}>
+      {/* <button onClick={() => moveCharacterBackward()}> previous </button>
+      <button onClick={() => moveCharacterForward()}> next </button> */}
+      <Canvas
+        camera={{ zoom: 45 - numSteps, position: [d, d, d] }}
+        orthographic={true}
+      >
         <color attach="background" args={['#010101']} />
         {/*  x: red, y: green, z: blue */}
         {/* <axesHelper args={[5]} /> */}
-        <EffectComposer>
+        {/* <EffectComposer>
           <Bloom
             luminanceThreshold={0.8}
             intensity={1.5}
             luminanceSmoothing={0.1}
           />
-        </EffectComposer>
+        </EffectComposer> */}
         <directionalLight castShadow position={[0, 10, 0]} intensity={1.5} />
         <pointLight position={[30, 0, 0]} intensity={0.5} />
         <pointLight position={[-30, 0, 0]} intensity={0.5} />
@@ -75,6 +82,7 @@ const SpaceMap: React.FC = () => {
           onMapMounted={(stepPositions) => {
             setStepPositions(stepPositions);
             setCharPosition(stepPositions[currentStep - 1]);
+            console.log(charPosition);
           }}
         />
         <Character
@@ -82,12 +90,12 @@ const SpaceMap: React.FC = () => {
           position={charPosition.pos}
           direction={charPosition.direction}
         />
-        <OrbitControls
+        {/* <OrbitControls
           addEventListener={undefined}
           hasEventListener={undefined}
           removeEventListener={undefined}
           dispatchEvent={undefined}
-        />
+        /> */}
         <Stars factor={10} radius={60} saturation={1} fade />
       </Canvas>
     </Suspense>

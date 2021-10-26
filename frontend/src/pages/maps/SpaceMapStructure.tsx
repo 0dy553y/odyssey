@@ -31,7 +31,7 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
     onMapMounted,
   } = props;
   const numStages = Math.floor(numSteps / width);
-  let base: Vector3 = [width * widthIncrement, -4, width * widthIncrement];
+  let base: Vector3 = [width * widthIncrement, 0, width * widthIncrement];
   let currentDirection = Direction.RIGHT;
 
   const [step, setStep] = useState(currentStep);
