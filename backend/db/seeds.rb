@@ -62,3 +62,35 @@ Task.create(challenge_id: challenge_walking.id,
             name: 'Day 3',
             description: 'Go for a walk for at least 15 min today.',
             index: 2)
+
+
+
+user_squirtle = User.create(username: 'Squirtle', display_name: 'Squirtle', password: 'password')
+user_mario = User.create(username: 'Mario', display_name: 'Mario', password: 'password')
+user_torchic = User.create(username: 'Torchic', display_name: 'Torchic', password: 'password')
+user_luigi = User.create(username: 'Luigi', display_name: 'Luigi', password: 'password')
+
+
+Friendship.create!(first_user_id: user_squirtle.id, second_user_id: user_mario.id)
+Friendship.create!(first_user_id: user_squirtle.id, second_user_id: user_torchic.id)
+Friendship.create!(first_user_id: user_squirtle.id, second_user_id: user_luigi.id)
+
+user_challenge_walking = UserChallenge.new(user_id: user_squirtle.id, challenge_id: 1,
+                                           started_at: 1.week.ago)
+user_challenge_walking.schedule = Schedule.new(saturday: true, sunday: true)
+user_challenge_walking.save!
+
+user_challenge_walking = UserChallenge.new(user_id: user_mario.id, challenge_id: 1,
+                                           started_at: 1.week.ago)
+user_challenge_walking.schedule = Schedule.new(saturday: true, sunday: true)
+user_challenge_walking.save!
+
+user_challenge_walking = UserChallenge.new(user_id: user_torchic.id, challenge_id: 1,
+                                           started_at: 1.week.ago)
+user_challenge_walking.schedule = Schedule.new(saturday: true, sunday: true)
+user_challenge_walking.save!
+
+user_challenge_walking = UserChallenge.new(user_id: user_luigi.id, challenge_id: 1,
+                                           started_at: 1.week.ago)
+user_challenge_walking.schedule = Schedule.new(saturday: true, sunday: true)
+user_challenge_walking.save!

@@ -53,6 +53,11 @@ Rails.application.routes.draw do
           post 'remove_reaction', to: 'remove_reaction'
         end
       end
+
+      namespace :map do
+        get 'friends_on_same_challenge', to: 'friends_on_same_challenge'
+      end
+
     end
   end
 end

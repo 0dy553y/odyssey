@@ -4,6 +4,7 @@ import { loadAllOngoingUserChallenges } from 'store/userchallenges/operations';
 import { useParams } from 'react-router-dom';
 import MapCarousel from './MapCarousel';
 import { ChallengeMapData } from '../../types/challenges';
+import { default as Appbar } from '../../components/common/Appbar';
 
 const mockData: ChallengeMapData[] = [
   { id: 1, name: 'Walking', numTasks: 3, currentTask: 1 },
@@ -22,6 +23,7 @@ const MapsPage = () => {
   const [currentMap, setCurrentMap] = useState();
   return (
     <>
+      <Appbar />
       <MapCarousel maps={mockData} />
     </>
   );

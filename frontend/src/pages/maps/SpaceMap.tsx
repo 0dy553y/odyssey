@@ -47,7 +47,7 @@ const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
     }
   };
 
-  const d = 35;
+  const d = 5 + numSteps;
 
   return (
     <Suspense fallback={<div />}>
@@ -90,12 +90,12 @@ const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
           position={charPosition.pos}
           direction={charPosition.direction}
         />
-        {/* <OrbitControls
+        <OrbitControls
           addEventListener={undefined}
           hasEventListener={undefined}
           removeEventListener={undefined}
           dispatchEvent={undefined}
-        /> */}
+        />
         <Stars factor={10} radius={60} saturation={1} fade />
       </Canvas>
     </Suspense>
