@@ -117,7 +117,6 @@ const ChallengeDetailsPage: React.FC = () => {
 
   return (
     <Box>
-      <CollapsedHeader name={challenge.name} />
       {!isEnrolled && (
         <>
           <Button
@@ -142,7 +141,6 @@ const ChallengeDetailsPage: React.FC = () => {
         challenge={challenge}
         userChallenge={userChallenge}
         tasks={tasks}
-        userTasks={userChallenge?.userTasks ?? []}
       />
     </Box>
   );
