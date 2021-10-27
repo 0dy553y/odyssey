@@ -1,8 +1,6 @@
 import React, { useState, useRef } from 'react';
-import SentimentSatisfiedRoundedIcon from '@mui/icons-material/SentimentSatisfiedRounded';
-import AddIcon from '@mui/icons-material/Add';
+import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
 import {
-  Badge,
   Box,
   ClickAwayListener,
   Fade,
@@ -17,14 +15,9 @@ interface ReactionPickerProps {
   onReactionSelect: (emoji: ReactionEmoji) => void;
 }
 
-const orangeColor = '#ffad14';
 const useStyles = makeStyles((theme: Theme) => ({
-  addIcon: {
-    fontSize: 'medium',
-    color: orangeColor,
-  },
   smileyIcon: {
-    color: orangeColor,
+    color: '#ffad14',
   },
   popover: {
     padding: theme.spacing(1),
@@ -49,12 +42,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = ({
   return (
     <Box component="span" className="reaction-picker">
       <IconButton onClick={() => setIsOpen(true)} ref={buttonRef}>
-        <Badge
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          badgeContent={<AddIcon className={classes.addIcon} />}
-        >
-          <SentimentSatisfiedRoundedIcon className={classes.smileyIcon} />
-        </Badge>
+        <AddReactionOutlinedIcon className={classes.smileyIcon} />
       </IconButton>
 
       <Popper
