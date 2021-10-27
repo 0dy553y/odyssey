@@ -45,4 +45,12 @@ export interface ChallengeMapData {
   name: string;
   numTasks: number;
   currentTask: number;
+  friendsProgress: ChallengeFriendMapData[];
+}
+
+export interface ChallengeFriendMapData {
+  id: number;
+  username: string;
+  displayName: string;
+  currentTask: number;
 }

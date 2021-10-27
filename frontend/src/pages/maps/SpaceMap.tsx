@@ -23,7 +23,6 @@ const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
   const heightIncrement = 0.5;
   const characterRef = useRef();
   const mapRef = useRef();
-  console.log(charPosition);
 
   const moveCharacterForward = () => {
     currentStep = currentStep + 1;
@@ -47,7 +46,7 @@ const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
     }
   };
 
-  const d = 5 + numSteps;
+  const d = 35;
 
   return (
     <Suspense fallback={<div />}>
@@ -82,20 +81,20 @@ const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
           onMapMounted={(stepPositions) => {
             setStepPositions(stepPositions);
             setCharPosition(stepPositions[currentStep - 1]);
-            console.log(charPosition);
           }}
         />
         <Character
           ref={characterRef}
+          key={charPosition.pos as unknown as string}
           position={charPosition.pos}
           direction={charPosition.direction}
         />
-        <OrbitControls
+        {/* <OrbitControls
           addEventListener={undefined}
           hasEventListener={undefined}
           removeEventListener={undefined}
           dispatchEvent={undefined}
-        />
+        /> */}
         <Stars factor={10} radius={60} saturation={1} fade />
       </Canvas>
     </Suspense>

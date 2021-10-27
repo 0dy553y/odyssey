@@ -86,7 +86,7 @@ export const privateRoutes: RouteEntry[] = [
   { path: EXPLORE_ROUTE, component: ExplorePage },
   { path: DEMO_MAP_ROUTE, component: DemoMap },
   {
-    path: MAP_ROUTE,
+    path: MAP_ROUTE + '/:challengeId',
     component: MapsPage,
   },
 ];
