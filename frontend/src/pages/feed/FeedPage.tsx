@@ -24,11 +24,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
   },
   toggleButton: {
-    [theme.breakpoints.only('xs')]: {
-      width: '40vw',
+    [theme.breakpoints.between('xs', 'md')]: {
+      width: '30vw',
     },
     [theme.breakpoints.up('md')]: {
-      width: '30vw',
+      width: '10em',
     },
     height: '2em',
     textTransform: 'none',
