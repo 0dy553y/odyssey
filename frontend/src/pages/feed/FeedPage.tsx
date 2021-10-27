@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  Badge,
+  Fab,
   Theme,
   Typography,
   ToggleButton,
   ToggleButtonGroup,
 } from '@mui/material';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+import AddIcon from '@mui/icons-material/Add';
 import { makeStyles } from '@mui/styles';
 import { FeedPost } from 'components/feed/FeedPost';
 import {
@@ -38,6 +42,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: 'white !important',
     background: 'black !important',
     transition: '0.4s',
+  },
+  fab: {
+    position: 'absolute',
+    right: theme.spacing(2),
+    bottom: theme.spacing(8),
+    backgroundColor: 'black',
+    color: 'white',
   },
 }));
 
@@ -110,6 +121,19 @@ const FeedPage: React.FC = () => {
               }}
             />
           ))}
+
+          <Fab className={classes.fab}>
+            <Badge
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              badgeContent={<AddIcon sx={{ fontSize: '1.2em' }} />}
+              overlap="circular"
+            >
+              <CreateOutlinedIcon />
+            </Badge>
+          </Fab>
         </>
       )}
     </>
