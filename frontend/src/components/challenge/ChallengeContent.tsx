@@ -30,6 +30,8 @@ const useStyles = makeStyles(() => ({
   },
   contentDetails: {
     padding: '1em',
+    borderRadius: '2em 2em 0 0',
+    backgroundColor: '#f5f7f9',
   },
 }));
 
@@ -43,8 +45,6 @@ interface ChallengeContentProps {
   userChallenge: UserChallengeData | undefined;
   tasks: TaskListData[];
   userTasks: UserTaskListData[] | null;
-  y: SpringValue<number>;
-  setY: SpringRef<{ y: number }>;
 }
 
 interface ChallengeCompletedModalState {
@@ -55,13 +55,8 @@ interface ChallengeCompletedModalState {
 const privateTabs = [TabItem.YourStats];
 
 const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
-  const { challenge, userChallenge, tasks, userTasks, y, setY } = props;
+  const { challenge, userChallenge, tasks, userTasks } = props;
   const classes = useStyles();
-  const bind = useScroll(({ xy }) => {
-    console.log('hello');
-    console.log(xy[1]);
-    setY({ y: xy[1] });
-  });
 
   const [challengeCompletedModalState, setChallengeCompletedModalState] =
     useReducer(
@@ -117,7 +112,10 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
   };
 
   return (
-    <animated.div {...bind()} className={classes.contentContainer}>
+    <div
+      className={classes.contentContainer}
+      style={{ backgroundColor: getHexCode(challenge.color) }}
+    >
       <ExpandedHeader challenge={challenge} userChallenge={userChallenge} />
       <div className={classes.contentDetails}>
         <TabContext value={currentTabItem}>
@@ -152,7 +150,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
           }}
         />
       )}
-    </animated.div>
+    </div>
   );
 };
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import { useSpring } from 'react-spring';
 import { Box } from '@mui/system';
 import { joinChallenge, loadChallenge } from 'store/challenges/operations';
 import { batch, useDispatch, useSelector } from 'react-redux';
@@ -18,7 +17,6 @@ import ChallengeContent from 'components/challenge/ChallengeContent';
 import { makeStyles } from '@mui/styles';
 import { Schedule } from 'types/challenges';
 import { ChevronLeft } from '@mui/icons-material';
-import { is } from 'immer/dist/internal';
 
 const useStyles = makeStyles(() => ({
   joinButton: {
@@ -113,8 +111,6 @@ const ChallengeDetailsPage: React.FC = () => {
     </AppBar>
   );
 
-  const [{ y }, setY] = useSpring(() => ({ y: 0 }));
-
   if (!challenge) {
     return <Skeleton />;
   }
@@ -147,8 +143,6 @@ const ChallengeDetailsPage: React.FC = () => {
         userChallenge={userChallenge}
         tasks={tasks}
         userTasks={userChallenge?.userTasks ?? []}
-        y={y}
-        setY={setY}
       />
     </Box>
   );

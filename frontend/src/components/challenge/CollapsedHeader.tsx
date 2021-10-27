@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(() => ({
   headerContainer: {
-    height: '40px',
+    height: '3em',
     position: 'absolute',
     top: 0,
     left: 0,
@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
   headerText: {
     textAlign: 'center',
     color: 'white',
-    fontSize: '18px',
+    fontSize: '1.3em',
     fontFamily: 'Frock',
   },
 }));

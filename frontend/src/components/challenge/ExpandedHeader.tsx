@@ -4,6 +4,8 @@ import { Typography } from '@mui/material';
 import { ChallengeData } from 'types/challenges';
 import { UserChallengeData } from 'types/userchallenge';
 import { getHexCode } from 'utils/color';
+import InView from 'react-intersection-observer';
+import { motion } from 'framer-motion';
 
 const useStyles = makeStyles(() => ({
   headerContainer: {
@@ -19,7 +21,7 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'left',
-    padding: '50px 50px 100px 50px',
+    padding: '60px 2.5em 100px 2.5em',
   },
   white: {
     color: 'white',
@@ -49,29 +51,42 @@ const ExpandedHeader: React.FC<ExpandedHeaderProps> = (props) => {
       className={classes.headerContainer}
       style={{ backgroundColor: getHexCode(challenge.color) }}
     >
-      <div className={classes.expandedHeaderTextContainer}>
-        <Typography className={classes.white}>
-          {!!userChallenge ? '🔥 ONGOING' : '👻 UNENROLLED'}
-        </Typography>
-        <Typography variant="h1" className={classes.headerText}>
-          {challenge.name}
-        </Typography>
-        <Typography className={`${classes.white} ${classes.bold}`}>
-          {challenge.duration} days · Created by {challenge.createdBy}
-        </Typography>
-        <Typography className={`${classes.white} ${classes.topPadding}`}>
-          {challenge.description}
-        </Typography>
-        <Typography
-          variant="h6"
-          className={`${classes.white} ${classes.topPadding} ${classes.bold}`}
-        >
-          Recommended schedule
-        </Typography>
-        <Typography className={`${classes.white} ${classes.removeMargin}`}>
-          {challenge.schedule}
-        </Typography>
-      </div>
+      <InView threshold={0.2}>
+        {({ inView, ref }) => (
+          <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+          >
+            <div className={classes.expandedHeaderTextContainer}>
+              <Typography className={classes.white}>
+                {!!userChallenge ? '🔥 ONGOING' : '👻 UNENROLLED'}
+              </Typography>
+              <Typography variant="h1" className={classes.headerText}>
+                {challenge.name}
+              </Typography>
+              <Typography className={`${classes.white} ${classes.bold}`}>
+                {challenge.duration} days · Created by {challenge.createdBy}
+              </Typography>
+              <Typography className={`${classes.white} ${classes.topPadding}`}>
+                {challenge.description}
+              </Typography>
+              <Typography
+                variant="h6"
+                className={`${classes.white} ${classes.topPadding} ${classes.bold}`}
+              >
+                Recommended schedule
+              </Typography>
+              <Typography
+                className={`${classes.white} ${classes.removeMargin}`}
+              >
+                {challenge.schedule}
+              </Typography>
+            </div>
+          </motion.div>
+        )}
+      </InView>
     </div>
   );
 };
