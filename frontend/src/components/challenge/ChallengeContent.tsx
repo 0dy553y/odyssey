@@ -33,6 +33,7 @@ const useStyles = makeStyles(() => ({
     padding: '1em 0.5em',
     borderRadius: '2em 2em 0 0',
     backgroundColor: '#f5f7f9',
+    // overflowX: 'scroll',
   },
   headerContainer: {
     display: 'flex',
@@ -53,6 +54,7 @@ const useStyles = makeStyles(() => ({
     padding: '0.5em 0 0 2em',
     backgroundColor: '#f5f7f9',
     position: 'sticky',
+    zIndex: 1,
     top: '4em',
   },
   white: {
@@ -96,6 +98,7 @@ const useStyles = makeStyles(() => ({
     color: 'white',
     fontSize: '1.3em',
     fontFamily: 'Frock',
+    textOverflow: 'ellipsis',
   },
   joinButton: {
     marginTop: '3em',
@@ -303,6 +306,14 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
             {Object.values(TabItem).map((tabItem) => (
               <TabPanel key={tabItem} value={tabItem}>
                 {tabPanelRenderer(tabItem)}
+                rtijgoritjg ortjg oijtg origj roijg or oritgjroijg rotigj roitjg
+                oritjg oritjg oritj foeijf oiwej foiejr foiejr foiejr ofijte
+                ohgurthfileuwhfuerh fouiej oeijf rtijgoritjg ortjg oijtg origj
+                roijg or oritgjroijg rotigj roitjg oritjg oritjg oritj foeijf
+                oiwej foiejr foiejr foiejr ofijte ohgurthfileuwhfuerh fouiej
+                rtijgoritjg ortjg oijtg origj roijg or oritgjroijg rotigj roitjg
+                oritjg oritjg oritj foeijf oiwej foiejr foiejr foiejr ofijte
+                ohgurthfileuwhfuerh fouiej oeijf
               </TabPanel>
             ))}
           </TabContext>

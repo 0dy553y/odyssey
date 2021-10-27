@@ -3,7 +3,6 @@ import EditProfilePage from 'pages/editProfile';
 import FriendsPage from 'pages/friends/FriendsPage';
 import CategoryPage from '../pages/category';
 import ChallengeDetailsPage from '../pages/challenge';
-import ChallengeDetailsPage2 from 'pages/challenge/ChallengeDetailsPage2';
 import CompletedChallengesPage from 'pages/completedChallenges/CompletedChallengesPage';
 import ExplorePage from '../pages/explore';
 import FeedPage from '../pages/feed';
@@ -86,10 +85,6 @@ export const privateRoutes: RouteEntry[] = [
     exact: true,
   },
   { path: EXPLORE_ROUTE, component: ExplorePage },
-  {
-    path: CATEGORY_ROUTE + '/:categoryId/challenge/:challengeId',
-    component: ChallengeDetailsPage2,
-  },
   { path: DEMO_MAP_ROUTE, component: DemoMap },
   {
     path: MAP_ROUTE + '/:challengeId',

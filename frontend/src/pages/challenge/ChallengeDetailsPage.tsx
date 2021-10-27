@@ -9,7 +9,7 @@ import { RootState } from 'store';
 import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
 import { getAllUserChallengesDataForChallenge } from 'store/userchallenges/selectors';
-import { AppBar, IconButton, Skeleton, Toolbar } from '@mui/material';
+import { IconButton, Skeleton } from '@mui/material';
 import ChallengeContent from 'components/challenge/ChallengeContent';
 import { makeStyles } from '@mui/styles';
 import { ChevronLeft } from '@mui/icons-material';
