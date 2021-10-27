@@ -23,6 +23,9 @@ const useStyles = makeStyles(() => ({
     marginLeft: 50,
     marginRight: 50,
   },
+  handCursorLink: {
+    cursor: 'pointer',
+  },
 }));
 
 interface Props {
@@ -46,7 +49,13 @@ const UserTaskCarousel: React.FC<Props> = ({
           You have no tasks for today!
           <br />
           {'Why not head to the '}
-          <Link onClick={() => history.push(EXPLORE_ROUTE)}> Explore tab</Link>
+          <Link
+            className={classes.handCursorLink}
+            onClick={() => history.push(EXPLORE_ROUTE)}
+          >
+            {' '}
+            Explore tab
+          </Link>
           {' and start a new challenge?'}
         </Typography>
       </div>

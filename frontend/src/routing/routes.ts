@@ -31,6 +31,7 @@ export const NOTIFICATIONS_ROUTE = '/notifications';
 export const COMPLETED_CHALLENGES_ROUTE = '/completed';
 export const BADGE_ROUTE = '/badges';
 export const ONBOARDING_ROUTE = '/welcome';
+export const TEMP_CHALLENGE_ROUTE = '/challenge';
 export const LANDING_ROUTE = '/landing';
 // TODO: remove when no longer needed.
 export const DEMO_MAP_ROUTE = '/map/demo';
