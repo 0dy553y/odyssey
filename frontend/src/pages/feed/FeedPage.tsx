@@ -20,6 +20,7 @@ import {
 import { getPostList } from 'store/posts/selectors';
 import { getUser } from 'store/auth/selectors';
 import { ReactionEmoji } from 'types/posts';
+import { CreatePostModal } from 'components/feed/CreatePostModal';
 
 const useStyles = makeStyles((theme: Theme) => ({
   toggleButtonContainer: {
@@ -63,6 +64,8 @@ const FeedPage: React.FC = () => {
   const [selectedToggle, setSelectedToggle] = useState<'friends' | 'community'>(
     'friends'
   );
+  const [isCreatePostModalOpen, setIsCreatePostModalOpen] =
+    React.useState<boolean>(false);
 
   useEffect(() => {
     dispatch(loadAllPosts());
@@ -122,7 +125,10 @@ const FeedPage: React.FC = () => {
             />
           ))}
 
-          <Fab className={classes.fab}>
+          <Fab
+            className={classes.fab}
+            onClick={() => setIsCreatePostModalOpen(true)}
+          >
             <Badge
               anchorOrigin={{
                 vertical: 'top',
@@ -134,6 +140,12 @@ const FeedPage: React.FC = () => {
               <CreateOutlinedIcon />
             </Badge>
           </Fab>
+
+          <CreatePostModal
+            isOpen={isCreatePostModalOpen}
+            onClose={() => setIsCreatePostModalOpen(false)}
+            onSubmit={() => console.log('TODO', 'submit')}
+          />
         </>
       )}
     </>
