@@ -75,23 +75,6 @@ const ChallengeDetailsPage: React.FC = () => {
       ? undefined
       : userChallenges[userChallenges.length - 1];
 
-  const Bar = () => (
-    <AppBar position="static">
-      <Toolbar>
-        <div
-          onClick={() => {
-            history.goBack();
-          }}
-        >
-          <IconButton edge="start" className={classes.white}>
-            <ChevronLeft />
-          </IconButton>
-        </div>
-        <Box className={classes.spacer} />
-      </Toolbar>
-    </AppBar>
-  );
-
   if (!challenge) {
     return <Skeleton />;
   }
