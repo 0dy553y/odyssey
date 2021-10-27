@@ -241,11 +241,11 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
           >
             <div className={classes.expandedHeaderTextContainer}>
               <Typography className={classes.white}>
-         {!isEnrolled
-            ? '👻 UNENROLLED'
-            : !isChallengeCompleted
-            ? '🔥 ONGOING'
-            : '🎉 COMPLETED'}
+                {!isEnrolled
+                  ? '👻 UNENROLLED'
+                  : !isChallengeCompleted
+                  ? '🔥 ONGOING'
+                  : '🎉 COMPLETED'}
               </Typography>
               <Typography variant="h1" className={classes.headerText}>
                 {challenge.name}
