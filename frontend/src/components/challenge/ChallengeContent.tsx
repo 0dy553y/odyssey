@@ -33,7 +33,6 @@ const useStyles = makeStyles(() => ({
     padding: '1em 0.5em',
     borderRadius: '2em 2em 0 0',
     backgroundColor: '#f5f7f9',
-    // overflowX: 'scroll',
   },
   headerContainer: {
     display: 'flex',
