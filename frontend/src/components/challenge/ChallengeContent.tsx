@@ -2,25 +2,22 @@ import React, { useReducer, useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Box, Button, Skeleton, Typography, Tab } from '@mui/material';
 import { TaskListData } from 'types/tasks';
-import { UserTaskListData } from 'types/usertasks';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { ChallengeData, Schedule } from 'types/challenges';
-import ExpandedHeader from './ExpandedHeader';
 import { getHexCode } from 'utils/color';
 import UserChallengeStats from 'pages/challenge/UserChallengeStats';
 import { UserChallengeData } from 'types/userchallenge';
 import { TabPanel, TabContext, TabList } from '@mui/lab';
 import ChallengeMilestones from 'pages/challenge/ChallengeMilestones';
-import { useScroll } from 'react-use-gesture';
 import ChallengeCompletedModal from 'components/challengeCompletedModal';
 import { motion } from 'framer-motion';
-import InView, { useInView } from 'react-intersection-observer';
-import CollapsedHeader from './CollapsedHeader';
+import { useInView } from 'react-intersection-observer';
 import ScheduleModal from 'pages/challenge/ScheduleModal';
 import { joinChallenge } from 'store/challenges/operations';
 
 const useStyles = makeStyles(() => ({
   contentContainer: {
-    // overflow: 'scroll',
     scrollbarWidth: 'none',
     position: 'relative',
     display: 'flex',
@@ -51,7 +48,7 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'left',
-    padding: '60px 2.5em 100px 2.5em',
+    padding: '60px 2.5em 60px 2.5em',
   },
   tabs: {
     padding: '0.5em 0 0 2em',
@@ -72,12 +69,12 @@ const useStyles = makeStyles(() => ({
     marginBottom: '-0.5em',
   },
   fadeIn: {
-    opacity: 1,
-    transition: 'opacity 0.5s',
+    transform: 'translateY(0%)',
+    transition: 'transform 0.5s',
   },
   fadeOut: {
-    opacity: 0,
-    transition: 'opacity 0.5s',
+    transform: 'translateY(100%)',
+    transition: 'transform 0.5s',
   },
   collapsedHeader: {
     height: '4em',
@@ -100,6 +97,25 @@ const useStyles = makeStyles(() => ({
     color: 'white',
     fontSize: '1.3em',
     fontFamily: 'Frock',
+  },
+  joinButton: {
+    marginTop: '3em',
+    borderRadius: '20px',
+    height: '50px',
+    maxWidth: '300px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    textTransform: 'none',
+  },
+  secondaryJoinButton: {
+    marginTop: '3em',
+    borderRadius: '2.5em 0 0 0',
+    right: 0,
+    padding: '1.2em 2em',
+    position: 'fixed',
+    bottom: 0,
+    zIndex: 5,
+    textTransform: 'none',
   },
 }));
 
@@ -124,13 +140,14 @@ const privateTabs = [TabItem.YourStats];
 const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
   const { challenge, userChallenge, tasks } = props;
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const isEnrolled = !!userChallenge;
 
-  const [ref, inView, entry] = useInView({
-    threshold: 0.2,
-  });
+  const { challengeId } = useParams<{ challengeId: string }>();
 
+  const [isScheduleModalOpen, setIsScheduleModalOpen] =
+    useState<boolean>(false);
   const [challengeCompletedModalState, setChallengeCompletedModalState] =
     useReducer(
       (
@@ -142,6 +159,10 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
       }),
       { isOpen: false, completedChallengeName: undefined }
     );
+
+  const [ref, inView] = useInView({
+    threshold: 0.3,
+  });
 
   const onChallengeCompleted = (completedChallengeName: string) => {
     setChallengeCompletedModalState({
@@ -186,19 +207,6 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
 
   return (
     <Box>
-      {/* <motion.div
-        initial={{ opacity: 0 }}
-        animate={!inView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 2, ease: 'easeOut' }}
-      >
-        <CollapsedHeader name={challenge.name} color={challenge.color} />
-      </motion.div> */}
-      {/* <CollapsedHeader name={String(inView)} color={challenge.color} /> */}
-      {/* {!inView && (
-        <div className={inView ? classes.fadeOut : classes.fadeIn}>
-          <CollapsedHeader name={challenge.name} color={challenge.color} />
-        </div>
-      )} */}
       {!inView && (
         <div
           className={classes.collapsedHeader}
@@ -253,6 +261,26 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
               >
                 {challenge.schedule}
               </Typography>
+              {!isEnrolled && (
+                <>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    disableElevation
+                    className={classes.joinButton}
+                    onClick={() => setIsScheduleModalOpen(true)}
+                  >
+                    <Typography variant="body1">Join Challenge!</Typography>
+                  </Button>
+                  <ScheduleModal
+                    isOpen={isScheduleModalOpen}
+                    onClose={() => setIsScheduleModalOpen(false)}
+                    onSubmit={(schedule: Schedule) =>
+                      dispatch(joinChallenge(Number(challengeId), schedule))
+                    }
+                  />
+                </>
+              )}
             </div>
           </motion.div>
         </div>
@@ -275,13 +303,6 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
 
             {Object.values(TabItem).map((tabItem) => (
               <TabPanel key={tabItem} value={tabItem}>
-                Hello oirefjeijfoeijfoei rforf Hello oirefjeijfoeijfoei rforf
-                Hello oirefjeijfoeijfoei rforf Hello oirefjeijfoeijfoei
-                rforfHello oirefjeijfoeijfoei rforfHello oirefjeijfoeijfoei
-                rforfHello oirefjeijfoeijfoei rforfHello oirefjeijfoeijfoei
-                rforfHello oirefjeijfoeijfoei rforfHello oirefjeijfoeijfoei
-                rforfHello oirefjeijfoeijfoei rforfHello oirefjeijfoeijfoei
-                rforfHello oirefjeijfoeijfoei rforf
                 {tabPanelRenderer(tabItem)}
               </TabPanel>
             ))}
@@ -297,31 +318,29 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
           />
         )}
       </div>
+      {!isEnrolled && (
+        <>
+          <Button
+            variant="contained"
+            disableElevation
+            className={`${classes.secondaryJoinButton} ${
+              !inView ? classes.fadeIn : classes.fadeOut
+            }`}
+            onClick={() => setIsScheduleModalOpen(true)}
+          >
+            <Typography variant="body1">Join!</Typography>
+          </Button>
+          <ScheduleModal
+            isOpen={isScheduleModalOpen}
+            onClose={() => setIsScheduleModalOpen(false)}
+            onSubmit={(schedule: Schedule) =>
+              dispatch(joinChallenge(Number(challengeId), schedule))
+            }
+          />
+        </>
+      )}
     </Box>
   );
 };
 
 export default ChallengeContent;
-
-// const Searchbar: React.FC<SearchbarProps> = (props) => {
-//   const { placeholder, onChange } = props;
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     onChange(e.target.value);
-//   };
-
-//   return (
-//     <Search>
-//       <SearchIconWrapper>
-//         <SearchIcon />
-//       </SearchIconWrapper>
-//       <StyledInputBase
-//         placeholder={placeholder}
-//         inputProps={{ 'aria-label': 'search' }}
-//         onChange={handleChange}
-//       />
-//     </Search>
-//   );
-// };
-
-// export default Searchbar;
