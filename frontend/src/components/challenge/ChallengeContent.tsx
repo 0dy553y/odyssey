@@ -30,8 +30,7 @@ const useStyles = makeStyles(() => ({
     width: '100vw',
   },
   contentDetails: {
-    position: 'sticky',
-    padding: '1em',
+    padding: '1em 0.5em',
     borderRadius: '2em 2em 0 0',
     backgroundColor: '#f5f7f9',
   },
