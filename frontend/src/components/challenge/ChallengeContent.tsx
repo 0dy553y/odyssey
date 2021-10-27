@@ -306,14 +306,6 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
             {Object.values(TabItem).map((tabItem) => (
               <TabPanel key={tabItem} value={tabItem}>
                 {tabPanelRenderer(tabItem)}
-                rtijgoritjg ortjg oijtg origj roijg or oritgjroijg rotigj roitjg
-                oritjg oritjg oritj foeijf oiwej foiejr foiejr foiejr ofijte
-                ohgurthfileuwhfuerh fouiej oeijf rtijgoritjg ortjg oijtg origj
-                roijg or oritgjroijg rotigj roitjg oritjg oritjg oritj foeijf
-                oiwej foiejr foiejr foiejr ofijte ohgurthfileuwhfuerh fouiej
-                rtijgoritjg ortjg oijtg origj roijg or oritgjroijg rotigj roitjg
-                oritjg oritjg oritj foeijf oiwej foiejr foiejr foiejr ofijte
-                ohgurthfileuwhfuerh fouiej oeijf
               </TabPanel>
             ))}
           </TabContext>
