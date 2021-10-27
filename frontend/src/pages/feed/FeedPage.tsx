@@ -84,8 +84,12 @@ const FeedPage: React.FC = () => {
             value={selectedToggle}
             onChange={(
               _: React.MouseEvent<HTMLElement>,
-              newToggleValue: 'friends' | 'community'
+              newToggleValue: 'friends' | 'community' | null
             ) => {
+              // Disallow unselection of toggle
+              if (newToggleValue === null) {
+                return;
+              }
               setSelectedToggle(newToggleValue);
             }}
           >
