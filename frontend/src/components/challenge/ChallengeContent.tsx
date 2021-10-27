@@ -6,14 +6,14 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ChallengeData, Schedule } from 'types/challenges';
 import { getHexCode } from 'utils/color';
-import UserChallengeStats from 'pages/challenge/UserChallengeStats';
+import UserChallengeStats from 'components/challenge/UserChallengeStats';
 import { UserChallengeData } from 'types/userchallenge';
 import { TabPanel, TabContext, TabList } from '@mui/lab';
-import ChallengeMilestones from 'pages/challenge/ChallengeMilestones';
+import ChallengeMilestones from 'components/challenge/ChallengeMilestones';
 import ChallengeCompletedModal from 'components/challengeCompletedModal';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import ScheduleModal from 'pages/challenge/ScheduleModal';
+import ScheduleModal from 'components/challenge/ScheduleModal';
 import { joinChallenge } from 'store/challenges/operations';
 
 const useStyles = makeStyles(() => ({
