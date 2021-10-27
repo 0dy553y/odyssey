@@ -145,6 +145,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
   const dispatch = useDispatch();
 
   const isEnrolled = !!userChallenge;
+  const isChallengeCompleted = isEnrolled && !!userChallenge.completedAt;
 
   const { challengeId } = useParams<{ challengeId: string }>();
 
