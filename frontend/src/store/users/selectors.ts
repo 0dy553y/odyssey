@@ -6,9 +6,9 @@ function getLocalState(state: RootState): UsersState {
   return state.users;
 }
 
-export function getUserById(
+export function getUserByUsername(
   state: RootState,
-  userId: number | string
+  username: string
 ): UserData | undefined {
-  return getLocalState(state).users[Number(userId)];
+  return getLocalState(state).users[username];
 }

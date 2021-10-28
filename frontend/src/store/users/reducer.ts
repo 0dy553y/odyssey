@@ -8,7 +8,7 @@ const initialState: UsersState = {
 const usersReducer = produce((draft: UsersState, action: UserActions) => {
   switch (action.type) {
     case SAVE_USER: {
-      draft.users[action.user.id] = action.user;
+      draft.users[action.user.username] = action.user;
       break;
     }
   }

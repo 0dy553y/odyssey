@@ -47,11 +47,11 @@ export function loadAllUserChallengesDataForChallenge(
 }
 
 export function loadAllOngoingUserChallenges(
-  userId?: number | string
+  username?: string
 ): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userChallenges.getAllOngoingUserChallengesData(
-      userId
+      username
     );
     const userChallenges: UserChallengeListData[] = response.payload.data;
     dispatch(
@@ -63,11 +63,11 @@ export function loadAllOngoingUserChallenges(
 }
 
 export function loadAllCompletedUserChallenges(
-  userId?: number | string
+  username?: string
 ): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userChallenges.getAllCompletedUserChallengesData(
-      userId
+      username
     );
     const userChallenges: CompletedUserChallengeListData[] =
       response.payload.data.map((userChallenge) => {

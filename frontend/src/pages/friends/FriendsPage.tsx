@@ -17,7 +17,7 @@ import { ADD_FRIENDS_ROUTE } from '../../routing/routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../store/auth/selectors';
 import { RootState } from '../../store';
-import { getUserById } from '../../store/users/selectors';
+import { getUserByUsername } from '../../store/users/selectors';
 import { displayUsername } from '../../utils/formatting';
 import { loadUser } from '../../store/users/operations';
 
@@ -35,16 +35,16 @@ const FriendsPage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-  const { userId } = useParams<{ userId: string | undefined }>();
+  const { username: username } = useParams<{ username: string | undefined }>();
 
-  const isOwnFriendsPage = userId === undefined;
+  const isOwnFriendsPage = username === undefined;
   const user = isOwnFriendsPage
     ? useSelector(getUser)
     : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      useSelector((state: RootState) => getUserById(state, userId!));
+      useSelector((state: RootState) => getUserByUsername(state, username!));
 
   useEffect(() => {
-    dispatch(loadUser(userId));
+    dispatch(loadUser(username));
   }, []);
 
   if (!user) {

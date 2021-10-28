@@ -42,7 +42,7 @@ import { loadAllFriends } from '../../store/friends/operations';
 import { FriendListData } from '../../types/friends';
 import { getFriendList } from '../../store/friends/selectors';
 import { loadUser } from '../../store/users/operations';
-import { getUserById } from '../../store/users/selectors';
+import { getUserByUsername } from '../../store/users/selectors';
 
 export interface StyleProps {
   scrollbarWidth: number;
@@ -76,17 +76,17 @@ const ProfilePage: React.FC = () => {
   const history = useHistory();
   const { width } = useScrollbarSize();
   const classes = useStyles({ scrollbarWidth: width });
-  const { userId } = useParams<{ userId: string | undefined }>();
+  const { username } = useParams<{ username: string | undefined }>();
 
-  const isOwnProfilePage = userId === undefined;
+  const isOwnProfilePage = username === undefined;
 
   useEffect(() => {
     batch(() => {
-      dispatch(loadUser(userId));
-      dispatch(loadAllOngoingUserChallenges(userId));
-      dispatch(loadAllCompletedUserChallenges(userId));
-      dispatch(loadAllFriends(userId));
-      dispatch(loadUserTaskActivityData(userId));
+      dispatch(loadUser(username));
+      dispatch(loadAllOngoingUserChallenges(username));
+      dispatch(loadAllCompletedUserChallenges(username));
+      dispatch(loadAllFriends(username));
+      dispatch(loadUserTaskActivityData(username));
     });
   }, []);
 
@@ -94,7 +94,7 @@ const ProfilePage: React.FC = () => {
   const user = isOwnProfilePage
     ? useSelector(getUser)
     : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      useSelector((state: RootState) => getUserById(state, userId!));
+      useSelector((state: RootState) => getUserByUsername(state, username!));
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const ongoingChallenges = useSelector((state: RootState) =>
     getAllOngoingUserChallenges(state)
@@ -123,7 +123,7 @@ const ProfilePage: React.FC = () => {
         if (isOwnProfilePage) {
           history.push(FRIENDS_ROUTE);
         } else {
-          history.push(`${FRIENDS_ROUTE}/${userId}`);
+          history.push(`${FRIENDS_ROUTE}/${username}`);
         }
       },
     },
@@ -137,7 +137,7 @@ const ProfilePage: React.FC = () => {
         if (isOwnProfilePage) {
           history.push(COMPLETED_CHALLENGES_ROUTE);
         } else {
-          history.push(`${COMPLETED_CHALLENGES_ROUTE}/${userId}`);
+          history.push(`${COMPLETED_CHALLENGES_ROUTE}/${username}`);
         }
       },
     },

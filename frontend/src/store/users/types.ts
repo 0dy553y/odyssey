@@ -12,5 +12,5 @@ export interface SaveUserAction {
 export type UserActions = SaveUserAction;
 
 export interface UsersState {
-  users: Record<number, UserData>;
+  users: Record<string, UserData>;
 }

@@ -32,11 +32,11 @@ class UserTasksAPI extends BaseAPI {
   }
 
   public getUserTaskActivityData(
-    userId?: number | string
+    username?: string
   ): ApiPromise<UserTaskActivityDatum[]> {
     return this.get(
-      `${UserTasksAPI.getUserTasksUrl()}/user_task_activity_data?userId=${
-        userId ?? ''
+      `${UserTasksAPI.getUserTasksUrl()}/user_task_activity_data?username=${
+        username ?? ''
       }`
     );
   }

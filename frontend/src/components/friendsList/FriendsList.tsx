@@ -9,10 +9,10 @@ import { useParams } from 'react-router-dom';
 
 const FriendsList: React.FC = () => {
   const dispatch = useDispatch();
-  const { userId } = useParams<{ userId: string | undefined }>();
+  const { username } = useParams<{ username: string | undefined }>();
 
   useEffect(() => {
-    dispatch(loadAllFriends(userId));
+    dispatch(loadAllFriends(username));
   }, []);
 
   const friends: FriendListData[] = useSelector(getFriendList);

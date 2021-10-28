@@ -60,7 +60,7 @@ export const mainRoutes: RouteEntry[] = [
 export const privateRoutes: RouteEntry[] = [
   { path: EDIT_PROFILE_ROUTE, component: EditProfilePage, exact: true },
   { path: PROFILE_ROUTE, component: ProfilePage, exact: true },
-  { path: PROFILE_ROUTE + '/:userId', component: ProfilePage, exact: true },
+  { path: PROFILE_ROUTE + '/:username', component: ProfilePage, exact: true },
   { path: HOME_ROUTE, component: HomePage, exact: true },
   { path: FEED_ROUTE, component: FeedPage, exact: true },
   {
@@ -69,7 +69,7 @@ export const privateRoutes: RouteEntry[] = [
   },
   { path: ADD_FRIENDS_ROUTE, component: AddFriendsPage, exact: true },
   { path: FRIENDS_ROUTE, component: FriendsPage, exact: true },
-  { path: FRIENDS_ROUTE + '/:userId', component: FriendsPage, exact: true },
+  { path: FRIENDS_ROUTE + '/:username', component: FriendsPage, exact: true },
   { path: NOTIFICATIONS_ROUTE, component: NotificationsPage, exact: true },
   {
     path: COMPLETED_CHALLENGES_ROUTE,
@@ -77,7 +77,7 @@ export const privateRoutes: RouteEntry[] = [
     exact: true,
   },
   {
-    path: COMPLETED_CHALLENGES_ROUTE + '/:userId',
+    path: COMPLETED_CHALLENGES_ROUTE + '/:username',
     component: CompletedChallengesPage,
     exact: true,
   },

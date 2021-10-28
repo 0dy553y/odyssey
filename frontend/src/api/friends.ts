@@ -7,8 +7,8 @@ class FriendsAPI extends BaseAPI {
     return 'friends';
   }
 
-  public getFriendList(userId?: number | string): ApiPromise<FriendListData[]> {
-    return this.get(`${FriendsAPI.getFriendsUrl()}?userId=${userId ?? ''}`);
+  public getFriendList(username?: string): ApiPromise<FriendListData[]> {
+    return this.get(`${FriendsAPI.getFriendsUrl()}?username=${username ?? ''}`);
   }
 
   public searchUsersByUsername(

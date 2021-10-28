@@ -14,25 +14,25 @@ import { ChallengeListData } from 'types/challenges';
 
 import './CompletedChallengesPage.scss';
 import { getUser } from '../../store/auth/selectors';
-import { getUserById } from '../../store/users/selectors';
+import { getUserByUsername } from '../../store/users/selectors';
 import { displayUsername } from '../../utils/formatting';
 import { loadUser } from '../../store/users/operations';
 
 const CompletedChallengesPage: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { userId } = useParams<{ userId: string | undefined }>();
+  const { username } = useParams<{ username: string | undefined }>();
 
-  const isOwnCompletedChallengesPage = userId === undefined;
+  const isOwnCompletedChallengesPage = username === undefined;
   const user = isOwnCompletedChallengesPage
     ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       useSelector(getUser)!
     : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      useSelector((state: RootState) => getUserById(state, userId!))!;
+      useSelector((state: RootState) => getUserByUsername(state, username!))!;
 
   useEffect(() => {
     batch(() => {
-      dispatch(loadUser(userId));
+      dispatch(loadUser(username));
       dispatch(loadAllCompletedUserChallenges());
       dispatch(loadAllChallenges());
     });

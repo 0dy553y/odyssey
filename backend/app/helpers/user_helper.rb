@@ -2,9 +2,9 @@
 
 module UserHelper
   def user
-    user_id = params[:user_id]
-    if user_id.present?
-      User.find(user_id)
+    username = params[:username]
+    if username.present?
+      User.find_by(username: username)
     else
       current_user
     end

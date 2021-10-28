@@ -20,21 +20,21 @@ class UserChallengesAPI extends BaseAPI {
   }
 
   public getAllOngoingUserChallengesData(
-    userId?: number | string
+    username?: string
   ): ApiPromise<UserChallengeListData[]> {
     return this.get(
-      `${UserChallengesAPI.getUserChallengesUrl()}/all_ongoing_challenges?userId=${
-        userId ?? ''
+      `${UserChallengesAPI.getUserChallengesUrl()}/all_ongoing_challenges?username=${
+        username ?? ''
       }`
     );
   }
 
   public getAllCompletedUserChallengesData(
-    userId?: number | string
+    username?: string
   ): ApiPromise<CompletedUserChallengeListData[]> {
     return this.get(
-      `${UserChallengesAPI.getUserChallengesUrl()}/all_completed_challenges?userId=${
-        userId ?? ''
+      `${UserChallengesAPI.getUserChallengesUrl()}/all_completed_challenges?username=${
+        username ?? ''
       }`
     );
   }

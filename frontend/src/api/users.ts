@@ -7,9 +7,9 @@ class UsersAPI extends BaseAPI {
     return 'users';
   }
 
-  public getUserDetails(userId?: number | string): ApiPromise<UserData> {
+  public getUserDetails(username?: string): ApiPromise<UserData> {
     return this.get(
-      `${UsersAPI.getUsersUrl()}/user_details?userId=${userId ?? ''}`
+      `${UsersAPI.getUsersUrl()}/user_details?username=${username ?? ''}`
     );
   }
 }
