@@ -61,6 +61,66 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
     props.onClose();
   };
 
+  const dialogContent = () => {
+    if (challenges.length === 0) {
+      return (
+        <Box>
+          You are not enrolled in any challenges. Join a challenge first before
+          sharing your experiences!
+        </Box>
+      );
+    }
+
+    return (
+      <>
+        <Controller
+          name="challengeId"
+          control={control}
+          rules={{ required: 'Please select a challenge' }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              required
+              fullWidth
+              autoFocus
+              variant="standard"
+              label="Challenge"
+              error={!!errors.challengeId}
+              helperText={errors.challengeId?.message}
+              select
+            >
+              {challenges.map((challenge) => (
+                <MenuItem key={challenge.id} value={challenge.id}>
+                  {challenge.name}
+                </MenuItem>
+              ))}
+            </TextField>
+          )}
+        />
+
+        <Controller
+          name="body"
+          control={control}
+          rules={{ required: 'Text cannot be empty' }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              required
+              fullWidth
+              autoFocus
+              variant="standard"
+              label="Text"
+              error={!!errors.body}
+              helperText={errors.body?.message}
+              multiline
+              rows={5}
+            />
+          )}
+        />
+      </>
+    );
+  };
+
   return (
     <Dialog
       open={isOpen}
@@ -85,57 +145,19 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
         <DialogTitle>Create Post</DialogTitle>
 
         <DialogContent className={classes.createPostForm}>
-          <Controller
-            name="challengeId"
-            control={control}
-            rules={{ required: 'Please select a challenge' }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                required
-                fullWidth
-                autoFocus
-                variant="standard"
-                label="Challenge"
-                error={!!errors.challengeId}
-                helperText={errors.challengeId?.message}
-                select
-              >
-                {challenges.map((challenge) => (
-                  <MenuItem key={challenge.id} value={challenge.id}>
-                    {challenge.name}
-                  </MenuItem>
-                ))}
-              </TextField>
-            )}
-          />
-
-          <Controller
-            name="body"
-            control={control}
-            rules={{ required: 'Text cannot be empty' }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                required
-                fullWidth
-                autoFocus
-                variant="standard"
-                label="Text"
-                error={!!errors.body}
-                helperText={errors.body?.message}
-                multiline
-                rows={5}
-              />
-            )}
-          />
+          {dialogContent()}
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={onClose} variant="outlined">
             Close
           </Button>
 
-          <Button autoFocus variant="contained" type="submit">
+          <Button
+            autoFocus
+            variant="contained"
+            type="submit"
+            disabled={challenges.length === 0}
+          >
             Post
           </Button>
         </DialogActions>
