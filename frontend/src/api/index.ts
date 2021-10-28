@@ -8,6 +8,7 @@ import PostsAPI from './posts';
 import TasksAPI from './tasks';
 import UserChallengesAPI from './userchallenge';
 import UserTasksAPI from './usertasks';
+import UsersAPI from './users';
 
 const api = Object.freeze({
   auth: new AuthAPI(),
@@ -17,6 +18,7 @@ const api = Object.freeze({
   friendRequests: new FriendRequestsAPI(),
   posts: new PostsAPI(),
   tasks: new TasksAPI(),
+  users: new UsersAPI(),
   userTasks: new UserTasksAPI(),
   userChallenges: new UserChallengesAPI(),
   landingEmails: new LandingEmailsAPI(),

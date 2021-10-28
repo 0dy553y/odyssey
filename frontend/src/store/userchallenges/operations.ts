@@ -46,9 +46,13 @@ export function loadAllUserChallengesDataForChallenge(
   };
 }
 
-export function loadAllOngoingUserChallenges(): OperationResult {
+export function loadAllOngoingUserChallenges(
+  username?: string
+): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.userChallenges.getAllOngoingUserChallengesData();
+    const response = await api.userChallenges.getAllOngoingUserChallengesData(
+      username
+    );
     const userChallenges: UserChallengeListData[] = response.payload.data;
     dispatch(
       updateOngoingUserChallengesListData({
@@ -58,10 +62,13 @@ export function loadAllOngoingUserChallenges(): OperationResult {
   };
 }
 
-export function loadAllCompletedUserChallenges(): OperationResult {
+export function loadAllCompletedUserChallenges(
+  username?: string
+): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response =
-      await api.userChallenges.getAllCompletedUserChallengesData();
+    const response = await api.userChallenges.getAllCompletedUserChallengesData(
+      username
+    );
     const userChallenges: CompletedUserChallengeListData[] =
       response.payload.data.map((userChallenge) => {
         return {

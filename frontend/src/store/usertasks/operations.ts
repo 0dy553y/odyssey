@@ -82,9 +82,9 @@ export function markUserTaskAsNotDone(userTaskId: number): OperationResult {
   };
 }
 
-export function loadUserTaskActivityData(): OperationResult {
+export function loadUserTaskActivityData(username?: string): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.userTasks.getUserTaskActivityData();
+    const response = await api.userTasks.getUserTaskActivityData(username);
     const data = response.payload.data;
 
     dispatch(

@@ -12,17 +12,13 @@ import { ChallengeListData } from 'types/challenges';
 
 import './ChallengeSummaries.scss';
 
-export interface ChallengeDetails {
-  name: string;
-  duration: number;
-}
-
 interface ChallengeSummariesProps {
   challenges: UserChallengeListData[];
+  isCurrentUser: boolean;
 }
 
 const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
-  const { challenges } = props;
+  const { challenges, isCurrentUser } = props;
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -47,7 +43,9 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
       <ul>
         {challenges.length === 0 && (
           <Typography variant="body1" className="no-results-message">
-            Join a challenge? &#128131;
+            {isCurrentUser
+              ? 'Join a challenge? 💃'
+              : 'No challenges to display'}
           </Typography>
         )}
         {challenges.length > 0 &&

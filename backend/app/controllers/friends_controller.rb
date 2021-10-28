@@ -3,9 +3,10 @@
 class FriendsController < ApplicationController
   # helper to have access to methods in templates
   helper Base64Helper
+  include UserHelper
 
   def index
-    @friends = current_user.friends
+    @friends = user.friends
   end
 
   def search
