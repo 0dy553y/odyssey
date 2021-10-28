@@ -215,7 +215,10 @@ const ProfilePage: React.FC = () => {
           registrationDate={user?.registrationDate}
         />
 
-        <ChallengeSummaries challenges={ongoingChallenges} />
+        <ChallengeSummaries
+          challenges={ongoingChallenges}
+          isCurrentUser={isOwnProfilePage}
+        />
       </Box>
     </>
   );
