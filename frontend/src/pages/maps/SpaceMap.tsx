@@ -12,10 +12,10 @@ interface MapProps {
   currentStep: number;
 }
 
-const mockFriends: Map<number, string[]> = new Map([
-  [1, ['Mario']],
-  [2, ['Mochi', 'Margikarp']],
-]);
+const mockFriends: Record<number, string[]> = {
+  1: ['Mario'],
+  2: ['Mochi', 'Margikarp'],
+};
 
 const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
   const [stepPositions, setStepPositions] = useState<DirectionPosition[]>([]);
@@ -30,19 +30,24 @@ const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
   const mapRef = useRef();
 
   const spawnFriends = () => {
-    for (const sharedStep in Array.from(mockFriends.keys())) {
+    for (const sharedStep in Object.keys(mockFriends)) {
       console.log(sharedStep);
     }
 
     return (
       <>
-        {Array.from(mockFriends.keys()).map((sharedStep: number) => (
-          <Box
-            key={sharedStep}
-            position={stepPositions[sharedStep - 1].pos}
-            direction={stepPositions[sharedStep - 1].direction}
-          />
-        ))}
+        {Object.keys(mockFriends).map(
+          (value: string, index: number, array: string[]) => ({
+            //   array.map((username: string, index: number) => (
+            //     <Character
+            //   key={username}
+            //   position={stepPositions[1].pos}
+            //   direction={stepPositions[1].direction}
+            //   username={username}
+            // />
+            // ))
+          })
+        )}
       </>
     );
   };
