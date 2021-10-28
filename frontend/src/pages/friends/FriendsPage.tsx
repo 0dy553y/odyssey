@@ -14,6 +14,11 @@ import FriendsList from 'components/friendsList';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { makeStyles } from '@mui/styles';
 import { ADD_FRIENDS_ROUTE } from '../../routing/routes';
+import { useSelector } from 'react-redux';
+import { getUser } from '../../store/auth/selectors';
+import { RootState } from '../../store';
+import { getUserById } from '../../store/users/selectors';
+import { displayUsername } from '../../utils/formatting';
 
 const useStyles = makeStyles((theme: Theme) => ({
   fab: {
@@ -31,6 +36,11 @@ const FriendsPage: React.FC = () => {
   const { userId } = useParams<{ userId: string | undefined }>();
 
   const isOwnFriendsPage = userId === undefined;
+  const user = isOwnFriendsPage
+    ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      useSelector(getUser)!
+    : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      useSelector((state: RootState) => getUserById(state, userId!))!;
 
   return (
     <Box sx={{ padding: '2em 1.5em 0 1.5em' }}>
@@ -43,7 +53,9 @@ const FriendsPage: React.FC = () => {
       </AppBar>
 
       <Typography component="h1" variant="h4" style={{ fontFamily: 'Frock' }}>
-        {isOwnFriendsPage ? 'Your friends' : `${userId}'s friends`}
+        {isOwnFriendsPage
+          ? 'Your friends'
+          : `${user.displayName ?? displayUsername(user.username)}'s friends`}
       </Typography>
 
       <FriendsList />

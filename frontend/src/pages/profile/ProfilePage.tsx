@@ -91,10 +91,10 @@ const ProfilePage: React.FC = () => {
   }, []);
 
   // user should never be undefined (assuming auth routing works)
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const user = isOwnProfilePage
     ? useSelector(getUser)
-    : useSelector((state: RootState) => getUserById(state, userId!));
+    : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      useSelector((state: RootState) => getUserById(state, userId!));
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const ongoingChallenges = useSelector((state: RootState) =>
     getAllOngoingUserChallenges(state)
