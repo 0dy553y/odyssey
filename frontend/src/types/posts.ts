@@ -4,6 +4,11 @@ export interface PostListData {
   id: number;
   body: string;
   createdAt: Date;
+  challenge: {
+    id: number;
+    categoryId: number;
+    name: string;
+  };
   creator: Omit<UserData, 'registrationDate'>;
   reactions: ReactionListData[];
 }
