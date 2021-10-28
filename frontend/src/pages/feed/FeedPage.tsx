@@ -2,6 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Badge,
+  Box,
   Container,
   Fab,
   Theme,
@@ -27,6 +28,7 @@ import { createNewPost } from 'store/posts/operations';
 import { CreatePostModal } from 'components/feed/CreatePostModal';
 import { ChallengeListData } from 'types/challenges';
 import api from 'api';
+import { MemoizedFeedPostList } from 'components/feed/FeedPostList';
 
 const useStyles = makeStyles((theme: Theme) => ({
   toggleButtonContainer: {
@@ -123,135 +125,109 @@ const FeedPage: React.FC = () => {
         <FeedPostSkeleton key={idx} />
       ));
     }
-    if (state.selectedToggle === 'friends') {
-      return renderFriendsContent();
-    } else if (state.selectedToggle === 'community') {
-      return renderCommunityContent();
-    }
-  };
-
-  const renderFriendsContent = () =>
-    state.friendPosts.length > 0 ? (
-      state.friendPosts.map((post) => (
-        <FeedPost
-          key={post.id}
-          post={post}
-          currentUserId={user.id}
-          addReaction={(reaction: ReactionEmoji) => {
-            dispatch(addReactionToPost(post.id, reaction));
-          }}
-          removeReaction={(reaction: ReactionEmoji) => {
-            dispatch(removeReactionFromPost(post.id, reaction));
-          }}
-        />
-      ))
-    ) : (
-      <Container fixed sx={{ flexGrow: 1 }}>
-        No posts found.
-      </Container>
+    return (
+      <MemoizedFeedPostList
+        posts={
+          state.selectedToggle === 'friends'
+            ? state.friendPosts
+            : state.communityPosts
+        }
+        currentUserId={user.id}
+        addReaction={(reaction: ReactionEmoji, post: PostListData) => {
+          dispatch(addReactionToPost(post.id, reaction));
+        }}
+        removeReaction={(reaction: ReactionEmoji, post: PostListData) => {
+          dispatch(removeReactionFromPost(post.id, reaction));
+        }}
+      />
     );
-
-  const renderCommunityContent = () =>
-    state.communityPosts.length > 0
-      ? state.communityPosts.map((post) => (
-          <FeedPost
-            key={post.id}
-            post={post}
-            currentUserId={user.id}
-            addReaction={(reaction: ReactionEmoji) => {
-              dispatch(addReactionToPost(post.id, reaction));
-            }}
-            removeReaction={(reaction: ReactionEmoji) => {
-              dispatch(removeReactionFromPost(post.id, reaction));
-            }}
-          />
-        ))
-      : 'empty community';
-
+  };
   return (
-    <>
-      <Typography variant="h5">Upcoming :-)</Typography>
-      <img src="https://i.redd.it/ox49yfg9vn461.jpg" style={{ width: '80%' }} />
+    <Box
+      sx={{
+        marginTop: 2,
+        padding: '2em 1.5em 0 1.5em',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        height: '100%',
+      }}
+    >
+      <ToggleButtonGroup
+        exclusive
+        className={classes.toggleButtonContainer}
+        value={state.selectedToggle}
+        onChange={(
+          _: React.MouseEvent<HTMLElement>,
+          newToggleValue: 'friends' | 'community' | null
+        ) => {
+          // Disallow unselection of toggle
+          if (newToggleValue === null) {
+            return;
+          }
 
-      {process.env.NODE_ENV === 'development' && (
-        <>
-          <ToggleButtonGroup
-            exclusive
-            className={classes.toggleButtonContainer}
-            value={state.selectedToggle}
-            onChange={(
-              _: React.MouseEvent<HTMLElement>,
-              newToggleValue: 'friends' | 'community' | null
-            ) => {
-              // Disallow unselection of toggle
-              if (newToggleValue === null) {
-                return;
-              }
+          setState({ selectedToggle: newToggleValue });
+        }}
+      >
+        <ToggleButton
+          value="friends"
+          aria-label="friends"
+          classes={{
+            root: classes.toggleButton,
+            selected: classes.toggleButtonSelected,
+          }}
+        >
+          Friends
+        </ToggleButton>
+        <ToggleButton
+          value="community"
+          aria-label="community"
+          classes={{
+            root: classes.toggleButton,
+            selected: classes.toggleButtonSelected,
+          }}
+        >
+          Community
+        </ToggleButton>
+      </ToggleButtonGroup>
 
-              setState({ selectedToggle: newToggleValue });
-            }}
-          >
-            <ToggleButton
-              value="friends"
-              aria-label="friends"
-              classes={{
-                root: classes.toggleButton,
-                selected: classes.toggleButtonSelected,
-              }}
-            >
-              Friends
-            </ToggleButton>
-            <ToggleButton
-              value="community"
-              aria-label="community"
-              classes={{
-                root: classes.toggleButton,
-                selected: classes.toggleButtonSelected,
-              }}
-            >
-              Community
-            </ToggleButton>
-          </ToggleButtonGroup>
+      {renderContent()}
 
-          {renderContent()}
+      <Fab
+        className={classes.fab}
+        onClick={() => setState({ isCreatePostModalOpen: true })}
+      >
+        <Badge
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+          badgeContent={<AddIcon sx={{ fontSize: '1.2em' }} />}
+          overlap="circular"
+        >
+          <CreateOutlinedIcon />
+        </Badge>
+      </Fab>
 
-          <Fab
-            className={classes.fab}
-            onClick={() => setState({ isCreatePostModalOpen: true })}
-          >
-            <Badge
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              badgeContent={<AddIcon sx={{ fontSize: '1.2em' }} />}
-              overlap="circular"
-            >
-              <CreateOutlinedIcon />
-            </Badge>
-          </Fab>
+      <CreatePostModal
+        isOpen={state.isCreatePostModalOpen}
+        onClose={() => setState({ isCreatePostModalOpen: false })}
+        onSubmit={(data) => {
+          if (!data.challengeId || typeof data.challengeId === 'string') {
+            throw new Error('Challenge ID must be present');
+          }
 
-          <CreatePostModal
-            isOpen={state.isCreatePostModalOpen}
-            onClose={() => setState({ isCreatePostModalOpen: false })}
-            onSubmit={(data) => {
-              if (!data.challengeId || typeof data.challengeId === 'string') {
-                throw new Error('Challenge ID must be present');
-              }
-
-              dispatch(
-                createNewPost({
-                  challengeId: data.challengeId,
-                  body: data.body,
-                })
-              );
-              setState({ isCreatePostModalOpen: false });
-            }}
-            challenges={state.ongoingAndCompletedChallenges}
-          />
-        </>
-      )}
-    </>
+          dispatch(
+            createNewPost({
+              challengeId: data.challengeId,
+              body: data.body,
+            })
+          );
+          setState({ isCreatePostModalOpen: false });
+        }}
+        challenges={state.ongoingAndCompletedChallenges}
+      />
+    </Box>
   );
 };
 

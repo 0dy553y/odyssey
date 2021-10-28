@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListItem, ListItemAvatar, Skeleton, Grid } from '@mui/material';
 
-export const FeedPostSkeleton: React.FC = ({}) => {
+export const FeedPostSkeleton: React.FC = () => {
   return (
     <ListItem alignItems="flex-start">
       <ListItemAvatar>
