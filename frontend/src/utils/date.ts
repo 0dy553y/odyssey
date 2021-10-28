@@ -1,6 +1,6 @@
+import { startOfDay } from 'date-fns';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { startOfDay } from 'date-fns';
 
 dayjs.extend(relativeTime);
 
@@ -31,22 +31,21 @@ export function getDateFromNowString(date: Date): string {
     lastDay: '[Yesterday]',
     sameDay: '[Today]',
     nextDay: '[Tomorrow]',
-    sameElse: () => dayjs(date).fromNow(),
+    sameElse: () => dayjs(date).endOf('d').fromNow(),
   };
   const referenceStartOfDay = dayjs().startOf('d');
-  const diff = referenceStartOfDay.diff(date, 'd', true);
+  const diff = referenceStartOfDay.diff(date, 'd');
   const sameElse = 'sameElse';
   const retVal =
-    diff < -1
-      ? sameElse
-      : diff < 0
-      ? 'nextDay'
-      : diff < 1
+    diff === 0
       ? 'sameDay'
-      : diff < 2
+      : diff === -1
+      ? 'nextDay'
+      : diff === 1
       ? 'lastDay'
       : sameElse;
   const currentFormat = format[retVal];
+
   if (typeof currentFormat === 'function') {
     return currentFormat();
   }
