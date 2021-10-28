@@ -8,7 +8,7 @@ import { saveFriendList } from './actions';
 
 export function loadAllFriends(userId?: number | string): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.friends.getFriendList();
+    const response = await api.friends.getFriendList(userId);
     const friends: FriendListData[] = response.payload.data;
     dispatch(saveFriendList(friends));
   };

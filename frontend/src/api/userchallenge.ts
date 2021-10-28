@@ -19,19 +19,23 @@ class UserChallengesAPI extends BaseAPI {
     );
   }
 
-  public getAllOngoingUserChallengesData(): ApiPromise<
-    UserChallengeListData[]
-  > {
+  public getAllOngoingUserChallengesData(
+    userId?: number | string
+  ): ApiPromise<UserChallengeListData[]> {
     return this.get(
-      `${UserChallengesAPI.getUserChallengesUrl()}/all_ongoing_challenges`
+      `${UserChallengesAPI.getUserChallengesUrl()}/all_ongoing_challenges?userId=${
+        userId ?? ''
+      }`
     );
   }
 
-  public getAllCompletedUserChallengesData(): ApiPromise<
-    CompletedUserChallengeListData[]
-  > {
+  public getAllCompletedUserChallengesData(
+    userId?: number | string
+  ): ApiPromise<CompletedUserChallengeListData[]> {
     return this.get(
-      `${UserChallengesAPI.getUserChallengesUrl()}/all_completed_challenges`
+      `${UserChallengesAPI.getUserChallengesUrl()}/all_completed_challenges?userId=${
+        userId ?? ''
+      }`
     );
   }
 }

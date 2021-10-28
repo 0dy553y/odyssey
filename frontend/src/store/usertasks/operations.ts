@@ -86,7 +86,7 @@ export function loadUserTaskActivityData(
   userId?: number | string
 ): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.userTasks.getUserTaskActivityData();
+    const response = await api.userTasks.getUserTaskActivityData(userId);
     const data = response.payload.data;
 
     dispatch(
