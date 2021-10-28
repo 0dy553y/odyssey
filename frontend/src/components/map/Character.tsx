@@ -5,6 +5,7 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import { useLoader, Vector3 } from '@react-three/fiber';
+import { Html } from '@react-three/drei';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { useSpring, animated, config } from '@react-spring/three';
@@ -15,10 +16,11 @@ import { DirectionPosition } from '../../types/map';
 interface CharacterProps {
   position: Vector3;
   direction: Direction;
+  username: string;
 }
 
 const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
-  const { position, direction } = props;
+  const { position, direction, username } = props;
   const materials = useLoader(MTLLoader, '/models/astronaut.mtl');
   const astronaut = useLoader(
     OBJLoader,
@@ -70,6 +72,9 @@ const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
       position={pos as any as Vector3}
       rotation={[0, getRotation(direction), 0]}
     >
+      <Html position={[1, 3, 0]}>
+        <p style={{ color: 'white' }}>{username}</p>
+      </Html>
       <animated.primitive
         position={localPos as any as Vector3}
         object={astronaut}

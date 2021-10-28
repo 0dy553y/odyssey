@@ -42,11 +42,11 @@ const mockData: ChallengeMapData[] = [
 const MapsPage = () => {
   const { challengeId } = useParams<{ challengeId: string }>();
   const dispatch = useDispatch();
-  useEffect(() => {
-    batch(() => {
-      dispatch(loadAllOngoingUserChallenges());
-    });
-  }, []);
+  // useEffect(() => {
+  //   batch(() => {
+  //     dispatch(loadAllOngoingUserChallenges());
+  //   });
+  // }, []);
   console.log(challengeId);
   const [currentMap, setCurrentMap] = useState();
   return (

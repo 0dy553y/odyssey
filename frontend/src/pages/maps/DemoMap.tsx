@@ -28,7 +28,11 @@ function Map(): JSX.Element {
           <pointLight position={[-30, 0, 0]} intensity={0.5} />
           <pointLight position={[0, 0, 30]} intensity={0.2} />
           <pointLight position={[0, 0, -30]} intensity={0.2} />
-          <Character position={base} direction={Direction.RIGHT} />
+          <Character
+            position={base}
+            direction={Direction.RIGHT}
+            username="unclesoo"
+          />
           <Model
             position={translate(base, { [Axis.Y]: 5, [Axis.Z]: -5 })}
             fileName="InterstellarRunner"

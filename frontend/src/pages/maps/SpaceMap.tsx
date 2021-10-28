@@ -2,7 +2,7 @@ import React, { useState, useRef, Suspense } from 'react';
 import SpaceMapStructure from './SpaceMapStructure';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stars } from '@react-three/drei';
-import { Character } from '../../components/map';
+import { Box, Character } from '../../components/map';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Direction } from '../../types/map';
 import { DirectionPosition } from '../../types/map';
@@ -11,6 +11,11 @@ interface MapProps {
   numSteps: number;
   currentStep: number;
 }
+
+const mockFriends: Map<number, string[]> = new Map([
+  [1, ['Mario']],
+  [2, ['Mochi', 'Margikarp']],
+]);
 
 const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
   const [stepPositions, setStepPositions] = useState<DirectionPosition[]>([]);
@@ -23,6 +28,24 @@ const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
   const heightIncrement = 0.5;
   const characterRef = useRef();
   const mapRef = useRef();
+
+  const spawnFriends = () => {
+    for (const sharedStep in Array.from(mockFriends.keys())) {
+      console.log(sharedStep);
+    }
+
+    return (
+      <>
+        {Array.from(mockFriends.keys()).map((sharedStep: number) => (
+          <Box
+            key={sharedStep}
+            position={stepPositions[sharedStep - 1].pos}
+            direction={stepPositions[sharedStep - 1].direction}
+          />
+        ))}
+      </>
+    );
+  };
 
   const moveCharacterForward = () => {
     currentStep = currentStep + 1;
@@ -47,13 +70,14 @@ const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
   };
 
   const d = 35;
+  const cameraZoom = 45 - numSteps * 1.5;
 
   return (
     <Suspense fallback={<div />}>
       {/* <button onClick={() => moveCharacterBackward()}> previous </button>
       <button onClick={() => moveCharacterForward()}> next </button> */}
       <Canvas
-        camera={{ zoom: 45 - numSteps, position: [d, d, d] }}
+        camera={{ zoom: cameraZoom, position: [d, d, d] }}
         orthographic={true}
       >
         <color attach="background" args={['#010101']} />
@@ -88,14 +112,16 @@ const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
           key={charPosition.pos as unknown as string}
           position={charPosition.pos}
           direction={charPosition.direction}
+          username="unclesoo"
         />
+        {spawnFriends}
         {/* <OrbitControls
           addEventListener={undefined}
           hasEventListener={undefined}
           removeEventListener={undefined}
           dispatchEvent={undefined}
         /> */}
-        <Stars factor={10} radius={60} saturation={1} fade />
+        <Stars factor={10} radius={60 - cameraZoom} saturation={1} fade />
       </Canvas>
     </Suspense>
   );
