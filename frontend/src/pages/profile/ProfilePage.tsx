@@ -76,6 +76,8 @@ const ProfilePage: React.FC = () => {
   const classes = useStyles({ scrollbarWidth: width });
   const { userId } = useParams<{ userId: string | undefined }>();
 
+  const isOwnProfilePage = userId === undefined;
+
   useEffect(() => {
     batch(() => {
       dispatch(loadAllOngoingUserChallenges(userId));
@@ -112,7 +114,13 @@ const ProfilePage: React.FC = () => {
     {
       label: `friend${friends.length === 1 ? '' : 's'}`,
       count: friends.length,
-      onClick: () => history.push(FRIENDS_ROUTE),
+      onClick: () => {
+        if (isOwnProfilePage) {
+          history.push(FRIENDS_ROUTE);
+        } else {
+          history.push(`${FRIENDS_ROUTE}/${userId}`);
+        }
+      },
     },
     {
       label:

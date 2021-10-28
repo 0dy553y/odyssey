@@ -69,6 +69,7 @@ export const privateRoutes: RouteEntry[] = [
   },
   { path: ADD_FRIENDS_ROUTE, component: AddFriendsPage, exact: true },
   { path: FRIENDS_ROUTE, component: FriendsPage, exact: true },
+  { path: FRIENDS_ROUTE + '/:userId', component: FriendsPage, exact: true },
   { path: NOTIFICATIONS_ROUTE, component: NotificationsPage, exact: true },
   {
     path: COMPLETED_CHALLENGES_ROUTE,

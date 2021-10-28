@@ -9,7 +9,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import FriendsList from 'components/friendsList';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { makeStyles } from '@mui/styles';
@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 const FriendsPage: React.FC = () => {
   const classes = useStyles();
   const history = useHistory();
+  const { userId } = useParams<{ userId: string | undefined }>();
+
+  const isOwnFriendsPage = userId === undefined;
 
   return (
     <Box sx={{ padding: '2em 1.5em 0 1.5em' }}>
@@ -40,17 +43,19 @@ const FriendsPage: React.FC = () => {
       </AppBar>
 
       <Typography component="h1" variant="h4" style={{ fontFamily: 'Frock' }}>
-        Your friends
+        {isOwnFriendsPage ? 'Your friends' : `${userId}'s friends`}
       </Typography>
 
       <FriendsList />
 
-      <Fab
-        className={classes.fab}
-        onClick={() => history.push(ADD_FRIENDS_ROUTE)}
-      >
-        <PersonAddAlt1Icon />
-      </Fab>
+      {isOwnFriendsPage && (
+        <Fab
+          className={classes.fab}
+          onClick={() => history.push(ADD_FRIENDS_ROUTE)}
+        >
+          <PersonAddAlt1Icon />
+        </Fab>
+      )}
     </Box>
   );
 };
