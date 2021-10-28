@@ -59,6 +59,7 @@ Rails.application.routes.draw do
       resources :posts, only: %i[index create] do
         collection do
           get 'friend_posts', to: 'friend_posts'
+          get 'community_posts', to: 'community_posts'
         end
         member do
           post 'add_reaction', to: 'add_reaction'

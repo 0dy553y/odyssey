@@ -2,6 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Badge,
+  Container,
   Fab,
   Theme,
   Typography,
@@ -12,6 +13,8 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import { makeStyles } from '@mui/styles';
 import { FeedPost } from 'components/feed/FeedPost';
+import { FeedPostSkeleton } from 'components/feed/FeedPostSkeleton';
+
 import {
   loadAllPosts,
   addReactionToPost,
@@ -62,6 +65,7 @@ interface FeedPageState {
   ongoingAndCompletedChallenges: ChallengeListData[];
   friendPosts: PostListData[];
   communityPosts: PostListData[];
+  isLoading: boolean;
 }
 
 const FeedPage: React.FC = () => {
@@ -83,17 +87,86 @@ const FeedPage: React.FC = () => {
       ongoingAndCompletedChallenges: [],
       friendPosts: [],
       communityPosts: [],
+      isLoading: true,
     }
   );
 
   useEffect(() => {
-    dispatch(loadAllPosts());
-    api.challenges.getOngoingAndCompletedChallengeList().then((resp) => {
+    fetch();
+  }, []);
+
+  const fetch = () => {
+    const p1 = api.challenges
+      .getOngoingAndCompletedChallengeList()
+      .then((resp) => {
+        setState({
+          ongoingAndCompletedChallenges: resp.payload.data,
+        });
+      });
+    const p2 = api.posts.getCommunityPostsList().then((resp) => {
       setState({
-        ongoingAndCompletedChallenges: resp.payload.data,
+        communityPosts: resp.payload.data,
       });
     });
-  }, []);
+    const p3 = api.posts.getFriendPostsList().then((resp) => {
+      // setState({
+      //   friendPosts: resp.payload.data,
+      // });
+    });
+    Promise.all([p1, p2, p3]).then(() => setState({ isLoading: false }));
+  };
+
+  const renderContent = () => {
+    if (state.isLoading) {
+      // 3 is just some arbitrary number
+      return Array.from({ length: 3 }).map((_, idx) => (
+        <FeedPostSkeleton key={idx} />
+      ));
+    }
+    if (state.selectedToggle === 'friends') {
+      return renderFriendsContent();
+    } else if (state.selectedToggle === 'community') {
+      return renderCommunityContent();
+    }
+  };
+
+  const renderFriendsContent = () =>
+    state.friendPosts.length > 0 ? (
+      state.friendPosts.map((post) => (
+        <FeedPost
+          key={post.id}
+          post={post}
+          currentUserId={user.id}
+          addReaction={(reaction: ReactionEmoji) => {
+            dispatch(addReactionToPost(post.id, reaction));
+          }}
+          removeReaction={(reaction: ReactionEmoji) => {
+            dispatch(removeReactionFromPost(post.id, reaction));
+          }}
+        />
+      ))
+    ) : (
+      <Container fixed sx={{ flexGrow: 1 }}>
+        No posts found.
+      </Container>
+    );
+
+  const renderCommunityContent = () =>
+    state.communityPosts.length > 0
+      ? state.communityPosts.map((post) => (
+          <FeedPost
+            key={post.id}
+            post={post}
+            currentUserId={user.id}
+            addReaction={(reaction: ReactionEmoji) => {
+              dispatch(addReactionToPost(post.id, reaction));
+            }}
+            removeReaction={(reaction: ReactionEmoji) => {
+              dispatch(removeReactionFromPost(post.id, reaction));
+            }}
+          />
+        ))
+      : 'empty community';
 
   return (
     <>
@@ -140,19 +213,7 @@ const FeedPage: React.FC = () => {
             </ToggleButton>
           </ToggleButtonGroup>
 
-          {posts.map((post) => (
-            <FeedPost
-              key={post.id}
-              post={post}
-              currentUserId={user.id}
-              addReaction={(reaction: ReactionEmoji) => {
-                dispatch(addReactionToPost(post.id, reaction));
-              }}
-              removeReaction={(reaction: ReactionEmoji) => {
-                dispatch(removeReactionFromPost(post.id, reaction));
-              }}
-            />
-          ))}
+          {renderContent()}
 
           <Fab
             className={classes.fab}

@@ -13,6 +13,14 @@ class PostsController < ApplicationController
     render "posts/index", status: :ok
   end
 
+  def community_posts
+    challenge_ids = current_user.challenges.pluck(:id)
+
+    @posts = Post.includes(:post_reactions, :creator).where(challenge_id: challenge_ids)
+
+    render "posts/index", status: :ok
+  end
+
   def create
     @post = Post.create!(post_params)
 
