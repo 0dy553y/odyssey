@@ -57,6 +57,9 @@ Rails.application.routes.draw do
       resources :friend_requests, only: %i[index create update destroy]
 
       resources :posts, only: %i[index create] do
+        collection do
+          get 'friend_posts', to: 'friend_posts'
+        end
         member do
           post 'add_reaction', to: 'add_reaction'
           post 'remove_reaction', to: 'remove_reaction'

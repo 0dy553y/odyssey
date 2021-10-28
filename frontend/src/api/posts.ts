@@ -7,8 +7,8 @@ class PostsAPI extends BaseAPI {
     return 'posts';
   }
 
-  public getPostsList(): ApiPromise<PostListData[]> {
-    return this.get(PostsAPI.getPostsUrl());
+  public getFriendPostsList(): ApiPromise<PostListData[]> {
+    return this.get(`${PostsAPI.getPostsUrl()}/friend_posts`);
   }
 
   public addReaction(

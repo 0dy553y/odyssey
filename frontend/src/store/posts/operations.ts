@@ -8,7 +8,7 @@ import { addPost, setPostList, updatePost } from './actions';
 
 export function loadAllPosts(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.posts.getPostsList();
+    const response = await api.posts.getFriendPostsList();
     const posts: PostListData[] = response.payload.data.map((datum) => {
       return {
         ...datum,
