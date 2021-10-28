@@ -49,16 +49,16 @@ const MapCarousel: React.FC<MapCarouselProps> = ({ maps }) => {
       spaceBetween={20}
       className={classes.mapSlider}
     >
-      {maps.map(({ id, name, numTasks, currentTask }) => (
-        <SwiperSlide key={id}>
+      {maps.map(({ challengeId, challengeName, numTasks, currentTaskNum }) => (
+        <SwiperSlide key={challengeId}>
           <div className={classes.container}>
             <Stack className={classes.name}>
               <Typography variant="h1" className={classes.header}>
-                {name}
+                {challengeName}
               </Typography>
             </Stack>
             <div className={classes.map}>
-              <SpaceMap numSteps={numTasks} currentStep={currentTask} />
+              <SpaceMap numSteps={numTasks} currentStep={currentTaskNum} />
             </div>
           </div>
         </SwiperSlide>
