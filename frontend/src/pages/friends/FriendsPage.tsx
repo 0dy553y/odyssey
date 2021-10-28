@@ -20,7 +20,6 @@ import { RootState } from '../../store';
 import { getUserById } from '../../store/users/selectors';
 import { displayUsername } from '../../utils/formatting';
 import { loadUser } from '../../store/users/operations';
-import { Skeleton } from '@mui/lab';
 
 const useStyles = makeStyles((theme: Theme) => ({
   fab: {

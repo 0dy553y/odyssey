@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { loadAllCompletedUserChallenges } from 'store/userchallenges/operations';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { loadAllChallenges } from 'store/challenges/operations';
 import { getAllCompletedUserChallenges } from 'store/userchallenges/selectors';
 import { RootState } from 'store';
@@ -13,14 +13,29 @@ import CompletedChallengeListItem from 'components/completedChallenges/Completed
 import { ChallengeListData } from 'types/challenges';
 
 import './CompletedChallengesPage.scss';
+import { getUser } from '../../store/auth/selectors';
+import { getUserById } from '../../store/users/selectors';
+import { displayUsername } from '../../utils/formatting';
+import { loadUser } from '../../store/users/operations';
 
 const CompletedChallengesPage: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { userId } = useParams<{ userId: string | undefined }>();
+
+  const isOwnCompletedChallengesPage = userId === undefined;
+  const user = isOwnCompletedChallengesPage
+    ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      useSelector(getUser)!
+    : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      useSelector((state: RootState) => getUserById(state, userId!))!;
 
   useEffect(() => {
-    dispatch(loadAllCompletedUserChallenges());
-    dispatch(loadAllChallenges());
+    batch(() => {
+      dispatch(loadUser(userId));
+      dispatch(loadAllCompletedUserChallenges());
+      dispatch(loadAllChallenges());
+    });
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -38,6 +53,10 @@ const CompletedChallengesPage: React.FC = () => {
     return parentChallenges.find((challenge) => challenge.id === challengeId)!;
   };
 
+  if (!user) {
+    return <></>;
+  }
+
   return (
     <Box sx={{ padding: '2em 1.5em 0 1.5em' }}>
       <AppBar position="static">
@@ -54,7 +73,11 @@ const CompletedChallengesPage: React.FC = () => {
         className="header"
         style={{ fontFamily: 'Frock' }}
       >
-        Your completed challenges
+        {isOwnCompletedChallengesPage
+          ? 'Your completed challenges'
+          : `${
+              user.displayName ?? displayUsername(user.username)
+            }'s completed challenges`}
       </Typography>
       <ul>
         {completedChallenges.length === 0 && (

@@ -133,7 +133,13 @@ const ProfilePage: React.FC = () => {
           ? 'completed challenge'
           : 'completed challenges',
       count: completedChallenges.length,
-      onClick: () => history.push(COMPLETED_CHALLENGES_ROUTE),
+      onClick: () => {
+        if (isOwnProfilePage) {
+          history.push(COMPLETED_CHALLENGES_ROUTE);
+        } else {
+          history.push(`${COMPLETED_CHALLENGES_ROUTE}/${userId}`);
+        }
+      },
     },
     { label: 'badges', count: 0, onClick: () => history.push(BADGE_ROUTE) },
   ];

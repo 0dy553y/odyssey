@@ -77,6 +77,11 @@ export const privateRoutes: RouteEntry[] = [
     exact: true,
   },
   {
+    path: COMPLETED_CHALLENGES_ROUTE + '/:userId',
+    component: CompletedChallengesPage,
+    exact: true,
+  },
+  {
     path: BADGE_ROUTE,
     component: BadgePage,
     exact: true,
