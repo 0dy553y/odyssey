@@ -10,12 +10,14 @@ const useStyles = makeStyles(() => ({
   mapSlider: {
     height: '100vh',
   },
-  white: {
+  header: {
     color: 'white',
   },
   name: {
     position: 'absolute',
     zIndex: 10,
+    marginLeft: 64,
+    marginTop: 24,
   },
   map: {
     position: 'absolute',
@@ -51,7 +53,7 @@ const MapCarousel: React.FC<MapCarouselProps> = ({ maps }) => {
         <SwiperSlide key={id}>
           <div className={classes.container}>
             <Stack className={classes.name}>
-              <Typography variant="h1" className={classes.white}>
+              <Typography variant="h1" className={classes.header}>
                 {name}
               </Typography>
             </Stack>

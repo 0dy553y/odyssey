@@ -13,19 +13,22 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Appbar = () => {
+const Appbar: React.FC = () => {
   const history = useHistory();
   const classes = useStyles();
   return (
-    <AppBar position="static" className={classes.bar}>
+    <AppBar
+      position="absolute"
+      style={{ background: 'transparent', boxShadow: 'none' }}
+    >
       <Toolbar>
         <div
           onClick={() => {
             history.goBack();
           }}
         >
-          <IconButton edge="start" className={classes.white}>
-            <ChevronLeft />
+          <IconButton edge="start" style={{ color: 'white' }}>
+            <ChevronLeft fontSize="large" />
           </IconButton>
         </div>
       </Toolbar>
