@@ -30,7 +30,7 @@ interface CreatePostFormState {
   body: string;
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   createPostForm: {
     '&>:not(:last-child)': {
       marginBottom: '1em',
@@ -40,9 +40,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const CreatePostModal: React.FC<CreatePostModalProps> = ({
   isOpen,
-  onClose,
   onSubmit,
   challenges,
+  ...props
 }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
@@ -59,11 +59,22 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
     },
   });
 
+  const onClose = () => {
+    reset();
+    props.onClose();
+  };
+
   return (
     <Dialog
       fullScreen={shouldFullScreen}
       open={isOpen}
-      onClose={onClose}
+      onClose={(_, reason: 'backdropClick' | 'escapeKeyDown') => {
+        if (reason === 'backdropClick') {
+          return;
+        }
+        reset();
+        onClose();
+      }}
       fullWidth
       maxWidth="sm"
     >
