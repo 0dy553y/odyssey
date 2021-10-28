@@ -8,49 +8,31 @@ import { Direction } from '../../types/map';
 import { DirectionPosition } from '../../types/map';
 
 interface MapProps {
+  username: string;
+  challengeName: string;
   numSteps: number;
   currentStep: number;
+  friendsPositions: Record<number, string[]>;
 }
 
-const mockFriends: Record<number, string[]> = {
-  1: ['Mario'],
-  2: ['Mochi', 'Margikarp'],
-};
-
-const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
+const SpaceMap: React.FC<MapProps> = ({
+  username,
+  challengeName,
+  numSteps,
+  currentStep,
+  friendsPositions,
+}) => {
   const [stepPositions, setStepPositions] = useState<DirectionPosition[]>([]);
   const [charPosition, setCharPosition] = useState<DirectionPosition>({
     pos: [0, 0, 0],
     direction: Direction.FORWARD,
   });
+  const [Friends, setFriends] = useState<React.FC>((props) => <></>);
   const width = 7;
   const widthIncrement = 1.5;
   const heightIncrement = 0.5;
   const characterRef = useRef();
   const mapRef = useRef();
-
-  const spawnFriends = () => {
-    for (const sharedStep in Object.keys(mockFriends)) {
-      console.log(sharedStep);
-    }
-
-    return (
-      <>
-        {Object.keys(mockFriends).map(
-          (value: string, index: number, array: string[]) => ({
-            //   array.map((username: string, index: number) => (
-            //     <Character
-            //   key={username}
-            //   position={stepPositions[1].pos}
-            //   direction={stepPositions[1].direction}
-            //   username={username}
-            // />
-            // ))
-          })
-        )}
-      </>
-    );
-  };
 
   const moveCharacterForward = () => {
     currentStep = currentStep + 1;
@@ -73,6 +55,9 @@ const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
       (mapRef.current as any).setCurrentStep(currentStep);
     }
   };
+
+  console.log(friendsPositions);
+  console.log(Object.keys(friendsPositions));
 
   const d = 35;
   const cameraZoom = 45 - numSteps * 1.5;
@@ -110,16 +95,30 @@ const SpaceMap: React.FC<MapProps> = ({ numSteps, currentStep }) => {
           onMapMounted={(stepPositions) => {
             setStepPositions(stepPositions);
             setCharPosition(stepPositions[currentStep - 1]);
+            setFriends(() => (
+              <>
+                {Object.keys(friendsPositions).map((step: string) => {
+                  friendsPositions[Number(step)].map((username: string) => (
+                    <Character
+                      key={username}
+                      position={stepPositions[Number(step) - 1].pos}
+                      direction={stepPositions[Number(step) - 1].direction}
+                      username={username}
+                    />
+                  ));
+                })}
+              </>
+            ));
           }}
         />
         <Character
           ref={characterRef}
-          key={charPosition.pos as unknown as string}
+          key={`${challengeName}-${charPosition.pos as unknown as string}`}
           position={charPosition.pos}
           direction={charPosition.direction}
-          username="unclesoo"
+          username={username}
         />
-        {spawnFriends}
+        {/* <Friends /> */}
         {/* <OrbitControls
           addEventListener={undefined}
           hasEventListener={undefined}

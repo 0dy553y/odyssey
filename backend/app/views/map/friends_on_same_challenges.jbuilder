@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 json.data @user_challenges do |user_challenge|
+  json.username current_user.username
   json.challengeId user_challenge[:challenge_id]
   json.challengeName user_challenge[:name]
   json.numTasks user_challenge[:num_tasks]

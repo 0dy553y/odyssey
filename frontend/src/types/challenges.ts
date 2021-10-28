@@ -41,6 +41,7 @@ export enum ChallengeStatus {
 export type Schedule = Record<DayOfWeek, boolean>;
 
 export interface ChallengeMapData {
+  username: string;
   challengeId: number;
   challengeName: string;
   numTasks: number;

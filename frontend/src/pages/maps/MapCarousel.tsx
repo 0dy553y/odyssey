@@ -35,34 +35,60 @@ interface MapCarouselProps {
 
 const MapCarousel: React.FC<MapCarouselProps> = ({ maps }) => {
   const classes = useStyles();
+
   return (
     <Swiper
       centeredSlides
-      loop={true}
+      loop={maps.length > 1}
       //   initialSlide={previousIndex}
       pagination={{
         dynamicBullets: true,
-        clickable: true,
+        clickable: maps.length > 1,
       }}
       navigation={true}
       slidesPerView={1}
       spaceBetween={20}
       className={classes.mapSlider}
     >
-      {maps.map(({ challengeId, challengeName, numTasks, currentTaskNum }) => (
-        <SwiperSlide key={challengeId}>
-          <div className={classes.container}>
-            <Stack className={classes.name}>
-              <Typography variant="h1" className={classes.header}>
-                {challengeName}
-              </Typography>
-            </Stack>
-            <div className={classes.map}>
-              <SpaceMap numSteps={numTasks} currentStep={currentTaskNum} />
-            </div>
-          </div>
-        </SwiperSlide>
-      ))}
+      {maps.map(
+        ({
+          username,
+          challengeId,
+          challengeName,
+          numTasks,
+          currentTaskNum,
+          friends,
+        }) => {
+          const friendsPositions: Record<number, string[]> = {};
+
+          friends.map(({ username, displayName, currentTaskNum }) => {
+            if (!(currentTaskNum in friendsPositions)) {
+              friendsPositions[currentTaskNum] = [];
+            }
+            friendsPositions[currentTaskNum].push(username);
+          });
+          return (
+            <SwiperSlide key={challengeId}>
+              <div className={classes.container}>
+                <Stack className={classes.name}>
+                  <Typography variant="h1" className={classes.header}>
+                    {challengeName}
+                  </Typography>
+                </Stack>
+                <div className={classes.map}>
+                  <SpaceMap
+                    username={username}
+                    challengeName={challengeName}
+                    numSteps={numTasks}
+                    currentStep={currentTaskNum}
+                    friendsPositions={friendsPositions}
+                  />
+                </div>
+              </div>
+            </SwiperSlide>
+          );
+        }
+      )}
     </Swiper>
   );
 };
