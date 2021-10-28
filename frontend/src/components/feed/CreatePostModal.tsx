@@ -13,16 +13,14 @@ import {
   TextField,
 } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { makeStyles } from '@mui/styles';
-import { createNewPost } from 'store/posts/operations';
 
 import './ReactionChip.scss';
 
 interface CreatePostModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: () => void;
+  onSubmit: (data: CreatePostFormState) => void;
 }
 
 interface CreatePostFormState {
@@ -43,29 +41,19 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
   onClose,
   onSubmit,
 }) => {
-  const dispatch = useDispatch();
   const theme = useTheme();
   const classes = useStyles(theme);
   const shouldFullScreen = useMediaQuery(theme.breakpoints.only('xs'));
   const {
     control,
+    reset,
     formState: { errors },
     handleSubmit,
-  } = useForm<CreatePostFormState>();
-
-  const onFormSubmit = handleSubmit((data: CreatePostFormState) => {
-    if (!data.challengeId || typeof data.challengeId === 'string') {
-      throw new Error('Challenge ID must be present');
-    }
-
-    console.log(data);
-    dispatch(
-      createNewPost({
-        challengeId: data.challengeId,
-        body: data.body,
-      })
-    );
-    onSubmit();
+  } = useForm<CreatePostFormState>({
+    defaultValues: {
+      challengeId: '',
+      body: '',
+    },
   });
 
   return (
@@ -76,7 +64,14 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
       fullWidth
       maxWidth="sm"
     >
-      <Box component="form" noValidate onSubmit={onFormSubmit}>
+      <Box
+        component="form"
+        noValidate
+        onSubmit={handleSubmit((data: CreatePostFormState) => {
+          onSubmit(data);
+          reset();
+        })}
+      >
         <DialogTitle>Create Post</DialogTitle>
 
         <DialogContent className={classes.createPostForm}>
@@ -84,7 +79,6 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
             name="challengeId"
             control={control}
             rules={{ required: 'Please select a challenge' }}
-            defaultValue=""
             render={({ field }) => (
               <TextField
                 {...field}
@@ -107,7 +101,6 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
           <Controller
             name="body"
             control={control}
-            defaultValue=""
             rules={{ required: 'Post cannot be empty' }}
             render={({ field }) => (
               <TextField

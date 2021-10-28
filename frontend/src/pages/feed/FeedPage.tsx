@@ -20,6 +20,7 @@ import {
 import { getPostList } from 'store/posts/selectors';
 import { getUser } from 'store/auth/selectors';
 import { ReactionEmoji } from 'types/posts';
+import { createNewPost } from 'store/posts/operations';
 import { CreatePostModal } from 'components/feed/CreatePostModal';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -148,7 +149,19 @@ const FeedPage: React.FC = () => {
           <CreatePostModal
             isOpen={isCreatePostModalOpen}
             onClose={() => setIsCreatePostModalOpen(false)}
-            onSubmit={() => console.log('TODO', 'submit')}
+            onSubmit={(data) => {
+              if (!data.challengeId || typeof data.challengeId === 'string') {
+                throw new Error('Challenge ID must be present');
+              }
+
+              dispatch(
+                createNewPost({
+                  challengeId: data.challengeId,
+                  body: data.body,
+                })
+              );
+              setIsCreatePostModalOpen(false);
+            }}
           />
         </>
       )}
