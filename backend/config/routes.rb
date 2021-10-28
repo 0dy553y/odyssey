@@ -23,6 +23,12 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :users, only: [] do
+        collection do
+          get 'user_details', to: 'user_detail'
+        end
+      end
+
       resources :user_tasks, only: [] do
         collection do
           get 'tasks_for_day', to: 'tasks_for_day'

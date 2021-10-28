@@ -3,7 +3,7 @@ import { Grid, Typography } from '@mui/material';
 import { displayDate } from 'utils/formatting';
 
 interface UserStatsProps {
-  registrationDate: Date;
+  registrationDate: Date | undefined;
   challengesCompleted: number;
 }
 
@@ -24,11 +24,13 @@ const UserStats: React.FC<UserStatsProps> = ({
         </Typography>
       </Grid>
 
-      <Grid item xs={12}>
-        <Typography component="div" variant="body1">
-          Challenger since {displayDate(registrationDate)}
-        </Typography>
-      </Grid>
+      {registrationDate && (
+        <Grid item xs={12}>
+          <Typography component="div" variant="body1">
+            Challenger since {displayDate(registrationDate)}
+          </Typography>
+        </Grid>
+      )}
 
       <Grid item xs={12}>
         <Typography component="div" variant="body1">

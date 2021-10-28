@@ -5,14 +5,19 @@ import { UserData } from 'types/auth';
 import UserAvatar from 'components/common/userAvatar';
 
 import './ProfileHeader.scss';
+import { Skeleton } from '@mui/lab';
 
 interface ProfileHeaderProps {
-  user: UserData;
+  user?: UserData;
   userProfileItems: { label: string; count: number; onClick?: () => void }[];
 }
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
   const { userProfileItems, user } = props;
+
+  if (!user) {
+    return <Skeleton />;
+  }
 
   return (
     <Box className="profile-header">
@@ -25,11 +30,9 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
         />
       </IconButton>
 
-      {user.displayName && (
-        <Typography component="h1" variant="h5">
-          {user.displayName}
-        </Typography>
-      )}
+      <Typography component="h1" variant="h5">
+        {user.displayName}
+      </Typography>
 
       <Typography
         component="h2"

@@ -26,6 +26,8 @@ import { FriendsState } from './friends/types';
 import friendsReducer from './friends/reducer';
 import { NotificationsState } from './notifications/types';
 import notificationsReducer from './notifications/reducer';
+import { UsersState } from './users/types';
+import usersReducer from './users/reducer';
 
 export interface RootState {
   auth: AuthState;
@@ -36,6 +38,7 @@ export interface RootState {
   posts: PostsState;
   snackbars: SnackbarsState;
   tasks: TasksState;
+  users: UsersState;
   userTasks: UserTasksState;
   userChallenges: UserChallengesState;
 }
@@ -49,6 +52,7 @@ export const rootReducer = combineReducers({
   posts: postsReducer,
   snackbars: snackbarsReducer,
   tasks: tasksReducer,
+  users: usersReducer,
   userTasks: userTasksReducer,
   userChallenges: userChallengesReducer,
 });

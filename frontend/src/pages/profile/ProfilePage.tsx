@@ -41,6 +41,8 @@ import { loadUserTaskActivityData } from 'store/usertasks/operations';
 import { loadAllFriends } from '../../store/friends/operations';
 import { FriendListData } from '../../types/friends';
 import { getFriendList } from '../../store/friends/selectors';
+import { loadUser } from '../../store/users/operations';
+import { getUserById } from '../../store/users/selectors';
 
 export interface StyleProps {
   scrollbarWidth: number;
@@ -80,6 +82,7 @@ const ProfilePage: React.FC = () => {
 
   useEffect(() => {
     batch(() => {
+      dispatch(loadUser(userId));
       dispatch(loadAllOngoingUserChallenges(userId));
       dispatch(loadAllCompletedUserChallenges(userId));
       dispatch(loadAllFriends(userId));
@@ -89,7 +92,9 @@ const ProfilePage: React.FC = () => {
 
   // user should never be undefined (assuming auth routing works)
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const user = useSelector(getUser)!; //
+  const user = isOwnProfilePage
+    ? useSelector(getUser)
+    : useSelector((state: RootState) => getUserById(state, userId!));
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const ongoingChallenges = useSelector((state: RootState) =>
     getAllOngoingUserChallenges(state)
@@ -189,7 +194,7 @@ const ProfilePage: React.FC = () => {
 
         <UserStats
           challengesCompleted={completedChallenges.length}
-          registrationDate={user.registrationDate}
+          registrationDate={user?.registrationDate}
         />
 
         <ChallengeSummaries challenges={ongoingChallenges} />
