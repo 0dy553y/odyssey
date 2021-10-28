@@ -7,9 +7,7 @@ import {
   DialogContent,
   DialogActions,
   MenuItem,
-  useMediaQuery,
   useTheme,
-  Theme,
   TextField,
 } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
@@ -46,7 +44,6 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
 }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
-  const shouldFullScreen = useMediaQuery(theme.breakpoints.only('xs'));
   const {
     control,
     reset,
@@ -66,7 +63,6 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
 
   return (
     <Dialog
-      fullScreen={shouldFullScreen}
       open={isOpen}
       onClose={(_, reason: 'backdropClick' | 'escapeKeyDown') => {
         if (reason === 'backdropClick') {
@@ -117,7 +113,7 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
           <Controller
             name="body"
             control={control}
-            rules={{ required: 'Post cannot be empty' }}
+            rules={{ required: 'Text cannot be empty' }}
             render={({ field }) => (
               <TextField
                 {...field}
