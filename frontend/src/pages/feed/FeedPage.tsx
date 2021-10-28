@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Badge,
@@ -19,7 +19,7 @@ import {
 } from 'store/posts/operations';
 import { getPostList } from 'store/posts/selectors';
 import { getUser } from 'store/auth/selectors';
-import { ReactionEmoji } from 'types/posts';
+import { ReactionEmoji, PostListData } from 'types/posts';
 import { createNewPost } from 'store/posts/operations';
 import { CreatePostModal } from 'components/feed/CreatePostModal';
 import { ChallengeListData } from 'types/challenges';
@@ -56,6 +56,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+interface FeedPageState {
+  selectedToggle: 'friends' | 'community';
+  isCreatePostModalOpen: boolean;
+  ongoingAndCompletedChallenges: ChallengeListData[];
+  friendPosts: PostListData[];
+  communityPosts: PostListData[];
+}
+
 const FeedPage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -64,18 +72,26 @@ const FeedPage: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const user = useSelector(getUser)!; //
 
-  const [selectedToggle, setSelectedToggle] = useState<'friends' | 'community'>(
-    'friends'
+  const [state, setState] = useReducer(
+    (state: FeedPageState, newState: Partial<FeedPageState>) => ({
+      ...state,
+      ...newState,
+    }),
+    {
+      selectedToggle: 'friends',
+      isCreatePostModalOpen: false,
+      ongoingAndCompletedChallenges: [],
+      friendPosts: [],
+      communityPosts: [],
+    }
   );
-  const [isCreatePostModalOpen, setIsCreatePostModalOpen] =
-    useState<boolean>(false);
-  const [ongoingAndCompletedChallenges, setOngoingAndCompletedChallenges] =
-    useState<ChallengeListData[]>([]);
 
   useEffect(() => {
     dispatch(loadAllPosts());
     api.challenges.getOngoingAndCompletedChallengeList().then((resp) => {
-      setOngoingAndCompletedChallenges(resp.payload.data);
+      setState({
+        ongoingAndCompletedChallenges: resp.payload.data,
+      });
     });
   }, []);
 
@@ -89,7 +105,7 @@ const FeedPage: React.FC = () => {
           <ToggleButtonGroup
             exclusive
             className={classes.toggleButtonContainer}
-            value={selectedToggle}
+            value={state.selectedToggle}
             onChange={(
               _: React.MouseEvent<HTMLElement>,
               newToggleValue: 'friends' | 'community' | null
@@ -98,7 +114,8 @@ const FeedPage: React.FC = () => {
               if (newToggleValue === null) {
                 return;
               }
-              setSelectedToggle(newToggleValue);
+
+              setState({ selectedToggle: newToggleValue });
             }}
           >
             <ToggleButton
@@ -139,7 +156,7 @@ const FeedPage: React.FC = () => {
 
           <Fab
             className={classes.fab}
-            onClick={() => setIsCreatePostModalOpen(true)}
+            onClick={() => setState({ isCreatePostModalOpen: true })}
           >
             <Badge
               anchorOrigin={{
@@ -154,8 +171,8 @@ const FeedPage: React.FC = () => {
           </Fab>
 
           <CreatePostModal
-            isOpen={isCreatePostModalOpen}
-            onClose={() => setIsCreatePostModalOpen(false)}
+            isOpen={state.isCreatePostModalOpen}
+            onClose={() => setState({ isCreatePostModalOpen: false })}
             onSubmit={(data) => {
               if (!data.challengeId || typeof data.challengeId === 'string') {
                 throw new Error('Challenge ID must be present');
@@ -167,9 +184,9 @@ const FeedPage: React.FC = () => {
                   body: data.body,
                 })
               );
-              setIsCreatePostModalOpen(false);
+              setState({ isCreatePostModalOpen: false });
             }}
-            challenges={ongoingAndCompletedChallenges}
+            challenges={state.ongoingAndCompletedChallenges}
           />
         </>
       )}
