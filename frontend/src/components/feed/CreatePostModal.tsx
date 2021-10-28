@@ -13,7 +13,9 @@ import {
   TextField,
 } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { makeStyles } from '@mui/styles';
+import { createNewPost } from 'store/posts/operations';
 
 import './ReactionChip.scss';
 
@@ -41,6 +43,7 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
   onClose,
   onSubmit,
 }) => {
+  const dispatch = useDispatch();
   const theme = useTheme();
   const classes = useStyles(theme);
   const shouldFullScreen = useMediaQuery(theme.breakpoints.only('xs'));
@@ -51,7 +54,17 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
   } = useForm<CreatePostFormState>();
 
   const onFormSubmit = handleSubmit((data: CreatePostFormState) => {
+    if (!data.challengeId || typeof data.challengeId === 'string') {
+      throw new Error('Challenge ID must be present');
+    }
+
     console.log(data);
+    dispatch(
+      createNewPost({
+        challengeId: data.challengeId,
+        body: data.body,
+      })
+    );
     onSubmit();
   });
 
@@ -84,9 +97,9 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
                 helperText={errors.challengeId?.message}
                 select
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value={1}>Ten</MenuItem>
+                <MenuItem value={2}>Twenty</MenuItem>
+                <MenuItem value={3}>Thirty</MenuItem>
               </TextField>
             )}
           />

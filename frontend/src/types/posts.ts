@@ -8,6 +8,11 @@ export interface PostListData {
   reactions: ReactionListData[];
 }
 
+export interface PostPostData {
+  challengeId: number;
+  body: string;
+}
+
 export interface ReactionListData {
   emoji: ReactionEmoji;
   creator: Omit<UserData, 'registrationDate'>;

@@ -13,6 +13,12 @@ export const postsSlice = createSlice({
     setPostList: (state, action: PayloadAction<PostListData[]>): void => {
       state.postList = action.payload;
     },
+    addPost: (state, action: PayloadAction<PostListData>): void => {
+      // Add post to the front.
+      // Assumption is that post to be added is newly created
+      // and that the postList contains post sorted in desc order
+      state.postList = [action.payload].concat([...state.postList]);
+    },
     updatePost: (state, action: PayloadAction<PostListData>): void => {
       const newPost = action.payload;
 

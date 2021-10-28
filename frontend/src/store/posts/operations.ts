@@ -2,9 +2,9 @@ import api from 'api';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from 'store/index';
-import { PostListData, ReactionEmoji } from 'types/posts';
+import { PostListData, PostPostData, ReactionEmoji } from 'types/posts';
 import { OperationResult } from 'types/store';
-import { setPostList, updatePost } from './actions';
+import { addPost, setPostList, updatePost } from './actions';
 
 export function loadAllPosts(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
@@ -50,5 +50,17 @@ export function removeReactionFromPost(
       createdAt: new Date(response.payload.data.createdAt),
     };
     dispatch(updatePost(post));
+  };
+}
+
+export function createNewPost(postPostData: PostPostData): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    const response = await api.posts.createPost(postPostData);
+
+    const post: PostListData = {
+      ...response.payload.data,
+      createdAt: new Date(response.payload.data.createdAt),
+    };
+    dispatch(addPost(post));
   };
 }
