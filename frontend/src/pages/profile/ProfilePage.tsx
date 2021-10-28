@@ -162,24 +162,20 @@ const ProfilePage: React.FC = () => {
         className={classes.profilePageContainer}
         sx={{ padding: '0 1.5em 0 1.5em' }}
       >
-        <AppBar position="absolute">
-          <Toolbar>
-            {!isOwnProfilePage && (
-              <div
-                onClick={() => {
-                  history.goBack();
-                }}
-              >
-                <IconButton edge="start" sx={{ color: 'white' }}>
-                  <ChevronLeft />
-                </IconButton>
-              </div>
-            )}
-          </Toolbar>
-        </AppBar>
         <Grid container className={classes.profileHeaderContainer}>
           <AppBar position="static">
             <Toolbar>
+              {!isOwnProfilePage && (
+                <div
+                  onClick={() => {
+                    history.goBack();
+                  }}
+                >
+                  <IconButton edge="start" sx={{ color: 'white' }}>
+                    <ChevronLeft />
+                  </IconButton>
+                </div>
+              )}
               <Box sx={{ flexGrow: 1 }} />
               <IconButton edge="end" color="primary" onClick={handleMenuClick}>
                 <MoreVertIcon />
