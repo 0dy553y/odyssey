@@ -55,7 +55,7 @@ Rails.application.routes.draw do
       end
 
       namespace :map do
-        get 'friends_on_same_challenge', to: 'friends_on_same_challenge'
+        get 'friends_on_same_challenges', to: 'friends_on_same_challenges'
       end
     end
   end
