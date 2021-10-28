@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { makeStyles } from '@mui/styles';
+import { ChallengeListData } from 'types/challenges';
 
 import './ReactionChip.scss';
 
@@ -21,6 +22,7 @@ interface CreatePostModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (data: CreatePostFormState) => void;
+  challenges: ChallengeListData[];
 }
 
 interface CreatePostFormState {
@@ -40,6 +42,7 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
   isOpen,
   onClose,
   onSubmit,
+  challenges,
 }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
@@ -91,9 +94,11 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
                 helperText={errors.challengeId?.message}
                 select
               >
-                <MenuItem value={1}>Ten</MenuItem>
-                <MenuItem value={2}>Twenty</MenuItem>
-                <MenuItem value={3}>Thirty</MenuItem>
+                {challenges.map((challenge) => (
+                  <MenuItem key={challenge.id} value={challenge.id}>
+                    {challenge.name}
+                  </MenuItem>
+                ))}
               </TextField>
             )}
           />

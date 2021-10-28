@@ -17,6 +17,14 @@ class ChallengesAPI extends BaseAPI {
     return this.get(ChallengesAPI.getChallengesUrl());
   }
 
+  public getOngoingAndCompletedChallengeList(): ApiPromise<
+    ChallengeListData[]
+  > {
+    return this.get(
+      `${ChallengesAPI.getChallengesUrl()}/ongoing_and_completed_challenges`
+    );
+  }
+
   public getChallenge(challengeId: number): ApiPromise<ChallengeData> {
     return this.get(`${ChallengesAPI.getChallengesUrl()}/${challengeId}`);
   }

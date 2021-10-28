@@ -22,6 +22,8 @@ import { getUser } from 'store/auth/selectors';
 import { ReactionEmoji } from 'types/posts';
 import { createNewPost } from 'store/posts/operations';
 import { CreatePostModal } from 'components/feed/CreatePostModal';
+import { ChallengeListData } from 'types/challenges';
+import api from 'api';
 
 const useStyles = makeStyles((theme: Theme) => ({
   toggleButtonContainer: {
@@ -66,10 +68,15 @@ const FeedPage: React.FC = () => {
     'friends'
   );
   const [isCreatePostModalOpen, setIsCreatePostModalOpen] =
-    React.useState<boolean>(false);
+    useState<boolean>(false);
+  const [ongoingAndCompletedChallenges, setOngoingAndCompletedChallenges] =
+    useState<ChallengeListData[]>([]);
 
   useEffect(() => {
     dispatch(loadAllPosts());
+    api.challenges.getOngoingAndCompletedChallengeList().then((resp) => {
+      setOngoingAndCompletedChallenges(resp.payload.data);
+    });
   }, []);
 
   return (
@@ -162,6 +169,7 @@ const FeedPage: React.FC = () => {
               );
               setIsCreatePostModalOpen(false);
             }}
+            challenges={ongoingAndCompletedChallenges}
           />
         </>
       )}
