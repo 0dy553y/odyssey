@@ -6,7 +6,7 @@ import api from '../../api';
 import { FriendListData } from '../../types/friends';
 import { saveFriendList } from './actions';
 
-export function loadAllFriends(): OperationResult {
+export function loadAllFriends(userId?: number | string): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.friends.getFriendList();
     const friends: FriendListData[] = response.payload.data;

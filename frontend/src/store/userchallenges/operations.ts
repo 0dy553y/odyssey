@@ -46,7 +46,9 @@ export function loadAllUserChallengesDataForChallenge(
   };
 }
 
-export function loadAllOngoingUserChallenges(): OperationResult {
+export function loadAllOngoingUserChallenges(
+  userId?: number | string
+): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userChallenges.getAllOngoingUserChallengesData();
     const userChallenges: UserChallengeListData[] = response.payload.data;
@@ -58,7 +60,9 @@ export function loadAllOngoingUserChallenges(): OperationResult {
   };
 }
 
-export function loadAllCompletedUserChallenges(): OperationResult {
+export function loadAllCompletedUserChallenges(
+  userId?: number | string
+): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response =
       await api.userChallenges.getAllCompletedUserChallengesData();

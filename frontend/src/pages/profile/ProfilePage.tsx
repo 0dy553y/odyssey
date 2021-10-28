@@ -17,7 +17,7 @@ import ProfileHeader from '../../components/profile/ProfileHeader';
 import ActivityMap from '../../components/profile/ActivityMap';
 import UserStats from '../../components/profile/UserStats';
 import ChallengeSummaries from '../../components/profile/ChallengeSummaries';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import {
   BADGE_ROUTE,
   COMPLETED_CHALLENGES_ROUTE,
@@ -74,13 +74,14 @@ const ProfilePage: React.FC = () => {
   const history = useHistory();
   const { width } = useScrollbarSize();
   const classes = useStyles({ scrollbarWidth: width });
+  const { userId } = useParams<{ userId: string | undefined }>();
 
   useEffect(() => {
     batch(() => {
-      dispatch(loadAllOngoingUserChallenges());
-      dispatch(loadAllCompletedUserChallenges());
-      dispatch(loadAllFriends());
-      dispatch(loadUserTaskActivityData());
+      dispatch(loadAllOngoingUserChallenges(userId));
+      dispatch(loadAllCompletedUserChallenges(userId));
+      dispatch(loadAllFriends(userId));
+      dispatch(loadUserTaskActivityData(userId));
     });
   }, []);
 

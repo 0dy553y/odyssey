@@ -60,6 +60,7 @@ export const mainRoutes: RouteEntry[] = [
 export const privateRoutes: RouteEntry[] = [
   { path: EDIT_PROFILE_ROUTE, component: EditProfilePage, exact: true },
   { path: PROFILE_ROUTE, component: ProfilePage, exact: true },
+  { path: PROFILE_ROUTE + '/:userId', component: ProfilePage, exact: true },
   { path: HOME_ROUTE, component: HomePage, exact: true },
   { path: FEED_ROUTE, component: FeedPage, exact: true },
   {
