@@ -43,6 +43,7 @@ import { FriendListData } from '../../types/friends';
 import { getFriendList } from '../../store/friends/selectors';
 import { loadUser } from '../../store/users/operations';
 import { getUserByUsername } from '../../store/users/selectors';
+import { ChevronLeft } from '@mui/icons-material';
 
 export interface StyleProps {
   scrollbarWidth: number;
@@ -161,6 +162,21 @@ const ProfilePage: React.FC = () => {
         className={classes.profilePageContainer}
         sx={{ padding: '0 1.5em 0 1.5em' }}
       >
+        <AppBar position="absolute">
+          <Toolbar>
+            {!isOwnProfilePage && (
+              <div
+                onClick={() => {
+                  history.goBack();
+                }}
+              >
+                <IconButton edge="start" sx={{ color: 'white' }}>
+                  <ChevronLeft />
+                </IconButton>
+              </div>
+            )}
+          </Toolbar>
+        </AppBar>
         <Grid container className={classes.profileHeaderContainer}>
           <AppBar position="static">
             <Toolbar>
