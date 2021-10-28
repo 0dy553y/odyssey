@@ -34,6 +34,9 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
   },
+  displayLinebreak: {
+    whiteSpace: 'pre-line',
+  },
 }));
 
 const getAggregatedReactions = (
@@ -109,7 +112,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({
         <ListItemText
           primary={creator.displayName ?? displayUsername(creator.username)}
         />
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.displayLinebreak}>
           {post.body}
         </Grid>
         <Grid item xs={12}>
