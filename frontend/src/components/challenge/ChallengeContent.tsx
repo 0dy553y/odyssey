@@ -196,7 +196,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
             percentCompleted={userChallenge.percentCompleted}
             enrolledDate={userChallenge.enrolledDate}
             completedTasks={userChallenge.userTasks.filter(
-              (userTask) => userTask.completedAt !== null
+              (userTask) => !!userTask.completedAt
             )}
             totalNumberOfTasks={tasks.length}
             schedule={userChallenge.schedule}
