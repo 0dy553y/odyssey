@@ -2,15 +2,18 @@ import { PostListData, PostPostData, ReactionPostData } from 'types/posts';
 import { ApiPromise } from '../types/api';
 import BaseAPI from './base';
 
-// data is a pseudo-PostListData, whose string values need to be parsed into actual
-// types
-const mapPostListData = (data: PostListData[]): PostListData[] =>
-  data.map((post: PostListData) => {
+type PseudoPostListData = Omit<PostListData, 'createdAt'> & {
+  createdAt: string;
+};
+
+const mapPostListData = (data: PseudoPostListData[]): PostListData[] =>
+  data.map((post: PseudoPostListData) => {
     return {
       ...post,
       createdAt: new Date(post.createdAt),
     };
   });
+
 class PostsAPI extends BaseAPI {
   protected static getPostsUrl(): string {
     return 'posts';
@@ -18,7 +21,7 @@ class PostsAPI extends BaseAPI {
 
   public getFriendPostsList(): ApiPromise<PostListData[]> {
     return this.get(`${PostsAPI.getPostsUrl()}/friend_posts`).then((resp) => {
-      const data = mapPostListData(resp.payload.data as PostListData[]);
+      const data = mapPostListData(resp.payload.data as PseudoPostListData[]);
       return {
         ...resp,
         payload: {
@@ -31,7 +34,7 @@ class PostsAPI extends BaseAPI {
   public getCommunityPostsList(): ApiPromise<PostListData[]> {
     return this.get(`${PostsAPI.getPostsUrl()}/community_posts`).then(
       (resp) => {
-        const data = mapPostListData(resp.payload.data as PostListData[]);
+        const data = mapPostListData(resp.payload.data as PseudoPostListData[]);
         return {
           ...resp,
           payload: {
