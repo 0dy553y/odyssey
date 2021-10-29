@@ -48,6 +48,24 @@ class PostsAPI extends BaseAPI {
     );
   }
 
+  public getPostsListForChallenge(
+    challengeId: number
+  ): ApiPromise<PostListData[]> {
+    return this.get(
+      `${PostsAPI.getPostsUrl()}/posts_for_challenge?challengeId=${challengeId}`
+    ).then((resp) => {
+      const data = (resp.payload.data as PseudoPostListData[]).map(
+        postListDataMapper
+      );
+      return {
+        ...resp,
+        payload: {
+          data,
+        },
+      };
+    });
+  }
+
   public addReaction(
     postId: number,
     reactionPostData: ReactionPostData
