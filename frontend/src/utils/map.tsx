@@ -136,6 +136,7 @@ export function buildDiagonalRepeated({
   repeatDirection = Direction.FORWARD,
   heightIncrement = 0,
   widthIncrement = 1,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   buildCallback = (_) => {
     return;
   },

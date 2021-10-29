@@ -12,7 +12,7 @@ import LoginPage from '../pages/login';
 import OnboardingPage from 'pages/onboarding/OnboardingPage';
 import ProfilePage from '../pages/profile';
 import RegistrationPage from '../pages/registration';
-import { DemoMap, SpaceMap, MapsPage } from '../pages/maps';
+import { DemoMap, MapsPage } from '../pages/maps';
 import { RouteEntry } from '../types/routes';
 import AddFriendsPage from '../pages/friends/AddFriendsPage';
 import NotificationsPage from '../pages/notifications/NotificationsPage';

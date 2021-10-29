@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { batch, useDispatch, useSelector } from 'react-redux';
-import { Card, Switch, Stack, Typography } from '@mui/material';
+import React from 'react';
+import { Stack, Typography } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { makeStyles } from '@mui/styles';
 import { ChallengeMapData } from '../../types/challenges';
@@ -61,7 +60,7 @@ const MapCarousel: React.FC<MapCarouselProps> = ({ maps }) => {
         }) => {
           const friendsPositions: Record<number, string[]> = {};
 
-          friends.map(({ username, displayName, currentTaskNum }) => {
+          friends.map(({ username, currentTaskNum }) => {
             if (!(currentTaskNum in friendsPositions)) {
               friendsPositions[currentTaskNum] = [];
             }

@@ -3,7 +3,7 @@ import React, { useState, useRef, Suspense } from 'react';
 import SpaceMapStructure from './SpaceMapStructure';
 import { Canvas } from '@react-three/fiber';
 import { MapControls, Stars } from '@react-three/drei';
-import { Box, Character } from '../../components/map';
+import { Character } from '../../components/map';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Axis, Direction } from '../../types/map';
 import { DirectionPosition } from '../../types/map';
@@ -36,8 +36,7 @@ const SpaceMap: React.FC<MapProps> = ({
   const characterRef = useRef();
   const mapRef = useRef();
 
-  console.log(stepPositions);
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const moveCharacterForward = () => {
     currentStep = currentStep + 1;
     if (characterRef.current !== undefined && mapRef.current !== undefined) {
@@ -49,6 +48,7 @@ const SpaceMap: React.FC<MapProps> = ({
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const moveCharacterBackward = () => {
     currentStep = currentStep - 1;
     if (characterRef.current !== undefined && mapRef.current !== undefined) {

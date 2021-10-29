@@ -33,11 +33,11 @@ function Map(): JSX.Element {
             direction={Direction.RIGHT}
             username="unclesoo"
           />
-          {/* <Model
+          <Model
             position={translate(base, { [Axis.Y]: 5, [Axis.Z]: -5 })}
             fileName="InterstellarRunner"
             direction={Direction.RIGHT}
-          /> */}
+          />
           <Stairs position={base} direction={Direction.FORWARD} />
           {buildRepeated({
             buildBlock: (key: number, position: Vector3) => (
