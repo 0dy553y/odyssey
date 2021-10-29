@@ -21,7 +21,7 @@ import {
   addReactionToPost,
   removeReactionFromPost,
 } from 'store/posts/operations';
-import { getPostList } from 'store/posts/selectors';
+import { getFriendPostList } from 'store/posts/selectors';
 import { getUser } from 'store/auth/selectors';
 import { ReactionEmoji, PostListData } from 'types/posts';
 import { createNewPost } from 'store/posts/operations';
@@ -74,7 +74,7 @@ const FeedPage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const posts = useSelector(getPostList);
+  const posts = useSelector(getFriendPostList);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const user = useSelector(getUser)!; //
 
@@ -111,17 +111,17 @@ const FeedPage: React.FC = () => {
       });
     });
     const p3 = api.posts.getFriendPostsList().then((resp) => {
-      // setState({
-      //   friendPosts: resp.payload.data,
-      // });
+      setState({
+        friendPosts: resp.payload.data,
+      });
     });
     Promise.all([p1, p2, p3]).then(() => setState({ isLoading: false }));
   };
 
   const renderContent = () => {
     if (state.isLoading) {
-      // 3 is just some arbitrary number
-      return Array.from({ length: 3 }).map((_, idx) => (
+      // 5 is just some arbitrary number
+      return Array.from({ length: 5 }).map((_, idx) => (
         <FeedPostSkeleton key={idx} />
       ));
     }

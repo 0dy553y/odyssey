@@ -1,21 +1,26 @@
 import api from 'api';
+import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from 'store/index';
 import { PostListData, PostPostData, ReactionEmoji } from 'types/posts';
 import { OperationResult } from 'types/store';
-import { addPost, setPostList, updatePost } from './actions';
+import {
+  prependPostToFriendPostList,
+  setCommunityPostList,
+  setFriendPostList,
+  updatePost,
+} from './actions';
 
 export function loadAllPosts(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.posts.getFriendPostsList();
-    const posts: PostListData[] = response.payload.data.map((datum) => {
-      return {
-        ...datum,
-        createdAt: new Date(datum.createdAt),
-      };
+    const friendPostsResp = await api.posts.getFriendPostsList();
+    const communityPostsResp = await api.posts.getCommunityPostsList();
+
+    batch(() => {
+      dispatch(setFriendPostList(friendPostsResp.payload.data));
+      dispatch(setCommunityPostList(communityPostsResp.payload.data));
     });
-    dispatch(setPostList(posts));
   };
 }
 
@@ -61,6 +66,6 @@ export function createNewPost(postPostData: PostPostData): OperationResult {
       ...response.payload.data,
       createdAt: new Date(response.payload.data.createdAt),
     };
-    dispatch(addPost(post));
+    dispatch(prependPostToFriendPostList(post));
   };
 }
