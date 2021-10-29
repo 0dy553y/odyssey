@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Container, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { ReactionEmoji, PostListData } from 'types/posts';
 import { FeedPost } from 'components/feed/FeedPost';
 import { makeStyles } from '@mui/styles';
