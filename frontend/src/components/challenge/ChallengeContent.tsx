@@ -17,6 +17,10 @@ import ScheduleModal from 'components/challenge/ScheduleModal';
 import { joinChallenge } from 'store/challenges/operations';
 import { MemoizedFeedPostList } from 'components/feed/FeedPostList';
 import { UserData } from 'types/auth';
+import {
+  addReactionToPost,
+  removeReactionFromPost,
+} from 'store/posts/operations';
 import { PostListData, ReactionEmoji } from 'types/posts';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -223,14 +227,10 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
               posts={posts}
               currentUserId={currentUser.id}
               addReaction={(reaction: ReactionEmoji, post: PostListData) => {
-                // TODO:
-                console.log(reaction, post);
-                // dispatch(addReactionToPost(post.id, reaction));
+                dispatch(addReactionToPost(post.id, reaction));
               }}
               removeReaction={(reaction: ReactionEmoji, post: PostListData) => {
-                // TODO:
-                console.log(reaction, post);
-                // dispatch(removeReactionFromPost(post.id, reaction));
+                dispatch(removeReactionFromPost(post.id, reaction));
               }}
             />
           </Box>
