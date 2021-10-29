@@ -53,6 +53,10 @@ export const postsSlice = createSlice({
           .concat(state.communityPostList.slice(communityPostIdx + 1));
       }
     },
+    resetPosts: (state): void => {
+      state.friendPostList = [];
+      state.communityPostList = [];
+    },
   },
 });
 

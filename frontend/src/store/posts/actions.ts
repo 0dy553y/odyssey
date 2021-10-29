@@ -6,4 +6,5 @@ export const {
   setCommunityPostList,
   prependPostToCommunityPostList,
   updatePost,
+  resetPosts,
 } = postsSlice.actions;

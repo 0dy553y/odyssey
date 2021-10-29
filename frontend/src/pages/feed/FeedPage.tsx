@@ -3,18 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Badge,
   Box,
-  Container,
   Fab,
   Theme,
-  Typography,
   ToggleButton,
   ToggleButtonGroup,
 } from '@mui/material';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import { makeStyles } from '@mui/styles';
-import { FeedPost } from 'components/feed/FeedPost';
-import { FeedPostSkeleton } from 'components/feed/FeedPostSkeleton';
 
 import {
   loadAllPosts,
