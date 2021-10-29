@@ -102,6 +102,9 @@ export const FeedPost: React.FC<FeedPostProps> = ({
     post.reactions,
     currentUserId
   );
+  const disabledEmojis: ReactionEmoji[] = aggregatedReactionData
+    .filter((data) => data.hasReacted)
+    .map((data) => data.emoji);
 
   return (
     <ListItem alignItems="flex-start">
@@ -174,6 +177,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({
         <Grid item className={classes.reactionPicker}>
           <ReactionPicker
             onReactionSelect={(reaction) => addReaction(reaction)}
+            disabledEmojis={disabledEmojis}
           />
         </Grid>
       </Grid>

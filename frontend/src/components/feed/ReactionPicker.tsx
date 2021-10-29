@@ -13,6 +13,7 @@ import { ReactionEmoji } from 'types/posts';
 
 interface ReactionPickerProps {
   onReactionSelect: (emoji: ReactionEmoji) => void;
+  disabledEmojis: ReactionEmoji[];
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const ReactionPicker: React.FC<ReactionPickerProps> = ({
   onReactionSelect,
+  disabledEmojis,
 }) => {
   const classes = useStyles();
 
@@ -64,6 +66,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = ({
                       onReactionSelect(emoji);
                       setIsOpen(false);
                     }}
+                    disabled={disabledEmojis.includes(emoji)}
                   >
                     {emoji}
                   </IconButton>
