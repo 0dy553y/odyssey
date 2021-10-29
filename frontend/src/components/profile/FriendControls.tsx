@@ -16,6 +16,7 @@ import { UserData } from '../../types/auth';
 import { displayUsername } from '../../utils/formatting';
 import { deleteFriend } from '../../store/friends/operations';
 import { useDispatch } from 'react-redux';
+import { rejectFriendRequest } from '../../store/notifications/operations';
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
@@ -50,16 +51,21 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
   const [friendStatus, setFriendStatus] = useState<FriendStatus | undefined>(
     undefined
   );
+  const [friendRequestId, setFriendRequestId] = useState<number | undefined>(
+    undefined
+  );
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
-  useEffect(() => {
+  const getFriendStatus = () => {
     api.friends
       .getFriendStatusWithUser(user.id)
       .then((response: ApiResponse<FriendStatusData>) => {
-        const friendStatus = response.payload.data.friendStatus;
-        setFriendStatus(friendStatus);
+        setFriendStatus(response.payload.data.friendStatus);
+        setFriendRequestId(response.payload.data.friendRequestId);
       });
-  }, []);
+  };
+
+  useEffect(getFriendStatus, []);
 
   if (friendStatus === undefined || friendStatus === FriendStatus.SELF) {
     return <></>;
@@ -89,7 +95,7 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
             onClick={() => {
               setIsDialogOpen(false);
               dispatch(deleteFriend(user.id));
-              setFriendStatus(FriendStatus.NOT_FRIENDS);
+              getFriendStatus();
             }}
           >
             Yes
@@ -113,7 +119,7 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
       className={classes.button}
       onClick={() => {
         api.friendRequests.sendFriendRequest(user.id).then(() => {
-          setFriendStatus(FriendStatus.FRIEND_REQUEST_SENT);
+          getFriendStatus();
         });
       }}
     >
@@ -121,7 +127,46 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
     </Button>
   );
 
-  const sentFriendRequestDisplay = <></>;
+  const sentFriendRequestDisplay = (
+    <>
+      <Button
+        variant="contained"
+        fullWidth
+        disableElevation
+        className={classes.button}
+        onClick={() => setIsDialogOpen(true)}
+      >
+        <Typography variant="body1">Friend Request Sent</Typography>
+      </Button>
+      <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
+        <DialogTitle>
+          {`Cancel friend request to ${
+            user.displayName ?? displayUsername(user.username)
+          }?`}
+        </DialogTitle>
+        <DialogActions>
+          <Button
+            className={classes.acceptButton}
+            onClick={() => {
+              setIsDialogOpen(false);
+              // Friend request ID must be defined when friend request is sent.
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              dispatch(rejectFriendRequest(friendRequestId!));
+              getFriendStatus();
+            }}
+          >
+            Yes
+          </Button>
+          <Button
+            className={classes.rejectButton}
+            onClick={() => setIsDialogOpen(false)}
+          >
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
 
   const receivedFriendRequestDisplay = <></>;
 
