@@ -6,6 +6,7 @@ import { RootState } from 'store/index';
 import { PostPostData, ReactionEmoji } from 'types/posts';
 import { OperationResult } from 'types/store';
 import {
+  prependPostToCommunityPostList,
   prependPostToFriendPostList,
   setCommunityPostList,
   setFriendPostList,
@@ -54,6 +55,11 @@ export function createNewPost(postPostData: PostPostData): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.posts.createPost(postPostData);
 
-    dispatch(prependPostToFriendPostList(response.payload.data));
+    batch(() => {
+      // Assumption is that the newly created post will appear in both the
+      // friends post list and in the community post list
+      dispatch(prependPostToFriendPostList(response.payload.data));
+      dispatch(prependPostToCommunityPostList(response.payload.data));
+    });
   };
 }
