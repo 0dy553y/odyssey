@@ -276,9 +276,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                     className={classes.joinButton}
                     sx={{
                       '&:hover, &:focus': {
-                        backgroundColor: getComplementaryColor(
-                          getHexCode(challenge.color)
-                        ),
+                        backgroundColor: getComplementaryColor(challenge.color),
                         color: 'black',
                         transition: '0.5s ease',
                       },

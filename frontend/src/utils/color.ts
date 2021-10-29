@@ -1,5 +1,4 @@
 import { ChallengeColor } from '../types/challenges';
-import tinycolor from 'tinycolor2';
 
 export function getHexCode(color: ChallengeColor): string {
   switch (color) {
@@ -13,6 +12,13 @@ export function getHexCode(color: ChallengeColor): string {
   }
 }
 
-export function getComplementaryColor(hexColor: string): string {
-  return tinycolor(hexColor).spin(180).toHexString();
+export function getComplementaryColor(color: ChallengeColor): string {
+  switch (color) {
+    case ChallengeColor.BLUE:
+      return '#BE90A0';
+    case ChallengeColor.PURPLE:
+      return '#DDC28F';
+    default:
+      return '#FFF';
+  }
 }
