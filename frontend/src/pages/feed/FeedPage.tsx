@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useRef, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Badge,
@@ -48,6 +48,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     background: 'black !important',
     transition: '0.4s',
   },
+  feedContainer: {
+    height: '100%',
+    overflow: 'scroll',
+    scrollBehavior: 'smooth',
+  },
   fab: {
     position: 'absolute',
     right: theme.spacing(2),
@@ -84,6 +89,8 @@ const FeedPage: React.FC = () => {
     }
   );
 
+  const feedContainerRef = useRef<HTMLDivElement | null>();
+
   useEffect(() => {
     api.challenges.getOngoingAndCompletedChallengeList().then((resp) => {
       setState({
@@ -112,11 +119,9 @@ const FeedPage: React.FC = () => {
   return (
     <Box
       sx={{
-        marginTop: 2,
         padding: '2em 1.5em 0 1.5em',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
         height: '100%',
       }}
     >
@@ -132,6 +137,8 @@ const FeedPage: React.FC = () => {
           if (newToggleValue === null) {
             return;
           }
+
+          feedContainerRef.current?.scrollTo(0, 0);
 
           setState({ selectedToggle: newToggleValue });
         }}
@@ -158,7 +165,9 @@ const FeedPage: React.FC = () => {
         </ToggleButton>
       </ToggleButtonGroup>
 
-      {renderContent()}
+      <Box className={classes.feedContainer} ref={feedContainerRef}>
+        {renderContent()}
+      </Box>
 
       <Fab
         className={classes.fab}
@@ -175,7 +184,6 @@ const FeedPage: React.FC = () => {
           <CreateOutlinedIcon />
         </Badge>
       </Fab>
-
       <CreatePostModal
         isOpen={state.isCreatePostModalOpen}
         onClose={() => setState({ isCreatePostModalOpen: false })}

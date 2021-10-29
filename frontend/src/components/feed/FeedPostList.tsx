@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Typography } from '@mui/material';
+import { List, Typography } from '@mui/material';
 import { ReactionEmoji, PostListData } from 'types/posts';
 import { FeedPost } from 'components/feed/FeedPost';
 import { makeStyles } from '@mui/styles';
@@ -13,6 +13,7 @@ interface FeedPostListProps {
 
 const useStyles = makeStyles(() => ({
   textContainer: {
+    height: '100%',
     display: 'flex',
     flexGrow: 1,
     alignItems: 'center',
@@ -34,7 +35,7 @@ const FeedPostList: React.FC<FeedPostListProps> = ({
   const classes = useStyles();
 
   return posts.length > 0 ? (
-    <>
+    <List>
       {posts.map((post) => (
         <FeedPost
           key={post.id}
@@ -44,7 +45,7 @@ const FeedPostList: React.FC<FeedPostListProps> = ({
           removeReaction={(reaction) => removeReaction(reaction, post)}
         />
       ))}
-    </>
+    </List>
   ) : (
     <div className={classes.textContainer}>
       <Typography align="center" className={classes.text}>
