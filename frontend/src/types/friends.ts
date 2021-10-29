@@ -15,4 +15,9 @@ export enum FriendStatus {
   FRIEND_REQUEST_SENT,
   FRIEND_REQUEST_RECEIVED,
   NOT_FRIENDS,
+  SELF,
+}
+
+export interface FriendStatusData {
+  friendStatus: FriendStatus;
 }

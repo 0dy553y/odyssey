@@ -3,18 +3,17 @@ import { Box, IconButton, Stack, Typography } from '@mui/material';
 import { displayUsername } from 'utils/formatting';
 import { UserData } from 'types/auth';
 import UserAvatar from 'components/common/userAvatar';
-import FriendStatus from './FriendStatus';
+import FriendControls from './FriendControls';
 
 import './ProfileHeader.scss';
 
 interface ProfileHeaderProps {
   user?: UserData;
   userProfileItems: { label: string; count: number; onClick?: () => void }[];
-  isOwnProfilePage: boolean;
 }
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
-  const { userProfileItems, user, isOwnProfilePage } = props;
+  const { userProfileItems, user } = props;
 
   if (!user) {
     return <></>;
@@ -44,7 +43,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
         {displayUsername(user.username)}
       </Typography>
 
-      <FriendStatus isOwnProfilePage={isOwnProfilePage} />
+      <FriendControls userId={user.id} />
 
       <Stack direction="row" spacing={4}>
         {userProfileItems.map((item) => (

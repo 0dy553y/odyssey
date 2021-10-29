@@ -205,11 +205,7 @@ const ProfilePage: React.FC = () => {
             </Toolbar>
           </AppBar>
 
-          <ProfileHeader
-            user={user}
-            userProfileItems={userProfileItems}
-            isOwnProfilePage={isOwnProfilePage}
-          />
+          <ProfileHeader user={user} userProfileItems={userProfileItems} />
         </Grid>
 
         <ActivityMap activityMapData={userTaskActivityData} />

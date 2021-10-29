@@ -16,12 +16,15 @@ class FriendsController < ApplicationController
       friends: 0,
       friend_request_sent: 1,
       friend_request_received: 2,
-      not_friends: 3
+      not_friends: 3,
+      self: 4
     }
 
     @friend_status = status[:not_friends]
     other_user = User.find(params.require(:id))
-    if current_user.friends.include? other_user
+    if current_user == other_user
+      @friend_status = status[:self]
+    elsif current_user.friends.include? other_user
       @friend_status = status[:friends]
     elsif current_user.sent_pending_friends.include? other_user
       @friend_status = status[:friend_request_sent]
