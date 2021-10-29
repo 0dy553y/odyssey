@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef } from 'react';
 import { Color, MapComponent } from './MapComponent';
 import { useFrame } from '@react-three/fiber';

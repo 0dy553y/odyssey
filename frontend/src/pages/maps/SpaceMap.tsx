@@ -2,7 +2,7 @@
 import React, { useState, useRef, Suspense } from 'react';
 import SpaceMapStructure from './SpaceMapStructure';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Stars } from '@react-three/drei';
+import { MapControls, Stars } from '@react-three/drei';
 import { Box, Character } from '../../components/map';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Direction } from '../../types/map';
@@ -58,43 +58,11 @@ const SpaceMap: React.FC<MapProps> = ({
     }
   };
 
-  const Friends = () => (
-    <>
-      {stepPositions.length === numSteps ? (
-        <>
-          {Object.keys(friendsPositions).map((step: string) =>
-            friendsPositions[Number(step)].map((username: string) => {
-              console.log(username);
-              console.log(stepPositions[Number(step) - 1].pos);
-              return (
-                <Character
-                  key={`${challengeName}-${username}`}
-                  position={stepPositions[Number(step) - 1].pos}
-                  direction={Direction.RIGHT}
-                  username={username}
-                />
-              );
-            })
-          )}
-        </>
-      ) : (
-        <> </>
-      )}
-    </>
-  );
-
-  console.log(friendsPositions);
-  console.log(Object.keys(friendsPositions));
-  console.log(stepPositions.length);
-  console.log(numSteps);
-
   const d = 35;
   const cameraZoom = 45 - numSteps * 1.5;
 
   return (
     <Suspense fallback={<div />}>
-      {/* <button onClick={() => moveCharacterBackward()}> previous </button>
-      <button onClick={() => moveCharacterForward()}> next </button> */}
       <Canvas
         camera={{ zoom: cameraZoom, position: [d, d, d] }}
         orthographic={true}
@@ -102,13 +70,13 @@ const SpaceMap: React.FC<MapProps> = ({
         <color attach="background" args={['#010101']} />
         {/*  x: red, y: green, z: blue */}
         {/* <axesHelper args={[5]} /> */}
-        {/* <EffectComposer>
+        <EffectComposer>
           <Bloom
             luminanceThreshold={0.8}
             intensity={1.5}
             luminanceSmoothing={0.1}
           />
-        </EffectComposer> */}
+        </EffectComposer>
         <directionalLight castShadow position={[0, 10, 0]} intensity={1.5} />
         <pointLight position={[30, 0, 0]} intensity={0.5} />
         <pointLight position={[-30, 0, 0]} intensity={0.5} />
@@ -133,13 +101,31 @@ const SpaceMap: React.FC<MapProps> = ({
           direction={charPosition.direction}
           username={username}
         />
-        <Friends />
-        {/* <OrbitControls
+        {/* spawn friends */}
+        {stepPositions.length === numSteps ? (
+          <>
+            {Object.keys(friendsPositions).map((step: string) =>
+              friendsPositions[Number(step)].map((username: string) => {
+                return (
+                  <Character
+                    key={`${challengeName}-${username}`}
+                    position={stepPositions[Number(step) - 1].pos}
+                    direction={Direction.RIGHT}
+                    username={username}
+                  />
+                );
+              })
+            )}
+          </>
+        ) : (
+          <> </>
+        )}
+        <MapControls
           addEventListener={undefined}
           hasEventListener={undefined}
           removeEventListener={undefined}
           dispatchEvent={undefined}
-        /> */}
+        />
         <Stars factor={10} radius={60 - cameraZoom} saturation={1} fade />
       </Canvas>
     </Suspense>

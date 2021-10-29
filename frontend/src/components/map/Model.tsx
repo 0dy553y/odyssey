@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { useLoader } from '@react-three/fiber';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { MapComponent } from './MapComponent';
+import { animated } from '@react-spring/three';
 
 interface ModelProps {
   fileName: string;
@@ -18,7 +20,7 @@ const Model: React.FC<ModelProps> = ({ fileName, scale = 1 }) => {
     materials.preload();
     loader.setMaterials(materials);
   });
-  return <primitive object={obj} scale={scale} />;
+  return <animated.primitive object={obj.clone()} scale={scale} />;
 };
 
-export default MapComponent(Model);
+export default animated(MapComponent(Model));

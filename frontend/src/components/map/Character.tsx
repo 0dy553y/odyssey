@@ -5,14 +5,13 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from 'react';
-import { useLoader, Vector3 } from '@react-three/fiber';
+import { Vector3 } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { useSpring, animated, config } from '@react-spring/three';
 import { Direction } from '../../types/map';
 import { getRotation } from '../../utils/direction';
 import { DirectionPosition } from '../../types/map';
+import Model from './Model';
 
 interface CharacterProps {
   position: Vector3;
@@ -22,15 +21,7 @@ interface CharacterProps {
 
 const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
   const { position, direction, username } = props;
-  const materials = useLoader(MTLLoader, '/models/astronaut.mtl');
-  const astronaut = useLoader(
-    OBJLoader,
-    '/models/astronaut.obj',
-    (loader: any) => {
-      materials.preload();
-      loader.setMaterials(materials);
-    }
-  );
+
   const characterRef = useRef();
   const [flip, set] = useState(false);
   const { pos } = useSpring({
@@ -76,9 +67,10 @@ const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
       <Html position={[1.5, 3, 0]}>
         <p style={{ color: 'white' }}>{username}</p>
       </Html>
-      <animated.primitive
+      <Model
         position={localPos as any as Vector3}
-        object={astronaut}
+        direction={Direction.LEFT}
+        fileName={'astronaut'}
         scale={0.4}
       />
     </animated.group>
