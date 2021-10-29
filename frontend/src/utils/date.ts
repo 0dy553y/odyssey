@@ -31,21 +31,23 @@ export function getDateFromNowString(date: Date): string {
     lastDay: '[Yesterday]',
     sameDay: '[Today]',
     nextDay: '[Tomorrow]',
-    sameElse: () => dayjs(date).endOf('d').fromNow(),
+    sameElse: () => dayjs(date).fromNow(),
   };
   const referenceStartOfDay = dayjs().startOf('d');
-  const diff = referenceStartOfDay.diff(date, 'd');
+  const diff = referenceStartOfDay.diff(date, 'd', true);
   const sameElse = 'sameElse';
   const retVal =
-    diff === 0
-      ? 'sameDay'
-      : diff === -1
+    diff < -1
+      ? sameElse
+      : diff < 0
       ? 'nextDay'
-      : diff === 1
+      : diff < 1
+      ? 'sameDay'
+      : diff < 2
       ? 'lastDay'
       : sameElse;
-  const currentFormat = format[retVal];
 
+  const currentFormat = format[retVal];
   if (typeof currentFormat === 'function') {
     return currentFormat();
   }
