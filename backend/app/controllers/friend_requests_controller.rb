@@ -30,7 +30,7 @@ class FriendRequestsController < ApplicationController
 
   def destroy
     friend_request = FriendRequest.find(params.require(:id))
-    if friend_request.receiver_id != current_user.id || friend_request.sender_id != current_user.id
+    if friend_request.receiver_id != current_user.id && friend_request.sender_id != current_user.id
       show_error_message('Unable to delete invalid friend request')
       render 'layouts/empty', status: :forbidden
       return
