@@ -8,6 +8,7 @@ import { useForm, Controller } from 'react-hook-form';
 
 interface RegistrationFormState {
   username: string;
+  displayName: string;
   password: string;
   passwordConfirmation: string;
 }
@@ -22,9 +23,18 @@ const RegistrationPage: React.FC = () => {
     getValues,
   } = useForm<RegistrationFormState>();
 
-  const onSubmit = handleSubmit((data: RegistrationFormState) =>
-    dispatch(registerUser({ ...data }, history))
-  );
+  const onSubmit = handleSubmit((data: RegistrationFormState) => {
+    const displayName = data.displayName;
+    dispatch(
+      registerUser(
+        {
+          ...data,
+          displayName: displayName.length !== 0 ? displayName : undefined,
+        },
+        history
+      )
+    );
+  });
 
   return (
     <Box
@@ -64,6 +74,25 @@ const RegistrationPage: React.FC = () => {
                   autoComplete="username"
                   error={!!errors.username}
                   helperText={errors.username?.message}
+                />
+              )}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Controller
+              name="displayName"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  fullWidth
+                  id="displayName"
+                  label="Display Name"
+                  name="displayName"
+                  error={!!errors.displayName}
+                  helperText={errors.displayName?.message}
                 />
               )}
             />

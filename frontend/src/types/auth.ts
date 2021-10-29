@@ -7,6 +7,7 @@ export interface LoginData {
   password: string;
 }
 export interface RegisterData extends LoginData {
+  displayName?: string;
   passwordConfirmation: string;
 }
 
