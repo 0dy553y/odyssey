@@ -2,7 +2,7 @@ import React, { useEffect, useState, useReducer } from 'react';
 import { loadUserTasksForDay } from '../../store/usertasks/operations';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import UserTaskCarousel from '../../components/home/UserTaskCarousel';
-import MapDialog from '../../components/home/MapDialog';
+import MapDialog from '../../components/map/MapDialog';
 import { getUserTaskListForDay } from '../../store/usertasks/selectors';
 import { RootState } from '../../store';
 import { Grid, IconButton, Skeleton, Typography } from '@mui/material';

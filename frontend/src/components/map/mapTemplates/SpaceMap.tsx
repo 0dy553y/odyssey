@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useRef, Suspense } from 'react';
+import React, {
+  useState,
+  useRef,
+  Suspense,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
 import SpaceMapStructure from './SpaceMapStructure';
 import { Canvas } from '@react-three/fiber';
 import { MapControls, Stars } from '@react-three/drei';
@@ -15,9 +21,9 @@ interface MapProps {
   mapData: ChallengeMapData;
 }
 
-const SpaceMap: React.FC<MapProps> = ({ mapData }) => {
+const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
   const { username, challengeName, numTasks, currentTaskNum, friends } =
-    mapData;
+    props.mapData;
   let currentStep = currentTaskNum;
   const numSteps = numTasks;
   const friendsPositions: Record<number, string[]> = {};
@@ -38,29 +44,29 @@ const SpaceMap: React.FC<MapProps> = ({ mapData }) => {
   const characterRef = useRef();
   const mapRef = useRef();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const moveCharacterForward = () => {
-    currentStep = currentStep + 1;
-    if (characterRef.current !== undefined && mapRef.current !== undefined) {
-      (characterRef.current as any).moveCharacter(
-        stepPositions[currentStep - 2],
-        stepPositions[currentStep - 1]
-      );
-      (mapRef.current as any).setCurrentStep(currentStep);
-    }
-  };
+  useImperativeHandle(ref, () => ({
+    moveCharacterForward() {
+      currentStep = currentStep + 1;
+      if (characterRef.current !== undefined && mapRef.current !== undefined) {
+        (characterRef.current as any).moveCharacter(
+          stepPositions[currentStep - 2],
+          stepPositions[currentStep - 1]
+        );
+        (mapRef.current as any).setCurrentStep(currentStep);
+      }
+    },
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const moveCharacterBackward = () => {
-    currentStep = currentStep - 1;
-    if (characterRef.current !== undefined && mapRef.current !== undefined) {
-      (characterRef.current as any).moveCharacter(
-        stepPositions[currentStep],
-        stepPositions[currentStep - 1]
-      );
-      (mapRef.current as any).setCurrentStep(currentStep);
-    }
-  };
+    moveCharacterBackward() {
+      currentStep = currentStep - 1;
+      if (characterRef.current !== undefined && mapRef.current !== undefined) {
+        (characterRef.current as any).moveCharacter(
+          stepPositions[currentStep],
+          stepPositions[currentStep - 1]
+        );
+        (mapRef.current as any).setCurrentStep(currentStep);
+      }
+    },
+  }));
 
   const d = 35;
   const cameraZoom = 45 - numSteps * 1.5;
@@ -106,7 +112,7 @@ const SpaceMap: React.FC<MapProps> = ({ mapData }) => {
           username={username}
         />
         {/* spawn friends */}
-        {stepPositions.length === numSteps ? (
+        {/* {stepPositions.length === numSteps ? (
           <>
             {Object.keys(friendsPositions).map((step: string) =>
               friendsPositions[Number(step)].map(
@@ -132,7 +138,7 @@ const SpaceMap: React.FC<MapProps> = ({ mapData }) => {
           </>
         ) : (
           <> </>
-        )}
+        )} */}
         <MapControls
           addEventListener={undefined}
           hasEventListener={undefined}
@@ -145,4 +151,4 @@ const SpaceMap: React.FC<MapProps> = ({ mapData }) => {
   );
 };
 
-export default SpaceMap;
+export default forwardRef(SpaceMap);

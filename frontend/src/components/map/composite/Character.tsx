@@ -30,6 +30,17 @@ const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
     config: config.gentle,
   });
 
+  // Idle hovering animation.
+  const { localPos } = useSpring({
+    reset: true,
+    from: { localPos: [0, 0.2, 0] },
+    reverse: flip,
+    localPos: [0, 1, 0],
+    delay: 200,
+    config: { ...config.slow, duration: 800 },
+    onRest: () => set(!flip),
+  });
+
   useImperativeHandle(ref, () => ({
     moveCharacter: (
       oldDirectionPosition: DirectionPosition,
@@ -46,17 +57,6 @@ const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
       }
     },
   }));
-
-  // Idle hovering animation.
-  const { localPos } = useSpring({
-    reset: true,
-    from: { localPos: [0, 0.2, 0] },
-    reverse: flip,
-    localPos: [0, 1, 0],
-    delay: 200,
-    config: { ...config.slow, duration: 800 },
-    onRest: () => set(!flip),
-  });
 
   return (
     <animated.group

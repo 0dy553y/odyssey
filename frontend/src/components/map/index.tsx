@@ -8,3 +8,4 @@ export { default as Stairs } from './basic/Stairs';
 export { default as Disc } from './basic/Disc';
 export { default as NextDisc } from './composite/NextDisc';
 export { default as Island } from './composite/Island';
+export { default as MapDialog } from './MapDialog';
