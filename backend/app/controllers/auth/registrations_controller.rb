@@ -3,10 +3,6 @@
 module Auth
   class RegistrationsController < DeviseTokenAuth::RegistrationsController
     include AuthHelper
-    # include to have access to methods in controller
-    include Base64Helper
-    # helper to have access to methods in templates
-    helper Base64Helper
 
     def update
       super do |resource|

@@ -2,9 +2,6 @@
 
 module Auth
   class SessionsController < DeviseTokenAuth::SessionsController
-    include AuthHelper
-    helper Base64Helper
-
     private
 
     def render_create_success

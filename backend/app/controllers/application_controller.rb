@@ -4,6 +4,11 @@ class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
   include ::ActionView::Layouts
   include StatusMessages
+  # include to have access to methods in controller
+  include Base64Helper
+  # helper to have access to methods in templates
+  helper Base64Helper
+
   layout 'application'
   before_action :underscore_params!
   before_action :configure_permitted_parameters, if: :devise_controller?

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class FriendsController < ApplicationController
-  # helper to have access to methods in templates
-  helper Base64Helper
   include UserHelper
 
   def index
