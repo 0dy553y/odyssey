@@ -98,8 +98,6 @@ const HomePage: React.FC = () => {
             <Grid item container xs={6} sm={9}>
               <Grid item>
                 <Typography variant="h4">Hello,</Typography>
-              </Grid>
-              <Grid item>
                 <Typography variant="h4">
                   {user.displayName ?? user.username}
                 </Typography>
