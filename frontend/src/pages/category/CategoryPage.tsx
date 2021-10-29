@@ -9,7 +9,7 @@ import {
   Toolbar,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { ChevronLeft } from '@mui/icons-material';
+import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import CategoryHeader from '../../components/category/CategoryHeader';
 import CategoryListItem from '../../components/category/CategoryListItem';
 import { useDispatch, useSelector } from 'react-redux';
@@ -126,8 +126,8 @@ const ExplorePage: React.FC = () => {
               history.goBack();
             }}
           >
-            <IconButton edge="start" sx={{ color: 'white' }}>
-              <ChevronLeft />
+            <IconButton edge="start" sx={{ color: 'white', padding: '1em' }}>
+              <BackArrow height="1.5em" width="1.5em" />
             </IconButton>
           </div>
         </Toolbar>

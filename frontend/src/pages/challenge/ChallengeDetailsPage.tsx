@@ -12,7 +12,7 @@ import { getAllUserChallengesDataForChallenge } from 'store/userchallenges/selec
 import { IconButton, Skeleton } from '@mui/material';
 import ChallengeContent from 'components/challenge/ChallengeContent';
 import { makeStyles } from '@mui/styles';
-import { ChevronLeft } from '@mui/icons-material';
+import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 
 const useStyles = makeStyles(() => ({
   joinButton: {
@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
     zIndex: 5,
     color: 'white',
     top: '0.45em',
-    left: '0.5em',
+    left: '1.5em',
   },
 }));
 
@@ -87,7 +87,7 @@ const ChallengeDetailsPage: React.FC = () => {
         }}
       >
         <IconButton edge="start" className={classes.backIcon}>
-          <ChevronLeft />
+          <BackArrow height="1.5em" width="1.5em" />
         </IconButton>
       </Box>
       <ChallengeContent

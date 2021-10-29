@@ -1,4 +1,5 @@
 import { ChallengeColor } from '../types/challenges';
+import tinycolor from 'tinycolor2';
 
 export function getHexCode(color: ChallengeColor): string {
   switch (color) {
@@ -10,4 +11,8 @@ export function getHexCode(color: ChallengeColor): string {
       // Black
       return '#000000';
   }
+}
+
+export function getComplementaryColor(hexColor: string): string {
+  return tinycolor(hexColor).spin(180).toHexString();
 }

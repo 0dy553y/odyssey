@@ -5,7 +5,7 @@ import { TaskListData } from 'types/tasks';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ChallengeData, Schedule } from 'types/challenges';
-import { getHexCode } from 'utils/color';
+import { getHexCode, getComplementaryColor } from 'utils/color';
 import UserChallengeStats from 'components/challenge/UserChallengeStats';
 import { UserChallengeData } from 'types/userchallenge';
 import { TabPanel, TabContext, TabList } from '@mui/lab';
@@ -47,7 +47,7 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'left',
-    padding: '60px 2.5em 60px 2.5em',
+    padding: '80px 2.5em 60px 2.5em',
   },
   tabs: {
     padding: '0.5em 0 0 2em',
@@ -274,6 +274,15 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                     fullWidth
                     disableElevation
                     className={classes.joinButton}
+                    sx={{
+                      '&:hover, &:focus': {
+                        backgroundColor: getComplementaryColor(
+                          getHexCode(challenge.color)
+                        ),
+                        color: 'black',
+                        transition: '0.5s ease',
+                      },
+                    }}
                     onClick={() => setIsScheduleModalOpen(true)}
                   >
                     <Typography variant="body1">Join Challenge!</Typography>
