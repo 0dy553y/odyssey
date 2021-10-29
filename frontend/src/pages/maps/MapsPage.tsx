@@ -20,6 +20,7 @@ const MapsPage = () => {
     });
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const challengeMaps = useSelector((state: RootState) =>
     getChallengeMaps(state)
   )!;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useRef, Suspense } from 'react';
 import SpaceMapStructure from './SpaceMapStructure';
 import { Canvas } from '@react-three/fiber';
@@ -27,7 +28,6 @@ const SpaceMap: React.FC<MapProps> = ({
     pos: [0, 0, 0],
     direction: Direction.FORWARD,
   });
-  const [Friends, setFriends] = useState<React.FC>((props) => <></>);
   const width = 7;
   const widthIncrement = 1.5;
   const heightIncrement = 0.5;
@@ -55,6 +55,25 @@ const SpaceMap: React.FC<MapProps> = ({
       (mapRef.current as any).setCurrentStep(currentStep);
     }
   };
+
+  const spawnFriends = () => (
+    <>
+      {stepPositions.length === numSteps ? (
+        Object.keys(friendsPositions).map((step: string) => {
+          friendsPositions[Number(step)].map((username: string) => (
+            <Character
+              key={username}
+              position={stepPositions[Number(step) - 1].pos}
+              direction={stepPositions[Number(step) - 1].direction}
+              username={username}
+            />
+          ));
+        })
+      ) : (
+        <> </>
+      )}
+    </>
+  );
 
   console.log(friendsPositions);
   console.log(Object.keys(friendsPositions));
@@ -95,20 +114,6 @@ const SpaceMap: React.FC<MapProps> = ({
           onMapMounted={(stepPositions) => {
             setStepPositions(stepPositions);
             setCharPosition(stepPositions[currentStep - 1]);
-            setFriends(() => (
-              <>
-                {Object.keys(friendsPositions).map((step: string) => {
-                  friendsPositions[Number(step)].map((username: string) => (
-                    <Character
-                      key={username}
-                      position={stepPositions[Number(step) - 1].pos}
-                      direction={stepPositions[Number(step) - 1].direction}
-                      username={username}
-                    />
-                  ));
-                })}
-              </>
-            ));
           }}
         />
         <Character
@@ -118,7 +123,7 @@ const SpaceMap: React.FC<MapProps> = ({
           direction={charPosition.direction}
           username={username}
         />
-        {/* <Friends /> */}
+        {spawnFriends()}
         {/* <OrbitControls
           addEventListener={undefined}
           hasEventListener={undefined}
