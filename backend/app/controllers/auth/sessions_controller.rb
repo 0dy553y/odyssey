@@ -2,6 +2,8 @@
 
 module Auth
   class SessionsController < DeviseTokenAuth::SessionsController
+    include AuthHelper
+
     private
 
     def render_create_success
