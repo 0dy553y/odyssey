@@ -11,6 +11,25 @@ class FriendsController < ApplicationController
     @users = User.where('username ILIKE ?', "%#{params.require(:query)}%").where(is_system_account: false)
   end
 
+  def status
+    status = {
+      friends: 0,
+      friend_request_sent: 1,
+      friend_request_received: 2,
+      not_friends: 3
+    }
+
+    @friend_status = status[:not_friends]
+    other_user = User.find(params.require(:id))
+    if current_user.friends.include? other_user
+      @friend_status = status[:friends]
+    elsif current_user.sent_pending_friends.include? other_user
+      @friend_status = status[:friend_request_sent]
+    elsif current_user.received_pending_friends.include? other_user
+      @friend_status = status[:friend_request_received]
+    end
+  end
+
   def destroy
     id = params.require(:id)
     friendship = Friendship
