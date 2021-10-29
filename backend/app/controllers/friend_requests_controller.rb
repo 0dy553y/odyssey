@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class FriendRequestsController < ApplicationController
-  # helper to have access to methods in templates
-  helper Base64Helper
-
   def index
     @friend_requests = current_user.received_friend_requests
   end

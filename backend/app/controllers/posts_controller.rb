@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
-  # helper to have access to methods in templates
-  helper Base64Helper
-
   def friend_posts
     friend_ids = current_user.friends.pluck(:id)
     friend_and_self_ids = friend_ids + [current_user.id]
