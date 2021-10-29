@@ -28,10 +28,10 @@ class FriendsController < ApplicationController
       @friend_status = status[:friends]
     elsif current_user.sent_pending_friends.include? other_user
       @friend_status = status[:friend_request_sent]
-      @friend_request_id = FriendRequest.find_by(sender_id: current_user.id, receiver_id: other_user.id)
+      @friend_request = FriendRequest.find_by(sender_id: current_user.id, receiver_id: other_user.id)
     elsif current_user.received_pending_friends.include? other_user
       @friend_status = status[:friend_request_received]
-      @friend_request_id = FriendRequest.find_by(sender_id: other_user.id, receiver_id: current_user.id)
+      @friend_request = FriendRequest.find_by(sender_id: other_user.id, receiver_id: current_user.id)
     end
   end
 
