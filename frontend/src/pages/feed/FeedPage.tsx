@@ -50,7 +50,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   feedContainer: {
     height: '100%',
-    overflow: 'scroll',
+    overflowX: 'hidden',
+    overflowY: 'scroll',
     scrollBehavior: 'smooth',
   },
   fab: {
