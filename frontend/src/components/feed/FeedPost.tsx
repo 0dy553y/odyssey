@@ -23,6 +23,7 @@ interface FeedPostProps {
   currentUserId: number;
   addReaction: (reaction: ReactionEmoji) => void;
   removeReaction: (reaction: ReactionEmoji) => void;
+  shouldLinkToChallenge: boolean;
 }
 
 const useStyles = makeStyles(() => ({
@@ -93,6 +94,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({
   currentUserId,
   addReaction,
   removeReaction,
+  shouldLinkToChallenge,
 }) => {
   const classes = useStyles();
   const history = useHistory();
@@ -127,6 +129,9 @@ export const FeedPost: React.FC<FeedPostProps> = ({
         <Grid item xs={12}>
           <Link
             onClick={() => {
+              if (!shouldLinkToChallenge) {
+                return;
+              }
               history.push(
                 `${CATEGORY_ROUTE}/${post.challenge.categoryId}/${post.challenge.id}`
               );

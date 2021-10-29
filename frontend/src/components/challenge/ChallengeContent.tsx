@@ -1,6 +1,6 @@
 import React, { useReducer, useState } from 'react';
 import { makeStyles } from '@mui/styles';
-import { Box, Button, Skeleton, Typography, Tab } from '@mui/material';
+import { Box, Button, Skeleton, Theme, Typography, Tab } from '@mui/material';
 import { TaskListData } from 'types/tasks';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -15,8 +15,15 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import ScheduleModal from 'components/challenge/ScheduleModal';
 import { joinChallenge } from 'store/challenges/operations';
+import { MemoizedFeedPostList } from 'components/feed/FeedPostList';
+import { UserData } from 'types/auth';
+import {
+  addReactionToPost,
+  removeReactionFromPost,
+} from 'store/posts/operations';
+import { PostListData, ReactionEmoji } from 'types/posts';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   contentContainer: {
     scrollbarWidth: 'none',
     position: 'relative',
@@ -50,11 +57,19 @@ const useStyles = makeStyles(() => ({
     padding: '60px 2.5em 60px 2.5em',
   },
   tabs: {
-    padding: '0.5em 0 0 2em',
+    top: '4em',
     backgroundColor: '#f5f7f9',
     position: 'sticky',
     zIndex: 1,
-    top: '4em',
+    display: 'flex',
+    alignItems: 'center',
+    [theme.breakpoints.only('xs')]: {
+      justifyContent: 'center',
+    },
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: '1em',
+      justifyContent: 'flex-start',
+    },
   },
   white: {
     color: 'white',
@@ -123,12 +138,15 @@ const useStyles = makeStyles(() => ({
 enum TabItem {
   Milestones = 'Milestones',
   YourStats = 'Your Stats',
+  Community = 'Community',
 }
 
 interface ChallengeContentProps {
   challenge: ChallengeData;
   userChallenge: UserChallengeData | undefined;
   tasks: TaskListData[];
+  posts: PostListData[];
+  currentUser: UserData;
 }
 
 interface ChallengeCompletedModalState {
@@ -139,7 +157,8 @@ interface ChallengeCompletedModalState {
 const privateTabs = [TabItem.YourStats];
 
 const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
-  const { challenge, userChallenge, tasks } = props;
+  const { challenge, userChallenge, tasks, posts, currentUser } = props;
+
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -201,6 +220,22 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
             totalNumberOfTasks={tasks.length}
             schedule={userChallenge.schedule}
           />
+        );
+      case TabItem.Community:
+        return (
+          <Box>
+            <MemoizedFeedPostList
+              posts={posts}
+              currentUserId={currentUser.id}
+              addReaction={(reaction: ReactionEmoji, post: PostListData) => {
+                dispatch(addReactionToPost(post.id, reaction));
+              }}
+              removeReaction={(reaction: ReactionEmoji, post: PostListData) => {
+                dispatch(removeReactionFromPost(post.id, reaction));
+              }}
+              shouldLinkToChallenge={false}
+            />
+          </Box>
         );
       default:
         throw new Error('Unknown tab item!');
