@@ -9,6 +9,7 @@ interface FeedPostListProps {
   currentUserId: number;
   addReaction: (reaction: ReactionEmoji, post: PostListData) => void;
   removeReaction: (reaction: ReactionEmoji, post: PostListData) => void;
+  shouldLinkToChallenge?: boolean;
 }
 
 const useStyles = makeStyles(() => ({
@@ -31,6 +32,7 @@ const FeedPostList: React.FC<FeedPostListProps> = ({
   currentUserId,
   addReaction,
   removeReaction,
+  shouldLinkToChallenge = true,
 }) => {
   const classes = useStyles();
 
@@ -43,6 +45,7 @@ const FeedPostList: React.FC<FeedPostListProps> = ({
           currentUserId={currentUserId}
           addReaction={(reaction) => addReaction(reaction, post)}
           removeReaction={(reaction) => removeReaction(reaction, post)}
+          shouldLinkToChallenge={shouldLinkToChallenge}
         />
       ))}
     </List>

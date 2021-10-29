@@ -5,6 +5,7 @@ import { PostsState } from './types';
 const initialState: PostsState = {
   friendPostList: [],
   communityPostList: [],
+  challengePostLists: {},
 };
 
 export const postsSlice = createSlice({
@@ -35,29 +36,53 @@ export const postsSlice = createSlice({
     updatePost: (state, action: PayloadAction<PostListData>): void => {
       const newPost = action.payload;
 
-      const friendPostIds = state.friendPostList.map((post) => post.id);
-      const friendPostIdx = friendPostIds.indexOf(newPost.id);
-      if (friendPostIdx !== -1) {
-        state.friendPostList = state.friendPostList
-          .slice(0, friendPostIdx)
-          .concat([newPost])
-          .concat(state.friendPostList.slice(friendPostIdx + 1));
-      }
+      state.friendPostList = updatedPostListWithPost(
+        newPost,
+        state.friendPostList
+      );
 
-      const communityPostIds = state.communityPostList.map((post) => post.id);
-      const communityPostIdx = communityPostIds.indexOf(newPost.id);
-      if (communityPostIdx !== -1) {
-        state.communityPostList = state.communityPostList
-          .slice(0, communityPostIdx)
-          .concat([newPost])
-          .concat(state.communityPostList.slice(communityPostIdx + 1));
-      }
+      state.communityPostList = updatedPostListWithPost(
+        newPost,
+        state.communityPostList
+      );
+
+      const challengePostList = updatedPostListWithPost(
+        newPost,
+        state.challengePostLists[newPost.challenge.id] ?? []
+      );
+      state.challengePostLists[newPost.challenge.id] = challengePostList;
+    },
+    setChallengePostList: (
+      state,
+      action: PayloadAction<{ challengeId: number; posts: PostListData[] }>
+    ): void => {
+      const challengeId = action.payload.challengeId;
+      const posts = action.payload.posts;
+      state.challengePostLists[challengeId] = posts;
     },
     resetPosts: (state): void => {
       state.friendPostList = [];
       state.communityPostList = [];
+      state.challengePostLists = [];
     },
   },
 });
+
+const updatedPostListWithPost = (
+  newPost: PostListData,
+  posts: PostListData[]
+) => {
+  const postIds = posts.map((post) => post.id);
+  const postIdx = postIds.indexOf(newPost.id);
+
+  if (postIdx === -1) {
+    return posts;
+  }
+
+  return posts
+    .slice(0, postIdx)
+    .concat([newPost])
+    .concat(posts.slice(postIdx + 1));
+};
 
 export default postsSlice.reducer;

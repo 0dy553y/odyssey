@@ -8,6 +8,7 @@ import { OperationResult } from 'types/store';
 import {
   prependPostToCommunityPostList,
   prependPostToFriendPostList,
+  setChallengePostList,
   setCommunityPostList,
   setFriendPostList,
   updatePost,
@@ -22,6 +23,15 @@ export function loadAllPosts(): OperationResult {
       dispatch(setFriendPostList(friendPostsResp.payload.data));
       dispatch(setCommunityPostList(communityPostsResp.payload.data));
     });
+  };
+}
+
+export function loadPostsForChallenge(challengeId: number): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    const resp = await api.posts.getPostsListForChallenge(challengeId);
+    const posts = resp.payload.data;
+
+    dispatch(setChallengePostList({ challengeId, posts }));
   };
 }
 
