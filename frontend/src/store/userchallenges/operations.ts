@@ -2,13 +2,11 @@ import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import {
   CompletedUserChallengeListData,
-  UserChallengeData,
   UserChallengeListData,
 } from 'types/userchallenge';
 import api from '../../api';
 import { OperationResult } from '../../types/store';
 import { RootState } from '../index';
-import { mapUserTaskDateStringsIntoDateObjects } from '../usertasks/operations';
 import {
   updateAllUserChallengesData,
   updateCompletedUserChallengesListData,
@@ -25,22 +23,10 @@ export function loadAllUserChallengesDataForChallenge(
       );
     const data = response.payload.data;
 
-    const userChallenges: UserChallengeData[] = data.map((userChallenge) => {
-      return {
-        ...userChallenge,
-        enrolledDate: new Date(userChallenge.enrolledDate),
-        completedAt:
-          userChallenge.completedAt && new Date(userChallenge.completedAt),
-        userTasks: userChallenge.userTasks.map(
-          mapUserTaskDateStringsIntoDateObjects
-        ),
-      };
-    });
-
     dispatch(
       updateAllUserChallengesData({
         challengeId,
-        data: userChallenges,
+        data,
       })
     );
   };
@@ -70,12 +56,7 @@ export function loadAllCompletedUserChallenges(
       username
     );
     const userChallenges: CompletedUserChallengeListData[] =
-      response.payload.data.map((userChallenge) => {
-        return {
-          ...userChallenge,
-          completedAt: new Date(userChallenge.completedAt),
-        };
-      });
+      response.payload.data;
     dispatch(
       updateCompletedUserChallengesListData({
         data: [...userChallenges],
