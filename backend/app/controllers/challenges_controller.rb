@@ -52,7 +52,7 @@ class ChallengesController < ApplicationController
   end
 
   def ongoing_and_completed_challenges
-    @challenges = Challenge.joins(:user_challenges).where({ user_challenges: { user_id: current_user.id } })
+    @challenges = current_user.challenges
 
     render 'challenges/index', status: :ok
   end

@@ -4,11 +4,21 @@ class PostsController < ApplicationController
   # helper to have access to methods in templates
   helper Base64Helper
 
-  def index
+  def friend_posts
     friend_ids = current_user.friends.pluck(:id)
     friend_and_self_ids = friend_ids + [current_user.id]
 
     @posts = Post.includes(:post_reactions, :creator).where(creator_id: friend_and_self_ids)
+
+    render 'posts/index', status: :ok
+  end
+
+  def community_posts
+    challenge_ids = current_user.challenges.pluck(:id)
+
+    @posts = Post.includes(:post_reactions, :creator).where(challenge_id: challenge_ids)
+
+    render 'posts/index', status: :ok
   end
 
   def create

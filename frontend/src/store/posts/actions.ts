@@ -1,3 +1,10 @@
 import { postsSlice } from './reducer';
 
-export const { setPostList, updatePost, addPost } = postsSlice.actions;
+export const {
+  setFriendPostList,
+  prependPostToFriendPostList,
+  setCommunityPostList,
+  prependPostToCommunityPostList,
+  updatePost,
+  resetPosts,
+} = postsSlice.actions;

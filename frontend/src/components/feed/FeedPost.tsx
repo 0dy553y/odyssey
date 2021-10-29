@@ -9,11 +9,11 @@ import {
   Grid,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import dayjs from 'dayjs';
 import UserAvatar from 'components/common/userAvatar';
 import { useHistory } from 'react-router-dom';
 import { PostListData, ReactionEmoji, ReactionListData } from 'types/posts';
 import { displayDateWithTimestamp, displayUsername } from 'utils/formatting';
-import { getDateFromNowString } from 'utils/date';
 import { ReactionChip } from './ReactionChip';
 import { ReactionPicker } from './ReactionPicker';
 import { CATEGORY_ROUTE } from 'routing/routes';
@@ -102,6 +102,9 @@ export const FeedPost: React.FC<FeedPostProps> = ({
     post.reactions,
     currentUserId
   );
+  const disabledEmojis: ReactionEmoji[] = aggregatedReactionData
+    .filter((data) => data.hasReacted)
+    .map((data) => data.emoji);
 
   return (
     <ListItem alignItems="flex-start">
@@ -148,7 +151,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({
               variant="subtitle2"
               className={classes.subtitle}
             >
-              {getDateFromNowString(post.createdAt)}
+              {dayjs(post.createdAt).fromNow()}
             </Typography>
           </Tooltip>
         </Grid>
@@ -174,6 +177,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({
         <Grid item className={classes.reactionPicker}>
           <ReactionPicker
             onReactionSelect={(reaction) => addReaction(reaction)}
+            disabledEmojis={disabledEmojis}
           />
         </Grid>
       </Grid>

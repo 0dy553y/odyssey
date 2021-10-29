@@ -3,36 +3,59 @@ import { PostListData } from 'types/posts';
 import { PostsState } from './types';
 
 const initialState: PostsState = {
-  postList: [],
+  friendPostList: [],
+  communityPostList: [],
 };
 
 export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    setPostList: (state, action: PayloadAction<PostListData[]>): void => {
-      state.postList = action.payload;
+    setFriendPostList: (state, action: PayloadAction<PostListData[]>): void => {
+      state.friendPostList = action.payload;
     },
-    addPost: (state, action: PayloadAction<PostListData>): void => {
-      // Add post to the front.
-      // Assumption is that post to be added is newly created
-      // and that the postList contains post sorted in desc order
-      state.postList = [action.payload].concat([...state.postList]);
+    prependPostToFriendPostList: (
+      state,
+      action: PayloadAction<PostListData>
+    ): void => {
+      state.friendPostList = [action.payload, ...state.friendPostList];
+    },
+    setCommunityPostList: (
+      state,
+      action: PayloadAction<PostListData[]>
+    ): void => {
+      state.communityPostList = action.payload;
+    },
+    prependPostToCommunityPostList: (
+      state,
+      action: PayloadAction<PostListData>
+    ): void => {
+      state.communityPostList = [action.payload, ...state.communityPostList];
     },
     updatePost: (state, action: PayloadAction<PostListData>): void => {
       const newPost = action.payload;
 
-      const ids = state.postList.map((post) => post.id);
-      const idx = ids.indexOf(newPost.id);
-
-      if (idx === -1) {
-        throw new Error('Post does not exist');
+      const friendPostIds = state.friendPostList.map((post) => post.id);
+      const friendPostIdx = friendPostIds.indexOf(newPost.id);
+      if (friendPostIdx !== -1) {
+        state.friendPostList = state.friendPostList
+          .slice(0, friendPostIdx)
+          .concat([newPost])
+          .concat(state.friendPostList.slice(friendPostIdx + 1));
       }
 
-      state.postList = state.postList
-        .slice(0, idx)
-        .concat([newPost])
-        .concat(state.postList.slice(idx + 1));
+      const communityPostIds = state.communityPostList.map((post) => post.id);
+      const communityPostIdx = communityPostIds.indexOf(newPost.id);
+      if (communityPostIdx !== -1) {
+        state.communityPostList = state.communityPostList
+          .slice(0, communityPostIdx)
+          .concat([newPost])
+          .concat(state.communityPostList.slice(communityPostIdx + 1));
+      }
+    },
+    resetPosts: (state): void => {
+      state.friendPostList = [];
+      state.communityPostList = [];
     },
   },
 });

@@ -6,6 +6,10 @@ function getLocalState(state: RootState): PostsState {
   return state.posts;
 }
 
-export function getPostList(state: RootState): PostListData[] {
-  return getLocalState(state).postList;
+export function getFriendPostList(state: RootState): PostListData[] {
+  return getLocalState(state).friendPostList;
+}
+
+export function getCommunityPostList(state: RootState): PostListData[] {
+  return getLocalState(state).communityPostList;
 }

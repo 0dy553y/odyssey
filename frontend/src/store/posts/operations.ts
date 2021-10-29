@@ -1,21 +1,27 @@
 import api from 'api';
+import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from 'store/index';
-import { PostListData, PostPostData, ReactionEmoji } from 'types/posts';
+import { PostPostData, ReactionEmoji } from 'types/posts';
 import { OperationResult } from 'types/store';
-import { addPost, setPostList, updatePost } from './actions';
+import {
+  prependPostToCommunityPostList,
+  prependPostToFriendPostList,
+  setCommunityPostList,
+  setFriendPostList,
+  updatePost,
+} from './actions';
 
 export function loadAllPosts(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.posts.getPostsList();
-    const posts: PostListData[] = response.payload.data.map((datum) => {
-      return {
-        ...datum,
-        createdAt: new Date(datum.createdAt),
-      };
+    const friendPostsResp = await api.posts.getFriendPostsList();
+    const communityPostsResp = await api.posts.getCommunityPostsList();
+
+    batch(() => {
+      dispatch(setFriendPostList(friendPostsResp.payload.data));
+      dispatch(setCommunityPostList(communityPostsResp.payload.data));
     });
-    dispatch(setPostList(posts));
   };
 }
 
@@ -28,11 +34,7 @@ export function addReactionToPost(
       emoji,
     });
 
-    const post: PostListData = {
-      ...response.payload.data,
-      createdAt: new Date(response.payload.data.createdAt),
-    };
-    dispatch(updatePost(post));
+    dispatch(updatePost(response.payload.data));
   };
 }
 
@@ -45,11 +47,7 @@ export function removeReactionFromPost(
       emoji,
     });
 
-    const post: PostListData = {
-      ...response.payload.data,
-      createdAt: new Date(response.payload.data.createdAt),
-    };
-    dispatch(updatePost(post));
+    dispatch(updatePost(response.payload.data));
   };
 }
 
@@ -57,10 +55,11 @@ export function createNewPost(postPostData: PostPostData): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.posts.createPost(postPostData);
 
-    const post: PostListData = {
-      ...response.payload.data,
-      createdAt: new Date(response.payload.data.createdAt),
-    };
-    dispatch(addPost(post));
+    batch(() => {
+      // Assumption is that the newly created post will appear in both the
+      // friends post list and in the community post list
+      dispatch(prependPostToFriendPostList(response.payload.data));
+      dispatch(prependPostToCommunityPostList(response.payload.data));
+    });
   };
 }
