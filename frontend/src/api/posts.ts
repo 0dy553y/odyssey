@@ -1,4 +1,4 @@
-import { PostListData, ReactionPostData } from 'types/posts';
+import { PostListData, PostPostData, ReactionPostData } from 'types/posts';
 import { ApiPromise } from '../types/api';
 import BaseAPI from './base';
 
@@ -29,6 +29,10 @@ class PostsAPI extends BaseAPI {
       `${PostsAPI.getPostsUrl()}/${postId}/remove_reaction`,
       reactionPostData
     );
+  }
+
+  public createPost(postPostData: PostPostData): ApiPromise<PostListData> {
+    return this.post(`${PostsAPI.getPostsUrl()}`, postPostData);
   }
 }
 

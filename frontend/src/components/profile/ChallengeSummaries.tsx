@@ -56,6 +56,7 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
                 <li key={challenge.challengeId}>
                   <Link
                     to={{
+                      // TODO: fix this hardcoded 1.
                       pathname: `${CATEGORY_ROUTE}/1/${challenge.challengeId}`,
                       state: { challenge: challenge },
                     }}

@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.only('xs')]: {
       width: '90vw',
     },
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
       width: '400px',
     },
   },

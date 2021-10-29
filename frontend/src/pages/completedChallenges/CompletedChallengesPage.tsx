@@ -93,6 +93,7 @@ const CompletedChallengesPage: React.FC = () => {
                 <li key={challenge.challengeId}>
                   <Link
                     to={{
+                      // TODO: fix this hardcoded 1.
                       pathname: `${CATEGORY_ROUTE}/1/${challenge.challengeId}`,
                       state: { challenge: challenge },
                     }}

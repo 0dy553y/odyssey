@@ -18,6 +18,9 @@ Rails.application.routes.draw do
       resources :categories, only: %i[index show]
       api_resources :challenges do
         api_resources :tasks
+        collection do
+          get 'ongoing_and_completed_challenges', to: 'ongoing_and_completed_challenges'
+        end
         member do
           post 'join'
         end

@@ -1,3 +1,3 @@
 import { postsSlice } from './reducer';
 
-export const { setPostList, updatePost } = postsSlice.actions;
+export const { setPostList, updatePost, addPost } = postsSlice.actions;

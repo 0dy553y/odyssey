@@ -39,7 +39,7 @@ class PostsController < ApplicationController
     params
       .require(:post)
       .permit(:challenge_id, :body)
-      .with_defaults(creator_id: current_user.id)
+      .with_defaults(creator_id: current_user.id, challenge_id: params.require(:challenge_id))
   end
 
   def reaction_params
