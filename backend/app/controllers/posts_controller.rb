@@ -10,7 +10,7 @@ class PostsController < ApplicationController
 
     @posts = Post.includes(:post_reactions, :creator).where(creator_id: friend_and_self_ids)
 
-    render "posts/index", status: :ok
+    render 'posts/index', status: :ok
   end
 
   def community_posts
