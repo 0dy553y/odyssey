@@ -8,6 +8,7 @@ import CircularProgress, {
 } from '@mui/material/CircularProgress';
 import { getFormattedStringFromDays } from 'utils/formatting';
 import { Typography, Theme } from '@mui/material';
+import Avatar from 'boring-avatars';
 
 import './CategoryListItem.scss';
 
@@ -58,7 +59,9 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
   return (
     <Box>
       <div className={classes.container}>
-        <div className="square-pic"></div>
+        <div className="square-pic">
+          <Avatar square={true} variant={'beam'} size={65} name={name} />
+        </div>
         <Grid item xs={9}>
           <Typography component="div" variant="h6">
             {name}
