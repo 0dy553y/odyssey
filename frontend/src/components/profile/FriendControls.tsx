@@ -111,6 +111,11 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
       fullWidth
       disableElevation
       className={classes.button}
+      onClick={() => {
+        api.friendRequests.sendFriendRequest(user.id).then(() => {
+          setFriendStatus(FriendStatus.FRIEND_REQUEST_SENT);
+        });
+      }}
     >
       <Typography variant="body1">Add Friend</Typography>
     </Button>
