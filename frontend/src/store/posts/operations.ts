@@ -3,7 +3,7 @@ import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from 'store/index';
-import { PostListData, PostPostData, ReactionEmoji } from 'types/posts';
+import { PostPostData, ReactionEmoji } from 'types/posts';
 import { OperationResult } from 'types/store';
 import {
   prependPostToFriendPostList,
@@ -33,11 +33,7 @@ export function addReactionToPost(
       emoji,
     });
 
-    const post: PostListData = {
-      ...response.payload.data,
-      createdAt: new Date(response.payload.data.createdAt),
-    };
-    dispatch(updatePost(post));
+    dispatch(updatePost(response.payload.data));
   };
 }
 
@@ -50,11 +46,7 @@ export function removeReactionFromPost(
       emoji,
     });
 
-    const post: PostListData = {
-      ...response.payload.data,
-      createdAt: new Date(response.payload.data.createdAt),
-    };
-    dispatch(updatePost(post));
+    dispatch(updatePost(response.payload.data));
   };
 }
 
@@ -62,10 +54,6 @@ export function createNewPost(postPostData: PostPostData): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.posts.createPost(postPostData);
 
-    const post: PostListData = {
-      ...response.payload.data,
-      createdAt: new Date(response.payload.data.createdAt),
-    };
-    dispatch(prependPostToFriendPostList(post));
+    dispatch(prependPostToFriendPostList(response.payload.data));
   };
 }

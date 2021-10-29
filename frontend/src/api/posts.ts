@@ -6,13 +6,12 @@ type PseudoPostListData = Omit<PostListData, 'createdAt'> & {
   createdAt: string;
 };
 
-const mapPostListData = (data: PseudoPostListData[]): PostListData[] =>
-  data.map((post: PseudoPostListData) => {
-    return {
-      ...post,
-      createdAt: new Date(post.createdAt),
-    };
-  });
+const postListDataMapper = (post: PseudoPostListData): PostListData => {
+  return {
+    ...post,
+    createdAt: new Date(post.createdAt),
+  };
+};
 
 class PostsAPI extends BaseAPI {
   protected static getPostsUrl(): string {
@@ -21,11 +20,13 @@ class PostsAPI extends BaseAPI {
 
   public getFriendPostsList(): ApiPromise<PostListData[]> {
     return this.get(`${PostsAPI.getPostsUrl()}/friend_posts`).then((resp) => {
-      const data = mapPostListData(resp.payload.data as PseudoPostListData[]);
+      const data = (resp.payload.data as PseudoPostListData[]).map(
+        postListDataMapper
+      );
       return {
         ...resp,
         payload: {
-          data: data,
+          data,
         },
       };
     });
@@ -34,11 +35,13 @@ class PostsAPI extends BaseAPI {
   public getCommunityPostsList(): ApiPromise<PostListData[]> {
     return this.get(`${PostsAPI.getPostsUrl()}/community_posts`).then(
       (resp) => {
-        const data = mapPostListData(resp.payload.data as PseudoPostListData[]);
+        const data = (resp.payload.data as PseudoPostListData[]).map(
+          postListDataMapper
+        );
         return {
           ...resp,
           payload: {
-            data: data,
+            data,
           },
         };
       }
@@ -52,7 +55,15 @@ class PostsAPI extends BaseAPI {
     return this.post(
       `${PostsAPI.getPostsUrl()}/${postId}/add_reaction`,
       reactionPostData
-    );
+    ).then((resp) => {
+      const data = postListDataMapper(resp.payload.data as PseudoPostListData);
+      return {
+        ...resp,
+        payload: {
+          data,
+        },
+      };
+    });
   }
 
   public removeReaction(
@@ -62,11 +73,27 @@ class PostsAPI extends BaseAPI {
     return this.post(
       `${PostsAPI.getPostsUrl()}/${postId}/remove_reaction`,
       reactionPostData
-    );
+    ).then((resp) => {
+      const data = postListDataMapper(resp.payload.data as PseudoPostListData);
+      return {
+        ...resp,
+        payload: {
+          data,
+        },
+      };
+    });
   }
 
   public createPost(postPostData: PostPostData): ApiPromise<PostListData> {
-    return this.post(`${PostsAPI.getPostsUrl()}`, postPostData);
+    return this.post(`${PostsAPI.getPostsUrl()}`, postPostData).then((resp) => {
+      const data = postListDataMapper(resp.payload.data as PseudoPostListData);
+      return {
+        ...resp,
+        payload: {
+          data,
+        },
+      };
+    });
   }
 }
 
