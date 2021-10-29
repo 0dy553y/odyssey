@@ -112,7 +112,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
           username={username}
         />
         {/* spawn friends */}
-        {/* {stepPositions.length === numSteps ? (
+        {stepPositions.length === numSteps ? (
           <>
             {Object.keys(friendsPositions).map((step: string) =>
               friendsPositions[Number(step)].map(
@@ -137,8 +137,8 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
             )}
           </>
         ) : (
-          <> </>
-        )} */}
+          <></>
+        )}
         <MapControls
           addEventListener={undefined}
           hasEventListener={undefined}
