@@ -43,7 +43,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
         {displayUsername(user.username)}
       </Typography>
 
-      <FriendControls userId={user.id} />
+      <FriendControls user={user} />
 
       <Stack direction="row" spacing={4}>
         {userProfileItems.map((item) => (
