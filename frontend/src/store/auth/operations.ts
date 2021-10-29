@@ -24,12 +24,7 @@ export function login(loginData: LoginData, history: History): OperationResult {
     await withStatusMessages(dispatch, api.auth.login(loginData)).then(
       (response) => {
         const userData: UserData = response.payload.data;
-        dispatch(
-          setUser({
-            ...userData,
-            registrationDate: new Date(userData.registrationDate),
-          })
-        );
+        dispatch(setUser(userData));
         dispatch(loadAllCategories());
         history.push(HOME_ROUTE);
       }
@@ -72,12 +67,7 @@ export function validateToken(): OperationResult {
       .validateToken()
       .then((resp) => {
         const userData: UserData = resp.payload.data;
-        dispatch(
-          setUser({
-            ...userData,
-            registrationDate: new Date(userData.registrationDate),
-          })
-        );
+        dispatch(setUser(userData));
         dispatch(loadAllCategories());
       })
       // Do nothing
@@ -95,12 +85,7 @@ export function updateUser(
     await withStatusMessages(dispatch, api.auth.editUser(userPutData)).then(
       (resp) => {
         const userData: UserData = resp.payload.data;
-        dispatch(
-          setUser({
-            ...userData,
-            registrationDate: new Date(userData.registrationDate),
-          })
-        );
+        dispatch(setUser(userData));
         history.goBack();
       }
     );

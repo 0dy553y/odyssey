@@ -1,6 +1,19 @@
-import BaseAPI from './base';
 import { ApiPromise, EmptyPayload } from '../types/api';
 import { FriendRequestListData } from '../types/friendrequests';
+import BaseAPI from './base';
+
+type PseudoFriendRequestListData = Omit<FriendRequestListData, 'sentAt'> & {
+  sentAt: string;
+};
+
+const friendRequestListDataMapper = (
+  request: PseudoFriendRequestListData
+): FriendRequestListData => {
+  return {
+    ...request,
+    sentAt: new Date(request.sentAt),
+  };
+};
 
 class FriendRequestsAPI extends BaseAPI {
   protected static getFriendRequestsUrl(): string {
@@ -8,7 +21,17 @@ class FriendRequestsAPI extends BaseAPI {
   }
 
   public getFriendRequestsList(): ApiPromise<FriendRequestListData[]> {
-    return this.get(FriendRequestsAPI.getFriendRequestsUrl());
+    return this.get(FriendRequestsAPI.getFriendRequestsUrl()).then((resp) => {
+      const data = (resp.payload.data as PseudoFriendRequestListData[]).map(
+        friendRequestListDataMapper
+      );
+      return {
+        ...resp,
+        payload: {
+          data,
+        },
+      };
+    });
   }
 
   public sendFriendRequest(userId: number): ApiPromise<EmptyPayload> {

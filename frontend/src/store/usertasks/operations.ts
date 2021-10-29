@@ -1,5 +1,4 @@
 import api from 'api';
-import { startOfDay } from 'date-fns';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { loadAllUserChallengesDataForChallenge } from 'store/userchallenges/operations';
@@ -15,9 +14,7 @@ import {
 export function loadUserTasksForDay(date: Date): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userTasks.getUserTaskListForDay(date);
-    const userTasks: UserTaskListData[] = response.payload.data.map(
-      mapUserTaskDateStringsIntoDateObjects
-    );
+    const userTasks: UserTaskListData[] = response.payload.data;
     dispatch(saveUserTaskListForDay(date, userTasks));
   };
 }
@@ -32,9 +29,7 @@ function markUserTaskAsDone(
 ): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userTasks.markUserTaskAsDone(userTaskId);
-    const userTask: UserTaskData = mapUserTaskDateStringsIntoDateObjects(
-      response.payload.data
-    );
+    const userTask: UserTaskData = response.payload.data;
     if (userTask.isChallengeCompleted) {
       onChallengeCompleted(userTask.challengeName);
     }
@@ -51,8 +46,7 @@ export function markUserTaskAsDoneFromHome(
     userTaskId,
     onChallengeCompleted,
     (dispatch, userTask) => {
-      const date = new Date(userTask.scheduledFor);
-      dispatch(saveUserTaskForDay(date, userTask));
+      dispatch(saveUserTaskForDay(userTask.scheduledFor, userTask));
     }
   );
 }
@@ -73,12 +67,8 @@ export function markUserTaskAsDoneFromChallenge(
 export function markUserTaskAsNotDone(userTaskId: number): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userTasks.markUserTaskAsNotDone(userTaskId);
-    const userTask: UserTaskData = mapUserTaskDateStringsIntoDateObjects(
-      response.payload.data
-    );
-    const date = new Date(userTask.scheduledFor);
-    date.setDate(date.getDate());
-    dispatch(saveUserTaskForDay(date, userTask));
+    const userTask: UserTaskData = response.payload.data;
+    dispatch(saveUserTaskForDay(userTask.scheduledFor, userTask));
   };
 }
 
@@ -87,27 +77,6 @@ export function loadUserTaskActivityData(username?: string): OperationResult {
     const response = await api.userTasks.getUserTaskActivityData(username);
     const data = response.payload.data;
 
-    dispatch(
-      saveUserTaskActivityData(
-        data.map((datum) => {
-          return {
-            ...datum,
-            date: new Date(datum.date),
-          };
-        })
-      )
-    );
-  };
-}
-
-// Exporting only to be used in loadAllUserChallengesDataForChallenge
-// in userchallenges operation
-export function mapUserTaskDateStringsIntoDateObjects(
-  userTask: UserTaskListData | UserTaskData
-): UserTaskListData | UserTaskData {
-  return {
-    ...userTask,
-    completedAt: userTask.completedAt && new Date(userTask.completedAt),
-    scheduledFor: startOfDay(new Date(userTask.scheduledFor)),
+    dispatch(saveUserTaskActivityData(data));
   };
 }
