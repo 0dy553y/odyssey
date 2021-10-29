@@ -18,7 +18,7 @@ class PostsController < ApplicationController
 
     @posts = Post.includes(:post_reactions, :creator).where(challenge_id: challenge_ids)
 
-    render "posts/index", status: :ok
+    render 'posts/index', status: :ok
   end
 
   def create
