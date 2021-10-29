@@ -4,6 +4,7 @@ import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { HOME_ROUTE, LOGIN_ROUTE } from 'routing/routes';
 import { loadAllCategories } from 'store/categories/operations';
+import { resetPosts } from 'store/posts/actions';
 import { resetSnackbars } from 'store/snackbars/actions';
 import { resetUserChallenges } from 'store/userchallenges/actions';
 import { resetUserTasks } from 'store/usertasks/actions';
@@ -24,12 +25,7 @@ export function login(loginData: LoginData, history: History): OperationResult {
     await withStatusMessages(dispatch, api.auth.login(loginData)).then(
       (response) => {
         const userData: UserData = response.payload.data;
-        dispatch(
-          setUser({
-            ...userData,
-            registrationDate: new Date(userData.registrationDate),
-          })
-        );
+        dispatch(setUser(userData));
         dispatch(loadAllCategories());
         history.push(HOME_ROUTE);
       }
@@ -46,6 +42,7 @@ export function logout(history: History): OperationResult {
         dispatch(resetAuth());
         dispatch(resetUserChallenges());
         dispatch(resetUserTasks());
+        dispatch(resetPosts());
       });
       history.push(LOGIN_ROUTE);
     });
@@ -72,12 +69,7 @@ export function validateToken(): OperationResult {
       .validateToken()
       .then((resp) => {
         const userData: UserData = resp.payload.data;
-        dispatch(
-          setUser({
-            ...userData,
-            registrationDate: new Date(userData.registrationDate),
-          })
-        );
+        dispatch(setUser(userData));
         dispatch(loadAllCategories());
       })
       // Do nothing
@@ -95,12 +87,7 @@ export function updateUser(
     await withStatusMessages(dispatch, api.auth.editUser(userPutData)).then(
       (resp) => {
         const userData: UserData = resp.payload.data;
-        dispatch(
-          setUser({
-            ...userData,
-            registrationDate: new Date(userData.registrationDate),
-          })
-        );
+        dispatch(setUser(userData));
         history.goBack();
       }
     );

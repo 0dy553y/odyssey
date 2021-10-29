@@ -38,9 +38,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.only('xs')]: {
       width: '90vw',
     },
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
       width: '400px',
     },
+  },
+  header: {
+    verticalAlign: 'middle',
+    display: 'inline-flex',
   },
 }));
 
@@ -74,7 +78,7 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({
     >
       <Fade in={isOpen}>
         <Box className={classes.scheduleModal}>
-          <Typography component="div" variant="h6">
+          <Typography component="div" variant="h6" className={classes.header}>
             Select recurring days
             <Tooltip
               arrow
@@ -84,11 +88,9 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({
               leaveTouchDelay={3000}
               enterTouchDelay={50}
             >
-              <sup>
-                <IconButton size="small">
-                  <InfoOutlinedIcon fontSize="inherit" />
-                </IconButton>
-              </sup>
+              <IconButton size="small">
+                <InfoOutlinedIcon fontSize="inherit" />
+              </IconButton>
             </Tooltip>
           </Typography>
 

@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
 class UserTasksController < ApplicationController
+  include UserHelper
+
   def tasks_for_day
-    @user_tasks = current_user.user_tasks.where(scheduled_for: params.require(:date).to_date.all_day)
+    # date refers to the very beginning of the 24 hour period in which to search for scheduled tasks.
+    date = params.require(:date).to_date
+    date_range = date..(date + 1.day)
+    @user_tasks = current_user.user_tasks.where(scheduled_for: date_range)
   end
 
   def mark_as_done
@@ -22,7 +27,7 @@ class UserTasksController < ApplicationController
   end
 
   def user_task_activity_data
-    user_tasks = current_user.user_tasks.completed
+    user_tasks = user.user_tasks.completed
 
     @user_task_activity_data = user_tasks
                                .group_by { |user_task| user_task.completed_at.beginning_of_day }

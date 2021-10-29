@@ -52,6 +52,11 @@ const theme = createTheme({
         root: {
           background: 'black',
         },
+        outlined: {
+          background: 'transparent',
+          borderColor: 'black',
+          color: 'black',
+        },
       },
     },
   },

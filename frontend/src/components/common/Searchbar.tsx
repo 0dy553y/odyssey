@@ -13,9 +13,6 @@ const Search = styled('div')(({ theme }) => ({
   borderRadius: 40,
   margin: '2em 0 2em 0',
   backgroundColor: alpha(theme.palette.common.white, 1),
-  //'&:focus': {
-  //  backgroundColor: alpha(theme.palette.common.black, 0.25),
-  //},
   width: '100%',
   textAlign: 'center',
 }));

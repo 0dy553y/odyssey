@@ -7,7 +7,7 @@ import { SnackbarKey } from 'store/snackbars/types';
 
 const Notifier: React.FC = () => {
   const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const snackbars = useSelector(getSnackbars);
 
   const [displayedSnackbarKeys, setDisplayedSnackbarKeys] = useState<
@@ -21,8 +21,9 @@ const Notifier: React.FC = () => {
         return;
       }
 
-      enqueueSnackbar(snackbar.message, {
+      const key = enqueueSnackbar(snackbar.message, {
         variant: snackbar.variant,
+        onClick: () => closeSnackbar(key),
       });
 
       setDisplayedSnackbarKeys([...displayedSnackbarKeys, snackbar.key]);

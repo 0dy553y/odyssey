@@ -1,5 +1,6 @@
 import { PostListData } from 'types/posts';
 
 export interface PostsState {
-  postList: PostListData[];
+  friendPostList: PostListData[];
+  communityPostList: PostListData[];
 }

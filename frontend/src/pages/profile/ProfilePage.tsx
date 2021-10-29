@@ -17,7 +17,7 @@ import ProfileHeader from '../../components/profile/ProfileHeader';
 import ActivityMap from '../../components/profile/ActivityMap';
 import UserStats from '../../components/profile/UserStats';
 import ChallengeSummaries from '../../components/profile/ChallengeSummaries';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import {
   BADGE_ROUTE,
   COMPLETED_CHALLENGES_ROUTE,
@@ -41,6 +41,9 @@ import { loadUserTaskActivityData } from 'store/usertasks/operations';
 import { loadAllFriends } from '../../store/friends/operations';
 import { FriendListData } from '../../types/friends';
 import { getFriendList } from '../../store/friends/selectors';
+import { loadUser } from '../../store/users/operations';
+import { getUserByUsername } from '../../store/users/selectors';
+import { ChevronLeft } from '@mui/icons-material';
 
 export interface StyleProps {
   scrollbarWidth: number;
@@ -74,19 +77,25 @@ const ProfilePage: React.FC = () => {
   const history = useHistory();
   const { width } = useScrollbarSize();
   const classes = useStyles({ scrollbarWidth: width });
+  const { username } = useParams<{ username: string | undefined }>();
+
+  const isOwnProfilePage = username === undefined;
 
   useEffect(() => {
     batch(() => {
-      dispatch(loadAllOngoingUserChallenges());
-      dispatch(loadAllCompletedUserChallenges());
-      dispatch(loadAllFriends());
-      dispatch(loadUserTaskActivityData());
+      dispatch(loadUser(username));
+      dispatch(loadAllOngoingUserChallenges(username));
+      dispatch(loadAllCompletedUserChallenges(username));
+      dispatch(loadAllFriends(username));
+      dispatch(loadUserTaskActivityData(username));
     });
   }, []);
 
   // user should never be undefined (assuming auth routing works)
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const user = useSelector(getUser)!; //
+  const user = isOwnProfilePage
+    ? useSelector(getUser)
+    : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      useSelector((state: RootState) => getUserByUsername(state, username!));
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const ongoingChallenges = useSelector((state: RootState) =>
     getAllOngoingUserChallenges(state)
@@ -111,7 +120,13 @@ const ProfilePage: React.FC = () => {
     {
       label: `friend${friends.length === 1 ? '' : 's'}`,
       count: friends.length,
-      onClick: () => history.push(FRIENDS_ROUTE),
+      onClick: () => {
+        if (isOwnProfilePage) {
+          history.push(FRIENDS_ROUTE);
+        } else {
+          history.push(`${FRIENDS_ROUTE}/${username}`);
+        }
+      },
     },
     {
       label:
@@ -119,7 +134,13 @@ const ProfilePage: React.FC = () => {
           ? 'completed challenge'
           : 'completed challenges',
       count: completedChallenges.length,
-      onClick: () => history.push(COMPLETED_CHALLENGES_ROUTE),
+      onClick: () => {
+        if (isOwnProfilePage) {
+          history.push(COMPLETED_CHALLENGES_ROUTE);
+        } else {
+          history.push(`${COMPLETED_CHALLENGES_ROUTE}/${username}`);
+        }
+      },
     },
     { label: 'badges', count: 0, onClick: () => history.push(BADGE_ROUTE) },
   ];
@@ -144,6 +165,17 @@ const ProfilePage: React.FC = () => {
         <Grid container className={classes.profileHeaderContainer}>
           <AppBar position="static">
             <Toolbar>
+              {!isOwnProfilePage && (
+                <div
+                  onClick={() => {
+                    history.goBack();
+                  }}
+                >
+                  <IconButton edge="start" sx={{ color: 'white' }}>
+                    <ChevronLeft />
+                  </IconButton>
+                </div>
+              )}
               <Box sx={{ flexGrow: 1 }} />
               <IconButton edge="end" color="primary" onClick={handleMenuClick}>
                 <MoreVertIcon />
@@ -180,10 +212,13 @@ const ProfilePage: React.FC = () => {
 
         <UserStats
           challengesCompleted={completedChallenges.length}
-          registrationDate={user.registrationDate}
+          registrationDate={user?.registrationDate}
         />
 
-        <ChallengeSummaries challenges={ongoingChallenges} />
+        <ChallengeSummaries
+          challenges={ongoingChallenges}
+          isCurrentUser={isOwnProfilePage}
+        />
       </Box>
     </>
   );

@@ -5,12 +5,14 @@ import { FriendListData } from '../../types/friends';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadAllFriends } from '../../store/friends/operations';
 import { getFriendList } from '../../store/friends/selectors';
+import { useParams } from 'react-router-dom';
 
 const FriendsList: React.FC = () => {
   const dispatch = useDispatch();
+  const { username } = useParams<{ username: string | undefined }>();
 
   useEffect(() => {
-    dispatch(loadAllFriends());
+    dispatch(loadAllFriends(username));
   }, []);
 
   const friends: FriendListData[] = useSelector(getFriendList);

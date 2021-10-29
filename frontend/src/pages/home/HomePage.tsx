@@ -95,7 +95,7 @@ const HomePage: React.FC = () => {
             direction="row"
             className={classes.headerNonCarouselItem}
           >
-            <Grid item container direction="column" xs={6} sm={9}>
+            <Grid item container xs={6} sm={9}>
               <Grid item>
                 <Typography variant="h4">Hello,</Typography>
               </Grid>
@@ -105,13 +105,7 @@ const HomePage: React.FC = () => {
                 </Typography>
               </Grid>
             </Grid>
-            <Grid
-              item
-              direction="row"
-              xs={6}
-              sm={3}
-              className={classes.controlsContainer}
-            >
+            <Grid item xs={6} sm={3} className={classes.controlsContainer}>
               <IconButton
                 size="large"
                 onClick={() => history.push(NOTIFICATIONS_ROUTE)}

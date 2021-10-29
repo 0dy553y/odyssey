@@ -18,8 +18,17 @@ Rails.application.routes.draw do
       resources :categories, only: %i[index show]
       api_resources :challenges do
         api_resources :tasks
+        collection do
+          get 'ongoing_and_completed_challenges', to: 'ongoing_and_completed_challenges'
+        end
         member do
           post 'join'
+        end
+      end
+
+      resources :users, only: [] do
+        collection do
+          get 'user_details', to: 'user_detail'
         end
       end
 
@@ -48,6 +57,10 @@ Rails.application.routes.draw do
       resources :friend_requests, only: %i[index create update destroy]
 
       resources :posts, only: %i[index create] do
+        collection do
+          get 'friend_posts', to: 'friend_posts'
+          get 'community_posts', to: 'community_posts'
+        end
         member do
           post 'add_reaction', to: 'add_reaction'
           post 'remove_reaction', to: 'remove_reaction'

@@ -1,22 +1,15 @@
-import { OperationResult } from '../../types/store';
-import { ThunkDispatch } from 'redux-thunk';
-import { RootState } from '../index';
 import { AnyAction } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 import api from '../../api';
 import { FriendRequestListData } from '../../types/friendrequests';
+import { OperationResult } from '../../types/store';
+import { RootState } from '../index';
 import { removeFriendRequest, saveFriendRequestList } from './actions';
 
 export function loadAllFriendRequests(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.friendRequests.getFriendRequestsList();
-    const friendRequests: FriendRequestListData[] = response.payload.data.map(
-      (friendRequest) => {
-        return {
-          ...friendRequest,
-          sentAt: new Date(friendRequest.sentAt),
-        };
-      }
-    );
+    const friendRequests: FriendRequestListData[] = response.payload.data;
     dispatch(saveFriendRequestList(friendRequests));
   };
 }

@@ -54,7 +54,9 @@ const UserChallengeStats: React.FC<UserChallengeStatsProps> = ({
         Recurring days
       </Typography>
 
-      <RecurringDaysForm isEditable={false} initialSchedule={schedule} />
+      <div className="recurring-days-checkboxes">
+        <RecurringDaysForm isEditable={false} initialSchedule={schedule} />
+      </div>
 
       <Divider className="divider" />
 

@@ -51,6 +51,12 @@ class ChallengesController < ApplicationController
     render 'layouts/empty', status: :no_content
   end
 
+  def ongoing_and_completed_challenges
+    @challenges = current_user.challenges
+
+    render 'challenges/index', status: :ok
+  end
+
   private
 
   def challenge_params

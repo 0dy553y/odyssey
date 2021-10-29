@@ -31,6 +31,7 @@ export const NOTIFICATIONS_ROUTE = '/notifications';
 export const COMPLETED_CHALLENGES_ROUTE = '/completed';
 export const BADGE_ROUTE = '/badges';
 export const ONBOARDING_ROUTE = '/welcome';
+export const TEMP_CHALLENGE_ROUTE = '/challenge';
 export const LANDING_ROUTE = '/landing';
 // TODO: remove when no longer needed.
 export const DEMO_MAP_ROUTE = '/map/demo';
@@ -59,6 +60,7 @@ export const mainRoutes: RouteEntry[] = [
 export const privateRoutes: RouteEntry[] = [
   { path: EDIT_PROFILE_ROUTE, component: EditProfilePage, exact: true },
   { path: PROFILE_ROUTE, component: ProfilePage, exact: true },
+  { path: PROFILE_ROUTE + '/:username', component: ProfilePage, exact: true },
   { path: HOME_ROUTE, component: HomePage, exact: true },
   { path: FEED_ROUTE, component: FeedPage, exact: true },
   {
@@ -67,9 +69,15 @@ export const privateRoutes: RouteEntry[] = [
   },
   { path: ADD_FRIENDS_ROUTE, component: AddFriendsPage, exact: true },
   { path: FRIENDS_ROUTE, component: FriendsPage, exact: true },
+  { path: FRIENDS_ROUTE + '/:username', component: FriendsPage, exact: true },
   { path: NOTIFICATIONS_ROUTE, component: NotificationsPage, exact: true },
   {
     path: COMPLETED_CHALLENGES_ROUTE,
+    component: CompletedChallengesPage,
+    exact: true,
+  },
+  {
+    path: COMPLETED_CHALLENGES_ROUTE + '/:username',
     component: CompletedChallengesPage,
     exact: true,
   },

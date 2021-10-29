@@ -3,17 +3,20 @@ import {
   ListItem,
   ListItemText,
   ListItemAvatar,
+  Link,
   Tooltip,
   Typography,
   Grid,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import dayjs from 'dayjs';
 import UserAvatar from 'components/common/userAvatar';
+import { useHistory } from 'react-router-dom';
 import { PostListData, ReactionEmoji, ReactionListData } from 'types/posts';
 import { displayDateWithTimestamp, displayUsername } from 'utils/formatting';
-import { getDateFromNowString } from 'utils/date';
 import { ReactionChip } from './ReactionChip';
 import { ReactionPicker } from './ReactionPicker';
+import { CATEGORY_ROUTE } from 'routing/routes';
 
 interface FeedPostProps {
   post: PostListData;
@@ -33,6 +36,9 @@ const useStyles = makeStyles(() => ({
     marginLeft: 2,
     display: 'flex',
     alignItems: 'center',
+  },
+  displayLinebreak: {
+    whiteSpace: 'pre-line',
   },
 }));
 
@@ -89,12 +95,16 @@ export const FeedPost: React.FC<FeedPostProps> = ({
   removeReaction,
 }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   const creator = post.creator;
   const aggregatedReactionData = getAggregatedReactions(
     post.reactions,
     currentUserId
   );
+  const disabledEmojis: ReactionEmoji[] = aggregatedReactionData
+    .filter((data) => data.hasReacted)
+    .map((data) => data.emoji);
 
   return (
     <ListItem alignItems="flex-start">
@@ -109,9 +119,26 @@ export const FeedPost: React.FC<FeedPostProps> = ({
         <ListItemText
           primary={creator.displayName ?? displayUsername(creator.username)}
         />
-        <Grid item xs={12}>
+
+        <Grid item xs={12} className={classes.displayLinebreak}>
           {post.body}
         </Grid>
+
+        <Grid item xs={12}>
+          <Link
+            onClick={() => {
+              history.push(
+                `${CATEGORY_ROUTE}/${post.challenge.categoryId}/${post.challenge.id}`
+              );
+            }}
+            style={{ textDecoration: 'none' }}
+          >
+            <Typography component="span" variant="subtitle2">
+              {post.challenge.name}
+            </Typography>
+          </Link>
+        </Grid>
+
         <Grid item xs={12}>
           <Tooltip
             arrow
@@ -124,7 +151,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({
               variant="subtitle2"
               className={classes.subtitle}
             >
-              {getDateFromNowString(post.createdAt)}
+              {dayjs(post.createdAt).fromNow()}
             </Typography>
           </Tooltip>
         </Grid>
@@ -150,6 +177,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({
         <Grid item className={classes.reactionPicker}>
           <ReactionPicker
             onReactionSelect={(reaction) => addReaction(reaction)}
+            disabledEmojis={disabledEmojis}
           />
         </Grid>
       </Grid>
