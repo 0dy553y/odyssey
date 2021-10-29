@@ -5,8 +5,10 @@ import { Canvas } from '@react-three/fiber';
 import { MapControls, Stars } from '@react-three/drei';
 import { Box, Character } from '../../components/map';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import { Direction } from '../../types/map';
+import { Axis, Direction } from '../../types/map';
 import { DirectionPosition } from '../../types/map';
+import { getDirectionVector, nextDirectionCW } from 'utils/direction';
+import { translate } from 'utils/map';
 
 interface MapProps {
   username: string;
@@ -105,16 +107,25 @@ const SpaceMap: React.FC<MapProps> = ({
         {stepPositions.length === numSteps ? (
           <>
             {Object.keys(friendsPositions).map((step: string) =>
-              friendsPositions[Number(step)].map((username: string) => {
-                return (
-                  <Character
-                    key={`${challengeName}-${username}`}
-                    position={stepPositions[Number(step) - 1].pos}
-                    direction={Direction.RIGHT}
-                    username={username}
-                  />
-                );
-              })
+              friendsPositions[Number(step)].map(
+                (username: string, index: number) => {
+                  const { pos, direction } = stepPositions[Number(step) - 1];
+                  const dv = getDirectionVector(
+                    nextDirectionCW(direction)
+                  ) as number[];
+                  return (
+                    <Character
+                      key={`${challengeName}-${username}`}
+                      position={translate(pos, {
+                        [Axis.X]: dv[0] * index * 2,
+                        [Axis.Z]: dv[1] * index * 2,
+                      })}
+                      direction={direction}
+                      username={username}
+                    />
+                  );
+                }
+              )
             )}
           </>
         ) : (
