@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: '60px 2.5em 60px 2.5em',
   },
   tabs: {
+    top: '4em',
     backgroundColor: '#f5f7f9',
     position: 'sticky',
     zIndex: 1,
