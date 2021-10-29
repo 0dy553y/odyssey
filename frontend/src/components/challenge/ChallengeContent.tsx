@@ -233,6 +233,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
               removeReaction={(reaction: ReactionEmoji, post: PostListData) => {
                 dispatch(removeReactionFromPost(post.id, reaction));
               }}
+              shouldLinkToChallenge={false}
             />
           </Box>
         );
