@@ -21,7 +21,7 @@ import {
   addReactionToPost,
   removeReactionFromPost,
 } from 'store/posts/operations';
-import { getFriendPostList } from 'store/posts/selectors';
+import { getFriendPostList, getCommunityPostList } from 'store/posts/selectors';
 import { getUser } from 'store/auth/selectors';
 import { ReactionEmoji, PostListData } from 'types/posts';
 import { createNewPost } from 'store/posts/operations';
@@ -65,16 +65,14 @@ interface FeedPageState {
   selectedToggle: 'friends' | 'community';
   isCreatePostModalOpen: boolean;
   ongoingAndCompletedChallenges: ChallengeListData[];
-  friendPosts: PostListData[];
-  communityPosts: PostListData[];
-  isLoading: boolean;
 }
 
 const FeedPage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const posts = useSelector(getFriendPostList);
+  const friendPosts: PostListData[] = useSelector(getFriendPostList);
+  const communityPosts: PostListData[] = useSelector(getCommunityPostList);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const user = useSelector(getUser)!; //
 
@@ -87,50 +85,23 @@ const FeedPage: React.FC = () => {
       selectedToggle: 'friends',
       isCreatePostModalOpen: false,
       ongoingAndCompletedChallenges: [],
-      friendPosts: [],
-      communityPosts: [],
-      isLoading: true,
     }
   );
 
   useEffect(() => {
-    fetch();
+    api.challenges.getOngoingAndCompletedChallengeList().then((resp) => {
+      setState({
+        ongoingAndCompletedChallenges: resp.payload.data,
+      });
+    });
+    dispatch(loadAllPosts());
   }, []);
 
-  const fetch = () => {
-    const p1 = api.challenges
-      .getOngoingAndCompletedChallengeList()
-      .then((resp) => {
-        setState({
-          ongoingAndCompletedChallenges: resp.payload.data,
-        });
-      });
-    const p2 = api.posts.getCommunityPostsList().then((resp) => {
-      setState({
-        communityPosts: resp.payload.data,
-      });
-    });
-    const p3 = api.posts.getFriendPostsList().then((resp) => {
-      setState({
-        friendPosts: resp.payload.data,
-      });
-    });
-    Promise.all([p1, p2, p3]).then(() => setState({ isLoading: false }));
-  };
-
   const renderContent = () => {
-    if (state.isLoading) {
-      // 5 is just some arbitrary number
-      return Array.from({ length: 5 }).map((_, idx) => (
-        <FeedPostSkeleton key={idx} />
-      ));
-    }
     return (
       <MemoizedFeedPostList
         posts={
-          state.selectedToggle === 'friends'
-            ? state.friendPosts
-            : state.communityPosts
+          state.selectedToggle === 'friends' ? friendPosts : communityPosts
         }
         currentUserId={user.id}
         addReaction={(reaction: ReactionEmoji, post: PostListData) => {
