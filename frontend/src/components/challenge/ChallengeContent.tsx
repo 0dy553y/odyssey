@@ -107,6 +107,12 @@ const useStyles = makeStyles(() => ({
     left: '50%',
     transform: 'translateX(-50%)',
     textTransform: 'none',
+    '&:hover, &:focus': {
+      backgroundColor: (challenge: ChallengeData) =>
+        getComplementaryColor(challenge.color),
+      color: 'black',
+      transition: '0.5s ease',
+    },
   },
   secondaryJoinButton: {
     marginTop: '3em',
@@ -140,7 +146,7 @@ const privateTabs = [TabItem.YourStats];
 
 const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
   const { challenge, userChallenge, tasks } = props;
-  const classes = useStyles();
+  const classes = useStyles(challenge);
   const dispatch = useDispatch();
 
   const isEnrolled = !!userChallenge;
@@ -274,13 +280,6 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                     fullWidth
                     disableElevation
                     className={classes.joinButton}
-                    sx={{
-                      '&:hover, &:focus': {
-                        backgroundColor: getComplementaryColor(challenge.color),
-                        color: 'black',
-                        transition: '0.5s ease',
-                      },
-                    }}
                     onClick={() => setIsScheduleModalOpen(true)}
                   >
                     <Typography variant="body1">Join Challenge!</Typography>
