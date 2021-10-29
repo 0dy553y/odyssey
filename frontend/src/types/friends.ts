@@ -20,4 +20,5 @@ export enum FriendStatus {
 
 export interface FriendStatusData {
   friendStatus: FriendStatus;
+  friendRequestId?: number;
 }
