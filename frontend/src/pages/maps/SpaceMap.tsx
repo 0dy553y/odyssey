@@ -34,6 +34,8 @@ const SpaceMap: React.FC<MapProps> = ({
   const characterRef = useRef();
   const mapRef = useRef();
 
+  console.log(stepPositions);
+
   const moveCharacterForward = () => {
     currentStep = currentStep + 1;
     if (characterRef.current !== undefined && mapRef.current !== undefined) {
@@ -56,19 +58,25 @@ const SpaceMap: React.FC<MapProps> = ({
     }
   };
 
-  const spawnFriends = () => (
+  const Friends = () => (
     <>
       {stepPositions.length === numSteps ? (
-        Object.keys(friendsPositions).map((step: string) => {
-          friendsPositions[Number(step)].map((username: string) => (
-            <Character
-              key={username}
-              position={stepPositions[Number(step) - 1].pos}
-              direction={stepPositions[Number(step) - 1].direction}
-              username={username}
-            />
-          ));
-        })
+        <>
+          {Object.keys(friendsPositions).map((step: string) =>
+            friendsPositions[Number(step)].map((username: string) => {
+              console.log(username);
+              console.log(stepPositions[Number(step) - 1].pos);
+              return (
+                <Character
+                  key={`${challengeName}-${username}`}
+                  position={stepPositions[Number(step) - 1].pos}
+                  direction={Direction.RIGHT}
+                  username={username}
+                />
+              );
+            })
+          )}
+        </>
       ) : (
         <> </>
       )}
@@ -77,6 +85,8 @@ const SpaceMap: React.FC<MapProps> = ({
 
   console.log(friendsPositions);
   console.log(Object.keys(friendsPositions));
+  console.log(stepPositions.length);
+  console.log(numSteps);
 
   const d = 35;
   const cameraZoom = 45 - numSteps * 1.5;
@@ -123,7 +133,7 @@ const SpaceMap: React.FC<MapProps> = ({
           direction={charPosition.direction}
           username={username}
         />
-        {spawnFriends()}
+        <Friends />
         {/* <OrbitControls
           addEventListener={undefined}
           hasEventListener={undefined}

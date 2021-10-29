@@ -73,9 +73,9 @@ const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
       position={pos as any as Vector3}
       rotation={[0, getRotation(direction), 0]}
     >
-      {/* <Html position={[1.5, 3, 0]}>
+      <Html position={[1.5, 3, 0]}>
         <p style={{ color: 'white' }}>{username}</p>
-      </Html> */}
+      </Html>
       <animated.primitive
         position={localPos as any as Vector3}
         object={astronaut}
