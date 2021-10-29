@@ -140,6 +140,7 @@ interface ChallengeContentProps {
   challenge: ChallengeData;
   userChallenge: UserChallengeData | undefined;
   tasks: TaskListData[];
+  posts: PostListData[];
   currentUser: UserData;
 }
 
@@ -151,7 +152,7 @@ interface ChallengeCompletedModalState {
 const privateTabs = [TabItem.YourStats];
 
 const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
-  const { challenge, userChallenge, tasks, currentUser } = props;
+  const { challenge, userChallenge, tasks, posts, currentUser } = props;
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -217,16 +218,17 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
         );
       case TabItem.Community:
         return (
-          // TODO: replace mock values
           <Box>
             <MemoizedFeedPostList
-              posts={[]}
+              posts={posts}
               currentUserId={currentUser.id}
               addReaction={(reaction: ReactionEmoji, post: PostListData) => {
+                // TODO:
                 console.log(reaction, post);
                 // dispatch(addReactionToPost(post.id, reaction));
               }}
               removeReaction={(reaction: ReactionEmoji, post: PostListData) => {
+                // TODO:
                 console.log(reaction, post);
                 // dispatch(removeReactionFromPost(post.id, reaction));
               }}
