@@ -15,6 +15,9 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import ScheduleModal from 'components/challenge/ScheduleModal';
 import { joinChallenge } from 'store/challenges/operations';
+import { MemoizedFeedPostList } from 'components/feed/FeedPostList';
+import { UserData } from 'types/auth';
+import { PostListData, ReactionEmoji } from 'types/posts';
 
 const useStyles = makeStyles((theme: Theme) => ({
   contentContainer: {
@@ -137,6 +140,7 @@ interface ChallengeContentProps {
   challenge: ChallengeData;
   userChallenge: UserChallengeData | undefined;
   tasks: TaskListData[];
+  currentUser: UserData;
 }
 
 interface ChallengeCompletedModalState {
@@ -147,7 +151,8 @@ interface ChallengeCompletedModalState {
 const privateTabs = [TabItem.YourStats];
 
 const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
-  const { challenge, userChallenge, tasks } = props;
+  const { challenge, userChallenge, tasks, currentUser } = props;
+
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -211,7 +216,23 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
           />
         );
       case TabItem.Community:
-        return 'todo';
+        return (
+          // TODO: replace mock values
+          <Box>
+            <MemoizedFeedPostList
+              posts={[]}
+              currentUserId={currentUser.id}
+              addReaction={(reaction: ReactionEmoji, post: PostListData) => {
+                console.log(reaction, post);
+                // dispatch(addReactionToPost(post.id, reaction));
+              }}
+              removeReaction={(reaction: ReactionEmoji, post: PostListData) => {
+                console.log(reaction, post);
+                // dispatch(removeReactionFromPost(post.id, reaction));
+              }}
+            />
+          </Box>
+        );
       default:
         throw new Error('Unknown tab item!');
     }

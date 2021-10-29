@@ -13,6 +13,7 @@ import { IconButton, Skeleton } from '@mui/material';
 import ChallengeContent from 'components/challenge/ChallengeContent';
 import { makeStyles } from '@mui/styles';
 import { ChevronLeft } from '@mui/icons-material';
+import { getUser } from 'store/auth/selectors';
 
 const useStyles = makeStyles(() => ({
   joinButton: {
@@ -70,6 +71,9 @@ const ChallengeDetailsPage: React.FC = () => {
     getAllUserChallengesDataForChallenge(state, Number(challengeId))
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const user = useSelector(getUser)!;
+
   const userChallenge =
     userChallenges.length === 0
       ? undefined
@@ -94,6 +98,7 @@ const ChallengeDetailsPage: React.FC = () => {
         challenge={challenge}
         userChallenge={userChallenge}
         tasks={tasks}
+        currentUser={user}
       />
     </Box>
   );
