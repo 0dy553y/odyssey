@@ -8,10 +8,10 @@ import React, {
 import { Vector3 } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
 import { useSpring, animated, config } from '@react-spring/three';
-import { Direction } from '../../types/map';
-import { getRotation } from '../../utils/direction';
-import { DirectionPosition } from '../../types/map';
-import Model from './Model';
+import { Direction } from '../../../types/map';
+import { getRotation } from '../../../utils/direction';
+import { DirectionPosition } from '../../../types/map';
+import Model from '../basic/Model';
 
 interface CharacterProps {
   position: Vector3;

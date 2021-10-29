@@ -5,12 +5,12 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import { Vector3 } from '@react-three/fiber';
-import { Island, Disc, NextDisc } from '../../components/map';
+import { Island, Disc, NextDisc } from '..';
 
-import { Direction, Axis } from '../../types/map';
-import { translate, buildDiagonalRepeated } from '../../utils/map';
-import { DirectionPosition } from '../../types/map';
-import { getDirectionVector, nextDirectionACW } from '../../utils/direction';
+import { Direction, Axis } from '../../../types/map';
+import { translate, buildDiagonalRepeated } from '../../../utils/map';
+import { DirectionPosition } from '../../../types/map';
+import { getDirectionVector, nextDirectionACW } from '../../../utils/direction';
 
 interface MapProps {
   numSteps: number;

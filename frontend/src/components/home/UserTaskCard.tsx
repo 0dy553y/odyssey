@@ -44,11 +44,13 @@ const useStyles = makeStyles(() => ({
 interface Props {
   userTask: UserTaskListData;
   onChallengeCompleted: (completedChallengeName: string) => void;
+  onTaskCompleted: (openChallengeName: string) => void;
 }
 
 const UserTaskCard: React.FC<Props> = ({
   userTask,
   onChallengeCompleted,
+  onTaskCompleted,
 }: Props) => {
   const classes = useStyles(userTask);
   const dispatch = useDispatch();
@@ -61,7 +63,13 @@ const UserTaskCard: React.FC<Props> = ({
 
   const handleDoneToggle = () => {
     if (!userTask.completedAt) {
-      dispatch(markUserTaskAsDoneFromHome(userTask.id, onChallengeCompleted));
+      dispatch(
+        markUserTaskAsDoneFromHome(
+          userTask.id,
+          onChallengeCompleted,
+          onTaskCompleted
+        )
+      );
     } else {
       dispatch(markUserTaskAsNotDone(userTask.id));
     }
