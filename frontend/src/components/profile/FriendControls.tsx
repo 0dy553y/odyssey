@@ -14,9 +14,6 @@ import { makeStyles } from '@mui/styles';
 import CheckIcon from '@mui/icons-material/Check';
 import { UserData } from '../../types/auth';
 import { displayUsername } from '../../utils/formatting';
-import { deleteFriend } from '../../store/friends/operations';
-import { useDispatch } from 'react-redux';
-import { rejectFriendRequest } from '../../store/notifications/operations';
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
@@ -26,6 +23,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     textTransform: 'none',
     marginBottom: '12px',
     backgroundColor: theme.palette.primary.main,
+  },
+  negativeButton: {
+    borderRadius: '20px',
+    height: '50px',
+    maxWidth: '300px',
+    textTransform: 'none',
+    marginBottom: '12px',
+    backgroundColor: theme.palette.secondary.main,
   },
   icon: {
     marginRight: '8px',
@@ -47,7 +52,6 @@ interface Props {
 
 const FriendControls: React.FC<Props> = ({ user }: Props) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const [friendStatus, setFriendStatus] = useState<FriendStatus | undefined>(
     undefined
   );
@@ -94,8 +98,9 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
             className={classes.acceptButton}
             onClick={() => {
               setIsDialogOpen(false);
-              dispatch(deleteFriend(user.id));
-              getFriendStatus();
+              api.friends.deleteFriend(user.id).then(() => {
+                getFriendStatus();
+              });
             }}
           >
             Yes
@@ -150,9 +155,12 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
             onClick={() => {
               setIsDialogOpen(false);
               // Friend request ID must be defined when friend request is sent.
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              dispatch(rejectFriendRequest(friendRequestId!));
-              getFriendStatus();
+              api.friendRequests
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                .rejectFriendRequest(friendRequestId!)
+                .then(() => {
+                  getFriendStatus();
+                });
             }}
           >
             Yes
@@ -168,7 +176,40 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
     </>
   );
 
-  const receivedFriendRequestDisplay = <></>;
+  const receivedFriendRequestDisplay = (
+    <>
+      <Button
+        variant="contained"
+        fullWidth
+        disableElevation
+        className={classes.button}
+        onClick={() => {
+          // Friend request ID must be defined when friend request is received.
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          api.friendRequests.acceptFriendRequest(friendRequestId!).then(() => {
+            getFriendStatus();
+          });
+        }}
+      >
+        <Typography variant="body1">Confirm Friend Request</Typography>
+      </Button>
+      <Button
+        variant="contained"
+        fullWidth
+        disableElevation
+        className={classes.negativeButton}
+        onClick={() => {
+          // Friend request ID must be defined when friend request is received.
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          api.friendRequests.rejectFriendRequest(friendRequestId!).then(() => {
+            getFriendStatus();
+          });
+        }}
+      >
+        <Typography variant="body1">Reject Friend Request</Typography>
+      </Button>
+    </>
+  );
 
   switch (friendStatus) {
     case FriendStatus.FRIENDS:
