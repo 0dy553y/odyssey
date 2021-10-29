@@ -49,45 +49,20 @@ const MapCarousel: React.FC<MapCarouselProps> = ({ maps }) => {
       spaceBetween={20}
       className={classes.mapSlider}
     >
-      {maps.map(
-        ({
-          username,
-          challengeId,
-          challengeName,
-          numTasks,
-          currentTaskNum,
-          friends,
-        }) => {
-          const friendsPositions: Record<number, string[]> = {};
-
-          friends.map(({ username, currentTaskNum }) => {
-            if (!(currentTaskNum in friendsPositions)) {
-              friendsPositions[currentTaskNum] = [];
-            }
-            friendsPositions[currentTaskNum].push(username);
-          });
-          return (
-            <SwiperSlide key={challengeId}>
-              <div className={classes.container}>
-                <Stack className={classes.name}>
-                  <Typography variant="h1" className={classes.header}>
-                    {challengeName}
-                  </Typography>
-                </Stack>
-                <div className={classes.map}>
-                  <SpaceMap
-                    username={username}
-                    challengeName={challengeName}
-                    numSteps={numTasks}
-                    currentStep={currentTaskNum}
-                    friendsPositions={friendsPositions}
-                  />
-                </div>
-              </div>
-            </SwiperSlide>
-          );
-        }
-      )}
+      {maps.map((mapData: ChallengeMapData) => (
+        <SwiperSlide key={mapData.challengeId}>
+          <div className={classes.container}>
+            <Stack className={classes.name}>
+              <Typography variant="h1" className={classes.header}>
+                {mapData.challengeName}
+              </Typography>
+            </Stack>
+            <div className={classes.map}>
+              <SpaceMap mapData={mapData} />
+            </div>
+          </div>
+        </SwiperSlide>
+      ))}
     </Swiper>
   );
 };

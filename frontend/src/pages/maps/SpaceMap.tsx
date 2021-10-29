@@ -9,22 +9,24 @@ import { Axis, Direction } from '../../types/map';
 import { DirectionPosition } from '../../types/map';
 import { getDirectionVector, nextDirectionCW } from 'utils/direction';
 import { translate } from 'utils/map';
+import { ChallengeMapData } from 'types/challenges';
 
 interface MapProps {
-  username: string;
-  challengeName: string;
-  numSteps: number;
-  currentStep: number;
-  friendsPositions: Record<number, string[]>;
+  mapData: ChallengeMapData;
 }
 
-const SpaceMap: React.FC<MapProps> = ({
-  username,
-  challengeName,
-  numSteps,
-  currentStep,
-  friendsPositions,
-}) => {
+const SpaceMap: React.FC<MapProps> = ({ mapData }) => {
+  const { username, challengeName, numTasks, currentTaskNum, friends } =
+    mapData;
+  let currentStep = currentTaskNum;
+  const numSteps = numTasks;
+  const friendsPositions: Record<number, string[]> = {};
+  friends.map(({ username, currentTaskNum }) => {
+    if (!(currentTaskNum in friendsPositions)) {
+      friendsPositions[currentTaskNum] = [];
+    }
+    friendsPositions[currentTaskNum].push(username);
+  });
   const [stepPositions, setStepPositions] = useState<DirectionPosition[]>([]);
   const [charPosition, setCharPosition] = useState<DirectionPosition>({
     pos: [0, 0, 0],
