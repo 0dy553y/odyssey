@@ -32,12 +32,14 @@ interface Props {
   userTaskList: UserTaskListData[];
   date: Date;
   onChallengeCompleted: (completedChallengeName: string) => void;
+  onTaskCompleted: (openChallengeName: string) => void;
 }
 
 const UserTaskCarousel: React.FC<Props> = ({
   userTaskList,
   date,
   onChallengeCompleted,
+  onTaskCompleted,
 }: Props) => {
   const classes = useStyles();
   const history = useHistory();
@@ -91,6 +93,7 @@ const UserTaskCarousel: React.FC<Props> = ({
           <UserTaskCard
             userTask={userTask}
             onChallengeCompleted={onChallengeCompleted}
+            onTaskCompleted={onTaskCompleted}
           />
         </SwiperSlide>
       ))}
