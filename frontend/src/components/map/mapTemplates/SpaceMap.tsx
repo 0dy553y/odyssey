@@ -152,7 +152,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
           hasEventListener={undefined}
           removeEventListener={undefined}
           dispatchEvent={undefined}
-          maxZoom={cameraZoom + 15}
+          minZoom={cameraZoom - 20}
         />
         <Stars factor={10} radius={60 - cameraZoom} saturation={1} fade />
       </Canvas>
