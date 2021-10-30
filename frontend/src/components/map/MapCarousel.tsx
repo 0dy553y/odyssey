@@ -48,10 +48,13 @@ const MapCarousel: React.FC<MapCarouselProps> = ({ maps, initialIndex }) => {
       navigation={true}
       slidesPerView={1}
       spaceBetween={20}
+      allowTouchMove={false}
+      noSwiping={true}
+      noSwipingClass="swiper-slide"
       className={classes.mapSlider}
     >
       {maps.map((mapData: ChallengeMapData) => (
-        <SwiperSlide key={mapData.challengeId}>
+        <SwiperSlide key={mapData.challengeId} className="swiper-slide">
           <div className={classes.container}>
             <Stack className={classes.name}>
               <Typography variant="h1" className={classes.header}>
