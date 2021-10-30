@@ -125,8 +125,8 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
                     <Character
                       key={`${challengeName}-${username}`}
                       position={translate(pos, {
-                        [Axis.X]: dv[0] * index * 2,
-                        [Axis.Z]: dv[1] * index * 2,
+                        [Axis.X]: dv[0] * (index + 1) * 2,
+                        [Axis.Z]: dv[1] * (index + 1) * 2,
                       })}
                       direction={direction}
                       username={username}
