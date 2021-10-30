@@ -109,6 +109,8 @@ const HomePage: React.FC = () => {
     getChallengeMaps(state)
   )!;
 
+  console.log(challengeMaps);
+
   const user = useSelector(getUser);
   if (!user) {
     history.push(LOGIN_ROUTE);

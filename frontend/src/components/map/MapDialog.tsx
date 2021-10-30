@@ -33,7 +33,6 @@ const MapDialog: React.FC<MapDialogProps> = ({ isOpen, close, mapData }) => {
   const classes = useStyles();
   const mapRef = useCallback(
     (node) => {
-      console.log(node);
       if (node !== null && isOpen) {
         // setTimeout(() => {
         //   node.moveCharacterForward();
