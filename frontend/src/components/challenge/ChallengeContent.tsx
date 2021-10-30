@@ -5,7 +5,7 @@ import { TaskListData } from 'types/tasks';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ChallengeData, Schedule } from 'types/challenges';
-import { getHexCode } from 'utils/color';
+import { getHexCode, getComplementaryColor } from 'utils/color';
 import UserChallengeStats from 'components/challenge/UserChallengeStats';
 import { UserChallengeData } from 'types/userchallenge';
 import { TabPanel, TabContext, TabList } from '@mui/lab';
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'left',
-    padding: '60px 2.5em 60px 2.5em',
+    padding: '80px 2.5em 60px 2.5em',
   },
   tabs: {
     top: '4em',
@@ -122,6 +122,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     left: '50%',
     transform: 'translateX(-50%)',
     textTransform: 'none',
+    '&:hover, &:focus': {
+      backgroundColor: (challenge: ChallengeData) =>
+        getComplementaryColor(challenge.color),
+      color: 'black',
+      transition: '0.5s ease',
+    },
   },
   secondaryJoinButton: {
     marginTop: '3em',
@@ -158,8 +164,7 @@ const privateTabs = [TabItem.YourStats];
 
 const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
   const { challenge, userChallenge, tasks, posts, currentUser } = props;
-
-  const classes = useStyles();
+  const classes = useStyles(challenge);
   const dispatch = useDispatch();
 
   const isEnrolled = !!userChallenge;

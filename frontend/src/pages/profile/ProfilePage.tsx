@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { getUser } from 'store/auth/selectors';
+import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {
   AppBar,
@@ -43,7 +44,6 @@ import { FriendListData } from '../../types/friends';
 import { getFriendList } from '../../store/friends/selectors';
 import { loadUser } from '../../store/users/operations';
 import { getUserByUsername } from '../../store/users/selectors';
-import { ChevronLeft } from '@mui/icons-material';
 
 export interface StyleProps {
   scrollbarWidth: number;
@@ -171,8 +171,8 @@ const ProfilePage: React.FC = () => {
                     history.goBack();
                   }}
                 >
-                  <IconButton edge="start" sx={{ color: 'white' }}>
-                    <ChevronLeft />
+                  <IconButton edge="start" sx={{ padding: '1em' }}>
+                    <BackArrow height="1.5em" width="1.5em" />
                   </IconButton>
                 </div>
               )}

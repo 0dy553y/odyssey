@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: '50px',
     maxWidth: '300px',
     textTransform: 'none',
-    marginBottom: '12px',
+    marginTop: '12px',
     backgroundColor: theme.palette.primary.main,
   },
   negativeButton: {

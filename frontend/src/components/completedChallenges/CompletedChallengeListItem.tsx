@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Typography, Theme } from '@mui/material';
 import { displayDateWithTimestamp } from 'utils/formatting';
+import Avatar from 'boring-avatars';
 
 import './CompletedChallengeListItem.scss';
 
@@ -33,7 +34,9 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
     <Box>
       <div>
         <div className={classes.container}>
-          <div className="square"></div>
+          <div className="square">
+            <Avatar square={true} variant={'beam'} size={65} name={name} />
+          </div>
           <Grid item xs={9}>
             <Typography component="div" variant="h6">
               {name}
