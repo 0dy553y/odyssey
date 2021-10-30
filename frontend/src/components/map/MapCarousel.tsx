@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { makeStyles } from '@mui/styles';
 import { ChallengeMapData } from '../../types/challenges';
 import SpaceMap from './mapTemplates/SpaceMap';
+import './MapCarousel.scss';
 
 const useStyles = makeStyles(() => ({
   mapSlider: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles(() => ({
   name: {
     position: 'absolute',
     zIndex: 10,
-    marginLeft: 64,
+    marginLeft: 96,
     marginTop: 24,
   },
   map: {
@@ -41,11 +42,7 @@ const MapCarousel: React.FC<MapCarouselProps> = ({ maps, initialIndex }) => {
       centeredSlides
       loop={maps.length > 1}
       initialSlide={initialIndex}
-      pagination={{
-        dynamicBullets: true,
-        clickable: maps.length > 1,
-      }}
-      navigation={true}
+      navigation={maps.length > 1}
       slidesPerView={1}
       spaceBetween={20}
       allowTouchMove={false}
