@@ -3,14 +3,32 @@ import { ListItem, ListItemText, ListItemAvatar } from '@mui/material';
 import UserAvatar from 'components/common/userAvatar';
 import { displayUsername } from 'utils/formatting';
 import { AddFriendListData } from '../../types/friends';
+import { makeStyles } from '@mui/styles';
+import { useHistory } from 'react-router-dom';
+import { PROFILE_ROUTE } from '../../routing/routes';
+
+const useStyles = makeStyles(() => ({
+  listItem: {
+    cursor: 'pointer',
+  },
+}));
 
 interface Props {
   user: AddFriendListData;
 }
 
 const AddFriendsListItem: React.FC<Props> = ({ user }: Props) => {
+  const classes = useStyles();
+  const history = useHistory();
+
   return (
-    <ListItem alignItems="flex-start">
+    <ListItem
+      alignItems="flex-start"
+      className={classes.listItem}
+      onClick={() => {
+        history.push(`${PROFILE_ROUTE}/${user.username}`);
+      }}
+    >
       <ListItemAvatar>
         <UserAvatar
           src={user.avatar}
