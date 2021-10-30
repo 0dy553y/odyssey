@@ -4,6 +4,8 @@ import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { HOME_ROUTE, LOGIN_ROUTE } from 'routing/routes';
 import { loadAllCategories } from 'store/categories/operations';
+import { resetFriends } from 'store/friends/actions';
+import { resetNotifications } from 'store/notifications/actions';
 import { resetPosts } from 'store/posts/actions';
 import { resetSnackbars } from 'store/snackbars/actions';
 import { resetUserChallenges } from 'store/userchallenges/actions';
@@ -43,6 +45,8 @@ export function logout(history: History): OperationResult {
         dispatch(resetUserChallenges());
         dispatch(resetUserTasks());
         dispatch(resetPosts());
+        dispatch(resetFriends());
+        dispatch(resetNotifications());
       });
       history.push(LOGIN_ROUTE);
     });
