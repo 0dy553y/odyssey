@@ -76,7 +76,7 @@ const StyledTab = styled((props: StyledTabProps) => (
   },
 }));
 
-const ExplorePage: React.FC = () => {
+const CategoryPage: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { categoryId } = useParams<{ categoryId: string }>();
@@ -189,4 +189,4 @@ const ExplorePage: React.FC = () => {
   );
 };
 
-export default ExplorePage;
+export default CategoryPage;
