@@ -20,7 +20,7 @@ import { loadAllChallenges } from 'store/challenges/operations';
 import { loadCategory } from 'store/categories/operations';
 import { getChallengeList } from 'store/challenges/selectors';
 import { getHeadingFromCategory } from 'utils/naming';
-import { CATEGORY_ROUTE } from 'routing/routes';
+import { CHALLENGE_ROUTE } from 'routing/routes';
 import {
   loadAllOngoingUserChallenges,
   loadAllCompletedUserChallenges,
@@ -166,7 +166,7 @@ const ExplorePage: React.FC = () => {
               <li key={challenge.id}>
                 <Link
                   to={{
-                    pathname: `${CATEGORY_ROUTE}/${category.id}/${challenge.id}`,
+                    pathname: `${CHALLENGE_ROUTE}/${challenge.id}`,
                     state: { challenge: challenge },
                   }}
                   style={{ textDecoration: 'none' }}

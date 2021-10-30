@@ -6,7 +6,7 @@ import { RootState } from 'store';
 import { getChallengeList } from 'store/challenges/selectors';
 import CategoryListItem from 'components/category/CategoryListItem';
 import { Link } from 'react-router-dom';
-import { CATEGORY_ROUTE } from 'routing/routes';
+import { CHALLENGE_ROUTE } from 'routing/routes';
 import { UserChallengeListData } from 'types/userchallenge';
 import { ChallengeListData } from 'types/challenges';
 
@@ -56,8 +56,7 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
                 <li key={challenge.challengeId}>
                   <Link
                     to={{
-                      // TODO: fix this hardcoded 1.
-                      pathname: `${CATEGORY_ROUTE}/1/${challenge.challengeId}`,
+                      pathname: `${CHALLENGE_ROUTE}/${challenge.challengeId}`,
                       state: { challenge: challenge },
                     }}
                     style={{ textDecoration: 'none' }}
