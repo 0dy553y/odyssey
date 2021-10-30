@@ -52,7 +52,6 @@ interface ChallengeCompletedModalState {
 }
 
 interface TaskCompletedDialogState {
-  isOpen: boolean;
   openChallengeName?: string;
 }
 
@@ -88,12 +87,11 @@ const HomePage: React.FC = () => {
       ...state,
       ...newState,
     }),
-    { isOpen: false, openChallengeName: undefined }
+    { openChallengeName: undefined }
   );
 
   const onTaskCompleted = (openChallengeName: string) => {
     setTaskCompletedDialogState({
-      isOpen: true,
       openChallengeName: openChallengeName,
     });
   };
@@ -181,8 +179,10 @@ const HomePage: React.FC = () => {
       {challengeMaps.map((mapData: ChallengeMapData) => (
         <MapDialog
           key={mapData.challengeId}
-          isOpen={taskCompletedDialogState.isOpen}
-          close={() => setTaskCompletedDialogState({ isOpen: false })}
+          isOpen={
+            taskCompletedDialogState.openChallengeName === mapData.challengeName
+          }
+          close={() => setTaskCompletedDialogState({ openChallengeName: '' })}
           mapData={mapData}
         />
       ))}
