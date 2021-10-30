@@ -27,7 +27,7 @@ const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
   const { pos } = useSpring({
     from: { pos: position as number[] },
     reset: false,
-    config: config.gentle,
+    config: { ...config.gentle, duration: 800 },
   });
 
   // Idle hovering animation.

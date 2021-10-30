@@ -48,10 +48,12 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
     moveCharacterForward() {
       currentStep = currentStep + 1;
       if (characterRef.current !== undefined && mapRef.current !== undefined) {
-        (characterRef.current as any).moveCharacter(
-          stepPositions[currentStep - 2],
-          stepPositions[currentStep - 1]
-        );
+        setTimeout(() => {
+          (characterRef.current as any).moveCharacter(
+            stepPositions[currentStep - 2],
+            stepPositions[currentStep - 1]
+          );
+        }, 500);
         (mapRef.current as any).setCurrentStep(currentStep);
       }
     },
@@ -59,10 +61,12 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
     moveCharacterBackward() {
       currentStep = currentStep - 1;
       if (characterRef.current !== undefined && mapRef.current !== undefined) {
-        (characterRef.current as any).moveCharacter(
-          stepPositions[currentStep],
-          stepPositions[currentStep - 1]
-        );
+        setTimeout(() => {
+          (characterRef.current as any).moveCharacter(
+            stepPositions[currentStep],
+            stepPositions[currentStep - 1]
+          );
+        }, 500);
         (mapRef.current as any).setCurrentStep(currentStep);
       }
     },
