@@ -71,7 +71,7 @@ const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
         position={localPos as any as Vector3}
         direction={Direction.LEFT}
         fileName={'astronaut'}
-        scale={0.4}
+        scale={0.8}
       />
     </animated.group>
   );
