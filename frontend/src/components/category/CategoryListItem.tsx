@@ -8,12 +8,12 @@ import CircularProgress, {
 } from '@mui/material/CircularProgress';
 import { getFormattedStringFromDays } from 'utils/formatting';
 import { Typography, Theme } from '@mui/material';
+import Avatar from 'boring-avatars';
 
 import './CategoryListItem.scss';
 
 const useStyles = makeStyles((theme: Theme) => ({
   innerRing: {
-    opacity: 0.3,
     position: 'absolute',
     top: '-3%',
   },
@@ -47,8 +47,8 @@ interface CategoryListProps {
 }
 
 const CategoryListItem: React.FC<CategoryListProps> = (props) => {
-  const classes = useStyles();
   const { name, duration, percentageComplete } = props;
+  const classes = useStyles();
 
   const [progress, setProgress] = React.useState(0);
 
@@ -59,7 +59,9 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
   return (
     <Box>
       <div className={classes.container}>
-        <div className="square-pic"></div>
+        <div className="square-pic">
+          <Avatar square={true} variant={'beam'} size={65} name={name} />
+        </div>
         <Grid item xs={9}>
           <Typography component="div" variant="h6">
             {name}
@@ -77,6 +79,7 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
                 strokeLinecap: 'round',
               },
               marginTop: '0.5em',
+              opacity: percentageComplete === 0 ? 0 : 0.3,
             }}
             value={100}
             size={50}

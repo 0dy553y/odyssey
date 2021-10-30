@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { loadAllCompletedUserChallenges } from 'store/userchallenges/operations';
@@ -58,11 +58,15 @@ const CompletedChallengesPage: React.FC = () => {
   }
 
   return (
-    <Box sx={{ padding: '2em 1.5em 0 1.5em' }}>
+    <Box className="completed-challenges" sx={{ padding: '2em 1.5em 0 1.5em' }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" onClick={() => history.goBack()}>
-            <ChevronLeft />
+          <IconButton
+            className="back-arrow"
+            edge="start"
+            onClick={() => history.goBack()}
+          >
+            <BackArrow filter="invert(1)" height="1.5em" width="1.5em" />
           </IconButton>
         </Toolbar>
       </AppBar>

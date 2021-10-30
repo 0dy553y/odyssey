@@ -11,7 +11,6 @@ import {
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import { makeStyles } from '@mui/styles';
-
 import {
   loadAllPosts,
   addReactionToPost,
@@ -50,7 +49,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   feedContainer: {
     height: '100%',
-    overflow: 'scroll',
+    overflowX: 'hidden',
+    overflowY: 'scroll',
     scrollBehavior: 'smooth',
   },
   fab: {

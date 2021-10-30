@@ -18,6 +18,12 @@ class PostsController < ApplicationController
     render 'posts/index', status: :ok
   end
 
+  def posts_for_challenge
+    @posts = Post.includes(:post_reactions, :creator).where(challenge_id: params.require(:challenge_id))
+
+    render 'posts/index', status: :ok
+  end
+
   def create
     @post = Post.create!(post_params)
 

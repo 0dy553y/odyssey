@@ -1,5 +1,5 @@
 import React from 'react';
-import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 
@@ -9,8 +9,12 @@ const BadgePage: React.FC = () => {
     <Box sx={{ padding: '2em 1.5em 0 1.5em' }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" onClick={() => history.goBack()}>
-            <ChevronLeft />
+          <IconButton
+            style={{ marginLeft: '-1.5em' }}
+            edge="start"
+            onClick={() => history.goBack()}
+          >
+            <BackArrow filter="invert(1)" height="1.5em" width="1.5em" />
           </IconButton>
         </Toolbar>
       </AppBar>

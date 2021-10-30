@@ -13,3 +13,10 @@ export function getFriendPostList(state: RootState): PostListData[] {
 export function getCommunityPostList(state: RootState): PostListData[] {
   return getLocalState(state).communityPostList;
 }
+
+export function getChallengePostList(
+  state: RootState,
+  challengeId: number
+): PostListData[] {
+  return getLocalState(state).challengePostLists[challengeId] ?? [];
+}

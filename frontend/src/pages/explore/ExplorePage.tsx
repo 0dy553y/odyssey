@@ -85,7 +85,7 @@ const ExplorePage: React.FC = () => {
   };
 
   return (
-    <Box sx={{ padding: '2em 1.5em 0 1.5em' }}>
+    <Box sx={{ padding: '3em 1.5em 0 1.5em' }}>
       <Typography variant="h1">Find your next challenge</Typography>
       <Searchbar
         placeholder="Search by challenge name..."

@@ -9,7 +9,7 @@ import {
   markUserTaskAsNotDone,
 } from '../../store/usertasks/operations';
 import { useDispatch } from 'react-redux';
-import { getHexCode } from 'utils/color';
+import { getHexCode, getComplementaryColor } from 'utils/color';
 import { isAfter } from 'date-fns';
 import { MAP_ROUTE } from '../../routing/routes';
 
@@ -38,6 +38,34 @@ const useStyles = makeStyles(() => ({
   },
   doneToggle: {
     flexGrow: 1,
+  },
+  toggle: {
+    width: 50,
+    height: 34,
+    padding: 0,
+    '& .MuiSwitch-switchBase': {
+      padding: 0,
+      margin: 3,
+      transitionDuration: '300ms',
+      '&.Mui-checked': {
+        transform: 'translateX(16px)',
+        color: '#fff',
+        '& + .MuiSwitch-track': {
+          backgroundColor: (userTask: UserTaskListData) =>
+            getComplementaryColor(userTask.challengeColor),
+          opacity: 1,
+        },
+      },
+    },
+    '& .MuiSwitch-thumb': {
+      boxSizing: 'border-box',
+      width: 28,
+      height: 28,
+    },
+    '& .MuiSwitch-track': {
+      borderRadius: 34 / 2,
+      opacity: 0.3,
+    },
   },
 }));
 
@@ -108,6 +136,7 @@ const UserTaskCard: React.FC<Props> = ({
             <Switch
               checked={!!userTask.completedAt}
               onChange={handleDoneToggle}
+              className={classes.toggle}
             />
           )}
         </Stack>

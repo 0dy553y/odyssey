@@ -1,7 +1,7 @@
 import React from 'react';
 import InputBase from '@mui/material/InputBase';
 import { styled, alpha } from '@mui/material/styles';
-import { ReactComponent as SearchIcon } from '../../assets/icons/search-icon.svg';
+import { ReactComponent as SearchIcon } from 'assets/icons/search-icon.svg';
 
 interface SearchbarProps {
   placeholder: string;

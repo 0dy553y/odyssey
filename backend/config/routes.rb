@@ -53,6 +53,9 @@ Rails.application.routes.draw do
         collection do
           get 'search', to: 'search'
         end
+        member do
+          get 'status', to: 'status'
+        end
       end
       resources :friend_requests, only: %i[index create update destroy]
 
@@ -60,6 +63,7 @@ Rails.application.routes.draw do
         collection do
           get 'friend_posts', to: 'friend_posts'
           get 'community_posts', to: 'community_posts'
+          get 'posts_for_challenge', to: 'posts_for_challenge'
         end
         member do
           post 'add_reaction', to: 'add_reaction'

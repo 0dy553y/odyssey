@@ -12,7 +12,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -53,8 +53,12 @@ const EditProfilePage: React.FC = () => {
     <Box className="edit-profile-page">
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" onClick={() => history.goBack()}>
-            <ChevronLeft />
+          <IconButton
+            style={{ marginLeft: '-1.5em' }}
+            edge="start"
+            onClick={() => history.goBack()}
+          >
+            <BackArrow filter="invert(1)" height="1.5em" width="1.5em" />
           </IconButton>
         </Toolbar>
       </AppBar>
