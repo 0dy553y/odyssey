@@ -1,6 +1,8 @@
 import api from 'api';
+import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
+import { loadFriendsOnSameChallenges } from 'store/challenges/operations';
 import { loadAllUserChallengesDataForChallenge } from 'store/userchallenges/operations';
 import { OperationResult } from 'types/store';
 import { UserTaskData, UserTaskListData } from 'types/usertasks';
@@ -35,7 +37,6 @@ function markUserTaskAsDone(
     if (userTask.isChallengeCompleted) {
       onChallengeCompleted(userTask.challengeName);
     }
-
     onOperationComplete(dispatch, userTask);
   };
 }
@@ -50,7 +51,10 @@ export function markUserTaskAsDoneFromHome(
     onChallengeCompleted,
     onTaskCompleted,
     (dispatch, userTask) => {
-      dispatch(saveUserTaskForDay(userTask.scheduledFor, userTask));
+      batch(() => {
+        dispatch(saveUserTaskForDay(userTask.scheduledFor, userTask));
+        dispatch(loadFriendsOnSameChallenges());
+      });
     }
   );
 }
@@ -68,7 +72,10 @@ export function markUserTaskAsDoneFromChallenge(
       return;
     },
     (dispatch, userTask) => {
-      dispatch(loadAllUserChallengesDataForChallenge(userTask.challengeId));
+      batch(() => {
+        dispatch(loadAllUserChallengesDataForChallenge(userTask.challengeId));
+        dispatch(loadFriendsOnSameChallenges());
+      });
     }
   );
 }
@@ -77,7 +84,10 @@ export function markUserTaskAsNotDone(userTaskId: number): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userTasks.markUserTaskAsNotDone(userTaskId);
     const userTask: UserTaskData = response.payload.data;
-    dispatch(saveUserTaskForDay(userTask.scheduledFor, userTask));
+    batch(() => {
+      dispatch(saveUserTaskForDay(userTask.scheduledFor, userTask));
+      dispatch(loadFriendsOnSameChallenges());
+    });
   };
 }
 

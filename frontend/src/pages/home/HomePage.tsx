@@ -97,11 +97,9 @@ const HomePage: React.FC = () => {
   };
 
   useEffect(() => {
-    batch(() => {
-      dispatch(loadUserTasksForDay(date));
-      dispatch(loadFriendsOnSameChallenges());
-    });
+    dispatch(loadUserTasksForDay(date));
   }, [date]);
+
   const userTaskList = Array.from(
     useSelector((state: RootState) => getUserTaskListForDay(state, date))
   ).sort((a, b) => a.id - b.id);

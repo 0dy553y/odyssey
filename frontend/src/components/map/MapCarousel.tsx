@@ -30,16 +30,17 @@ const useStyles = makeStyles(() => ({
 
 interface MapCarouselProps {
   maps: ChallengeMapData[];
+  initialIndex: number;
 }
 
-const MapCarousel: React.FC<MapCarouselProps> = ({ maps }) => {
+const MapCarousel: React.FC<MapCarouselProps> = ({ maps, initialIndex }) => {
   const classes = useStyles();
 
   return (
     <Swiper
       centeredSlides
       loop={maps.length > 1}
-      //   initialSlide={previousIndex}
+      initialSlide={initialIndex}
       pagination={{
         dynamicBullets: true,
         clickable: maps.length > 1,
