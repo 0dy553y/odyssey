@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
-import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import { useHistory } from 'react-router-dom';
 import NotificationsList from '../../components/notifications/NotificationsList';
 import { makeStyles } from '@mui/styles';
@@ -25,8 +25,12 @@ const NotificationsPage: React.FC = () => {
     <Box className={classes.rootContainer}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" onClick={() => history.goBack()}>
-            <ChevronLeft />
+          <IconButton
+            style={{ marginLeft: '-1.5em' }}
+            edge="start"
+            onClick={() => history.goBack()}
+          >
+            <BackArrow filter="invert(1)" height="1.5em" width="1.5em" />
           </IconButton>
         </Toolbar>
       </AppBar>
