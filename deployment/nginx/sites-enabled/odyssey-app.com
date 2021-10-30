@@ -61,6 +61,34 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
   }
+
+  # This block will catch static file requests, such as images
+  location ~* \.(?:jpg|jpeg|gif|png|ico|xml|webp)$ {
+    access_log        off;
+    log_not_found     off;
+
+    expires           30d;
+    add_header        Pragma public;
+    add_header        Cache-Control "public";
+  }
+
+  # This block will catch static file requests of fonts
+  # and allows fonts to be requested via CORS
+  location ~* \.(?:eot|woff|woff2|ttf|svg|otf) {
+    access_log        off;
+    log_not_found     off;
+
+    expires           30d;
+    add_header        Cache-Control "public";
+    add_header        Access-Control-Allow-Origin *;
+
+    types             {font/opentype otf;}
+    types             {application/vnd.ms-fontobject eot;}
+    types             {font/truetype ttf;}
+    types             {application/font-woff woff;}
+    types             {font/x-woff woff2;}
+    types             {image/svg+xml svg svgz;}
+  }
 }
 
 # Catch-all for unrecognised requests
