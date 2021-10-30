@@ -14,7 +14,6 @@
     "@react-three/fiber": "^7.0.17",
     "@react-three/postprocessing": "^2.0.5",
     "@reduxjs/toolkit": "^1.6.2",
-    "@types/tinycolor2": "^1.4.3",
     "axios": "^0.22.0",
     "boring-avatars": "^1.5.8",
     "browser-image-compression": "^1.0.16",
