@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import { loadUserTasksForDay } from '../../store/usertasks/operations';
-import { batch, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import UserTaskCarousel from '../../components/home/UserTaskCarousel';
 import MapDialog from '../../components/map/MapDialog';
 import { getUserTaskListForDay } from '../../store/usertasks/selectors';
@@ -15,7 +15,6 @@ import ChallengeCompletedModal from 'components/challengeCompletedModal';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import TodayIcon from '@mui/icons-material/Today';
 import { startOfDay } from 'date-fns';
-import { loadFriendsOnSameChallenges } from 'store/challenges/operations';
 import { ChallengeMapData } from 'types/challenges';
 import { getChallengeMaps } from 'store/challenges/selectors';
 
@@ -108,8 +107,6 @@ const HomePage: React.FC = () => {
   const challengeMaps = useSelector((state: RootState) =>
     getChallengeMaps(state)
   )!;
-
-  console.log(challengeMaps);
 
   const user = useSelector(getUser);
   if (!user) {

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { Dialog, Typography, Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { ChallengeMapData } from 'types/challenges';

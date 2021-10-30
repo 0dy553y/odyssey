@@ -80,13 +80,17 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
         <color attach="background" args={['#010101']} />
         {/*  x: red, y: green, z: blue */}
         {/* <axesHelper args={[5]} /> */}
-        {/* <EffectComposer>
-          <Bloom
-            luminanceThreshold={0.8}
-            intensity={1.5}
-            luminanceSmoothing={0.1}
-          />
-        </EffectComposer> */}
+        {stepPositions.length === numSteps ? (
+          <EffectComposer>
+            <Bloom
+              luminanceThreshold={0.8}
+              intensity={1.5}
+              luminanceSmoothing={0.1}
+            />
+          </EffectComposer>
+        ) : (
+          <></>
+        )}
         <directionalLight castShadow position={[0, 10, 0]} intensity={1.5} />
         <pointLight position={[30, 0, 0]} intensity={0.5} />
         <pointLight position={[-30, 0, 0]} intensity={0.5} />

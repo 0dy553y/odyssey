@@ -1,5 +1,5 @@
 import BaseAPI from './base';
-import { ApiPromise, EmptyPayload } from '../types/api';
+import { ApiPromise } from '../types/api';
 import { ChallengeMapData } from '../types/challenges';
 
 class MapAPI extends BaseAPI {
