@@ -13,7 +13,7 @@ const Prize: React.FC = () => {
   });
   return (
     <group ref={ref}>
-      <Model position={[0, 0, 0]} fileName={'shoe'} scale={0.8} />
+      <Model position={[0, 0, 0]} fileName={'trophy'} scale={0.8} />
     </group>
   );
 };
