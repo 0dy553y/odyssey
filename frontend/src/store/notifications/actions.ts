@@ -1,9 +1,11 @@
 import { FriendRequestListData } from '../../types/friendrequests';
 import {
-  REMOVE_FRIEND_REQUEST,
   RemoveFriendRequestAction,
-  SAVE_FRIEND_REQUEST_LIST,
+  REMOVE_FRIEND_REQUEST,
+  ResetNotificationsAction,
+  RESET_NOTIFICATIONS,
   SaveFriendRequestListAction,
+  SAVE_FRIEND_REQUEST_LIST,
 } from './types';
 
 export function saveFriendRequestList(
@@ -21,5 +23,11 @@ export function removeFriendRequest(
   return {
     type: REMOVE_FRIEND_REQUEST,
     friendRequestId,
+  };
+}
+
+export function resetNotifications(): ResetNotificationsAction {
+  return {
+    type: RESET_NOTIFICATIONS,
   };
 }
