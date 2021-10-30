@@ -1,9 +1,11 @@
 import { FriendListData } from '../../types/friends';
 import {
-  REMOVE_FRIEND,
   RemoveFriendAction,
-  SAVE_FRIEND_LIST,
+  REMOVE_FRIEND,
+  ResetFriendsAction,
+  RESET_FRIENDS,
   SaveFriendListAction,
+  SAVE_FRIEND_LIST,
 } from './types';
 
 export function saveFriendList(
@@ -19,5 +21,11 @@ export function removeFriend(friendId: number): RemoveFriendAction {
   return {
     type: REMOVE_FRIEND,
     friendId,
+  };
+}
+
+export function resetFriends(): ResetFriendsAction {
+  return {
+    type: RESET_FRIENDS,
   };
 }
