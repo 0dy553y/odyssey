@@ -63,6 +63,21 @@ server {
   }
 }
 
+server {
+  listen 443 ssl http2;
+  server_name www.odyssey-app.com;
+
+  add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+  ssl_certificate /etc/letsencrypt/live/www.odyssey-app.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/www.odyssey-app.com/privkey.pem;
+  include /etc/letsencrypt/options-ssl-nginx.conf;
+  ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+  # Redirect www to non-www
+  return 301 https://odyssey-app.com$request_uri;
+}
+
 # Catch-all for unrecognised requests
 server {
   listen 80 default_server;
