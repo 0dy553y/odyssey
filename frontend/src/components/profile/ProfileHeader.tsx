@@ -3,9 +3,9 @@ import { Box, IconButton, Stack, Typography } from '@mui/material';
 import { displayUsername } from 'utils/formatting';
 import { UserData } from 'types/auth';
 import UserAvatar from 'components/common/userAvatar';
+import FriendControls from './FriendControls';
 
 import './ProfileHeader.scss';
-import { Skeleton } from '@mui/lab';
 
 interface ProfileHeaderProps {
   user?: UserData;
@@ -16,7 +16,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
   const { userProfileItems, user } = props;
 
   if (!user) {
-    return <Skeleton />;
+    return <></>;
   }
 
   return (
@@ -42,6 +42,8 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
       >
         {displayUsername(user.username)}
       </Typography>
+
+      <FriendControls user={user} />
 
       <Stack direction="row" spacing={4}>
         {userProfileItems.map((item) => (
