@@ -1,6 +1,8 @@
 import api from 'api';
+import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
+import { loadFriendsOnSameChallenges } from 'store/challenges/operations';
 import { loadAllUserChallengesDataForChallenge } from 'store/userchallenges/operations';
 import { OperationResult } from 'types/store';
 import { UserTaskData, UserTaskListData } from 'types/usertasks';
@@ -22,6 +24,7 @@ export function loadUserTasksForDay(date: Date): OperationResult {
 function markUserTaskAsDone(
   userTaskId: number,
   onChallengeCompleted: (completedChallengeName: string) => void,
+  onTaskCompleted: (openChallengeName: string) => void,
   onOperationComplete: (
     dispatch: ThunkDispatch<RootState, undefined, AnyAction>,
     userTask: UserTaskData
@@ -30,23 +33,28 @@ function markUserTaskAsDone(
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userTasks.markUserTaskAsDone(userTaskId);
     const userTask: UserTaskData = response.payload.data;
+    onTaskCompleted(userTask.challengeName);
     if (userTask.isChallengeCompleted) {
       onChallengeCompleted(userTask.challengeName);
     }
-
     onOperationComplete(dispatch, userTask);
   };
 }
 
 export function markUserTaskAsDoneFromHome(
   userTaskId: number,
-  onChallengeCompleted: (completedChallengeName: string) => void
+  onChallengeCompleted: (completedChallengeName: string) => void,
+  onTaskCompleted: (openChallengeName: string) => void
 ): OperationResult {
   return markUserTaskAsDone(
     userTaskId,
     onChallengeCompleted,
+    onTaskCompleted,
     (dispatch, userTask) => {
-      dispatch(saveUserTaskForDay(userTask.scheduledFor, userTask));
+      batch(() => {
+        dispatch(saveUserTaskForDay(userTask.scheduledFor, userTask));
+        dispatch(loadFriendsOnSameChallenges());
+      });
     }
   );
 }
@@ -58,8 +66,16 @@ export function markUserTaskAsDoneFromChallenge(
   return markUserTaskAsDone(
     userTaskId,
     onChallengeCompleted,
+    // TODO: replace when implementing from challenge page
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    (_cn) => {
+      return;
+    },
     (dispatch, userTask) => {
-      dispatch(loadAllUserChallengesDataForChallenge(userTask.challengeId));
+      batch(() => {
+        dispatch(loadAllUserChallengesDataForChallenge(userTask.challengeId));
+        dispatch(loadFriendsOnSameChallenges());
+      });
     }
   );
 }
@@ -68,7 +84,10 @@ export function markUserTaskAsNotDone(userTaskId: number): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userTasks.markUserTaskAsNotDone(userTaskId);
     const userTask: UserTaskData = response.payload.data;
-    dispatch(saveUserTaskForDay(userTask.scheduledFor, userTask));
+    batch(() => {
+      dispatch(saveUserTaskForDay(userTask.scheduledFor, userTask));
+      dispatch(loadFriendsOnSameChallenges());
+    });
   };
 }
 

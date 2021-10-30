@@ -4,7 +4,7 @@ import Searchbar from '../../components/common/Searchbar';
 import CategoryPreview from '../../components/explore/CategoryPreview';
 import Typography from '@mui/material/Typography';
 import { getCategoryList } from 'store/categories/selectors';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
 import { Link } from 'react-router-dom';
 import { getHeadingFromCategory } from 'utils/naming';
@@ -32,9 +32,11 @@ const ExplorePage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    dispatch(loadAllChallenges());
-    dispatch(loadAllOngoingUserChallenges());
-    dispatch(loadAllCompletedUserChallenges());
+    batch(() => {
+      dispatch(loadAllChallenges());
+      dispatch(loadAllOngoingUserChallenges());
+      dispatch(loadAllCompletedUserChallenges());
+    });
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

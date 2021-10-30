@@ -11,11 +11,12 @@ import FeedPage from '../pages/feed';
 import AddFriendsPage from '../pages/friends/AddFriendsPage';
 import HomePage from '../pages/home';
 import LoginPage from '../pages/login';
-import { DemoMap, SpaceMap } from '../pages/maps';
 import NotificationsPage from '../pages/notifications/NotificationsPage';
 import ProfilePage from '../pages/profile';
 import RegistrationPage from '../pages/registration';
+import MapsPage from '../pages/maps';
 import { RouteEntry } from '../types/routes';
+import DemoMap from 'components/map/mapTemplates/DemoMap';
 
 export const HOME_ROUTE = '/';
 export const LOGIN_ROUTE = '/login';
@@ -95,7 +96,6 @@ export const privateRoutes: RouteEntry[] = [
   { path: DEMO_MAP_ROUTE, component: DemoMap },
   {
     path: MAP_ROUTE + '/:challengeId',
-    component: SpaceMap,
-    exact: true,
+    component: MapsPage,
   },
 ];

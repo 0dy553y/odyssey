@@ -17,6 +17,20 @@ export function translate(
   return [b[0] + deltaX, b[1] + deltaY, b[2] + deltaZ];
 }
 
+export function regularTranslate(
+  base: Vector3,
+  direction: Direction,
+  increment: number,
+  times?: number
+): Vector3 {
+  const dv = getDirectionVector(direction) as number[];
+  const t = times ?? 1;
+  return translate(base, {
+    [Axis.X]: dv[0] * increment * t,
+    [Axis.Z]: dv[1] * increment * t,
+  });
+}
+
 // Example usage:
 // {buildRepeated({
 //   buildBlock: (key: number, position: Vector3 ) => (
@@ -136,6 +150,7 @@ export function buildDiagonalRepeated({
   repeatDirection = Direction.FORWARD,
   heightIncrement = 0,
   widthIncrement = 1,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   buildCallback = (_) => {
     return;
   },

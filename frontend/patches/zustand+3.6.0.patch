@@ -1,0 +1,13 @@
+diff --git a/node_modules/zustand/index.js b/node_modules/zustand/index.js
+index 724cf8e..97e3557 100644
+--- a/node_modules/zustand/index.js
++++ b/node_modules/zustand/index.js
+@@ -33,7 +33,7 @@ function create$1(createState) {
+       equalityFn = Object.is;
+     }
+ 
+-    console.warn('[DEPRECATED] Please use `subscribeWithSelector` middleware');
++    // console.warn('[DEPRECATED] Please use `subscribeWithSelector` middleware');
+     var currentSlice = selector(state);
+ 
+     function listenerToAdd() {

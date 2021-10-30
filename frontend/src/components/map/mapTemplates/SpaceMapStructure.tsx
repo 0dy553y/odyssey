@@ -5,12 +5,17 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import { Vector3 } from '@react-three/fiber';
-import { Island, Disc, NextDisc } from '../../components/map';
+import { Island, Disc, NextDisc } from '..';
 
-import { Direction, Axis } from '../../types/map';
-import { translate, buildDiagonalRepeated } from '../../utils/map';
-import { DirectionPosition } from '../../types/map';
-import { getDirectionVector, nextDirectionACW } from '../../utils/direction';
+import { Direction, Axis } from '../../../types/map';
+import {
+  translate,
+  buildDiagonalRepeated,
+  regularTranslate,
+} from '../../../utils/map';
+import { DirectionPosition } from '../../../types/map';
+import { getDirectionVector, nextDirectionACW } from '../../../utils/direction';
+import Prize from '../composite/Prize';
 
 interface MapProps {
   numSteps: number;
@@ -31,7 +36,11 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
     onMapMounted,
   } = props;
   const numStages = Math.floor(numSteps / width);
-  let base: Vector3 = [width * widthIncrement, -4, width * widthIncrement];
+  let base: Vector3 = [
+    width * widthIncrement,
+    10 - numSteps / 2,
+    width * widthIncrement,
+  ];
   let currentDirection = Direction.RIGHT;
 
   const [step, setStep] = useState(currentStep);
@@ -70,12 +79,6 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
         const nextDv = getDirectionVector(nextDirection) as number[];
         const stageIncrement = 3;
 
-        const endPosition = translate(base, {
-          [Axis.X]: dv[0] * widthIncrement * (width - 1),
-          [Axis.Y]: heightIncrement * (width - 1) * (i + 1),
-          [Axis.Z]: dv[1] * widthIncrement * (width - 1),
-        });
-
         const stage = (
           <>
             {buildDiagonalRepeated({
@@ -91,11 +94,13 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
                   pos: position,
                   direction: currentDirection,
                 });
+                base = position;
               },
             })}
+            base = regularTranslate(base, currentDirection, widthIncrement);
             <Island
               key={i}
-              position={translate(endPosition, {
+              position={translate(base, {
                 [Axis.X]: nextDv[0],
                 [Axis.Y]: 0.5,
                 [Axis.Z]: nextDv[1],
@@ -106,11 +111,11 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
           </>
         );
         stepPositions.push({
-          pos: endPosition,
+          pos: base,
           direction: currentDirection,
         });
         currentDirection = nextDirection;
-        base = translate(endPosition, {
+        base = translate(base, {
           [Axis.X]: dv[0] + nextDv[0] * (widthIncrement + 1),
           [Axis.Y]: stageIncrement,
           [Axis.Z]: dv[1] + nextDv[1] * (widthIncrement + 1),
@@ -131,8 +136,12 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
             pos: position,
             direction: currentDirection,
           });
+          base = position;
         },
       })}
+      <Prize
+        position={regularTranslate(base, currentDirection, widthIncrement)}
+      />
     </>
   );
 };

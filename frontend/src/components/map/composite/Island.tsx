@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
-import { buildRepeated } from '../../utils/map';
-import { Direction } from '../../types/map';
-import { MapComponent, Color } from './MapComponent';
-import Box from './Box';
-import Ladder from './Ladder';
+import { buildRepeated } from '../../../utils/map';
+import { Direction } from '../../../types/map';
+import { MapComponent, Color } from '../basic/MapComponent';
+import Box from '../basic/Box';
+import Ladder from '../basic/Ladder';
 import { Vector3 } from '@react-three/fiber';
 import { useSpring, animated, config } from '@react-spring/three';
 

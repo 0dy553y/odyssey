@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef } from 'react';
-import { Color, MapComponent } from './MapComponent';
+import { Color, MapComponent } from '../basic/MapComponent';
 import { useFrame } from '@react-three/fiber';
 
-import { Disc } from './Disc';
+import { Disc } from '../basic/Disc';
 
 interface NextDiscProps extends Color {
   thickness?: number;

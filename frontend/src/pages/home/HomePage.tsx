@@ -2,6 +2,7 @@ import React, { useEffect, useState, useReducer } from 'react';
 import { loadUserTasksForDay } from '../../store/usertasks/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import UserTaskCarousel from '../../components/home/UserTaskCarousel';
+import MapDialog from '../../components/map/MapDialog';
 import { getUserTaskListForDay } from '../../store/usertasks/selectors';
 import { RootState } from '../../store';
 import { Grid, IconButton, Skeleton, Typography } from '@mui/material';
@@ -14,6 +15,8 @@ import ChallengeCompletedModal from 'components/challengeCompletedModal';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import TodayIcon from '@mui/icons-material/Today';
 import { startOfDay } from 'date-fns';
+import { ChallengeMapData } from 'types/challenges';
+import { getChallengeMaps } from 'store/challenges/selectors';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -47,6 +50,10 @@ interface ChallengeCompletedModalState {
   completedChallengeName?: string;
 }
 
+interface TaskCompletedDialogState {
+  openChallengeName?: string;
+}
+
 const HomePage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -71,13 +78,35 @@ const HomePage: React.FC = () => {
       completedChallengeName: completedChallengeName,
     });
   };
+  const [taskCompletedDialogState, setTaskCompletedDialogState] = useReducer(
+    (
+      state: TaskCompletedDialogState,
+      newState: Partial<TaskCompletedDialogState>
+    ) => ({
+      ...state,
+      ...newState,
+    }),
+    { openChallengeName: undefined }
+  );
+
+  const onTaskCompleted = (openChallengeName: string) => {
+    setTaskCompletedDialogState({
+      openChallengeName: openChallengeName,
+    });
+  };
 
   useEffect(() => {
     dispatch(loadUserTasksForDay(date));
   }, [date]);
+
   const userTaskList = Array.from(
     useSelector((state: RootState) => getUserTaskListForDay(state, date))
   ).sort((a, b) => a.id - b.id);
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const challengeMaps = useSelector((state: RootState) =>
+    getChallengeMaps(state)
+  )!;
 
   const user = useSelector(getUser);
   if (!user) {
@@ -131,6 +160,7 @@ const HomePage: React.FC = () => {
           userTaskList={userTaskList}
           date={date}
           onChallengeCompleted={onChallengeCompleted}
+          onTaskCompleted={onTaskCompleted}
         />
       </div>
 
@@ -141,6 +171,16 @@ const HomePage: React.FC = () => {
           onClose={() => setChallengeCompletedModalState({ isOpen: false })}
         />
       )}
+      {challengeMaps.map((mapData: ChallengeMapData) => (
+        <MapDialog
+          key={mapData.challengeId}
+          isOpen={
+            taskCompletedDialogState.openChallengeName === mapData.challengeName
+          }
+          close={() => setTaskCompletedDialogState({ openChallengeName: '' })}
+          mapData={mapData}
+        />
+      ))}
     </div>
   );
 };
