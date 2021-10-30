@@ -17,10 +17,10 @@ class User < ApplicationRecord
 
   has_many :sent_friend_requests, class_name: 'FriendRequest',
                                   foreign_key: :sender_id, inverse_of: :sender, dependent: :destroy
-  has_many :sent_pending_friends, through: :sent_friend_requests, class_name: 'User', source: :sender
+  has_many :sent_pending_friends, through: :sent_friend_requests, class_name: 'User', source: :receiver
   has_many :received_friend_requests, class_name: 'FriendRequest',
                                       foreign_key: :receiver_id, inverse_of: :receiver, dependent: :destroy
-  has_many :received_pending_friends, through: :received_friend_requests, class_name: 'User', source: :receiver
+  has_many :received_pending_friends, through: :received_friend_requests, class_name: 'User', source: :sender
 
   has_many :from_friendships, class_name: 'Friendship',
                               foreign_key: :second_user_id, inverse_of: :first_user, dependent: :destroy
