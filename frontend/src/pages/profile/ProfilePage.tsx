@@ -196,7 +196,7 @@ const ProfilePage: React.FC = () => {
                 <MenuItem
                   onClick={() => {
                     handleMenuClose();
-                    dispatch(logout(history));
+                    dispatch(logout());
                   }}
                 >
                   Logout

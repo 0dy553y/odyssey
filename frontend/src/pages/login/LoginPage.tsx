@@ -21,7 +21,7 @@ const LoginPage: React.FC = () => {
   } = useForm<LoginFormState>();
 
   const onSubmit = handleSubmit((data: LoginFormState) =>
-    dispatch(login({ ...data }, history))
+    dispatch(login({ ...data }))
   );
 
   return (
