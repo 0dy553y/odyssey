@@ -10,7 +10,7 @@ function getLocalState(state: RootState): UserChallengesState {
   return state.userChallenges;
 }
 
-export function getLatestUserChallengeDataForChallenge(
+export function getOngoingOrCompletedUserChallengeDataForChallenge(
   state: RootState,
   challengeId: number
 ): UserChallengeData | undefined {
@@ -19,9 +19,17 @@ export function getLatestUserChallengeDataForChallenge(
     challengeId
   );
 
-  return userChallenges.length === 0
-    ? undefined
-    : userChallenges[userChallenges.length - 1];
+  if (userChallenges.length === 0) {
+    return undefined;
+  }
+
+  const latest = userChallenges[userChallenges.length - 1];
+
+  if (!!latest.forfeitedAt) {
+    return undefined;
+  }
+
+  return latest;
 }
 
 export function getAllUserChallengesDataForChallenge(

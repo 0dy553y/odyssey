@@ -339,7 +339,10 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                 }}
               >
                 {Object.values(TabItem).map((tabItem) => {
-                  if (privateTabs.includes(tabItem) && !userChallenge) {
+                  if (privateTabs.includes(tabItem) && !isEnrolled) {
+                    if (currentTabItem === tabItem) {
+                      setCurrentTabItem(TabItem.Milestones);
+                    }
                     return null;
                   }
                   return <Tab key={tabItem} label={tabItem} value={tabItem} />;

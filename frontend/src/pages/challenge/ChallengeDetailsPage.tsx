@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { loadChallenge } from 'store/challenges/operations';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { loadAllTasks } from 'store/tasks/operations';
-import { loadAllUserChallengesDataForChallenge } from 'store/userchallenges/operations';
+import {
+  forfeitUserChallenge,
+  loadAllUserChallengesDataForChallenge,
+} from 'store/userchallenges/operations';
 import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
-import { getLatestUserChallengeDataForChallenge } from 'store/userchallenges/selectors';
+import { getOngoingOrCompletedUserChallengeDataForChallenge } from 'store/userchallenges/selectors';
 import { Box, IconButton, Menu, MenuItem, Skeleton } from '@mui/material';
 import ChallengeContent from 'components/challenge/ChallengeContent';
 import { makeStyles } from '@mui/styles';
@@ -91,7 +94,10 @@ const ChallengeDetailsPage: React.FC = () => {
   )!;
 
   const userChallenge = useSelector((state: RootState) =>
-    getLatestUserChallengeDataForChallenge(state, Number(challengeId))
+    getOngoingOrCompletedUserChallengeDataForChallenge(
+      state,
+      Number(challengeId)
+    )
   );
 
   const posts = useSelector((state: RootState) =>
@@ -160,10 +166,20 @@ const ChallengeDetailsPage: React.FC = () => {
 
       <ConfirmationModal
         title="Forfeit challenge"
-        message="Are you sure? All your existing progress will be gone"
+        message="Are you sure? All your existing progress will be gone."
         isOpen={isForfeitConfirmationModalOpen}
-        onConfirm={() => console.log('TODO: confirm')}
-        onCancel={() => console.log('TODO: cancel')}
+        onConfirm={() => {
+          if (!userChallenge) {
+            throw new Error(
+              'Should not be able to forfeit challenge if user is not enrolled'
+            );
+          }
+          dispatch(
+            forfeitUserChallenge(userChallenge.id, userChallenge.challengeId)
+          );
+          setIsForfeitConfirmationModalOpen(false);
+        }}
+        onCancel={() => setIsForfeitConfirmationModalOpen(false)}
       />
     </Box>
   );
