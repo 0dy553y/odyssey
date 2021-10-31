@@ -1,8 +1,8 @@
 # frozen_string_literal: true
+# rubocop:disable all
 
 desc 'Add Couch to 5k and meditation challenges'
 task add_couch_and_meditation: :environment do
-
   user_odyssey = User.find_by(username: 'odyssey')
 
   category_exercise = Category.find_by(title: 'Exercise')
@@ -273,3 +273,4 @@ task add_couch_and_meditation: :environment do
                 index: 20)
   end
 end
+# rubocop:enable all
