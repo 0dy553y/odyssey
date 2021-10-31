@@ -35,7 +35,7 @@ const PrizeDisplay: React.FC<PrizeDisplayProps> = ({
   }
 
   return (
-    <Suspense fallback="<div/>">
+    <Suspense fallback={<div />}>
       <Canvas camera={{ zoom: 30 }} orthographic={true}>
         <ambientLight intensity={0.5} />
 

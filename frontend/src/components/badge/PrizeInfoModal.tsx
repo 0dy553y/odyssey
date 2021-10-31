@@ -45,7 +45,7 @@ const PrizeInfoModal: React.FC<PrizeInfoModalProps> = ({
 }) => {
   const classes = useStyles();
   return (
-    <Suspense fallback="<div/>">
+    <Suspense fallback={<div />}>
       <Modal open={isOpen} onClose={onClose}>
         <Box className={classes.modalBox}>
           <Box sx={{ marginTop: '2em', height: '50%' }}>
