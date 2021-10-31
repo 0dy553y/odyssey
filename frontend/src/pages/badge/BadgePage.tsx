@@ -71,6 +71,12 @@ const BadgePage: React.FC = () => {
       <Typography component="h1" variant="h4" style={{ fontFamily: 'Frock' }}>
         Badges
       </Typography>
+
+      {prizes.length === 0 && (
+        <Typography variant="body1" className="no-results-message">
+          Nothing here yet &#128584;
+        </Typography>
+      )}
       <Box sx={{ height: '100%' }}>
         <PrizeDisplay
           prizes={prizes}
