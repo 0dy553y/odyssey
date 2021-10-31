@@ -39,12 +39,14 @@ function App(): JSX.Element {
     // Redirect if user is not authenticated
     shouldRedirect: !user,
     redirectPath: ONBOARDING_ROUTE,
+    shouldStoreRedirectUrl: true,
   };
 
   const defaultNotAuthenticatedRouteProps: RouteWithRedirectProps = {
     // Redirect if user is authenticated
     shouldRedirect: !!user,
     redirectPath: HOME_ROUTE,
+    shouldStoreRedirectUrl: false,
   };
 
   useEffect(() => {
