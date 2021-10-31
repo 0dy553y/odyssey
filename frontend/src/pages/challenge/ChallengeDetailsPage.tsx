@@ -8,7 +8,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
-import { getAllUserChallengesDataForChallenge } from 'store/userchallenges/selectors';
+import { getLatestUserChallengeDataForChallenge } from 'store/userchallenges/selectors';
 import { IconButton, Skeleton } from '@mui/material';
 import ChallengeContent from 'components/challenge/ChallengeContent';
 import { makeStyles } from '@mui/styles';
@@ -70,8 +70,8 @@ const ChallengeDetailsPage: React.FC = () => {
     getTaskList(state, Number(challengeId))
   )!;
 
-  const userChallenges = useSelector((state: RootState) =>
-    getAllUserChallengesDataForChallenge(state, Number(challengeId))
+  const userChallenge = useSelector((state: RootState) =>
+    getLatestUserChallengeDataForChallenge(state, Number(challengeId))
   );
 
   const posts = useSelector((state: RootState) =>
@@ -80,11 +80,6 @@ const ChallengeDetailsPage: React.FC = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const user = useSelector(getUser)!;
-
-  const userChallenge =
-    userChallenges.length === 0
-      ? undefined
-      : userChallenges[userChallenges.length - 1];
 
   if (!challenge) {
     return <Skeleton />;
