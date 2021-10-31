@@ -18,6 +18,8 @@ import MapsPage from '../pages/maps';
 import { RouteEntry } from '../types/routes';
 import DemoMap from 'components/map/mapTemplates/DemoMap';
 
+export const REDIRECT_QUERY_KEY = 'redirectTo';
+
 export const HOME_ROUTE = '/';
 export const LOGIN_ROUTE = '/login';
 export const REGISTER_ROUTE = '/register';
