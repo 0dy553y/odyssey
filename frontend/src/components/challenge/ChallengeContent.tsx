@@ -1,6 +1,14 @@
 import React, { useReducer, useState } from 'react';
 import { makeStyles } from '@mui/styles';
-import { Box, Button, Skeleton, Theme, Typography, Tab } from '@mui/material';
+import {
+  Box,
+  Button,
+  Link,
+  Skeleton,
+  Theme,
+  Typography,
+  Tab,
+} from '@mui/material';
 import { TaskListData } from 'types/tasks';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -291,8 +299,22 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                 {challenge.name}
               </Typography>
               <Typography className={`${classes.white} ${classes.bold}`}>
-                {challenge.duration} days · Created by {challenge.createdBy}
+                {challenge.duration} days · Created by{' '}
+                {challenge.originalCreator ?? challenge.createdBy}
               </Typography>
+
+              {challenge.referenceLink && (
+                <Link
+                  href={challenge.referenceLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={classes.white}
+                  underline="always"
+                >
+                  Learn more about this challenge
+                </Link>
+              )}
+
               <Typography className={`${classes.white} ${classes.topPadding}`}>
                 {challenge.description}
               </Typography>
