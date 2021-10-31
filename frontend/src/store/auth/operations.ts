@@ -25,7 +25,7 @@ import {
   setIsValidatingToken,
   setUser,
 } from './actions';
-import { HOME_ROUTE } from '../../routing/routes';
+import { HOME_ROUTE, LOGIN_ROUTE } from '../../routing/routes';
 
 export function login(
   loginData: LoginData,
@@ -46,20 +46,22 @@ export function login(
   };
 }
 
-export function logout(): OperationResult {
+export function logout(history: History): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    await withStatusMessages(dispatch, api.auth.logout()).then(() => {
-      batch(() => {
-        // TODO: reset other store here as well
-        dispatch(resetSnackbars());
-        dispatch(resetAuth());
-        dispatch(resetUserChallenges());
-        dispatch(resetUserTasks());
-        dispatch(resetPosts());
-        dispatch(resetFriends());
-        dispatch(resetNotifications());
-      });
-    });
+    await withStatusMessages(dispatch, api.auth.logout())
+      .then(() => {
+        batch(() => {
+          // TODO: reset other store here as well
+          dispatch(resetSnackbars());
+          dispatch(resetAuth());
+          dispatch(resetUserChallenges());
+          dispatch(resetUserTasks());
+          dispatch(resetPosts());
+          dispatch(resetFriends());
+          dispatch(resetNotifications());
+        });
+      })
+      .then(() => history.push(LOGIN_ROUTE));
   };
 }
 
@@ -94,13 +96,16 @@ export function validateToken(): OperationResult {
   };
 }
 
-export function updateUser(userPutData: UserPutData): OperationResult {
+export function updateUser(
+  userPutData: UserPutData,
+  history: History
+): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    await withStatusMessages(dispatch, api.auth.editUser(userPutData)).then(
-      (resp) => {
+    await withStatusMessages(dispatch, api.auth.editUser(userPutData))
+      .then((resp) => {
         const userData: UserData = resp.payload.data;
         dispatch(setUser(userData));
-      }
-    );
+      })
+      .then(() => history.goBack());
   };
 }
