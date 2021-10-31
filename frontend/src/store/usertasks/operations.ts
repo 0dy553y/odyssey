@@ -53,7 +53,6 @@ export function markUserTaskAsDoneFromHome(
     (dispatch, userTask) => {
       batch(() => {
         dispatch(saveUserTaskForDay(userTask.scheduledFor, userTask));
-        dispatch(loadFriendsOnSameChallenges());
       });
     }
   );
@@ -74,7 +73,6 @@ export function markUserTaskAsDoneFromChallenge(
     (dispatch, userTask) => {
       batch(() => {
         dispatch(loadAllUserChallengesDataForChallenge(userTask.challengeId));
-        dispatch(loadFriendsOnSameChallenges());
       });
     }
   );
