@@ -5,10 +5,11 @@ import { MapComponent } from '../basic/MapComponent';
 import Model from '../basic/Model';
 
 interface PrizeProps {
-  modelPath?: string;
+  modelPath: string;
+  scale?: number;
 }
 
-const Prize: React.FC<PrizeProps> = ({ modelPath = 'trophy' }) => {
+const Prize: React.FC<PrizeProps> = ({ modelPath, scale = 0.8 }) => {
   const ref = useRef();
   useFrame(({ clock }) => {
     if (ref.current !== undefined) {
@@ -17,7 +18,7 @@ const Prize: React.FC<PrizeProps> = ({ modelPath = 'trophy' }) => {
   });
   return (
     <group ref={ref}>
-      <Model position={[0, 0, 0]} fileName={modelPath} scale={0.8} />
+      <Model position={[0, 0, 0]} fileName={modelPath} scale={scale} />
     </group>
   );
 };
