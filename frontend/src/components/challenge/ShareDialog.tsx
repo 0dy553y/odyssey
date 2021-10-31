@@ -15,6 +15,7 @@ import {
 import { ChallengeData } from '../../types/challenges';
 import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
+import CopyTextField from '../common/CopyTextField';
 
 interface Props {
   isOpen: boolean;
@@ -24,6 +25,7 @@ interface Props {
 
 const useStyles = makeStyles(() => ({
   shareContainer: {
+    marginTop: '20px',
     display: 'grid',
     gridAutoFlow: 'column',
     gridColumnGap: '10px',
@@ -49,6 +51,7 @@ const ShareDialog: React.FC<Props> = ({
     <Dialog open={isOpen} onClose={onClose} fullWidth maxWidth="xs">
       <DialogTitle>Invite your friends!</DialogTitle>
       <DialogContent>
+        <CopyTextField text={url} />
         <div className={classes.shareContainer}>
           <FacebookShareButton url={url} quote={message} hashtag={hashtag}>
             <FacebookIcon size={iconSize} round={isIconRound} />
