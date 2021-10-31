@@ -13,6 +13,8 @@ export interface ChallengeData extends ChallengeListData {
   createdBy: string;
   color: ChallengeColor;
   categoryId: number;
+  originalCreator?: string;
+  referenceLink?: string;
 }
 
 export interface ChallengePostData {
