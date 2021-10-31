@@ -14,7 +14,7 @@ import RouteWithRedirect, {
   RouteWithRedirectProps,
 } from './routing/RouteWithRedirect';
 import ScrollToTop from './components/common/ScrollToTop';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { getIsValidatingToken, getUser } from './store/auth/selectors';
 import { validateToken } from './store/auth/operations';
 import BottomNavigationBar from './components/common/BottomNavigationBar';
@@ -26,6 +26,7 @@ import GoogleAnalytics from './GoogleAnalytics';
 
 import './App.scss';
 import 'swiper/swiper-bundle.css';
+import { setRedirectUrl } from './store/auth/actions';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -48,7 +49,10 @@ function App(): JSX.Element {
   };
 
   useEffect(() => {
-    dispatch(validateToken());
+    batch(() => {
+      dispatch(validateToken());
+      dispatch(setRedirectUrl(location.pathname));
+    });
 
     if (!isLatestVersion) {
       refreshCacheAndReload();

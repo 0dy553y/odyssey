@@ -5,6 +5,7 @@ import { AuthState } from './types';
 const initialState: AuthState = {
   user: undefined,
   isValidatingToken: true,
+  redirectUrl: null,
 };
 
 export const authSlice = createSlice({
@@ -20,6 +21,12 @@ export const authSlice = createSlice({
     resetAuth: (state): void => {
       // Note: not resetting isValidatingToken here because it should not need to be reset
       state.user = undefined;
+    },
+    setRedirectUrl: (state, action: PayloadAction<string>): void => {
+      state.redirectUrl = action.payload;
+    },
+    resetRedirectUrl: (state): void => {
+      state.redirectUrl = null;
     },
   },
 });
