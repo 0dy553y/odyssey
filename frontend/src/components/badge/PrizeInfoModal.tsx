@@ -13,8 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     left: '50%',
     transform: 'translate(-50%, -50%)',
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    padding: '0.6em',
+    padding: '1em',
     height: '20em',
     [theme.breakpoints.only('xs')]: {
       width: '80vw',
@@ -22,10 +21,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: '400px',
     },
-    zIndex: 10,
+    borderRadius: '24px',
   },
-  center: {
+  header: {
     textAlign: 'center',
+  },
+  description: {
+    textAlign: 'center',
+    paddingTop: '0.4em',
   },
 }));
 
@@ -56,10 +59,10 @@ const PrizeInfoModal: React.FC<PrizeInfoModalProps> = ({
               <OrbitControls enableZoom={false} enablePan={false} />
             </Canvas>
           </Box>
-          <Typography variant="h5" className={classes.center}>
+          <Typography variant="h5" className={classes.header}>
             {prize.prizeName}
           </Typography>
-          <Typography className={classes.center}>
+          <Typography className={classes.description}>
             Awarded for completing the {prize.challengeName} challenge
           </Typography>
         </Box>
