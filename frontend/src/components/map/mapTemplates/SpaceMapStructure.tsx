@@ -71,6 +71,16 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
     return <Disc key={key} position={position} />;
   };
 
+  const buildPrize = (base: Vector3) => {
+    const finalPosition = regularTranslate(
+      base,
+      currentDirection,
+      widthIncrement
+    );
+    stepPositions.push({ pos: finalPosition, direction: currentDirection });
+    return <Prize position={finalPosition} />;
+  };
+
   return (
     <>
       {[...Array(numStages)].map((_, i) => {
@@ -139,9 +149,7 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
           base = position;
         },
       })}
-      <Prize
-        position={regularTranslate(base, currentDirection, widthIncrement)}
-      />
+      {buildPrize(base)}
     </>
   );
 };

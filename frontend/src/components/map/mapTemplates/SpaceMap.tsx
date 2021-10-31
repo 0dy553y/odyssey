@@ -16,17 +16,15 @@ import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionCW } from 'utils/direction';
 import { translate } from 'utils/map';
 import { ChallengeMapData } from 'types/challenges';
-import { useDispatch } from 'react-redux';
-import { loadFriendsOnSameChallenges } from 'store/challenges/operations';
 
 interface MapProps {
   mapData: ChallengeMapData;
 }
 
 const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
-  const dispatch = useDispatch();
   const { username, challengeName, numTasks, currentTaskNum, friends } =
     props.mapData;
+
   let currentStep = currentTaskNum;
   const numSteps = numTasks;
   const friendsPositions: Record<number, string[]> = {};
@@ -49,9 +47,9 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
 
   useImperativeHandle(ref, () => ({
     moveCharacterForward() {
-      currentStep = currentStep + 1;
       if (characterRef.current !== undefined && mapRef.current !== undefined) {
         setTimeout(() => {
+          currentStep = currentStep + 1;
           (characterRef.current as any).moveCharacter(
             stepPositions[currentStep - 2],
             stepPositions[currentStep - 1]
@@ -62,9 +60,9 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
     },
 
     moveCharacterBackward() {
-      currentStep = currentStep - 1;
       if (characterRef.current !== undefined && mapRef.current !== undefined) {
         setTimeout(() => {
+          currentStep = currentStep - 1;
           (characterRef.current as any).moveCharacter(
             stepPositions[currentStep],
             stepPositions[currentStep - 1]
