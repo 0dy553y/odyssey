@@ -13,3 +13,7 @@ export function getUser(state: RootState): UserData | undefined {
 export function getIsValidatingToken(state: RootState): boolean {
   return getLocalState(state).isValidatingToken;
 }
+
+export function getRedirectUrl(state: RootState): string | null {
+  return getLocalState(state).redirectUrl;
+}

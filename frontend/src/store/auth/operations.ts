@@ -2,7 +2,6 @@ import { History } from 'history';
 import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { HOME_ROUTE, LOGIN_ROUTE } from 'routing/routes';
 import { loadAllCategories } from 'store/categories/operations';
 import { resetFriends } from 'store/friends/actions';
 import { resetNotifications } from 'store/notifications/actions';
@@ -20,49 +19,63 @@ import {
 } from '../../types/auth';
 import { OperationResult } from '../../types/store';
 import { RootState } from '../index';
-import { resetAuth, setIsValidatingToken, setUser } from './actions';
+import {
+  resetAuth,
+  resetRedirectUrl,
+  setIsValidatingToken,
+  setUser,
+} from './actions';
+import { HOME_ROUTE, LOGIN_ROUTE } from '../../routing/routes';
 
-export function login(loginData: LoginData, history: History): OperationResult {
+export function login(
+  loginData: LoginData,
+  history: History,
+  redirectUrl: string | null
+): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    await withStatusMessages(dispatch, api.auth.login(loginData)).then(
-      (response) => {
+    await withStatusMessages(dispatch, api.auth.login(loginData))
+      .then((response) => {
         const userData: UserData = response.payload.data;
         dispatch(setUser(userData));
         dispatch(loadAllCategories());
-        history.push(HOME_ROUTE);
-      }
-    );
+      })
+      .then(() => {
+        history.push(redirectUrl ?? HOME_ROUTE);
+        dispatch(resetRedirectUrl());
+      });
   };
 }
 
 export function logout(history: History): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    await withStatusMessages(dispatch, api.auth.logout()).then(() => {
-      batch(() => {
-        // TODO: reset other store here as well
-        dispatch(resetSnackbars());
-        dispatch(resetAuth());
-        dispatch(resetUserChallenges());
-        dispatch(resetUserTasks());
-        dispatch(resetPosts());
-        dispatch(resetFriends());
-        dispatch(resetNotifications());
-      });
-      history.push(LOGIN_ROUTE);
-    });
+    await withStatusMessages(dispatch, api.auth.logout())
+      .then(() => {
+        batch(() => {
+          // TODO: reset other store here as well
+          dispatch(resetSnackbars());
+          dispatch(resetAuth());
+          dispatch(resetUserChallenges());
+          dispatch(resetUserTasks());
+          dispatch(resetPosts());
+          dispatch(resetFriends());
+          dispatch(resetNotifications());
+        });
+      })
+      .then(() => history.push(LOGIN_ROUTE));
   };
 }
 
 export function registerUser(
   registerData: RegisterData,
-  history: History
+  history: History,
+  redirectUrl: string | null
 ): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     await withStatusMessages(
       dispatch,
       api.auth.registerUser(registerData)
     ).then(() => {
-      dispatch(login({ ...registerData }, history));
+      dispatch(login({ ...registerData }, history, redirectUrl));
     });
   };
 }
@@ -88,12 +101,11 @@ export function updateUser(
   history: History
 ): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    await withStatusMessages(dispatch, api.auth.editUser(userPutData)).then(
-      (resp) => {
+    await withStatusMessages(dispatch, api.auth.editUser(userPutData))
+      .then((resp) => {
         const userData: UserData = resp.payload.data;
         dispatch(setUser(userData));
-        history.goBack();
-      }
-    );
+      })
+      .then(() => history.goBack());
   };
 }
