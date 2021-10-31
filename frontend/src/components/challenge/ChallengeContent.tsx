@@ -352,6 +352,20 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                   />
                 </>
               )}
+              {isEnrolled && (
+                <>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    disableElevation
+                    className={classes.joinButton}
+                  >
+                    <Typography variant="body1">
+                      Invite Your Friends!
+                    </Typography>
+                  </Button>
+                </>
+              )}
             </div>
           </motion.div>
         </div>
