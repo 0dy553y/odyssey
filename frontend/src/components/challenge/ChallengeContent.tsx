@@ -1,6 +1,14 @@
 import React, { useReducer, useState } from 'react';
 import { makeStyles } from '@mui/styles';
-import { Box, Button, Skeleton, Theme, Typography, Tab } from '@mui/material';
+import {
+  Box,
+  Button,
+  Link,
+  Skeleton,
+  Theme,
+  Typography,
+  Tab,
+} from '@mui/material';
 import { TaskListData } from 'types/tasks';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -291,8 +299,22 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                 {challenge.name}
               </Typography>
               <Typography className={`${classes.white} ${classes.bold}`}>
-                {challenge.duration} days · Created by {challenge.createdBy}
+                {challenge.duration} days · Created by{' '}
+                {challenge.originalCreator ?? challenge.createdBy}
               </Typography>
+
+              {challenge.referenceLink && (
+                <Link
+                  href={challenge.referenceLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={classes.white}
+                  underline="always"
+                >
+                  Learn more about this challenge
+                </Link>
+              )}
+
               <Typography className={`${classes.white} ${classes.topPadding}`}>
                 {challenge.description}
               </Typography>
@@ -314,16 +336,19 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                     fullWidth
                     disableElevation
                     className={classes.joinButton}
-                    onClick={() => setIsScheduleModalOpen(true)}
+                    onClick={() => {
+                      setIsScheduleModalOpen(true);
+                    }}
                   >
                     <Typography variant="body1">Join Challenge!</Typography>
                   </Button>
                   <ScheduleModal
                     isOpen={isScheduleModalOpen}
                     onClose={() => setIsScheduleModalOpen(false)}
-                    onSubmit={(schedule: Schedule) =>
-                      dispatch(joinChallenge(Number(challengeId), schedule))
-                    }
+                    onSubmit={(schedule: Schedule) => {
+                      dispatch(joinChallenge(Number(challengeId), schedule));
+                      setIsScheduleModalOpen(false);
+                    }}
                   />
                 </>
               )}
@@ -339,7 +364,10 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                 }}
               >
                 {Object.values(TabItem).map((tabItem) => {
-                  if (privateTabs.includes(tabItem) && !userChallenge) {
+                  if (privateTabs.includes(tabItem) && !isEnrolled) {
+                    if (currentTabItem === tabItem) {
+                      setCurrentTabItem(TabItem.Milestones);
+                    }
                     return null;
                   }
                   return <Tab key={tabItem} label={tabItem} value={tabItem} />;
@@ -372,16 +400,19 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
             className={`${classes.secondaryJoinButton} ${
               !inView ? classes.fadeIn : classes.fadeOut
             }`}
-            onClick={() => setIsScheduleModalOpen(true)}
+            onClick={() => {
+              setIsScheduleModalOpen(true);
+            }}
           >
             <Typography variant="body1">Join!</Typography>
           </Button>
           <ScheduleModal
             isOpen={isScheduleModalOpen}
             onClose={() => setIsScheduleModalOpen(false)}
-            onSubmit={(schedule: Schedule) =>
-              dispatch(joinChallenge(Number(challengeId), schedule))
-            }
+            onSubmit={(schedule: Schedule) => {
+              dispatch(joinChallenge(Number(challengeId), schedule));
+              setIsScheduleModalOpen(false);
+            }}
           />
         </>
       )}

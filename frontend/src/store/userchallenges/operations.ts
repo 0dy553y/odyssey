@@ -64,3 +64,13 @@ export function loadAllCompletedUserChallenges(
     );
   };
 }
+
+export function forfeitUserChallenge(
+  userChallengeId: number,
+  challengeId: number
+): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    await api.userChallenges.forfeitUserChallenge(userChallengeId);
+    dispatch(loadAllUserChallengesDataForChallenge(challengeId));
+  };
+}

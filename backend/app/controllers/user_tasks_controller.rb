@@ -7,7 +7,9 @@ class UserTasksController < ApplicationController
     # date refers to the very beginning of the 24 hour period in which to search for scheduled tasks.
     date = params.require(:date).to_date
     date_range = date..(date + 1.day)
-    @user_tasks = current_user.user_tasks.where(scheduled_for: date_range)
+    @user_tasks = current_user.user_tasks.joins(:user_challenge)
+                              .where(scheduled_for: date_range,
+                                     user_challenge: { forfeited_at: nil, completed_at: nil })
   end
 
   def mark_as_done
