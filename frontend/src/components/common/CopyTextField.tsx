@@ -2,6 +2,8 @@ import React from 'react';
 import { IconButton, InputBase, Paper, Theme } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { makeStyles } from '@mui/styles';
+import { useDispatch } from 'react-redux';
+import { addSnackbar } from '../../store/snackbars/actions';
 
 interface Props {
   text: string;
@@ -30,6 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const CopyTextField: React.FC<Props> = ({ text }: Props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   return (
     <Paper component="form" className={classes.container}>
@@ -41,7 +44,16 @@ const CopyTextField: React.FC<Props> = ({ text }: Props) => {
       <div className={classes.iconContainer}>
         <IconButton
           className={classes.icon}
-          onClick={() => navigator.clipboard.writeText(text)}
+          onClick={() => {
+            navigator.clipboard.writeText(text).then(() =>
+              dispatch(
+                addSnackbar({
+                  message: 'Successfully copied challenge link to clipboard!',
+                  variant: 'success',
+                })
+              )
+            );
+          }}
         >
           <ContentCopyIcon />
         </IconButton>
