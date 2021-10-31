@@ -16,6 +16,7 @@ import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionCW } from 'utils/direction';
 import { translate } from 'utils/map';
 import { ChallengeMapData } from 'types/challenges';
+import { challengeNameToPrizeMapping } from 'utils/prizes';
 
 interface MapProps {
   mapData: ChallengeMapData;
@@ -27,6 +28,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
   let currentStep = currentTaskNum;
   const numSteps = numTasks;
   const friendsPositions: Record<number, string[]> = {};
+  const challengeNameKey = challengeName.toLowerCase().replace(/ /g, '_');
   friends.map(({ username, currentTaskNum }) => {
     if (!(currentTaskNum in friendsPositions)) {
       friendsPositions[currentTaskNum] = [];
@@ -107,6 +109,11 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
           width={width}
           widthIncrement={widthIncrement}
           heightIncrement={heightIncrement}
+          prizePath={
+            challengeNameKey in challengeNameToPrizeMapping
+              ? challengeNameToPrizeMapping[challengeNameKey] + '.vox'
+              : 'trophy'
+          }
           onMapMounted={(stepPositions) => {
             setStepPositions(stepPositions);
             setCharPosition(stepPositions[currentStep - 1]);
