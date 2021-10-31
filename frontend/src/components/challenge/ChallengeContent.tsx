@@ -314,16 +314,19 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                     fullWidth
                     disableElevation
                     className={classes.joinButton}
-                    onClick={() => setIsScheduleModalOpen(true)}
+                    onClick={() => {
+                      setIsScheduleModalOpen(true);
+                    }}
                   >
                     <Typography variant="body1">Join Challenge!</Typography>
                   </Button>
                   <ScheduleModal
                     isOpen={isScheduleModalOpen}
                     onClose={() => setIsScheduleModalOpen(false)}
-                    onSubmit={(schedule: Schedule) =>
-                      dispatch(joinChallenge(Number(challengeId), schedule))
-                    }
+                    onSubmit={(schedule: Schedule) => {
+                      dispatch(joinChallenge(Number(challengeId), schedule));
+                      setIsScheduleModalOpen(false);
+                    }}
                   />
                 </>
               )}
@@ -339,7 +342,10 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                 }}
               >
                 {Object.values(TabItem).map((tabItem) => {
-                  if (privateTabs.includes(tabItem) && !userChallenge) {
+                  if (privateTabs.includes(tabItem) && !isEnrolled) {
+                    if (currentTabItem === tabItem) {
+                      setCurrentTabItem(TabItem.Milestones);
+                    }
                     return null;
                   }
                   return <Tab key={tabItem} label={tabItem} value={tabItem} />;
@@ -372,16 +378,19 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
             className={`${classes.secondaryJoinButton} ${
               !inView ? classes.fadeIn : classes.fadeOut
             }`}
-            onClick={() => setIsScheduleModalOpen(true)}
+            onClick={() => {
+              setIsScheduleModalOpen(true);
+            }}
           >
             <Typography variant="body1">Join!</Typography>
           </Button>
           <ScheduleModal
             isOpen={isScheduleModalOpen}
             onClose={() => setIsScheduleModalOpen(false)}
-            onSubmit={(schedule: Schedule) =>
-              dispatch(joinChallenge(Number(challengeId), schedule))
-            }
+            onSubmit={(schedule: Schedule) => {
+              dispatch(joinChallenge(Number(challengeId), schedule));
+              setIsScheduleModalOpen(false);
+            }}
           />
         </>
       )}

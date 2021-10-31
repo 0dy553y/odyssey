@@ -7,10 +7,12 @@ export interface UserChallengeListData {
 }
 
 export interface UserChallengeData extends UserChallengeListData {
+  id: number;
   enrolledDate: Date;
   userTasks: UserTaskListData[];
   schedule: Schedule;
   completedAt?: Date;
+  forfeitedAt?: Date;
 }
 
 export interface CompletedUserChallengeListData {

@@ -47,6 +47,7 @@ Rails.application.routes.draw do
         get 'all_ongoing_challenges', to: 'all_ongoing_challenges'
         get 'all_completed_challenges', to: 'all_completed_challenges'
         get 'all_user_challenges_for_challenge', to: 'all_user_challenges_for_challenge'
+        patch 'forfeit', to: 'forfeit'
       end
 
       resources :friends, only: %i[index destroy] do

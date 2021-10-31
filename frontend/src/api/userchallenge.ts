@@ -9,10 +9,11 @@ import { PseudoUserTaskListData, userTaskListDataMapper } from './usertasks';
 
 type PseudoUserChallengeData = Omit<
   UserChallengeData,
-  'enrolledDate' | 'completedAt' | 'userTasks'
+  'enrolledDate' | 'completedAt' | 'forfeitedAt' | 'userTasks'
 > & {
   enrolledDate: string;
   completedAt?: string;
+  forfeitedAt?: string;
   userTasks: PseudoUserTaskListData[];
 };
 
@@ -30,6 +31,9 @@ const userChallengeDataMapper = (
     ...userChallenge,
     userTasks: userChallenge.userTasks.map(userTaskListDataMapper),
     enrolledDate: new Date(userChallenge.enrolledDate),
+    forfeitedAt: userChallenge.forfeitedAt
+      ? new Date(userChallenge.forfeitedAt)
+      : undefined,
     completedAt: userChallenge.completedAt
       ? new Date(userChallenge.completedAt)
       : undefined,
@@ -95,6 +99,14 @@ class UserChallengesAPI extends BaseAPI {
           data,
         },
       };
+    });
+  }
+
+  public forfeitUserChallenge(
+    userChallengeId: number
+  ): ApiPromise<UserChallengeListData[]> {
+    return this.patch(`${UserChallengesAPI.getUserChallengesUrl()}/forfeit`, {
+      id: userChallengeId,
     });
   }
 }
