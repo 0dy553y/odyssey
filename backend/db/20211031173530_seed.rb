@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+user_odyssey = User.find_by(username: 'odyssey')
+
+category_exercise = Category.find_by(title: 'Exercise')
+category_habits = Category.find_by(title: 'Habits')
+
 challenge_couch_desc = %(
   Couch to 5k is a fantastic program that's been designed to get just about anyone from the
   couch to running 5 kilometers or 30 minutes in just 9 weeks.
