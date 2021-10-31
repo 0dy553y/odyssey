@@ -74,7 +74,6 @@ const CategoryHeader: React.FC<CategoryHeaderProps> = (props) => {
         <Typography variant="h5">I want to...</Typography>
         <Typography variant="h1" sx={{ paddingBottom: '0.5em', fontFamily: 'Frock' }}>{heading}</Typography>
       </div>
-      {/* <img src={headerImage.default} className={`${classes.backgroundImage} ${title === 'Mindfulness' || title === 'Habits'? classes.lowerPosition : classes.defaultPosition}`}/> */}
       <img src={headerImage.default} className={`${classes.backgroundImage} ${getImageClass(title)}`}/>
     </Box>
   );
