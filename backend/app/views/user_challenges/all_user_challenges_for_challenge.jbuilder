@@ -5,6 +5,7 @@ json.data @user_challenges do |user_challenge|
   json.enrolledDate user_challenge.started_at
   json.percentCompleted user_challenge.percent_completed
   json.completedAt user_challenge.completed_at
+  json.forfeitedAt user_challenge.forfeited_at
   json.userTasks user_challenge.user_tasks do |user_task|
     json.id user_task.id
     json.completedAt user_task.completed_at

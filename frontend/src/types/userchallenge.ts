@@ -11,6 +11,7 @@ export interface UserChallengeData extends UserChallengeListData {
   userTasks: UserTaskListData[];
   schedule: Schedule;
   completedAt?: Date;
+  forfeitedAt?: Date;
 }
 
 export interface CompletedUserChallengeListData {
