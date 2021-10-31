@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
-import { Title } from '@mui/icons-material';
 
 const useStyles = makeStyles(() => ({
   backgroundImage: {
