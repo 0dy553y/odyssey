@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 challenge_couch_desc = %(
   Couch to 5k is a fantastic program that's been designed to get just about anyone from the
