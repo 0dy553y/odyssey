@@ -64,7 +64,7 @@ const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
       position={pos as any as Vector3}
       rotation={[0, getRotation(direction), 0]}
     >
-      <Html position={[1.5, 3, 0]}>
+      <Html position={[0, 3, 0]} center>
         <p style={{ color: 'white' }}>{username}</p>
       </Html>
       <Model

@@ -72,7 +72,11 @@ const BadgePage: React.FC = () => {
         Badges
       </Typography>
       <Box sx={{ height: '100%' }}>
-        <PrizeDisplay prizes={prizes} onPrizeOpen={onPrizeOpen} />
+        <PrizeDisplay
+          prizes={prizes}
+          onPrizeOpen={onPrizeOpen}
+          showName={!prizeOpenState.isOpen}
+        />
       </Box>
       <PrizeInfoModal
         isOpen={prizeOpenState.isOpen}

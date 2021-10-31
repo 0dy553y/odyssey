@@ -9,9 +9,14 @@ import { Html } from '@react-three/drei';
 interface PrizeDisplayProps {
   prizes: Prize[];
   onPrizeOpen: (p: Prize) => void;
+  showName: boolean;
 }
 
-const PrizeDisplay: React.FC<PrizeDisplayProps> = ({ prizes, onPrizeOpen }) => {
+const PrizeDisplay: React.FC<PrizeDisplayProps> = ({
+  prizes,
+  onPrizeOpen,
+  showName,
+}) => {
   const numPrizesInRow = 3;
   const prizePositions: Vector3[] = [];
   let base: Vector3 = [-4, 8, 0];
@@ -48,9 +53,13 @@ const PrizeDisplay: React.FC<PrizeDisplayProps> = ({ prizes, onPrizeOpen }) => {
                 modelPath={p.prizePath}
                 scale={1.5}
               />
-              <Html position={[-1, 0, 0]}>
-                <p>{p.prizeName}</p>
-              </Html>
+              {showName ? (
+                <Html position={[0, -0.8, 0]} center>
+                  <p>{p.prizeName}</p>
+                </Html>
+              ) : (
+                <></>
+              )}
             </group>
           );
         })}
