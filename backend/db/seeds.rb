@@ -14,6 +14,7 @@ User.create(username: 'unclesoo', display_name: 'Uncle Soo', password: 'password
 
 category_exercise = Category.create(title: 'Exercise')
 category_habits = Category.create(title: 'Habits')
+category_creative = Category.create(title: 'Creative')
 
 challenge_gratitude_desc = %(
   A gratitude journal encourages ourselves to pay attention to the good things in life we might otherwise take for

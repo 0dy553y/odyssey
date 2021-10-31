@@ -6,6 +6,8 @@ export const getHeadingFromCategory = (title: string): string => {
       return 'exercise more';
     case 'Habits':
       return 'pick up a habit';
+    case 'Creative':
+      return 'be more creative';
     default:
       return 'invalid category';
   }
