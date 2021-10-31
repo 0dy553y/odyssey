@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(version: 2021_10_30_183151) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "creator_id", default: 1, null: false
     t.integer "color", default: 0, null: false
-    t.string "original_creator", default: ""
-    t.string "link_to_reference", default: ""
+    t.string "original_creator"
+    t.string "link_to_reference"
     t.index ["category_id"], name: "index_challenges_on_category_id"
     t.index ["creator_id"], name: "index_challenges_on_creator_id"
   end
