@@ -12,7 +12,7 @@ import { styled } from '@mui/material/styles';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import CategoryHeader from '../../components/category/CategoryHeader';
 import CategoryListItem from '../../components/category/CategoryListItem';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import { RootState } from 'store';
 import { getCategory } from 'store/categories/selectors';
@@ -20,7 +20,7 @@ import { loadAllChallenges } from 'store/challenges/operations';
 import { loadCategory } from 'store/categories/operations';
 import { getChallengeList } from 'store/challenges/selectors';
 import { getHeadingFromCategory } from 'utils/naming';
-import { CATEGORY_ROUTE } from 'routing/routes';
+import { CHALLENGE_ROUTE } from 'routing/routes';
 import {
   loadAllOngoingUserChallenges,
   loadAllCompletedUserChallenges,
@@ -76,7 +76,7 @@ const StyledTab = styled((props: StyledTabProps) => (
   },
 }));
 
-const ExplorePage: React.FC = () => {
+const CategoryPage: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { categoryId } = useParams<{ categoryId: string }>();
@@ -92,10 +92,12 @@ const ExplorePage: React.FC = () => {
   )!;
 
   useEffect(() => {
-    dispatch(loadCategory(Number(categoryId)));
-    dispatch(loadAllChallenges());
-    dispatch(loadAllOngoingUserChallenges());
-    dispatch(loadAllCompletedUserChallenges());
+    batch(() => {
+      dispatch(loadCategory(Number(categoryId)));
+      dispatch(loadAllChallenges());
+      dispatch(loadAllOngoingUserChallenges());
+      dispatch(loadAllCompletedUserChallenges());
+    });
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -166,7 +168,7 @@ const ExplorePage: React.FC = () => {
               <li key={challenge.id}>
                 <Link
                   to={{
-                    pathname: `${CATEGORY_ROUTE}/${category.id}/${challenge.id}`,
+                    pathname: `${CHALLENGE_ROUTE}/${challenge.id}`,
                     state: { challenge: challenge },
                   }}
                   style={{ textDecoration: 'none' }}
@@ -189,4 +191,4 @@ const ExplorePage: React.FC = () => {
   );
 };
 
-export default ExplorePage;
+export default CategoryPage;

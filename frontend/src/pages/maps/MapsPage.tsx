@@ -5,7 +5,7 @@ import { getChallengeMaps } from 'store/challenges/selectors';
 import { useHistory, useParams } from 'react-router-dom';
 import MapCarousel from '../../components/map/MapCarousel';
 import { RootState } from 'store';
-import { AppBar, IconButton, Toolbar } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import { ChallengeMapData } from 'types/challenges';
 
@@ -44,10 +44,23 @@ const MapsPage: React.FC = () => {
           </div>
         </Toolbar>
       </AppBar>
-      <MapCarousel
-        maps={challengeMaps}
-        initialIndex={challengeIdToSwiperIndexMap[challengeId]}
-      />
+      <Box
+        sx={{
+          paddingBottom: '-2em',
+          position: 'relative',
+          margin: '0 -50vw -2em -50vw',
+          maxWidth: '100vw',
+          maxHeight: '55vh',
+          left: '50%',
+          right: '50%',
+          width: '100vw',
+        }}
+      >
+        <MapCarousel
+          maps={challengeMaps}
+          initialIndex={challengeIdToSwiperIndexMap[challengeId]}
+        />
+      </Box>
     </>
   );
 };

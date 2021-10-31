@@ -15,13 +15,13 @@ import {
   displayDateWithTimestamp,
   displayUsername,
 } from '../../utils/formatting';
-import { getDateFromNowString } from '../../utils/date';
 import { makeStyles } from '@mui/styles';
 import { useDispatch } from 'react-redux';
 import {
   acceptFriendRequest,
   rejectFriendRequest,
 } from '../../store/notifications/operations';
+import dayjs from 'dayjs';
 
 const useStyles = makeStyles((theme: Theme) => ({
   subtitle: {
@@ -77,7 +77,7 @@ const NotificationsListItem: React.FC<Props> = ({ friendRequest }: Props) => {
               variant="subtitle2"
               className={classes.subtitle}
             >
-              {getDateFromNowString(friendRequest.sentAt)}
+              {dayjs(friendRequest.sentAt).fromNow()}
             </Typography>
           </Tooltip>
         </Grid>

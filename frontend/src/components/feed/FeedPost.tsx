@@ -16,7 +16,7 @@ import { PostListData, ReactionEmoji, ReactionListData } from 'types/posts';
 import { displayDateWithTimestamp, displayUsername } from 'utils/formatting';
 import { ReactionChip } from './ReactionChip';
 import { ReactionPicker } from './ReactionPicker';
-import { CATEGORY_ROUTE } from 'routing/routes';
+import { CHALLENGE_ROUTE } from 'routing/routes';
 
 interface FeedPostProps {
   post: PostListData;
@@ -132,9 +132,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({
               if (!shouldLinkToChallenge) {
                 return;
               }
-              history.push(
-                `${CATEGORY_ROUTE}/${post.challenge.categoryId}/${post.challenge.id}`
-              );
+              history.push(`${CHALLENGE_ROUTE}/${post.challenge.id}`);
             }}
             style={{ textDecoration: 'none' }}
           >

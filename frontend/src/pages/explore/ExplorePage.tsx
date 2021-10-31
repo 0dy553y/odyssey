@@ -4,11 +4,11 @@ import Searchbar from '../../components/common/Searchbar';
 import CategoryPreview from '../../components/explore/CategoryPreview';
 import Typography from '@mui/material/Typography';
 import { getCategoryList } from 'store/categories/selectors';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
 import { Link } from 'react-router-dom';
 import { getHeadingFromCategory } from 'utils/naming';
-import { CATEGORY_ROUTE } from '../../routing/routes';
+import { CATEGORY_ROUTE, CHALLENGE_ROUTE } from '../../routing/routes';
 import CategoryListItem from '../../components/category/CategoryListItem';
 import { loadAllChallenges } from 'store/challenges/operations';
 import { getChallengeList } from 'store/challenges/selectors';
@@ -32,9 +32,11 @@ const ExplorePage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    dispatch(loadAllChallenges());
-    dispatch(loadAllOngoingUserChallenges());
-    dispatch(loadAllCompletedUserChallenges());
+    batch(() => {
+      dispatch(loadAllChallenges());
+      dispatch(loadAllOngoingUserChallenges());
+      dispatch(loadAllCompletedUserChallenges());
+    });
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -65,7 +67,7 @@ const ExplorePage: React.FC = () => {
         <li key={challenge.id}>
           <Link
             to={{
-              pathname: `${CATEGORY_ROUTE}/${challenge.categoryId}/${challenge.id}`,
+              pathname: `${CHALLENGE_ROUTE}/${challenge.id}`,
               state: { challenge: challenge },
             }}
             style={{ textDecoration: 'none' }}

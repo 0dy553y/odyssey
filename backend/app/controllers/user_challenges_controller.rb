@@ -16,4 +16,11 @@ class UserChallengesController < ApplicationController
   def all_completed_challenges
     @user_challenges = user.user_challenges.completed
   end
+
+  def forfeit
+    user_challenge = UserChallenge.find(params.require(:id))
+    user_challenge.update!(forfeited_at: Time.zone.now)
+
+    render 'layouts/empty', status: :ok
+  end
 end

@@ -1,10 +1,11 @@
+import produce from 'immer';
 import {
   FriendActions,
   FriendsState,
   REMOVE_FRIEND,
+  RESET_FRIENDS,
   SAVE_FRIEND_LIST,
 } from './types';
-import produce from 'immer';
 
 const initialState: FriendsState = {
   friendList: [],
@@ -20,6 +21,10 @@ const friendsReducer = produce((draft: FriendsState, action: FriendActions) => {
       draft.friendList = draft.friendList.filter(
         (friend) => friend.id !== action.friendId
       );
+      break;
+    }
+    case RESET_FRIENDS: {
+      draft.friendList = [];
       break;
     }
   }
