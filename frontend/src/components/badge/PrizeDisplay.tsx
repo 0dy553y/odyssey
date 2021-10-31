@@ -1,14 +1,17 @@
 import React, { Suspense } from 'react';
 import { Canvas, Vector3 } from '@react-three/fiber';
-import Prize from 'components/map/composite/Prize';
-import { Box, OrbitControls } from '@react-three/drei';
+import PrizeModel from 'components/map/composite/Prize';
 import { translate } from 'utils/map';
 import { Axis } from 'types/map';
+import { Prize } from 'types/prize';
+import { Html } from '@react-three/drei';
 
 interface PrizeDisplayProps {
-  prizes: string[];
+  prizes: Prize[];
+  onPrizeOpen: (p: Prize) => void;
 }
-const PrizeDisplay: React.FC<PrizeDisplayProps> = ({ prizes }) => {
+
+const PrizeDisplay: React.FC<PrizeDisplayProps> = ({ prizes, onPrizeOpen }) => {
   const numPrizesInRow = 3;
   const prizePositions: Vector3[] = [];
   let base: Vector3 = [-4, 8, 0];
@@ -29,26 +32,28 @@ const PrizeDisplay: React.FC<PrizeDisplayProps> = ({ prizes }) => {
   return (
     <Suspense fallback="<div/>">
       <Canvas camera={{ zoom: 30 }} orthographic={true}>
-        <axesHelper />
-        <directionalLight castShadow position={[0, 10, 0]} intensity={1.5} />
-        <directionalLight castShadow position={[10, 0, 0]} intensity={0.3} />
-        <directionalLight castShadow position={[-10, 0, 0]} intensity={0.2} />
-        <directionalLight castShadow position={[0, 0, 10]} intensity={0.4} />
+        <ambientLight intensity={0.5} />
 
-        {prizePositions.length === prizes.length ? (
-          prizes.map((prizePath: string, index: number) => {
-            return (
-              <Prize
-                key={`${prizePath}${index}`}
-                position={prizePositions[index]}
-                modelPath={prizePath}
+        {prizes.map((p: Prize, index: number) => {
+          return (
+            <group
+              key={`${p.prizeName}${index}`}
+              onClick={() => {
+                onPrizeOpen(p);
+              }}
+              position={prizePositions[index]}
+            >
+              <PrizeModel
+                position={[0, 0, 0]}
+                modelPath={p.prizePath}
                 scale={1.5}
               />
-            );
-          })
-        ) : (
-          <></>
-        )}
+              <Html position={[-1, 0, 0]}>
+                <p>{p.prizeName}</p>
+              </Html>
+            </group>
+          );
+        })}
       </Canvas>
     </Suspense>
   );
