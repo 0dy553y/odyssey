@@ -108,17 +108,17 @@ Task.create(challenge_id: challenge_couch.id,
             index: 5)
 Task.create(challenge_id: challenge_couch.id,
             name: 'Week 3',
-            description: 'Begin with a brisk 5 min walk, then 2 repitions of 1.5 min of running,
+            description: 'Begin with a brisk 5 min walk, then 2 repetitions of 1.5 min of running,
             1.5 min of walking, 3 min of running and 3 min of walking',
             index: 6)
 Task.create(challenge_id: challenge_couch.id,
             name: 'Week 3',
-            description: 'Begin with a brisk 5 min walk, then 2 repitions of 1.5 min of running,
+            description: 'Begin with a brisk 5 min walk, then 2 repetitions of 1.5 min of running,
             1.5 min of walking, 3 min of running and 3 min of walking',
             index: 7)
 Task.create(challenge_id: challenge_couch.id,
             name: 'Week 3',
-            description: 'Begin with a brisk 5 min walk, then 2 repitions of 1.5 min of running,
+            description: 'Begin with a brisk 5 min walk, then 2 repetitions of 1.5 min of running,
             1.5 min of walking, 3 min of running and 3 min of walking',
             index: 8)
 Task.create(challenge_id: challenge_couch.id,
