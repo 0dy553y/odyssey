@@ -11,9 +11,9 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
     display: 'block',
     objectFit: 'cover',
-    objectPosition: '100% 30%',
+    objectPosition: '100% 40%',
     borderRadius: '2em',
-    height: '14em',
+    height: '16em',
   },
   gradient: {
     display: 'inline-block',
@@ -47,7 +47,7 @@ const CategoryPreview: React.FC<CategoryPreviewProps> = (props) => {
       className={classes.gradient}
       sx={{
         width: '100%',
-        height: '14em',
+        height: '16em',
         borderRadius: '2em',
         margin: '0 0 1em 0',
         position: 'relative',

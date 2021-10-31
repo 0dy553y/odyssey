@@ -5,9 +5,11 @@ export const getHeadingFromCategory = (title: string): string => {
     case 'Exercise':
       return 'exercise more';
     case 'Habits':
-      return 'pick up a habit';
-    case 'Creative':
+      return 'improve my daily lifestyle';
+    case 'Creativity':
       return 'be more creative';
+    case 'Mindfulness':
+      return 'be more mindful';
     default:
       return 'invalid category';
   }
