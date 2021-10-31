@@ -2,9 +2,10 @@ import React from 'react';
 import { Button, TextField, Link, Grid, Box, Typography } from '@mui/material';
 import { LOGIN_ROUTE } from 'routing/routes';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from 'store/auth/operations';
 import { useForm, Controller } from 'react-hook-form';
+import { getRedirectUrl } from '../../store/auth/selectors';
 
 interface RegistrationFormState {
   username: string;
@@ -22,14 +23,19 @@ const RegistrationPage: React.FC = () => {
     handleSubmit,
     getValues,
   } = useForm<RegistrationFormState>();
+  const redirectUrl = useSelector(getRedirectUrl);
 
   const onSubmit = handleSubmit((data: RegistrationFormState) => {
     const displayName = data.displayName;
     dispatch(
-      registerUser({
-        ...data,
-        displayName: displayName.length !== 0 ? displayName : undefined,
-      })
+      registerUser(
+        {
+          ...data,
+          displayName: displayName.length !== 0 ? displayName : undefined,
+        },
+        history,
+        redirectUrl
+      )
     );
   });
 

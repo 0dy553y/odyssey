@@ -3,8 +3,9 @@ import { Button, Box, TextField, Link, Grid, Typography } from '@mui/material';
 import { REGISTER_ROUTE } from 'routing/routes';
 import { useHistory } from 'react-router-dom';
 import { login } from 'store/auth/operations';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
+import { getRedirectUrl } from '../../store/auth/selectors';
 
 interface LoginFormState {
   username: string;
@@ -19,9 +20,10 @@ const LoginPage: React.FC = () => {
     formState: { errors },
     handleSubmit,
   } = useForm<LoginFormState>();
+  const redirectUrl = useSelector(getRedirectUrl);
 
   const onSubmit = handleSubmit((data: LoginFormState) =>
-    dispatch(login({ ...data }))
+    dispatch(login({ ...data }, history, redirectUrl))
   );
 
   return (

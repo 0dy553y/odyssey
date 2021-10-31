@@ -1,3 +1,4 @@
+import { History } from 'history';
 import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -18,17 +19,30 @@ import {
 } from '../../types/auth';
 import { OperationResult } from '../../types/store';
 import { RootState } from '../index';
-import { resetAuth, setIsValidatingToken, setUser } from './actions';
+import {
+  resetAuth,
+  resetRedirectUrl,
+  setIsValidatingToken,
+  setUser,
+} from './actions';
+import { HOME_ROUTE } from '../../routing/routes';
 
-export function login(loginData: LoginData): OperationResult {
+export function login(
+  loginData: LoginData,
+  history: History,
+  redirectUrl: string | null
+): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    await withStatusMessages(dispatch, api.auth.login(loginData)).then(
-      (response) => {
+    await withStatusMessages(dispatch, api.auth.login(loginData))
+      .then((response) => {
         const userData: UserData = response.payload.data;
         dispatch(setUser(userData));
         dispatch(loadAllCategories());
-      }
-    );
+      })
+      .then(() => {
+        history.push(redirectUrl ?? HOME_ROUTE);
+        dispatch(resetRedirectUrl());
+      });
   };
 }
 
@@ -49,13 +63,17 @@ export function logout(): OperationResult {
   };
 }
 
-export function registerUser(registerData: RegisterData): OperationResult {
+export function registerUser(
+  registerData: RegisterData,
+  history: History,
+  redirectUrl: string | null
+): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     await withStatusMessages(
       dispatch,
       api.auth.registerUser(registerData)
     ).then(() => {
-      dispatch(login({ ...registerData }));
+      dispatch(login({ ...registerData }, history, redirectUrl));
     });
   };
 }
