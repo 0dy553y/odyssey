@@ -105,7 +105,7 @@ const ExplorePage: React.FC = () => {
         <>
           <Typography
             variant="h6"
-            sx={{ fontStyle: 'italic', paddingBottom: '1em' }}
+            sx={{ fontStyle: 'italic', paddingBottom: '2em' }}
           >
             I want to...
           </Typography>

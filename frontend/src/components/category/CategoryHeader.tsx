@@ -13,7 +13,6 @@ const useStyles = makeStyles(() => ({
     display: 'block',
     borderRadius: '0 0 5vh 5vh',
     objectFit: 'cover',
-    objectPosition: '20% 30%',
   },
   gradient: {
     display: 'inline-block',
@@ -27,6 +26,12 @@ const useStyles = makeStyles(() => ({
     bottom: '0',
     paddingLeft: '2em',
   },
+  lowerPosition: {
+    objectPosition: '20% 60%',
+  },
+  defaultPosition: {
+    objectPosition: '20% 30%',
+  },
 }));
 
 interface CategoryHeaderProps {
@@ -35,10 +40,21 @@ interface CategoryHeaderProps {
 }
 
 const CategoryHeader: React.FC<CategoryHeaderProps> = (props) => {
-  const classes = useStyles();
   const { title, heading } = props;
+  const classes = useStyles(title);
+
   /* eslint-disable */
   const headerImage = require('../../assets/images/' + title.toLowerCase() + '.png');
+
+  const getImageClass = (title: string): string => {
+    switch (title) {
+      case 'Mindfulness':
+      case 'Habits':
+        return 'classes.lowerPosition';
+      default:
+        return 'classes.defaultPosition';
+    }
+  };
 
   return (
     <Box
@@ -58,7 +74,7 @@ const CategoryHeader: React.FC<CategoryHeaderProps> = (props) => {
         <Typography variant="h5">I want to...</Typography>
         <Typography variant="h1" sx={{ paddingBottom: '0.5em', fontFamily: 'Frock' }}>{heading}</Typography>
       </div>
-      <img src={headerImage.default} className={classes.backgroundImage} />
+      <img src={headerImage.default} className={`${classes.backgroundImage} ${getImageClass(title)}`}/>
     </Box>
   );
 };
