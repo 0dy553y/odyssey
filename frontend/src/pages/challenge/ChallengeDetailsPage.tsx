@@ -16,6 +16,7 @@ import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import { getUser } from 'store/auth/selectors';
 import { loadPostsForChallenge } from 'store/posts/operations';
 import { getChallengePostList } from 'store/posts/selectors';
+import ConfirmationModal from 'components/common/ConfirmationModal';
 
 const useStyles = makeStyles(() => ({
   joinButton: {
@@ -65,6 +66,9 @@ const ChallengeDetailsPage: React.FC = () => {
   const handleMenuClose = () => {
     setMenuAnchorEl(null);
   };
+
+  const [isForfeitConfirmationModalOpen, setIsForfeitConfirmationModalOpen] =
+    useState<boolean>(false);
 
   useEffect(() => {
     batch(() => {
@@ -136,7 +140,8 @@ const ChallengeDetailsPage: React.FC = () => {
           >
             <MenuItem
               onClick={() => {
-                console.log('Forfeit Challenge');
+                setIsForfeitConfirmationModalOpen(true);
+                handleMenuClose();
               }}
             >
               Forfeit Challenge
@@ -151,6 +156,14 @@ const ChallengeDetailsPage: React.FC = () => {
         tasks={tasks}
         currentUser={user}
         posts={posts}
+      />
+
+      <ConfirmationModal
+        title="Forfeit challenge"
+        message="Are you sure? All your existing progress will be gone"
+        isOpen={isForfeitConfirmationModalOpen}
+        onConfirm={() => console.log('TODO: confirm')}
+        onCancel={() => console.log('TODO: cancel')}
       />
     </Box>
   );
