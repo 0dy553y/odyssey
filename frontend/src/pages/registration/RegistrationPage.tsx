@@ -26,13 +26,10 @@ const RegistrationPage: React.FC = () => {
   const onSubmit = handleSubmit((data: RegistrationFormState) => {
     const displayName = data.displayName;
     dispatch(
-      registerUser(
-        {
-          ...data,
-          displayName: displayName.length !== 0 ? displayName : undefined,
-        },
-        history
-      )
+      registerUser({
+        ...data,
+        displayName: displayName.length !== 0 ? displayName : undefined,
+      })
     );
   });
 

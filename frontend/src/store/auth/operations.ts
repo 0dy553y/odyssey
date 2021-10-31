@@ -1,8 +1,6 @@
-import { History } from 'history';
 import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { HOME_ROUTE, LOGIN_ROUTE } from 'routing/routes';
 import { loadAllCategories } from 'store/categories/operations';
 import { resetFriends } from 'store/friends/actions';
 import { resetNotifications } from 'store/notifications/actions';
@@ -22,20 +20,19 @@ import { OperationResult } from '../../types/store';
 import { RootState } from '../index';
 import { resetAuth, setIsValidatingToken, setUser } from './actions';
 
-export function login(loginData: LoginData, history: History): OperationResult {
+export function login(loginData: LoginData): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     await withStatusMessages(dispatch, api.auth.login(loginData)).then(
       (response) => {
         const userData: UserData = response.payload.data;
         dispatch(setUser(userData));
         dispatch(loadAllCategories());
-        history.push(HOME_ROUTE);
       }
     );
   };
 }
 
-export function logout(history: History): OperationResult {
+export function logout(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     await withStatusMessages(dispatch, api.auth.logout()).then(() => {
       batch(() => {
@@ -48,21 +45,17 @@ export function logout(history: History): OperationResult {
         dispatch(resetFriends());
         dispatch(resetNotifications());
       });
-      history.push(LOGIN_ROUTE);
     });
   };
 }
 
-export function registerUser(
-  registerData: RegisterData,
-  history: History
-): OperationResult {
+export function registerUser(registerData: RegisterData): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     await withStatusMessages(
       dispatch,
       api.auth.registerUser(registerData)
     ).then(() => {
-      dispatch(login({ ...registerData }, history));
+      dispatch(login({ ...registerData }));
     });
   };
 }
@@ -83,16 +76,12 @@ export function validateToken(): OperationResult {
   };
 }
 
-export function updateUser(
-  userPutData: UserPutData,
-  history: History
-): OperationResult {
+export function updateUser(userPutData: UserPutData): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     await withStatusMessages(dispatch, api.auth.editUser(userPutData)).then(
       (resp) => {
         const userData: UserData = resp.payload.data;
         dispatch(setUser(userData));
-        history.goBack();
       }
     );
   };
