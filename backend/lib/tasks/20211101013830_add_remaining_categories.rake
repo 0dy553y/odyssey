@@ -7,3 +7,4 @@ task add_remaining_categories: :environment do
     category_mindfulness = Category.create(title: 'Mindfulness')
     category_productivity = Category.create(title: 'Productivity')
 end
+# rubocop:enable all
