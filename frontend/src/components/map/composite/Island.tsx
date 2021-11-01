@@ -25,16 +25,19 @@ const Island: React.FC<IslandProps & Color> = ({ ladderHeight = 1 }) => {
   return (
     <animated.group position={pos as any as Vector3}>
       {buildRepeated({
-        buildBlock: (key: number, position: Vector3) =>
-          buildRepeated({
-            buildBlock: (key: number, position: Vector3) => (
-              <Box key={key} position={position} />
-            ),
-            base: position,
-            height: 2,
-            width: 3,
-            repeatDirection: Direction.RIGHT,
-          }),
+        buildBlock: (keyBlock: number, position: Vector3) => (
+          <group key={keyBlock}>
+            {buildRepeated({
+              buildBlock: (key: number, position: Vector3) => (
+                <Box key={key} position={position} />
+              ),
+              base: position,
+              height: 2,
+              width: 3,
+              repeatDirection: Direction.RIGHT,
+            })}
+          </group>
+        ),
         base: [0, -2, 0],
         height: 1,
         width: 3,
@@ -42,7 +45,7 @@ const Island: React.FC<IslandProps & Color> = ({ ladderHeight = 1 }) => {
       })}
       {buildRepeated({
         buildBlock: (key: number, position: Vector3) => (
-          <Ladder position={position} direction={Direction.RIGHT} />
+          <Ladder key={key} position={position} direction={Direction.RIGHT} />
         ),
         base: [-1, 0, 0],
         height: ladderHeight,
