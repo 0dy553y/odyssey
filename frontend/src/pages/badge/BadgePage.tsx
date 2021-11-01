@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadAllCompletedUserChallenges } from 'store/userchallenges/operations';
 import { getAllCompletedUserChallenges } from 'store/userchallenges/selectors';
@@ -20,6 +20,7 @@ interface PrizeOpenState {
 const BadgePage: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { username } = useParams<{ username: string | undefined }>();
 
   const [prizeOpenState, setPrizeOpenState] = useReducer(
     (state: PrizeOpenState, newState: Partial<PrizeOpenState>) => ({
@@ -40,7 +41,7 @@ const BadgePage: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(loadAllCompletedUserChallenges());
+    dispatch(loadAllCompletedUserChallenges(username));
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
