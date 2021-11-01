@@ -142,7 +142,11 @@ const ProfilePage: React.FC = () => {
         }
       },
     },
-    { label: 'badges', count: 0, onClick: () => history.push(BADGE_ROUTE) },
+    {
+      label: 'badges',
+      count: completedChallenges.length,
+      onClick: () => history.push(BADGE_ROUTE),
+    },
   ];
 
   const [menuAnchorEl, setMenuAnchorEl] = React.useState<null | HTMLElement>(
