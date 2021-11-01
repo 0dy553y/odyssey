@@ -73,8 +73,20 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
     },
   }));
 
+  const zoomBreakpoints = [
+    // numSteps, zoomFactor
+    [20, 15],
+    [6, 18],
+    [5, 25],
+    [4, 30],
+    [3, 40],
+    [0, 45],
+  ];
   const d = 35;
-  const cameraZoom = 45 - numSteps * 1.5;
+  const myBp = zoomBreakpoints.find((a) => {
+    return a[0] < numSteps;
+  });
+  const cameraZoom = myBp ? myBp[1] : 45;
 
   return (
     <Suspense fallback={<div />}>
@@ -154,7 +166,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
           hasEventListener={undefined}
           removeEventListener={undefined}
           dispatchEvent={undefined}
-          minZoom={cameraZoom - 20}
+          minZoom={cameraZoom - 8}
         />
         <Stars factor={10} radius={60 - cameraZoom} saturation={1} fade />
       </Canvas>
