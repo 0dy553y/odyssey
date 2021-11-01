@@ -2,9 +2,8 @@ import React from 'react';
 import { Box, Typography, InputBase, Button, Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import obebebe from '../../assets/gifs/obebebe.gif';
-import { useDispatch } from 'react-redux';
-import { useForm, Controller } from 'react-hook-form';
-import { registerEmail } from 'store/landingemails/operations';
+import { useHistory } from 'react-router-dom';
+import { ONBOARDING_ROUTE } from 'routing/routes';
 
 const useStyles = makeStyles(() => ({
   landingHeader: {
@@ -63,22 +62,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-interface EarlyAccessFormState {
-  email: string;
-}
-
 const EmailBar: React.FC = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<EarlyAccessFormState>();
-
-  const onSubmit = handleSubmit((data: EarlyAccessFormState) =>
-    dispatch(registerEmail({ ...data }))
-  );
+  const history = useHistory();
 
   return (
     <Box className={classes.landingHeader} id="form">
@@ -92,46 +78,26 @@ const EmailBar: React.FC = () => {
             Don&apos;t miss out on our takeoff 🚀
           </Typography>
           <Typography className={classes.cta}>
-            Odyssey will be ready very soon. Join us for early access and keep
-            up with updates and our release!
+            A beta release of Odyssey is now available! Join us for an
+            experience that is out of this world.
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={onSubmit}
-            className={classes.emailField}
+          <Button
+            sx={{
+              backgroundColor: 'rgba(0, 0, 0, 1)',
+              borderRadius: '1em',
+              color: 'white',
+              padding: '0.8em 1em 0.8em 1em',
+              marginTop: '2.2em',
+              '&:hover': {
+                backgroundColor: 'rgba(0, 0, 0, 1)',
+              },
+            }}
+            onClick={() => {
+              history.push(ONBOARDING_ROUTE);
+            }}
           >
-            <Controller
-              name="email"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: 'Email is required!',
-                pattern: {
-                  value: /.+@.+\..+/,
-                  message: 'Please enter a valid email format.',
-                },
-              }}
-              render={({ field }) => (
-                <InputBase
-                  {...field}
-                  required
-                  className={classes.emailInput}
-                  placeholder="Your email"
-                  error={!!errors.email}
-                ></InputBase>
-              )}
-            />
-            <Button type="submit" className={classes.emailButton}>
-              Join
-            </Button>
-            <br style={{ clear: 'both' }} />
-            <br style={{ clear: 'both' }} />
-            <br style={{ clear: 'both' }} />
-          </Box>
-          <Typography className={classes.cta}>
-            {errors.email?.message}
-          </Typography>
+            Sign up now
+          </Button>
         </Box>
       </Stack>
     </Box>
