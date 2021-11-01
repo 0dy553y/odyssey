@@ -2,11 +2,11 @@ import { Prize } from 'types/prize';
 
 // Please help name, I have no creativity.
 export const prizes: Prize[] = [
-  {
-    prizeName: 'Talaria',
-    prizePath: 'shoe.vox',
-    challengeName: 'Walking',
-  },
+  // {
+  //   prizeName: 'Talaria',
+  //   prizePath: 'shoe.vox',
+  //   challengeName: 'Walking',
+  // },
   {
     prizeName: 'Journal',
     prizePath: 'journal.vox',
@@ -50,5 +50,13 @@ export function getPrize(challengeName: string): Prize {
   const prize = prizes.filter(
     (p: Prize) => p.challengeName === challengeName
   )[0];
-  return prize;
+  if (prize) {
+    return prize;
+  } else {
+    return {
+      challengeName: challengeName,
+      prizePath: 'trophy',
+      prizeName: `${challengeName} Trophy`,
+    };
+  }
 }
