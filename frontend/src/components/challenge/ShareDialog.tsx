@@ -51,7 +51,7 @@ const ShareDialog: React.FC<Props> = ({
     <Dialog open={isOpen} onClose={onClose} fullWidth maxWidth="xs">
       <DialogTitle>Invite your friends!</DialogTitle>
       <DialogContent>
-        <CopyTextField text={url} />
+        <CopyTextField text={url} textDescription="challenge link" />
         <div className={classes.shareContainer}>
           <FacebookShareButton url={url} quote={message} hashtag={hashtag}>
             <FacebookIcon size={iconSize} round={isIconRound} />
