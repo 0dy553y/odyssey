@@ -28,20 +28,6 @@ const useStyles = makeStyles(() => ({
     bottom: '0',
     paddingLeft: '2em',
   },
-  lowerPosition: {
-    objectPosition: '20% 60%',
-  },
-  defaultPosition: {
-    flexShrink: 0,
-    width: '100%',
-    maxHeight: '55vh',
-    zIndex: -1,
-    position: 'relative',
-    display: 'block',
-    borderRadius: '0 0 5vh 5vh',
-    objectFit: 'cover',
-    objectPosition: '20% 30%',
-  },
 }));
 
 interface CategoryHeaderProps {
