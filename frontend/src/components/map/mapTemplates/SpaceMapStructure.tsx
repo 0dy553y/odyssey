@@ -16,13 +16,13 @@ import {
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionACW } from '../../../utils/direction';
 import Prize from '../composite/Prize';
-
 interface MapProps {
   numSteps: number;
   currentStep: number;
   width: number;
   widthIncrement: number;
   heightIncrement: number;
+  prizePath: string;
   onMapMounted: (pos: DirectionPosition[]) => void;
 }
 
@@ -33,6 +33,7 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
     width,
     widthIncrement,
     heightIncrement,
+    prizePath,
     onMapMounted,
   } = props;
   const numStages = Math.floor(numSteps / width);
@@ -78,7 +79,7 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
       widthIncrement
     );
     stepPositions.push({ pos: finalPosition, direction: currentDirection });
-    return <Prize position={finalPosition} />;
+    return <Prize position={finalPosition} modelPath={prizePath} />;
   };
 
   return (

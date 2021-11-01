@@ -8,6 +8,7 @@
 // any syntax that is not yet supported by your targeted browsers.
 
 window.env = {
+  BASE_CLIENT_URL: 'http://localhost:8000',
   BASE_SERVER_URL: 'http://localhost:3000/api/v1',
   GOOGLE_ANALYTICS_ID: '',
 };

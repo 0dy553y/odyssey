@@ -16,6 +16,7 @@ import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionCW } from 'utils/direction';
 import { translate } from 'utils/map';
 import { ChallengeMapData } from 'types/challenges';
+import { getPrizePath } from 'utils/prizes';
 
 interface MapProps {
   mapData: ChallengeMapData;
@@ -107,6 +108,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
           width={width}
           widthIncrement={widthIncrement}
           heightIncrement={heightIncrement}
+          prizePath={getPrizePath(challengeName)}
           onMapMounted={(stepPositions) => {
             setStepPositions(stepPositions);
             setCharPosition(stepPositions[currentStep - 1]);

@@ -29,6 +29,9 @@ const useStyles = makeStyles(() => ({
   overdue: { color: '#d1476a' },
   future: { color: '#4b55e3' },
   today: { color: '#0a943f' },
+  displayLineBreak: {
+    whiteSpace: 'pre-line',
+  },
 }));
 
 const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
@@ -120,7 +123,9 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
             </TimelineSeparator>
             <TimelineContent>
               <Typography>{t.name}</Typography>
-              <Typography>{t.description} </Typography>
+              <Typography className={classes.displayLineBreak}>
+                {t.description}
+              </Typography>
             </TimelineContent>
           </TimelineItem>
         ))}

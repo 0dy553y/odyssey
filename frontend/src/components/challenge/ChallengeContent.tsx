@@ -30,6 +30,7 @@ import {
   removeReactionFromPost,
 } from 'store/posts/operations';
 import { PostListData, ReactionEmoji } from 'types/posts';
+import ShareDialog from './ShareDialog';
 
 const useStyles = makeStyles((theme: Theme) => ({
   contentContainer: {
@@ -182,6 +183,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
 
   const [isScheduleModalOpen, setIsScheduleModalOpen] =
     useState<boolean>(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [challengeCompletedModalState, setChallengeCompletedModalState] =
     useReducer(
       (
@@ -349,6 +351,26 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                       dispatch(joinChallenge(Number(challengeId), schedule));
                       setIsScheduleModalOpen(false);
                     }}
+                  />
+                </>
+              )}
+              {isEnrolled && (
+                <>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    disableElevation
+                    className={classes.joinButton}
+                    onClick={() => setIsShareModalOpen(true)}
+                  >
+                    <Typography variant="body1">
+                      Invite Your Friends!
+                    </Typography>
+                  </Button>
+                  <ShareDialog
+                    isOpen={isShareModalOpen}
+                    onClose={() => setIsShareModalOpen(false)}
+                    challenge={challenge}
                   />
                 </>
               )}

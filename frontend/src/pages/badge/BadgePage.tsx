@@ -1,12 +1,62 @@
-import React from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadAllCompletedUserChallenges } from 'store/userchallenges/operations';
+import { getAllCompletedUserChallenges } from 'store/userchallenges/selectors';
+import { RootState } from 'store';
+import PrizeDisplay from 'components/badge/PrizeDisplay';
+import PrizeInfoModal from 'components/badge/PrizeInfoModal';
+import { CompletedUserChallengeListData } from 'types/userchallenge';
+import { getPrize } from 'utils/prizes';
+import { Prize } from 'types/prize';
+
+interface PrizeOpenState {
+  isOpen: boolean;
+  prize: Prize;
+}
 
 const BadgePage: React.FC = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const { username } = useParams<{ username: string | undefined }>();
+
+  const [prizeOpenState, setPrizeOpenState] = useReducer(
+    (state: PrizeOpenState, newState: Partial<PrizeOpenState>) => ({
+      ...state,
+      ...newState,
+    }),
+    {
+      isOpen: false,
+      prize: { prizeName: '', prizePath: '', challengeName: '' },
+    }
+  );
+
+  const onPrizeOpen = (openedPrize: Prize) => {
+    setPrizeOpenState({
+      prize: openedPrize,
+      isOpen: true,
+    });
+  };
+
+  useEffect(() => {
+    dispatch(loadAllCompletedUserChallenges(username));
+  }, []);
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const completedChallenges = useSelector((state: RootState) =>
+    getAllCompletedUserChallenges(state)
+  )!;
+
+  const prizes: Prize[] = completedChallenges.map(
+    (challenge: CompletedUserChallengeListData) => {
+      return getPrize(challenge.challengeName);
+    }
+  );
+
   return (
-    <Box sx={{ padding: '2em 1.5em 0 1.5em' }}>
+    <Box sx={{ padding: '2em 1.5em 0 1.5em', height: '100%' }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -23,7 +73,25 @@ const BadgePage: React.FC = () => {
         Badges
       </Typography>
 
-      <Typography variant="body1">Coming soon :-)</Typography>
+      {prizes.length === 0 && (
+        <Typography variant="body1" className="no-results-message">
+          Nothing here yet &#128584;
+        </Typography>
+      )}
+      <Box sx={{ height: '100%' }}>
+        <PrizeDisplay
+          prizes={prizes}
+          onPrizeOpen={onPrizeOpen}
+          showName={!prizeOpenState.isOpen}
+        />
+      </Box>
+      <PrizeInfoModal
+        isOpen={prizeOpenState.isOpen}
+        onClose={() => {
+          setPrizeOpenState({ isOpen: false });
+        }}
+        prize={prizeOpenState.prize}
+      />
     </Box>
   );
 };

@@ -142,7 +142,17 @@ const ProfilePage: React.FC = () => {
         }
       },
     },
-    { label: 'badges', count: 0, onClick: () => history.push(BADGE_ROUTE) },
+    {
+      label: completedChallenges.length === 1 ? 'badge' : 'badges',
+      count: completedChallenges.length,
+      onClick: () => {
+        if (isOwnProfilePage) {
+          history.push(BADGE_ROUTE);
+        } else {
+          history.push(`${BADGE_ROUTE}/${username}`);
+        }
+      },
+    },
   ];
 
   const [menuAnchorEl, setMenuAnchorEl] = React.useState<null | HTMLElement>(

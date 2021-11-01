@@ -17,5 +17,6 @@ export interface UserChallengeData extends UserChallengeListData {
 
 export interface CompletedUserChallengeListData {
   challengeId: number;
+  challengeName: string;
   completedAt: Date;
 }
