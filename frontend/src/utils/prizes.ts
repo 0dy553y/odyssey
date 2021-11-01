@@ -27,6 +27,11 @@ export const prizes: Prize[] = [
     prizePath: '3216.vox',
     challengeName: 'CS3216',
   },
+  {
+    prizeName: 'LEGO',
+    prizePath: 'lego.vox',
+    challengeName: 'LEGO',
+  },
 ];
 
 export function getPrizePath(challengeName: string): string {
