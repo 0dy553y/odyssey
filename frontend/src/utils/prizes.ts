@@ -12,6 +12,21 @@ export const prizes: Prize[] = [
     prizePath: 'journal.vox',
     challengeName: 'Gratitude Journaling',
   },
+  {
+    prizeName: 'Moon Cheese',
+    prizePath: 'moon_cheese.vox',
+    challengeName: 'Healthy Eating',
+  },
+  {
+    prizeName: 'Brick Phone',
+    prizePath: 'brick_phone.vox',
+    challengeName: 'Social Media Detox',
+  },
+  {
+    prizeName: 'CS3216',
+    prizePath: '3216.vox',
+    challengeName: 'CS3216',
+  },
 ];
 
 export function getPrizePath(challengeName: string): string {
