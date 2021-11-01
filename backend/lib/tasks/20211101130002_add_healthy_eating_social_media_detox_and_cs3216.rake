@@ -2,7 +2,7 @@
 # rubocop:disable all
 
 desc 'Add Healthy Eating challenge, Social Media Detox challenge, and CS3216 challenge'
-task add_pull_up_music_production_and_squat: :environment do
+task add_healthy_eating_social_media_detox_and_cs3216: :environment do
   user_odyssey = User.find_by(username: 'odyssey')
 
   category_exercise = Category.find_by(title: 'Exercise')
@@ -275,6 +275,93 @@ task add_pull_up_music_production_and_squat: :environment do
                 name: 'Day 30',
                 description: 'No phone for the entire day',
                 index: 29)
+
+    challenge_cs3216_desc = 'Planning on taking CS3216 - Software Product Engineering for Digital Markets? Unsure of whether you have what it takes to survive the module? Fret not, for this challenge was made to ease you into CS3216. You will build a mobile cloud application just like in Assignment 3 of CS3216.'
+    challenge_cs3216 = Challenge.create(category_id: category_productivity.id,
+                                        name: 'CS3216',
+                                        description: challenge_cs3216_desc,
+                                        duration: 19,
+                                        schedule: 'Every day for 3 weeks',
+                                        creator_id: user_odyssey.id,
+                                        color: 5,
+                                        original_creator: 'Uncle Soo',
+                                        link_to_reference: 'https://cs3216.com/coursework/mobile')
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 0',
+                description: 'Describe the problem that your application solves.',
+                index: 0)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 1',
+                description: "Describe your application and explain how you intend to exploit the characteristics of mobile cloud computing to achieve your application's objectives, i.e. why does it make the most sense to implement your application as a mobile cloud application?",
+                index: 1)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 2',
+                description: 'Describe your target users. Explain how you plan to promote your application to attract your target users.',
+                index: 2)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 3',
+                description: 'Draw an Entity-Relationship diagram for your database schema.',
+                index: 3)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 4',
+                description: 'Explore one alternative to REST API (may or may not be from the list above). Give a comparison of the chosen alternative against REST (pros and cons, the context of use, etc.). Between REST and your chosen alternative, identify which might be more appropriate for the application you are building for this project. Explain your choice.',
+                index: 4)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 5',
+                description: 'Design and document all your REST API. If you already use Apiary to collaborate within your team, you can simply submit an Apiary link. The documentation should describe the requests in terms of the triplet mentioned above. Do provide us with an explanation of the purpose of each request for reference. Also, explain how your API conforms to the REST principles and why you have chosen to ignore certain practices (if any). You will be penalised if your design violates principles for no good reason.',
+                index: 5)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 6',
+                description: 'Identify some queries (at least 3) in your application that require database access. Provide the actual SQL queries you use (if you are using an ORM, find out the underlying query and provide both the ORM query and the underlying SQL query). Explain what the query is supposed to be doing.',
+                index: 6)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 7',
+                description: 'Create an attractive icon and splash screen for your application. Try adding your application to the home screen to make sure that they are working properly. Include an image of the icon and a screenshot of the splash screen in your write-up. If you did not implement a splash screen, justify your decision with a short paragraph. Add your application to the home screen to make sure that they are working properly. Make sure at least Safari on iOS and Chrome on Android are supported.',
+                index: 7)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 8',
+                description: 'Style different UI components within your application using CSS in a structured way (i.e. marks will be deducted if you submit messy code). Explain why your UI design is the best possible UI for your application. Choose one of the CSS methodologies (or others if you know of them) and implement it in your application. Justify your choice of methodology.',
+                index: 8)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 9',
+                description: "Set up HTTPS for your application, and also redirect users to the https:// version if the user tries to access your site via http://. HTTPS doesn't automatically make your end-to-end communication secure. List 3 best practices for adopting HTTPS for your application.",
+                index: 9)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 10',
+                description: "Implement and briefly describe the offline functionality of your application. Explain why the offline functionality of your application fits users' expectations. Implement and explain how you will keep your client synchronised with the server if your application is being used offline. Elaborate on the cases you have taken into consideration and how they will be handled.",
+                index: 10)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 11',
+                description: 'Compare the advantages and disadvantages of token-based authentication against session-based authentication. Justify why your choice of authentication scheme is the best for your application.',
+                index: 11)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 12',
+                description: 'Justify your choice of framework/library by comparing it against others. Explain why the one you have chosen best fulfils your needs. Lastly, list down some (at least 5) of the mobile site design principles and which pages/screens demonstrate them.',
+                index: 12)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 13',
+                description: "Describe 3 common workflows within your application. Explain why those workflows were chosen over alternatives with regards to improving the user's overall experience with your application.",
+                index: 13)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 14',
+                description: 'Embed Google Analytics or equivalent alternatives in your application.',
+                index: 14)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 15',
+                description: 'Achieve a score of at least 8/9 for the Progressive Web App category on mobile (automated checks only) and include the Lighthouse HTML report in your repository.',
+                index: 15)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 16',
+                description: 'Identify and integrate with social network(s) containing users in your target audience. State the social plugins you have used. Explain your choice of social network(s) and plugins.',
+                index: 16)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 17',
+                description: 'Make use of the Geolocation API in your application.',
+                index: 17)
+    Task.create(challenge_id: challenge_cs3216.id,
+                name: 'Milestone 18',
+                description: 'Congratulations, your application is complete! Now, acquire at least 100 users.',
+                index: 18)
   end
 end
 # rubocop:enable all
