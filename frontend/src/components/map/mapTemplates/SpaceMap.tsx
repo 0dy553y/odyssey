@@ -47,9 +47,9 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
 
   useImperativeHandle(ref, () => ({
     moveCharacterForward() {
-      currentStep = currentStep + 1;
       if (characterRef.current !== undefined && mapRef.current !== undefined) {
         setTimeout(() => {
+          currentStep = currentStep + 1;
           (characterRef.current as any).moveCharacter(
             stepPositions[currentStep - 2],
             stepPositions[currentStep - 1]
@@ -60,9 +60,9 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
     },
 
     moveCharacterBackward() {
-      currentStep = currentStep - 1;
       if (characterRef.current !== undefined && mapRef.current !== undefined) {
         setTimeout(() => {
+          currentStep = currentStep - 1;
           (characterRef.current as any).moveCharacter(
             stepPositions[currentStep],
             stepPositions[currentStep - 1]
@@ -85,7 +85,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
         <color attach="background" args={['#010101']} />
         {/*  x: red, y: green, z: blue */}
         {/* <axesHelper args={[5]} /> */}
-        {stepPositions.length === numSteps ? (
+        {stepPositions.length === numSteps + 1 ? (
           <EffectComposer>
             <Bloom
               luminanceThreshold={0.8}
@@ -122,7 +122,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
           username={username}
         />
         {/* spawn friends */}
-        {stepPositions.length === numSteps ? (
+        {stepPositions.length === numSteps + 1 ? (
           <>
             {Object.keys(friendsPositions).map((step: string) =>
               friendsPositions[Number(step)].map(

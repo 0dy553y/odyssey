@@ -4,7 +4,8 @@ import { Dialog, Typography, Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { ChallengeMapData } from 'types/challenges';
 import SpaceMap from './mapTemplates/SpaceMap';
-
+import { useDispatch } from 'react-redux';
+import { loadFriendsOnSameChallenges } from 'store/challenges/operations';
 const useStyles = makeStyles(() => ({
   header: {
     color: 'white',
@@ -31,6 +32,8 @@ interface MapDialogProps {
 
 const MapDialog: React.FC<MapDialogProps> = ({ isOpen, close, mapData }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
   const mapRef = useCallback(
     (node) => {
       if (node !== null && isOpen) {
@@ -41,7 +44,14 @@ const MapDialog: React.FC<MapDialogProps> = ({ isOpen, close, mapData }) => {
   );
 
   return (
-    <Dialog fullScreen open={isOpen} onClick={() => close()}>
+    <Dialog
+      fullScreen
+      open={isOpen}
+      onClick={() => {
+        dispatch(loadFriendsOnSameChallenges());
+        close();
+      }}
+    >
       <>
         <Stack className={classes.name}>
           <Typography variant="h1" className={classes.header}>
