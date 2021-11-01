@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, InputBase, Button, Stack } from '@mui/material';
+import { Box, Typography, Button, Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import obebebe from '../../assets/gifs/obebebe.gif';
 import { useHistory } from 'react-router-dom';
