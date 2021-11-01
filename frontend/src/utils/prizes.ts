@@ -5,7 +5,7 @@ export const prizes: Prize[] = [
   {
     prizeName: 'Talaria',
     prizePath: 'shoe.vox',
-    challengeName: 'Walking',
+    challengeName: 'Walking More',
   },
   {
     prizeName: 'Journal',
@@ -50,5 +50,13 @@ export function getPrize(challengeName: string): Prize {
   const prize = prizes.filter(
     (p: Prize) => p.challengeName === challengeName
   )[0];
-  return prize;
+  if (prize) {
+    return prize;
+  } else {
+    return {
+      challengeName: challengeName,
+      prizePath: 'trophy',
+      prizeName: `${challengeName} Trophy`,
+    };
+  }
 }
