@@ -91,7 +91,7 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
         const stageIncrement = 3;
 
         const stage = (
-          <>
+          <group key={i}>
             {buildDiagonalRepeated({
               buildBlock: (key: number, position: Vector3) =>
                 buidDisc(key, position, i * width + key + 1),
@@ -121,7 +121,7 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
               direction={nextDirection}
               ladderHeight={stageIncrement}
             />
-          </>
+          </group>
         );
         base = regularTranslate(base, currentDirection, widthIncrement);
         stepPositions.push({
