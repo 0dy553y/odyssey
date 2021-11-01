@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 # rubocop:disable all
 
-desc 'Add LEGO challenge, Mental Health challenge, and Happiness challenge'
-task add_lego_mental_health_and_happiness: :environment do
+desc 'Add LEGO challenge, Mental Health Week challenge, and Happiness challenge'
+task add_lego_mental_health_week_and_happiness: :environment do
   user_odyssey = User.find_by(username: 'odyssey')
 
   category_exercise = Category.find_by(title: 'Exercise')
@@ -144,6 +144,45 @@ task add_lego_mental_health_and_happiness: :environment do
                 name: 'Day 30',
                 description: 'Make something you can wear',
                 index: 29)
+
+    challenge_mental_health_desc = 'Stressed out and need to relax? Take part in the Mental Health Week challenge to improve your mental health!'
+    challenge_mental_health = Challenge.create(category_id: category_mindfulness.id,
+                                               name: 'Mental Health Week',
+                                               description: challenge_mental_health_desc,
+                                               duration: 7,
+                                               schedule: 'Every day for 1 week',
+                                               creator_id: user_odyssey.id,
+                                               color: 1,
+                                               original_creator: 'Spectrum Mental Health',
+                                               link_to_reference: 'https://mentalhealth.ie/blog/mental-health-week-7-day-challenge')
+    Task.create(challenge_id: challenge_mental_health.id,
+                name: 'Day 1 - Take Time to Laugh',
+                description: 'Watch a comedy or check out your favorite comedian. Laughter helps reduce anxiety.',
+                index: 0)
+    Task.create(challenge_id: challenge_mental_health.id,
+                name: 'Day 2 - Get to Bed 30 Minutes Earlier',
+                description: "A good night's sleep helps us to recover from mental as well as physical exertion.",
+                index: 1)
+    Task.create(challenge_id: challenge_mental_health.id,
+                name: 'Day 3 - Listen to a Podcast',
+                description: 'Fuel your mind today by listening to a mental health podcast that is relatable to you.',
+                index: 2)
+    Task.create(challenge_id: challenge_mental_health.id,
+                name: 'Day 4 - Relax in a Warm Bath',
+                description: 'Try adding Epsom salts to soothe aches and pain and help boost magnesium levels, which can be depleted by stress.',
+                index: 3)
+    Task.create(challenge_id: challenge_mental_health.id,
+                name: 'Day 5 - Drink Enough Water',
+                description: "Use the '8 glass rule' and avoid symptoms of dehydration like mood swings, tiredness, headaches, and fatigue.",
+                index: 4)
+    Task.create(challenge_id: challenge_mental_health.id,
+                name: 'Day 6 - Have a Phone-Free Night at Home',
+                description: 'Set the phone aside and find new ways to occupy yourself - reading a book, chats with a loved one, or work on a creative project.',
+                index: 5)
+    Task.create(challenge_id: challenge_mental_health.id,
+                name: "Day 7 - Don't Complain at all Today",
+                description: 'Each time you get annoyed or frustrated by things, try turning your thinking to something positive.',
+                index: 6)
   end
 end
 # rubocop:enable all
