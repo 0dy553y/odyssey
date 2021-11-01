@@ -70,15 +70,15 @@ const BadgePage: React.FC = () => {
       </AppBar>
 
       <Typography component="h1" variant="h4" style={{ fontFamily: 'Frock' }}>
-        Badges
+        Mementos
       </Typography>
 
-      {prizes.length === 0 && (
-        <Typography variant="body1" className="no-results-message">
-          Nothing here yet &#128584;
-        </Typography>
-      )}
-      <Box sx={{ height: '100%' }}>
+      <Box sx={{ height: '100%', marginTop: '1em' }}>
+        {prizes.length === 0 && (
+          <Typography variant="body1" className="no-results-message">
+            Nothing here yet &#128584;
+          </Typography>
+        )}
         <PrizeDisplay
           prizes={prizes}
           onPrizeOpen={onPrizeOpen}
