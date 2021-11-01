@@ -7,6 +7,7 @@ import { addSnackbar } from '../../store/snackbars/actions';
 
 interface Props {
   text: string;
+  textDescription: string;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const CopyTextField: React.FC<Props> = ({ text }: Props) => {
+const CopyTextField: React.FC<Props> = ({ text, textDescription }: Props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -48,7 +49,7 @@ const CopyTextField: React.FC<Props> = ({ text }: Props) => {
             navigator.clipboard.writeText(text).then(() =>
               dispatch(
                 addSnackbar({
-                  message: 'Successfully copied challenge link to clipboard!',
+                  message: `Successfully copied ${textDescription} to clipboard!`,
                   variant: 'success',
                 })
               )
