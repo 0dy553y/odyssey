@@ -24,11 +24,26 @@ interface ChallengeMilestonesProps {
 }
 
 const useStyles = makeStyles(() => ({
-  opposite: { maxWidth: '1px', paddingLeft: '0px', paddingRight: '0px' },
-  checkbox: { padding: '0px' },
-  overdue: { color: '#d1476a' },
-  future: { color: '#4b55e3' },
-  today: { color: '#0a943f' },
+  opposite: {
+    maxWidth: '1px',
+    paddingLeft: '0px',
+    paddingRight: '0px',
+  },
+  checkbox: {
+    padding: '0px',
+  },
+  overdue: {
+    color: '#d1476a',
+  },
+  future: {
+    color: '#4b55e3',
+  },
+  today: {
+    color: '#0a943f',
+  },
+  title: {
+    fontWeight: 'bold',
+  },
 }));
 
 const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
@@ -119,7 +134,7 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
               )}
             </TimelineSeparator>
             <TimelineContent>
-              <Typography>{t.name}</Typography>
+              <Typography className={classes.title}>{t.name}</Typography>
               <Typography>{t.description} </Typography>
             </TimelineContent>
           </TimelineItem>
