@@ -2,11 +2,11 @@ import { Prize } from 'types/prize';
 
 // Please help name, I have no creativity.
 export const prizes: Prize[] = [
-  // {
-  //   prizeName: 'Talaria',
-  //   prizePath: 'shoe.vox',
-  //   challengeName: 'Walking',
-  // },
+  {
+    prizeName: 'Talaria',
+    prizePath: 'shoe.vox',
+    challengeName: 'Walking More',
+  },
   {
     prizeName: 'Journal',
     prizePath: 'journal.vox',
