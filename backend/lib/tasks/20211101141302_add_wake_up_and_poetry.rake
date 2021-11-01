@@ -14,10 +14,7 @@ task add_wake_up_and_poetry: :environment do
   ########################################################################
 
   ActiveRecord::Base.transaction do
-    challenge_wake_up_desc = %(
-This challenge challenges you to wake up early little by little each day until you wake up an hour earlier after 7 days.
-Just by waking up an hour early for a month, you are adding four 8-hour days to your month. You can use those to pursue your dreams, do what you love, have fun or go on a trip.
-).squish
+    challenge_wake_up_desc = "This challenge challenges you to wake up early little by little each day until you wake up an hour earlier after 7 days. Just by waking up an hour early for a month, you are adding four 8-hour days to your month. You can use those to pursue your dreams, do what you love, have fun or go on a trip."
     challenge_wake_up = Challenge.create(category_id: category_habits.id,
                                          name: 'Wake Up Early',
                                          description: challenge_wake_up_desc,
@@ -56,10 +53,7 @@ Just by waking up an hour early for a month, you are adding four 8-hour days to 
                 description: "Congratulations, you have reached the last day of the challenge! Wake up another 10 minutes earlier from yesterday and you would have woken up a full hour earlier than you did 7 days ago.",
                 index: 6)
 
-    challenge_poetry_desc = %(
-    Get your pen ready. Grab your favorite poetry collection. Put your party hat on.
-    The PSPOETS team has compiled a list of 30 poetry writing prompts to get your creative juices flowing.
-).squish
+    challenge_poetry_desc = "Get your pen ready. Grab your favorite poetry collection. Put your party hat on. The PSPOETS team has compiled a list of 30 poetry writing prompts to get your creative juices flowing."
     challenge_poetry = Challenge.create(category_id: category_creativity.id,
                                          name: 'Poetry',
                                          description: challenge_poetry_desc,
