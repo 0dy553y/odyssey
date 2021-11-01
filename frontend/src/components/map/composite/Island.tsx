@@ -45,11 +45,7 @@ const Island: React.FC<IslandProps & Color> = ({ ladderHeight = 1 }) => {
       })}
       {buildRepeated({
         buildBlock: (key: number, position: Vector3) => (
-          <Ladder
-            key={key + 100}
-            position={position}
-            direction={Direction.RIGHT}
-          />
+          <Ladder key={key} position={position} direction={Direction.RIGHT} />
         ),
         base: [-1, 0, 0],
         height: ladderHeight,
