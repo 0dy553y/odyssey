@@ -206,7 +206,7 @@ task add_pull_up_music_production_and_squat: :environment do
 
     challenge_squat_desc = "This 30-day squat challenge starts with foundational exercises and adds targeted challenges. This method improves postural alignment, core strength, and functional stability so that it's easier to maintain your hard-earned results."
     challenge_squat = Challenge.create!(category_id: category_exercise.id,
-                                        name: 'Squat workout',
+                                        name: 'Squat Workout',
                                         description: challenge_squat_desc,
                                         duration: 30,
                                         schedule: 'Every day for 1 month',
