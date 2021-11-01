@@ -28,51 +28,51 @@ task add_pull_up_music_production_and_squat: :environment do
                                           link_to_reference: 'https://gmb.io/pull-ups/')
         Task.create(challenge_id: challenge_your.id,
                     name: 'Week 1',
-                    description: 'Pulling Prep: complete 3-5 sets of 5-10 reps. Reverse Row Sit Back: complete 3-5 sets of 6-8 reps.',
+                    description: "Pulling Prep: complete 3-5 sets of 5-10 reps.\nReverse Row Sit Back: complete 3-5 sets of 6-8 reps.",
                     index: 0)
         Task.create(challenge_id: challenge_your.id,
                     name: 'Week 1',
-                    description: 'Pulling Prep: complete 3-5 sets of 5-10 reps. Reverse Row Sit Back: complete 3-5 sets of 6-8 reps.',
+                    description: "Pulling Prep: complete 3-5 sets of 5-10 reps.\nReverse Row Sit Back: complete 3-5 sets of 6-8 reps.",
                     index: 1)
         Task.create(challenge_id: challenge_your.id,
                     name: 'Week 1',
-                    description: 'Pulling Prep: complete 3-5 sets of 5-10 reps. Reverse Row Sit Back: complete 3-5 sets of 6-8 reps.',
+                    description: "Pulling Prep: complete 3-5 sets of 5-10 reps.\nReverse Row Sit Back: complete 3-5 sets of 6-8 reps.",
                     index: 2)
         Task.create(challenge_id: challenge_your.id,
                     name: 'Week 2',
-                    description: 'Pulling Prep: complete 3-5 sets of 5-10 reps. Reverse Row Sit Back: complete 3-5 sets of 6-8 reps. Negative Pull-Ups (jump to hold, then lower): complete 8 sets of 1-3 reps.',
+                    description: "Pulling Prep: complete 3-5 sets of 5-10 reps.\nReverse Row Sit Back: complete 3-5 sets of 6-8 reps.\nNegative Pull-Ups (jump to hold, then lower): complete 8 sets of 1-3 reps.",
                     index: 3)
         Task.create(challenge_id: challenge_your.id,
                     name: 'Week 2',
-                    description: 'Pulling Prep: complete 3-5 sets of 5-10 reps. Reverse Row Sit Back: complete 3-5 sets of 6-8 reps. Negative Pull-Ups (jump to hold, then lower): complete 8 sets of 1-3 reps.',
+                    description: "Pulling Prep: complete 3-5 sets of 5-10 reps.\nReverse Row Sit Back: complete 3-5 sets of 6-8 reps.\nNegative Pull-Ups (jump to hold, then lower): complete 8 sets of 1-3 reps.",
                     index: 4)
         Task.create(challenge_id: challenge_your.id,
                     name: 'Week 2',
-                    description: 'Pulling Prep: complete 3-5 sets of 5-10 reps. Reverse Row Sit Back: complete 3-5 sets of 6-8 reps. Negative Pull-Ups (jump to hold, then lower): complete 8 sets of 1-3 reps.',
+                    description: "Pulling Prep: complete 3-5 sets of 5-10 reps.\nReverse Row Sit Back: complete 3-5 sets of 6-8 reps.\nNegative Pull-Ups (jump to hold, then lower): complete 8 sets of 1-3 reps.",
                     index: 5)
         Task.create(challenge_id: challenge_your.id,
                     name: 'Week 3',
-                    description: 'Pulling Prep: complete 3-5 sets of 5-10 reps. Reverse Row Sit Back: complete 3-5 sets of 6-8 reps. Negative Pull-Ups (jump to halfway mark, then pull to top): complete 8 sets of 1-3 reps.',
+                    description: "Pulling Prep: complete 3-5 sets of 5-10 reps.\nReverse Row Sit Back: complete 3-5 sets of 6-8 reps.\nNegative Pull-Ups (jump to halfway mark, then pull to top): complete 8 sets of 1-3 reps.",
                     index: 6)
         Task.create(challenge_id: challenge_your.id,
                     name: 'Week 3',
-                    description: 'Pulling Prep: complete 3-5 sets of 5-10 reps. Reverse Row Sit Back: complete 3-5 sets of 6-8 reps. Negative Pull-Ups (jump to halfway mark, then pull to top): complete 8 sets of 1-3 reps.',
+                    description: "Pulling Prep: complete 3-5 sets of 5-10 reps.\nReverse Row Sit Back: complete 3-5 sets of 6-8 reps.\nNegative Pull-Ups (jump to halfway mark, then pull to top): complete 8 sets of 1-3 reps.",
                     index: 7)
         Task.create(challenge_id: challenge_your.id,
                     name: 'Week 3',
-                    description: 'Pulling Prep: complete 3-5 sets of 5-10 reps. Reverse Row Sit Back: complete 3-5 sets of 6-8 reps. Negative Pull-Ups (jump to halfway mark, then pull to top): complete 8 sets of 1-3 reps.',
+                    description: "Pulling Prep: complete 3-5 sets of 5-10 reps.\nReverse Row Sit Back: complete 3-5 sets of 6-8 reps.\nNegative Pull-Ups (jump to halfway mark, then pull to top): complete 8 sets of 1-3 reps.",
                     index: 8)
         Task.create(challenge_id: challenge_your.id,
                     name: 'Week 4',
-                    description: 'Pulling Prep: complete 3-5 sets of 5-10 reps. Reverse Row Sit Back: complete 3-5 sets of 6-8 reps. Negative Pull-Ups (jump to halfway mark, pull to top, slow lower to halfway mark, then pull to top again): complete 8 sets of 1-3 reps.',
+                    description: "Pulling Prep: complete 3-5 sets of 5-10 reps.\nReverse Row Sit Back: complete 3-5 sets of 6-8 reps.\nNegative Pull-Ups (jump to halfway mark, pull to top, slow lower to halfway mark, then pull to top again): complete 8 sets of 1-3 reps.",
                     index: 9)
         Task.create(challenge_id: challenge_your.id,
                     name: 'Week 4',
-                    description: 'Pulling Prep: complete 3-5 sets of 5-10 reps. Reverse Row Sit Back: complete 3-5 sets of 6-8 reps. Negative Pull-Ups (jump to halfway mark, pull to top, slow lower to halfway mark, then pull to top again): complete 8 sets of 1-3 reps.',
+                    description: "Pulling Prep: complete 3-5 sets of 5-10 reps.\nReverse Row Sit Back: complete 3-5 sets of 6-8 reps.\nNegative Pull-Ups (jump to halfway mark, pull to top, slow lower to halfway mark, then pull to top again): complete 8 sets of 1-3 reps.",
                     index: 10)
         Task.create(challenge_id: challenge_your.id,
                     name: 'Week 4',
-                    description: 'Pulling Prep: complete 3-5 sets of 5-10 reps. Reverse Row Sit Back: complete 3-5 sets of 6-8 reps. Negative Pull-Ups (jump to halfway mark, pull to top, slow lower to halfway mark, then pull to top again): complete 8 sets of 1-3 reps.',
+                    description: "Pulling Prep: complete 3-5 sets of 5-10 reps.\nReverse Row Sit Back: complete 3-5 sets of 6-8 reps.\nNegative Pull-Ups (jump to halfway mark, pull to top, slow lower to halfway mark, then pull to top again): complete 8 sets of 1-3 reps.",
                     index: 11)
 
         challenge_30_day_desc = %(
