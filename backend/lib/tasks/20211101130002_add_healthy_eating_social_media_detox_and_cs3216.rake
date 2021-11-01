@@ -144,6 +144,137 @@ task add_pull_up_music_production_and_squat: :environment do
                 name: 'Day 30 - Celebrate with a Mocktail',
                 description: 'Congratulations! You are almost finished with the 30-Day Whole Food Challenge. Celebrate this healthy-eating refresh with one of our delicious mocktail recipes (https://www.eatingwell.com/gallery/11437/easy-mocktail-ideas-for-celebrating-without-alcohol/).',
                 index: 29)
+
+    challenge_detox_desc = 'Did you know that the average person spends 2 hours a day on social media? And we wonder where all of our time goes. No one’s disputing the potential of social media to connect with friends and family. It’s nice in our modern age when families are often separated by distance because it gives people an easy way to keep in touch. But, despite the benefits of social media, it has its definite pitfalls. Anyone with Facebook or Instagram can tell you how easy it is to hop on with the intention of checking out your feed for a second, then nearly an hour later realizing how much time has passed.'
+    challenge_detox = Challenge.create(category_id: category_habits.id,
+                                       name: 'Social Media Detox',
+                                       description: challenge_detox_desc,
+                                       duration: 30,
+                                       schedule: 'Every day for 1 month',
+                                       creator_id: user_odyssey.id,
+                                       color: 4,
+                                       original_creator: 'Lori Geurin',
+                                       link_to_reference: 'https://lorigeurin.com/social-media-detox-challenge/')
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 1',
+                description: 'Turn off social media push notifications',
+                index: 0)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 2',
+                description: 'Delete all unused apps',
+                index: 1)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 3',
+                description: 'Limit social media to a single 30-minute window',
+                index: 2)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 4',
+                description: 'No phone at meals all day',
+                index: 3)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 5',
+                description: 'Unfollow people who aren’t real friends or don’t interest you',
+                index: 4)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 6',
+                description: 'Leave your phone in a separate room when you go to bed',
+                index: 5)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 7',
+                description: 'No Facebook or Twitter all day',
+                index: 6)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 8',
+                description: 'No checking your phone until after all of your morning tasks are complete',
+                index: 7)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 9',
+                description: 'Meditate for 5 minutes today',
+                index: 8)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 10',
+                description: 'No Instagram all day',
+                index: 9)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 11',
+                description: 'Instagram free day!',
+                index: 10)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 12',
+                description: 'Put your phone away for 3 straight hours',
+                index: 11)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 13',
+                description: 'No social media all day',
+                index: 12)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 14',
+                description: 'Limit of 15 minutes of social media today',
+                index: 13)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 15',
+                description: 'Halfway there! No social media all day',
+                index: 14)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 16',
+                description: 'Try a new activity for 1 hour today',
+                index: 15)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 17',
+                description: 'Only 30 minutes of social media all day',
+                index: 16)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 18',
+                description: 'No Facebook, Twitter, or Instagram all day',
+                index: 17)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 19',
+                description: 'Facebook free day!',
+                index: 18)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 20',
+                description: 'Spend 15 minutes outside in nature',
+                index: 19)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 21',
+                description: 'Write about what you’re thankful for – 10 minutes',
+                index: 20)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 22',
+                description: 'Practice deep breathing for 10 minutes',
+                index: 21)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 23',
+                description: 'Twitter free day!',
+                index: 22)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 24',
+                description: 'No social media until after 5 p.m.',
+                index: 23)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 25',
+                description: 'Call 2 friends today',
+                index: 24)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 26',
+                description: 'Read for 45 minutes today',
+                index: 25)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 27',
+                description: 'Only 15 minutes of social media all day',
+                index: 26)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 28',
+                description: 'Go on a walk or stretch for 15 minutes',
+                index: 27)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 29',
+                description: 'No social media for the entire day',
+                index: 28)
+    Task.create(challenge_id: challenge_detox.id,
+                name: 'Day 30',
+                description: 'No phone for the entire day',
+                index: 29)
   end
 end
 # rubocop:enable all
