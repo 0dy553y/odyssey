@@ -101,7 +101,7 @@ task add_pull_up_music_production_and_squat: :environment do
                  index: 3)
     Task.create!(challenge_id: challenge_30_day.id,
                  name: 'Day 5',
-                 description: 'Tree a new freeware synth',
+                 description: 'Try a new freeware synth',
                  index: 4)
     Task.create!(challenge_id: challenge_30_day.id,
                  name: 'Day 6',
