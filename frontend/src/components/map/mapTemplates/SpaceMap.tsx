@@ -24,7 +24,6 @@ interface MapProps {
 const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
   const { username, challengeName, numTasks, currentTaskNum, friends } =
     props.mapData;
-
   let currentStep = currentTaskNum;
   const numSteps = numTasks;
   const friendsPositions: Record<number, string[]> = {};
@@ -85,7 +84,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
         <color attach="background" args={['#010101']} />
         {/*  x: red, y: green, z: blue */}
         {/* <axesHelper args={[5]} /> */}
-        {stepPositions.length === numSteps ? (
+        {stepPositions.length === numSteps + 1 ? (
           <EffectComposer>
             <Bloom
               luminanceThreshold={0.8}
@@ -121,7 +120,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
           username={username}
         />
         {/* spawn friends */}
-        {stepPositions.length === numSteps ? (
+        {stepPositions.length === numSteps + 1 ? (
           <>
             {Object.keys(friendsPositions).map((step: string) =>
               friendsPositions[Number(step)].map(
