@@ -1,7 +1,9 @@
 import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useHistory } from 'react-router-dom';
 import mastheadImage from '../../assets/images/masthead.png';
+import { ONBOARDING_ROUTE } from 'routing/routes';
 
 const useStyles = makeStyles(() => ({
   landingHeader: {
@@ -43,13 +45,14 @@ const useStyles = makeStyles(() => ({
 
 const LandingHeader: React.FC = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Box
       className={classes.landingHeader}
       style={{ backgroundImage: `url(${mastheadImage})` }}
     >
-      <Typography className={classes.subText}>COMING SOON</Typography>
+      <Typography className={classes.subText}>BETA RELEASE</Typography>
       <Typography variant="h3" className={classes.mainText}>
         Reach new heights.
       </Typography>
@@ -64,9 +67,11 @@ const LandingHeader: React.FC = () => {
             backgroundColor: 'rgba(0, 0, 0, 1)',
           },
         }}
-        href="#form"
+        onClick={() => {
+          history.push(ONBOARDING_ROUTE);
+        }}
       >
-        Sign up now
+        Get started
       </Button>
     </Box>
   );
