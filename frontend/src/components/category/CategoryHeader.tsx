@@ -3,6 +3,8 @@ import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 
+import './CategoryHeader.scss';
+
 const useStyles = makeStyles(() => ({
   backgroundImage: {
     flexShrink: 0,
@@ -26,12 +28,6 @@ const useStyles = makeStyles(() => ({
     bottom: '0',
     paddingLeft: '2em',
   },
-  lowerPosition: {
-    objectPosition: '20% 60%',
-  },
-  defaultPosition: {
-    objectPosition: '20% 30%',
-  },
 }));
 
 interface CategoryHeaderProps {
@@ -50,9 +46,9 @@ const CategoryHeader: React.FC<CategoryHeaderProps> = (props) => {
     switch (title) {
       case 'Mindfulness':
       case 'Habits':
-        return 'classes.lowerPosition';
+        return 'lower-image-header-position';
       default:
-        return 'classes.defaultPosition';
+        return 'default-image-header-position';
     }
   };
 
