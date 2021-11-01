@@ -52,7 +52,7 @@ const FeedPostList: React.FC<FeedPostListProps> = ({
   ) : (
     <div className={classes.textContainer}>
       <Typography align="center" className={classes.text}>
-        No posts found!
+        No posts yet! 😗
       </Typography>
     </div>
   );
