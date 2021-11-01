@@ -11,7 +11,7 @@ import runnin from 'assets/gifs/runnin.gif';
 import study from 'assets/gifs/study.gif';
 import explore from 'assets/images/explore.png';
 import message from 'assets/images/message.png';
-import { InView } from 'react-intersection-observer';
+import { InView, useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -75,11 +75,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const LandingPage: React.FC = () => {
   const classes = useStyles();
+  const { ref, inView } = useInView({
+    /* Optional options */
+    threshold: 0.4,
+  });
 
   return (
     <Box className={classes.landingPage}>
-      <Navbar />
-      <Masthead />
+      <Navbar isMastheadInView={inView} />
+      <div ref={ref}>
+        <Masthead />
+      </div>
       <Section content="Whether you are trying to run your first 5km or pick up reading again, starting something new can be pretty hard." />
       <img className={classes.study} src={study} />
       <Section content="But it doesn't have to be this way. Imagine — no more excuses, no more holding back." />
