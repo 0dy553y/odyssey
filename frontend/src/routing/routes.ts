@@ -1,3 +1,4 @@
+import DemoMap from 'components/map/mapTemplates/DemoMap';
 import BadgePage from 'pages/badge/BadgePage';
 import CompletedChallengesPage from 'pages/completedChallenges/CompletedChallengesPage';
 import EditProfilePage from 'pages/editProfile';
@@ -11,12 +12,11 @@ import FeedPage from '../pages/feed';
 import AddFriendsPage from '../pages/friends/AddFriendsPage';
 import HomePage from '../pages/home';
 import LoginPage from '../pages/login';
+import MapsPage from '../pages/maps';
 import NotificationsPage from '../pages/notifications/NotificationsPage';
 import ProfilePage from '../pages/profile';
 import RegistrationPage from '../pages/registration';
-import MapsPage from '../pages/maps';
 import { RouteEntry } from '../types/routes';
-import DemoMap from 'components/map/mapTemplates/DemoMap';
 
 export const HOME_ROUTE = '/';
 export const LOGIN_ROUTE = '/login';
@@ -84,6 +84,11 @@ export const privateRoutes: RouteEntry[] = [
   },
   {
     path: BADGE_ROUTE,
+    component: BadgePage,
+    exact: true,
+  },
+  {
+    path: BADGE_ROUTE + '/:username',
     component: BadgePage,
     exact: true,
   },

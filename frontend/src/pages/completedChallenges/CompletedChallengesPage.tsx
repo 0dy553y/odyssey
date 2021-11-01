@@ -33,7 +33,7 @@ const CompletedChallengesPage: React.FC = () => {
   useEffect(() => {
     batch(() => {
       dispatch(loadUser(username));
-      dispatch(loadAllCompletedUserChallenges());
+      dispatch(loadAllCompletedUserChallenges(username));
       dispatch(loadAllChallenges());
     });
   }, []);
