@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
   },
-  displayLinebreak: {
+  displayLineBreak: {
     whiteSpace: 'pre-line',
   },
 }));
@@ -122,7 +122,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({
           primary={creator.displayName ?? displayUsername(creator.username)}
         />
 
-        <Grid item xs={12} className={classes.displayLinebreak}>
+        <Grid item xs={12} className={classes.displayLineBreak}>
           {post.body}
         </Grid>
 
