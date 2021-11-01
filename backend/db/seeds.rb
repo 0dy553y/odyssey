@@ -44,7 +44,7 @@ challenge_walking_desc = %(
   cardiovascular fitness, strengthen bones, reduce excess body fat, and boost muscle power and endurance.
 ).squish
 challenge_walking = Challenge.create(category_id: category_exercise.id,
-                                     name: 'Walking',
+                                     name: 'Walking More',
                                      description: challenge_walking_desc,
                                      duration: 3,
                                      schedule: 'Daily',
