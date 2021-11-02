@@ -23,8 +23,14 @@ interface MapProps {
 }
 
 const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
-  const { username, challengeName, numTasks, currentTaskNum, friends } =
-    props.mapData;
+  const {
+    username,
+    challengeName,
+    prizeName,
+    numTasks,
+    currentTaskNum,
+    friends,
+  } = props.mapData;
   let currentStep = currentTaskNum;
   const numSteps = numTasks;
   const friendsPositions: Record<number, string[]> = {};
@@ -120,7 +126,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
           width={width}
           widthIncrement={widthIncrement}
           heightIncrement={heightIncrement}
-          prizePath={getPrizePath(challengeName)}
+          prizePath={getPrizePath(prizeName)}
           onMapMounted={(stepPositions) => {
             setStepPositions(stepPositions);
             setCharPosition(stepPositions[currentStep - 1]);

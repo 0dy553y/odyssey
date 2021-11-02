@@ -2,9 +2,9 @@ import React, { Suspense } from 'react';
 import { Box, Modal, Typography, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { OrbitControls } from '@react-three/drei';
-import { Prize } from 'types/prize';
 import { Canvas } from 'react-three-fiber';
 import PrizeModel from 'components/map/composite/Prize';
+import { PrizeWithChallengeName } from '../../pages/badge/BadgePage';
 
 const useStyles = makeStyles((theme: Theme) => ({
   modalBox: {
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface PrizeInfoModalProps {
   isOpen: boolean;
   onClose: () => void;
-  prize: Prize;
+  prize: PrizeWithChallengeName;
 }
 
 const PrizeInfoModal: React.FC<PrizeInfoModalProps> = ({

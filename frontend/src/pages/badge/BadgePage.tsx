@@ -12,9 +12,13 @@ import { CompletedUserChallengeListData } from 'types/userchallenge';
 import { getPrize } from 'utils/prizes';
 import { Prize } from 'types/prize';
 
+export interface PrizeWithChallengeName extends Prize {
+  challengeName: string;
+}
+
 interface PrizeOpenState {
   isOpen: boolean;
-  prize: Prize;
+  prize: PrizeWithChallengeName;
 }
 
 const BadgePage: React.FC = () => {
@@ -33,7 +37,7 @@ const BadgePage: React.FC = () => {
     }
   );
 
-  const onPrizeOpen = (openedPrize: Prize) => {
+  const onPrizeOpen = (openedPrize: PrizeWithChallengeName) => {
     setPrizeOpenState({
       prize: openedPrize,
       isOpen: true,
@@ -49,9 +53,12 @@ const BadgePage: React.FC = () => {
     getAllCompletedUserChallenges(state)
   )!;
 
-  const prizes: Prize[] = completedChallenges.map(
+  const prizes: PrizeWithChallengeName[] = completedChallenges.map(
     (challenge: CompletedUserChallengeListData) => {
-      return getPrize(challenge.challengeName);
+      return {
+        challengeName: challenge.challengeName,
+        ...getPrize(challenge.prizeName, challenge.challengeName),
+      };
     }
   );
 
