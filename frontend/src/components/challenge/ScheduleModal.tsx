@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     transform: 'translate(-50%, -50%)',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
-    padding: '0.6em',
+    padding: '2em 1.5em',
     '&>:not(:last-child)': {
       marginBottom: '0.3em',
     },
@@ -41,10 +41,27 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: '400px',
     },
+    outline: 'none',
+    borderRadius: '2em',
   },
   header: {
     verticalAlign: 'middle',
     display: 'inline-flex',
+  },
+  recurringDaysForm: {
+    paddingTop: '1em',
+    overflow: 'scroll',
+  },
+  startChallengeButton: {
+    backgroundColor: 'rgba(0, 0, 0, 1)',
+    borderRadius: '1em',
+    color: 'white',
+    padding: '0.8em 1em 0.8em 1em',
+    marginTop: '1em',
+    textTransform: 'none',
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+    },
   },
 }));
 
@@ -78,7 +95,7 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({
     >
       <Fade in={isOpen}>
         <Box className={classes.scheduleModal}>
-          <Typography component="div" variant="h6" className={classes.header}>
+          <Typography component="div" variant="h5" className={classes.header}>
             Select recurring days
             <Tooltip
               arrow
@@ -97,21 +114,25 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({
           <Typography component="div" variant="body2">
             Once confirmed, you cannot change the recurring days.
           </Typography>
+          <div className={classes.recurringDaysForm}>
+            <RecurringDaysForm
+              isEditable={true}
+              initialSchedule={schedule}
+              onCheckboxChange={(day: DayOfWeek, isChecked: boolean) =>
+                setSchedule({
+                  ...schedule,
+                  [day]: isChecked,
+                })
+              }
+            />
+          </div>
 
-          <RecurringDaysForm
-            isEditable={true}
-            initialSchedule={schedule}
-            onCheckboxChange={(day: DayOfWeek, isChecked: boolean) =>
-              setSchedule({
-                ...schedule,
-                [day]: isChecked,
-              })
-            }
-          />
-
-          <Stack direction="row" justifyContent="flex-end" alignItems="center">
-            <Button variant="contained" onClick={() => onSubmit(schedule)}>
-              Join Challenge
+          <Stack direction="row" justifyContent="center" alignItems="center">
+            <Button
+              className={classes.startChallengeButton}
+              onClick={() => onSubmit(schedule)}
+            >
+              Let&apos;s go!
             </Button>
           </Stack>
         </Box>
