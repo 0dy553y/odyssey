@@ -23,7 +23,8 @@ task add_wake_up_and_poetry: :environment do
                                          creator_id: user_odyssey.id,
                                          color: 4,
                                          original_creator: 'Productive Club',
-                                         link_to_reference: 'https://productiveclub.com/7-day-wake-up-early-challenge/')
+                                         link_to_reference: 'https://productiveclub.com/7-day-wake-up-early-challenge/',
+                                        prize_name: 'Alarmed Clock')
     Task.create(challenge_id: challenge_wake_up.id,
                 name: 'Day 1',
                 description: "Wake up 10 minutes before your usual wake-up time.",
@@ -62,7 +63,8 @@ task add_wake_up_and_poetry: :environment do
                                          creator_id: user_odyssey.id,
                                          color: 5,
                                          original_creator: 'PSPOETS',
-                                         link_to_reference: 'https://www.pspoets.com/blog/30daypoetrychallenge')
+                                         link_to_reference: 'https://www.pspoets.com/blog/30daypoetrychallenge',
+                                        prize_name: 'Squid Ink')
     Task.create(challenge_id: challenge_poetry.id,
                 name: 'Day 1',
                 description: "Write a haiku about early mornings.",
