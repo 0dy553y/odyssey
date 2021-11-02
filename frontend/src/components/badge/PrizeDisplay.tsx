@@ -3,12 +3,12 @@ import { Canvas, Vector3 } from '@react-three/fiber';
 import PrizeModel from 'components/map/composite/Prize';
 import { translate } from 'utils/map';
 import { Axis } from 'types/map';
-import { Prize } from 'types/prize';
 import { Html } from '@react-three/drei';
+import { PrizeWithChallengeName } from '../../pages/badge/BadgePage';
 
 interface PrizeDisplayProps {
-  prizes: Prize[];
-  onPrizeOpen: (p: Prize) => void;
+  prizes: PrizeWithChallengeName[];
+  onPrizeOpen: (p: PrizeWithChallengeName) => void;
   showName: boolean;
 }
 
@@ -39,7 +39,7 @@ const PrizeDisplay: React.FC<PrizeDisplayProps> = ({
       <Canvas camera={{ zoom: 30 }} orthographic={true}>
         <ambientLight intensity={0.5} />
 
-        {prizes.map((p: Prize, index: number) => {
+        {prizes.map((p: PrizeWithChallengeName, index: number) => {
           return (
             <group
               key={`${p.prizeName}${index}`}

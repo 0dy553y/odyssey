@@ -50,6 +50,7 @@ export interface ChallengeMapData {
   username: string;
   challengeId: number;
   challengeName: string;
+  prizeName: string;
   numTasks: number;
   currentTaskNum: number;
   friends: ChallengeFriendMapData[];
