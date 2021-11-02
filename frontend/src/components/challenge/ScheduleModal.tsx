@@ -57,13 +57,13 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({
   const classes = useStyles(theme);
 
   const [schedule, setSchedule] = useState<Schedule>({
-    [DayOfWeek.Monday]: false,
-    [DayOfWeek.Tuesday]: false,
-    [DayOfWeek.Wednesday]: false,
-    [DayOfWeek.Thursday]: false,
-    [DayOfWeek.Friday]: false,
-    [DayOfWeek.Saturday]: false,
-    [DayOfWeek.Sunday]: false,
+    [DayOfWeek.Monday]: true,
+    [DayOfWeek.Tuesday]: true,
+    [DayOfWeek.Wednesday]: true,
+    [DayOfWeek.Thursday]: true,
+    [DayOfWeek.Friday]: true,
+    [DayOfWeek.Saturday]: true,
+    [DayOfWeek.Sunday]: true,
   });
 
   return (
