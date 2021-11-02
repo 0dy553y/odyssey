@@ -91,7 +91,15 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
   const renderCorrectIcon = (taskId: number) => {
     if (!isEnrolled)
       return (
-        <Circle style={{ height: '0.5em', width: '0.5em', padding: '0.1em' }} />
+        <Circle
+          elevation={0}
+          style={{
+            boxShadow: 'none',
+            height: '0.7em',
+            width: '0.7em',
+            padding: '0.1em',
+          }}
+        />
       );
 
     if (isCompleted[taskId]) {

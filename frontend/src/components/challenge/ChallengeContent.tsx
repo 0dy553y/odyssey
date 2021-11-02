@@ -259,11 +259,11 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
 
   return (
     <Box>
-      {!inView && (
-        <div
-          className={classes.collapsedHeader}
-          style={{ backgroundColor: getHexCode(challenge.color) }}
-        >
+      <div
+        className={classes.collapsedHeader}
+        style={{ backgroundColor: getHexCode(challenge.color) }}
+      >
+        {!inView && (
           <span className={classes.collapsedHeaderText}>
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -273,8 +273,8 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
               {challenge.name}
             </motion.div>
           </span>
-        </div>
-      )}
+        )}
+      </div>
       <div
         className={classes.contentContainer}
         style={{ backgroundColor: getHexCode(challenge.color) }}
