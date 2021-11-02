@@ -75,6 +75,7 @@ const UserTaskCarousel: React.FC<Props> = ({
   if (userTaskList.length == 0) {
     return (
       <div className={classes.textContainer}>
+        <img className={classes.astronaut} src={obebebe} />
         <Typography align="center" className={classes.text}>
           {`You ${
             isBefore(date, new Date()) ? 'had' : 'have'
