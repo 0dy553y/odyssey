@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_30_183151) do
+ActiveRecord::Schema.define(version: 2021_11_02_123038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 2021_10_30_183151) do
     t.integer "color", default: 0, null: false
     t.string "original_creator"
     t.string "link_to_reference"
+    t.string "prize_name"
     t.index ["category_id"], name: "index_challenges_on_category_id"
     t.index ["creator_id"], name: "index_challenges_on_creator_id"
   end
