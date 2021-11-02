@@ -21,6 +21,7 @@ interface ScheduleModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (schedule: Schedule) => void;
+  numOngoingChallenges: number;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -52,6 +53,7 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({
   isOpen,
   onClose,
   onSubmit,
+  numOngoingChallenges,
 }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
@@ -108,6 +110,10 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({
               })
             }
           />
+
+          <Typography component="div" variant="body2">
+            Ongoing challenges: {numOngoingChallenges} out of 3 (limit)
+          </Typography>
 
           <Stack direction="row" justifyContent="flex-end" alignItems="center">
             <Button variant="contained" onClick={() => onSubmit(schedule)}>

@@ -390,6 +390,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                     isOpen={isScheduleModalOpen}
                     onClose={() => setIsScheduleModalOpen(false)}
                     onSubmit={handleJoinChallenge}
+                    numOngoingChallenges={ongoingChallenges.length}
                   />
                 </>
               )}
@@ -469,6 +470,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
             isOpen={isScheduleModalOpen}
             onClose={() => setIsScheduleModalOpen(false)}
             onSubmit={handleJoinChallenge}
+            numOngoingChallenges={ongoingChallenges.length}
           />
         </>
       )}
