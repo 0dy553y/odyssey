@@ -25,6 +25,8 @@ import ScheduleModal from 'components/challenge/ScheduleModal';
 import { joinChallenge } from 'store/challenges/operations';
 import { MemoizedFeedPostList } from 'components/feed/FeedPostList';
 import { UserData } from 'types/auth';
+import { addSnackbar } from '../../store/snackbars/actions';
+
 import {
   addReactionToPost,
   removeReactionFromPost,
@@ -257,6 +259,24 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
     }
   };
 
+  const handleJoinChallenge = (schedule: Schedule) => {
+    let hasOneTrue = false;
+    Object.values(schedule).forEach((bool) => {
+      hasOneTrue = hasOneTrue || bool;
+    });
+    if (!hasOneTrue) {
+      dispatch(
+        addSnackbar({
+          message: `Schedule cannot be empty`,
+          variant: 'error',
+        })
+      );
+      return;
+    }
+    dispatch(joinChallenge(Number(challengeId), schedule));
+    setIsScheduleModalOpen(false);
+  };
+
   return (
     <Box>
       {!inView && (
@@ -347,10 +367,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                   <ScheduleModal
                     isOpen={isScheduleModalOpen}
                     onClose={() => setIsScheduleModalOpen(false)}
-                    onSubmit={(schedule: Schedule) => {
-                      dispatch(joinChallenge(Number(challengeId), schedule));
-                      setIsScheduleModalOpen(false);
-                    }}
+                    onSubmit={handleJoinChallenge}
                   />
                 </>
               )}
@@ -431,10 +448,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
           <ScheduleModal
             isOpen={isScheduleModalOpen}
             onClose={() => setIsScheduleModalOpen(false)}
-            onSubmit={(schedule: Schedule) => {
-              dispatch(joinChallenge(Number(challengeId), schedule));
-              setIsScheduleModalOpen(false);
-            }}
+            onSubmit={handleJoinChallenge}
           />
         </>
       )}
