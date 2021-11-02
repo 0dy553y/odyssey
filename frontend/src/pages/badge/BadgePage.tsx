@@ -12,9 +12,13 @@ import { CompletedUserChallengeListData } from 'types/userchallenge';
 import { getPrize } from 'utils/prizes';
 import { Prize } from 'types/prize';
 
+export interface PrizeWithChallengeName extends Prize {
+  challengeName: string;
+}
+
 interface PrizeOpenState {
   isOpen: boolean;
-  prize: Prize;
+  prize: PrizeWithChallengeName;
 }
 
 const BadgePage: React.FC = () => {
@@ -33,7 +37,7 @@ const BadgePage: React.FC = () => {
     }
   );
 
-  const onPrizeOpen = (openedPrize: Prize) => {
+  const onPrizeOpen = (openedPrize: PrizeWithChallengeName) => {
     setPrizeOpenState({
       prize: openedPrize,
       isOpen: true,
@@ -49,9 +53,12 @@ const BadgePage: React.FC = () => {
     getAllCompletedUserChallenges(state)
   )!;
 
-  const prizes: Prize[] = completedChallenges.map(
+  const prizes: PrizeWithChallengeName[] = completedChallenges.map(
     (challenge: CompletedUserChallengeListData) => {
-      return getPrize(challenge.challengeName);
+      return {
+        challengeName: challenge.challengeName,
+        ...getPrize(challenge.prizeName, challenge.challengeName),
+      };
     }
   );
 
@@ -70,15 +77,15 @@ const BadgePage: React.FC = () => {
       </AppBar>
 
       <Typography component="h1" variant="h4" style={{ fontFamily: 'Frock' }}>
-        Badges
+        Mementos
       </Typography>
 
-      {prizes.length === 0 && (
-        <Typography variant="body1" className="no-results-message">
-          Nothing here yet &#128584;
-        </Typography>
-      )}
-      <Box sx={{ height: '100%' }}>
+      <Box sx={{ height: '100%', marginTop: '1em' }}>
+        {prizes.length === 0 && (
+          <Typography variant="body1" className="no-results-message">
+            Nothing here yet &#128584;
+          </Typography>
+        )}
         <PrizeDisplay
           prizes={prizes}
           onPrizeOpen={onPrizeOpen}

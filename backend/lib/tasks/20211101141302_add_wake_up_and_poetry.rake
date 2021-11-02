@@ -16,7 +16,7 @@ task add_wake_up_and_poetry: :environment do
   ActiveRecord::Base.transaction do
     challenge_wake_up_desc = "This challenge challenges you to wake up early little by little each day until you wake up an hour earlier after 7 days. Just by waking up an hour early for a month, you are adding four 8-hour days to your month. You can use those to pursue your dreams, do what you love, have fun or go on a trip."
     challenge_wake_up = Challenge.create(category_id: category_habits.id,
-                                         name: 'Wake Up Early',
+                                         name: 'Wake Up Earlier',
                                          description: challenge_wake_up_desc,
                                          duration: 7,
                                          schedule: 'Every day for 1 week',

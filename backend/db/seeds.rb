@@ -25,7 +25,8 @@ challenge_gratitude = Challenge.create(category_id: category_habits.id,
                                        duration: 3,
                                        schedule: 'Daily',
                                        creator_id: user_odyssey.id,
-                                       color: 0)
+                                       color: 0,
+                                       prize_name: 'Journal')
 Task.create(challenge_id: challenge_gratitude.id,
             name: 'Day 1',
             description: 'Write down three things that happened today that you are grateful for.',
@@ -44,12 +45,13 @@ challenge_walking_desc = %(
   cardiovascular fitness, strengthen bones, reduce excess body fat, and boost muscle power and endurance.
 ).squish
 challenge_walking = Challenge.create(category_id: category_exercise.id,
-                                     name: 'Walking',
+                                     name: 'Walking More',
                                      description: challenge_walking_desc,
                                      duration: 3,
                                      schedule: 'Daily',
                                      creator_id: user_odyssey.id,
-                                     color: 1)
+                                     color: 1,
+                                     prize_name: 'Talaria')
 Task.create(challenge_id: challenge_walking.id,
             name: 'Day 1',
             description: 'Go for a walk for at least 5 min today.',

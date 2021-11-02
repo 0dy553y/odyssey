@@ -7,6 +7,7 @@ class MapController < ApplicationController
       {
         challenge_id: uc.challenge_id,
         name: uc.challenge.name,
+        prize_name: uc.challenge.prize_name,
         num_tasks: uc.challenge.tasks.count,
         current_task_num: uc.user_tasks.where.not(completed_at: nil).count + 1,
         friends: friends.select do |f|

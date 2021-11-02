@@ -143,7 +143,7 @@ const ProfilePage: React.FC = () => {
       },
     },
     {
-      label: completedChallenges.length === 1 ? 'badge' : 'badges',
+      label: completedChallenges.length === 1 ? 'memento' : 'mementos',
       count: completedChallenges.length,
       onClick: () => {
         if (isOwnProfilePage) {

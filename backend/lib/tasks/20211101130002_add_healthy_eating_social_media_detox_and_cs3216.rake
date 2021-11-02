@@ -23,7 +23,8 @@ task add_healthy_eating_social_media_detox_and_cs3216: :environment do
                                         creator_id: user_odyssey.id,
                                         color: 3,
                                         original_creator: 'Jessica Ball',
-                                        link_to_reference: 'https://www.eatingwell.com/article/290467/30-days-of-whole-food-challenge/')
+                                        link_to_reference: 'https://www.eatingwell.com/article/290467/30-days-of-whole-food-challenge/',
+                                        prize_name: 'Moon Cheese')
     Task.create(challenge_id: challenge_eating.id,
                 name: 'Day 1 - Try this Recipe',
                 description: 'This Mediterranean Chicken with Orzo Salad (https://www.eatingwell.com/recipe/261766/mediterranean-chicken-with-orzo-salad/) is packed with veggies, whole-wheat orzo and chicken for a balanced, nutritious main. The easy homemade Greek-style vinaigrette pulls together the dishes flavors and adds a boost of healthy fat. Plus, it makes great leftovers.',
@@ -154,7 +155,8 @@ task add_healthy_eating_social_media_detox_and_cs3216: :environment do
                                        creator_id: user_odyssey.id,
                                        color: 4,
                                        original_creator: 'Lori Geurin',
-                                       link_to_reference: 'https://lorigeurin.com/social-media-detox-challenge/')
+                                       link_to_reference: 'https://lorigeurin.com/social-media-detox-challenge/',
+                                       prize_name: 'Brick Phone')
     Task.create(challenge_id: challenge_detox.id,
                 name: 'Day 1',
                 description: 'Turn off social media push notifications',
@@ -285,7 +287,8 @@ task add_healthy_eating_social_media_detox_and_cs3216: :environment do
                                         creator_id: user_odyssey.id,
                                         color: 5,
                                         original_creator: 'Uncle Soo',
-                                        link_to_reference: 'https://cs3216.com/coursework/mobile')
+                                        link_to_reference: 'https://cs3216.com/coursework/mobile',
+                                        prize_name: 'CS3216')
     Task.create(challenge_id: challenge_cs3216.id,
                 name: 'Milestone 0',
                 description: 'Describe the problem that your application solves.',
