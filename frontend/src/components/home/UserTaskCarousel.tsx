@@ -9,6 +9,7 @@ import { EXPLORE_ROUTE } from '../../routing/routes';
 import { useHistory } from 'react-router-dom';
 import { isBefore, isToday } from 'date-fns';
 import { displayDate } from '../../utils/formatting';
+import obebebe from 'assets/gifs/obebebe.gif';
 
 import './UserTaskCarousel.scss';
 
@@ -22,9 +23,15 @@ const useStyles = makeStyles(() => ({
     color: 'gray',
     marginLeft: 50,
     marginRight: 50,
+    marginBottom: 100,
   },
   handCursorLink: {
     cursor: 'pointer',
+  },
+  astronaut: {
+    maxHeight: '5em',
+    marginTop: '4em',
+    marginBottom: '-2em',
   },
 }));
 
@@ -47,6 +54,7 @@ const UserTaskCarousel: React.FC<Props> = ({
   if (userTaskList.length == 0 && isToday(date)) {
     return (
       <div className={classes.textContainer}>
+        <img className={classes.astronaut} src={obebebe} />
         <Typography align="center" className={classes.text}>
           You have no tasks for today!
           <br />
