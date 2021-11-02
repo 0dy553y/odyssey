@@ -9,7 +9,7 @@ import { EXPLORE_ROUTE } from '../../routing/routes';
 import { useHistory } from 'react-router-dom';
 import { isBefore, isToday } from 'date-fns';
 import { displayDate } from '../../utils/formatting';
-import obebebe from 'assets/gifs/obebebe.gif';
+import astronaut from 'assets/gifs/obebebe.gif';
 
 import './UserTaskCarousel.scss';
 
@@ -18,6 +18,8 @@ const useStyles = makeStyles(() => ({
     height: '100%',
     display: 'grid',
     placeItems: 'center',
+    gap: 0,
+    gridTemplateRows: '1fr auto 1fr',
   },
   text: {
     color: 'gray',
@@ -30,8 +32,6 @@ const useStyles = makeStyles(() => ({
   },
   astronaut: {
     maxHeight: '5em',
-    marginTop: '4em',
-    marginBottom: '-2em',
   },
 }));
 
@@ -54,7 +54,7 @@ const UserTaskCarousel: React.FC<Props> = ({
   if (userTaskList.length == 0 && isToday(date)) {
     return (
       <div className={classes.textContainer}>
-        <img className={classes.astronaut} src={obebebe} />
+        <img className={classes.astronaut} src={astronaut} />
         <Typography align="center" className={classes.text}>
           You have no tasks for today!
           <br />
@@ -75,7 +75,7 @@ const UserTaskCarousel: React.FC<Props> = ({
   if (userTaskList.length == 0) {
     return (
       <div className={classes.textContainer}>
-        <img className={classes.astronaut} src={obebebe} />
+        <img className={classes.astronaut} src={astronaut} />
         <Typography align="center" className={classes.text}>
           {`You ${
             isBefore(date, new Date()) ? 'had' : 'have'
