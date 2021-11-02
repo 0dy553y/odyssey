@@ -306,15 +306,17 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
               </Typography>
 
               {challenge.referenceLink && (
-                <Link
-                  href={challenge.referenceLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={classes.white}
-                  underline="always"
-                >
-                  Learn more about this challenge
-                </Link>
+                <span>
+                  <Link
+                    href={challenge.referenceLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={classes.white}
+                    underline="always"
+                  >
+                    Learn more about this challenge
+                  </Link>
+                </span>
               )}
 
               <Typography className={`${classes.white} ${classes.topPadding}`}>
