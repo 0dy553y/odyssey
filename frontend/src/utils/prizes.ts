@@ -7,12 +7,48 @@ export const prizes: Prize[] = [
     prizePath: 'shoe.vox',
   },
   {
+    prizeName: 'Red Talaria',
+    prizePath: 'shoe_5k.vox',
+  },
+  {
     prizeName: 'Journal',
     prizePath: 'journal.vox',
   },
   {
     prizeName: 'Moon Cheese',
     prizePath: 'moon_cheese.vox',
+  },
+  {
+    prizeName: 'Mindful Orb',
+    prizePath: 'blue_orb.vox',
+  },
+  {
+    prizeName: 'Golden Gauntlet',
+    prizePath: 'gauntlet.vox',
+  },
+  {
+    prizeName: 'Antique Disc',
+    prizePath: 'music_disc.vox',
+  },
+  {
+    prizeName: "Sun's Flower",
+    prizePath: 'sunflower.vox',
+  },
+  {
+    prizeName: 'Rainbow Umbrella',
+    prizePath: 'umbrella.vox',
+  },
+  {
+    prizeName: 'Peach',
+    prizePath: 'peach.vox',
+  },
+  {
+    prizeName: 'Squid Ink',
+    prizePath: 'ink_bottle.vox',
+  },
+  {
+    prizeName: 'Alarmed Clock',
+    prizePath: 'alarmed_clock.vox',
   },
   {
     prizeName: 'Brick Phone',

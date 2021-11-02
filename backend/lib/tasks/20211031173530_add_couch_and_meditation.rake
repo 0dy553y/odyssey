@@ -21,6 +21,7 @@ task add_couch_and_meditation: :environment do
                                        creator_id: user_odyssey.id,
                                        original_creator: 'Josh Clark',
                                        link_to_reference: 'https://www.nhs.uk/live-well/exercise/couch-to-5k-week-by-week/',
+                                       prize_name: 'Red Talaria',
                                        color: 0)
     Task.create(challenge_id: challenge_couch.id,
                 name: 'Week 1',
@@ -158,6 +159,7 @@ task add_couch_and_meditation: :environment do
                                             creator_id: user_odyssey.id,
                                             original_creator: 'Dovile Sinke',
                                             link_to_reference: 'https://21dayhero.com/21-day-meditation-challenge-daily-plan/',
+                                            prize_name: 'Mindful Orb',
                                             color: 0)
     Task.create(challenge_id: challenge_meditation.id,
                 name: 'Day 1 - Focus on your breath',
