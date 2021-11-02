@@ -23,7 +23,8 @@ task add_lego_mental_health_week_and_happiness: :environment do
                                       creator_id: user_odyssey.id,
                                       color: 3,
                                       original_creator: 'Fun Learning for Kids',
-                                      link_to_reference: 'https://funlearningforkids.com/lego-challenge-calendar-building-ideas/')
+                                      link_to_reference: 'https://funlearningforkids.com/lego-challenge-calendar-building-ideas/',
+                                      prize_name: 'LEGO')
     Task.create(challenge_id: challenge_lego.id,
                 name: 'Day 1',
                 description: 'Make something tall',
