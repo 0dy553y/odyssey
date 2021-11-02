@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     transform: 'translate(-50%, -50%)',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
-    padding: '2em 1.5em',
+    padding: '2em 1.5em 1em 1.5em',
     '&>:not(:last-child)': {
       marginBottom: '0.3em',
     },
@@ -47,6 +47,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   header: {
     verticalAlign: 'middle',
     display: 'inline-flex',
+    fontSize: '24px',
+    fontWeight: 'bold',
   },
   recurringDaysForm: {
     paddingTop: '1em',
@@ -56,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: 'rgba(0, 0, 0, 1)',
     borderRadius: '1em',
     color: 'white',
-    padding: '0.8em 1em 0.8em 1em',
+    padding: '0.8em 2em 0.8em 2em',
     marginTop: '1em',
     textTransform: 'none',
     '&:hover': {
@@ -95,7 +97,7 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({
     >
       <Fade in={isOpen}>
         <Box className={classes.scheduleModal}>
-          <Typography component="div" variant="h5" className={classes.header}>
+          <Typography component="div" variant="h3" className={classes.header}>
             Select recurring days
             <Tooltip
               arrow
@@ -111,7 +113,7 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({
             </Tooltip>
           </Typography>
 
-          <Typography component="div" variant="body2">
+          <Typography component="div" variant="body1">
             Once confirmed, you cannot change the recurring days.
           </Typography>
           <div className={classes.recurringDaysForm}>
@@ -132,7 +134,7 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({
               className={classes.startChallengeButton}
               onClick={() => onSubmit(schedule)}
             >
-              Let&apos;s go!
+              <Typography variant="h6">Let&apos;s go!</Typography>
             </Button>
           </Stack>
         </Box>

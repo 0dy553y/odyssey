@@ -89,7 +89,10 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
   };
 
   const renderCorrectIcon = (taskId: number) => {
-    if (!isEnrolled) return <Circle />;
+    if (!isEnrolled)
+      return (
+        <Circle style={{ height: '0.5em', width: '0.5em', padding: '0.1em' }} />
+      );
 
     if (isCompleted[taskId]) {
       return <CheckCircle />;
@@ -126,7 +129,7 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
           <TimelineItem key={t.id}>
             <TimelineOppositeContent className={classes.opposite} />
             <TimelineSeparator>
-              <TimelineDot className={getDotStyle(t.id)}>
+              <TimelineDot color="secondary" className={getDotStyle(t.id)}>
                 {renderCorrectIcon(t.id)}
               </TimelineDot>
               {index < tasks.length - 1 ? (
