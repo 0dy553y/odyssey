@@ -11,6 +11,7 @@ import {
   setChallengePostList,
   setCommunityPostList,
   setFriendPostList,
+  setUserPostList,
   updatePost,
 } from './actions';
 
@@ -32,6 +33,15 @@ export function loadPostsForChallenge(challengeId: number): OperationResult {
     const posts = resp.payload.data;
 
     dispatch(setChallengePostList({ challengeId, posts }));
+  };
+}
+
+export function loadPostsForUser(username?: string): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    const resp = await api.posts.getPostsListForUser(username);
+    const posts = resp.payload.data;
+
+    dispatch(setUserPostList(posts));
   };
 }
 
