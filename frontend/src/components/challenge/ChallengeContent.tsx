@@ -159,6 +159,7 @@ interface ChallengeContentProps {
   tasks: TaskListData[];
   posts: PostListData[];
   currentUser: UserData;
+  onTaskCompleted: () => void;
 }
 
 interface ChallengeCompletedModalState {
@@ -169,7 +170,14 @@ interface ChallengeCompletedModalState {
 const privateTabs = [TabItem.YourStats];
 
 const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
-  const { challenge, userChallenge, tasks, posts, currentUser } = props;
+  const {
+    challenge,
+    userChallenge,
+    tasks,
+    posts,
+    currentUser,
+    onTaskCompleted,
+  } = props;
   const classes = useStyles(challenge);
   const dispatch = useDispatch();
 
@@ -227,6 +235,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
             onChallengeCompleted={(challengeId: number) => {
               return;
             }}
+            onTaskCompleted={onTaskCompleted}
           />
         );
       case TabItem.YourStats:

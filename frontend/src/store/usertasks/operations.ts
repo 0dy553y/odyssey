@@ -33,7 +33,9 @@ function markUserTaskAsDone(
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userTasks.markUserTaskAsDone(userTaskId);
     const userTask: UserTaskData = response.payload.data;
-    onTaskCompleted(userTask.challengeName);
+    if (onTaskCompleted) {
+      onTaskCompleted(userTask.challengeName);
+    }
     if (userTask.isChallengeCompleted) {
       onChallengeCompleted(userTask.challengeId);
     }
@@ -60,15 +62,15 @@ export function markUserTaskAsDoneFromHome(
 
 export function markUserTaskAsDoneFromChallenge(
   userTaskId: number,
-  onChallengeCompleted: (completedChallengeId: number) => void
+  onChallengeCompleted: (completedChallengeId: number) => void,
+  onTaskCompleted: () => void
 ): OperationResult {
   return markUserTaskAsDone(
     userTaskId,
     onChallengeCompleted,
-    // TODO: replace when implementing from challenge page
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    (_cn) => {
-      return;
+    (_: string) => {
+      onTaskCompleted();
     },
     (dispatch, userTask) => {
       batch(() => {
