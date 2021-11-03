@@ -1,10 +1,8 @@
 import React, { Suspense } from 'react';
 import { Box, Modal, Typography, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { OrbitControls } from '@react-three/drei';
-import { Canvas } from 'react-three-fiber';
-import PrizeModel from 'components/map/composite/Prize';
-import { PrizeWithChallengeName } from '../../pages/badge/BadgePage';
+import { PrizeWithChallengeName } from '../../../pages/badge/BadgePage';
+import PrizeModelDisplay from './PrizeModelDisplay';
 
 const useStyles = makeStyles((theme: Theme) => ({
   modalBox: {
@@ -54,15 +52,7 @@ const PrizeInfoModal: React.FC<PrizeInfoModalProps> = ({
       <Modal open={isOpen} onClose={onClose}>
         <Box className={classes.modalBox}>
           <Box sx={{ marginTop: '2em', height: '50%' }}>
-            <Canvas camera={{ zoom: 30 }} orthographic={true}>
-              <ambientLight intensity={0.5} />
-              <PrizeModel
-                position={[0, 0, 0]}
-                modelPath={prize.prizePath}
-                scale={2}
-              />
-              <OrbitControls enableZoom={false} enablePan={false} />
-            </Canvas>
+            <PrizeModelDisplay prizePath={prize.prizePath} />
           </Box>
           <Typography variant="h5" className={classes.header}>
             {prize.prizeName}
