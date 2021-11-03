@@ -130,7 +130,7 @@ const UserTaskCard: React.FC<Props> = ({
             component={Link}
             to={`${MAP_ROUTE}/${userTask.challengeId}`}
           >
-            <MapIcon />
+            <MapIcon filter="invert(1)" />
           </IconButton>
           {!isAfter(userTask.scheduledFor, new Date()) && (
             <Switch
