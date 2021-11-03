@@ -29,6 +29,9 @@ const useStyles = makeStyles(() => ({
     paddingTop: '7.5em',
     paddingLeft: '1em',
   },
+  handCursor: {
+    cursor: 'pointer',
+  },
 }));
 
 interface CategoryPreviewProps {
@@ -47,7 +50,7 @@ const CategoryPreview: React.FC<CategoryPreviewProps> = (props) => {
 
   return (
     <Box
-      className={classes.gradient}
+      className={`${classes.gradient} ${classes.handCursor}`}
       sx={{
         width: '100%',
         height: '17em',

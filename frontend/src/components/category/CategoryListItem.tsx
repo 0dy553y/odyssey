@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   fillIcon: {
     fill: theme.palette.primary.main,
   },
+  handCursor: {
+    cursor: 'pointer',
+  },
 }));
 
 interface CategoryListProps {
@@ -58,7 +61,7 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
   }, []);
 
   return (
-    <Box onClick={onClick}>
+    <Box onClick={onClick} className={classes.handCursor}>
       <div className={classes.container}>
         <div className="square-pic">
           <Avatar square={true} variant={'beam'} size={65} name={name} />
