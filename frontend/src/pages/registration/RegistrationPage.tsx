@@ -42,11 +42,10 @@ const RegistrationPage: React.FC = () => {
   return (
     <Box
       sx={{
-        marginTop: 8,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '2em 1.5em 0 1.5em',
+        padding: '5em 1.5em 0 1.5em',
       }}
     >
       <Typography component="h1" variant="h5">
