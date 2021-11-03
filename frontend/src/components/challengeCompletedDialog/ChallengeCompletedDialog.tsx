@@ -28,6 +28,7 @@ interface ChallengeCompletedDialogProps {
 const useStyles = makeStyles(() => ({
   title: {
     textAlign: 'center',
+    fontSize: '24px',
   },
   challengeName: {
     textAlign: 'center',
@@ -36,6 +37,7 @@ const useStyles = makeStyles(() => ({
   },
   prizeHeader: {
     textAlign: 'center',
+    fontSize: '18px',
   },
   prizeSubtitle: {
     textAlign: 'center',
@@ -78,12 +80,16 @@ const ChallengeCompletedDialog: React.FC<ChallengeCompletedDialogProps> = ({
         onClose={onClose}
         fullWidth
         PaperProps={{
-          style: { borderRadius: '1.5em', padding: '1em' },
+          style: {
+            borderRadius: '1.5em',
+            paddingTop: '1em',
+            paddingBottom: '1em',
+          },
         }}
       >
         <DialogActions
           sx={{
-            marginBottom: '-3em',
+            marginBottom: '-2em',
             marginTop: '-0.5em',
           }}
         >
@@ -93,11 +99,8 @@ const ChallengeCompletedDialog: React.FC<ChallengeCompletedDialogProps> = ({
         </DialogActions>
         {challenge !== undefined ? (
           <DialogContent>
-            <Typography variant="h4" className={classes.title}>
-              challenge complete!
-            </Typography>
-            <Typography variant="body1" className={classes.challengeName}>
-              {challenge.name}
+            <Typography variant="h5" className={classes.title}>
+              {challenge.name} Challenge Complete!
             </Typography>
             <Box sx={{ marginTop: '1em', height: '8em' }}>
               <PrizeModelDisplay prizePath={prize.prizePath} />
