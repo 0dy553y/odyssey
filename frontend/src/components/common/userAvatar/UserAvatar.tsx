@@ -12,6 +12,7 @@ interface UserAvatarProps {
   username: string;
   displayName?: string;
   className?: string;
+  shouldLinkToProfile?: boolean;
 }
 
 const UserAvatar: React.FC<UserAvatarProps> = ({
@@ -19,6 +20,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
   username,
   displayName,
   className,
+  shouldLinkToProfile = true,
 }) => {
   const history = useHistory();
   const user = useSelector(getUser);
@@ -30,6 +32,10 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
       src={src}
       {...stringAvatar(displayName ?? username)}
       onClick={() => {
+        if (!shouldLinkToProfile) {
+          return;
+        }
+
         if (user?.username === username) {
           history.push(`${PROFILE_ROUTE}`);
           return;

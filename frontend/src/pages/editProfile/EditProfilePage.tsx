@@ -109,6 +109,7 @@ const EditProfilePage: React.FC = () => {
                     src={avatarBase64DataUrl || user.avatar}
                     username={user.username}
                     displayName={user.displayName}
+                    shouldLinkToProfile={false}
                   />
                 </Badge>
               </label>

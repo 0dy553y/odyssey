@@ -27,6 +27,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
           src={user.avatar}
           username={user.username}
           displayName={user.displayName}
+          shouldLinkToProfile={false}
         />
       </IconButton>
 
