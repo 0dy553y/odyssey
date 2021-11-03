@@ -24,6 +24,7 @@ interface MapProps {
   heightIncrement: number;
   prizePath: string;
   onMapMounted: (pos: DirectionPosition[]) => void;
+  onClickPrize: () => void;
 }
 
 const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
@@ -35,6 +36,7 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
     heightIncrement,
     prizePath,
     onMapMounted,
+    onClickPrize,
   } = props;
   const numStages = Math.floor(numSteps / width);
   let base: Vector3 = [
@@ -79,7 +81,11 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
       widthIncrement
     );
     stepPositions.push({ pos: finalPosition, direction: currentDirection });
-    return <Prize position={finalPosition} modelPath={prizePath} />;
+    return (
+      <group onClick={onClickPrize}>
+        <Prize position={finalPosition} modelPath={prizePath} />
+      </group>
+    );
   };
 
   return (
