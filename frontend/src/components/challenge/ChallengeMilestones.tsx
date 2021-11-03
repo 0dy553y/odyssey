@@ -1,7 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Checkbox, Typography } from '@mui/material';
-import { CheckCircle, RadioButtonUnchecked, Circle } from '@mui/icons-material';
+import {
+  CheckRounded,
+  RadioButtonUnchecked,
+  Circle,
+} from '@mui/icons-material';
 import {
   Timeline,
   TimelineItem,
@@ -30,13 +34,13 @@ const useStyles = makeStyles(() => ({
     paddingRight: '0px',
   },
   checkbox: {
-    padding: '0px',
+    padding: '9px',
   },
   overdue: {
-    color: '#d1476a',
+    color: '#B57B7B',
   },
   future: {
-    color: '#4b55e3',
+    color: '#FFF',
   },
   today: {
     color: '#0a943f',
@@ -46,6 +50,19 @@ const useStyles = makeStyles(() => ({
   },
   displayLineBreak: {
     whiteSpace: 'pre-line',
+  },
+  timelineCircle: {
+    boxShadow: 'none',
+    height: '0.8em',
+    width: '0.8em',
+    padding: '0.2em',
+  },
+  checkRounded: {
+    strokeWidth: 2,
+    boxShadow: 'none',
+    height: '0.8em',
+    width: '0.8em',
+    color: 'white',
   },
 }));
 
@@ -89,20 +106,10 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
   };
 
   const renderCorrectIcon = (taskId: number) => {
-    if (!isEnrolled)
-      return (
-        <Circle
-          style={{
-            boxShadow: 'none',
-            height: '0.7em',
-            width: '0.7em',
-            padding: '0.1em',
-          }}
-        />
-      );
+    if (!isEnrolled) return <Circle className={classes.timelineCircle} />;
 
     if (isCompleted[taskId]) {
-      return <CheckCircle />;
+      return <CheckRounded className={classes.checkRounded} />;
     }
 
     const userTask = userTasks.find((userTask) => userTask.taskId == taskId);
@@ -111,8 +118,14 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
     if (isNextTask(taskId) && !isBefore(new Date(), scheduledFor[taskId])) {
       return (
         <Checkbox
+          style={{
+            strokeWidth: 2,
+            boxShadow: 'none',
+            height: '0.8em',
+            width: '0.8em',
+          }}
           icon={<RadioButtonUnchecked />}
-          checkedIcon={<CheckCircle />}
+          checkedIcon={<CheckRounded className={classes.checkRounded} />}
           onChange={() => {
             if (!userTask) {
               throw new Error('No matching user task found for task');
@@ -125,7 +138,7 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
         />
       );
     } else {
-      return <Circle />;
+      return <Circle className={classes.timelineCircle} />;
     }
   };
 
