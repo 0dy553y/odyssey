@@ -447,7 +447,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                     background: getHexCode(challenge.color),
                     height: '5px',
                     width: '3em',
-                    marginLeft: '8%',
+                    marginLeft: '8.5%',
                     display: 'flex',
                     justifyContent: 'center',
                   },
