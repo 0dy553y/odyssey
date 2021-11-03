@@ -65,6 +65,7 @@ Rails.application.routes.draw do
           get 'friend_posts', to: 'friend_posts'
           get 'community_posts', to: 'community_posts'
           get 'posts_for_challenge', to: 'posts_for_challenge'
+          get 'posts_for_user', to: 'posts_for_user'
         end
         member do
           post 'add_reaction', to: 'add_reaction'
