@@ -23,7 +23,8 @@ task add_pull_up_music_production_and_squat: :environment do
                                       creator_id: user_odyssey.id,
                                       color: 0,
                                       original_creator: 'Ryan Hurst',
-                                      link_to_reference: 'https://gmb.io/pull-ups/')
+                                      link_to_reference: 'https://gmb.io/pull-ups/',
+                                      prize_name: 'Golden Gauntlet')
     Task.create(challenge_id: challenge_your.id,
                 name: 'Week 1',
                 description: "Pulling Prep: complete 3-5 sets of 5-10 reps.\nReverse Row Sit Back: complete 3-5 sets of 6-8 reps.",
@@ -82,7 +83,8 @@ task add_pull_up_music_production_and_squat: :environment do
                                          creator_id: user_odyssey.id,
                                          color: 0,
                                          original_creator: 'MusicTech',
-                                         link_to_reference: 'https://www.instagram.com/p/B-wxFCIATgG/')
+                                         link_to_reference: 'https://www.instagram.com/p/B-wxFCIATgG/',
+                                        prize_name: 'Antique Disc')
     Task.create!(challenge_id: challenge_30_day.id,
                  name: 'Day 1',
                  description: 'Resample one of your own tracks',
@@ -213,7 +215,8 @@ task add_pull_up_music_production_and_squat: :environment do
                                         creator_id: user_odyssey.id,
                                         color: 1,
                                         original_creator: 'Verywell Fit',
-                                        link_to_reference: 'https://www.verywellfit.com/30-day-squat-challenge-4174865')
+                                        link_to_reference: 'https://www.verywellfit.com/30-day-squat-challenge-4174865',
+                                      prize_name: 'Peach')
 
     Task.create!(challenge_id: challenge_squat.id,
                  name: 'Day 1 - Slow Squats',

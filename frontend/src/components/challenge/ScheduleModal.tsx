@@ -21,6 +21,7 @@ interface ScheduleModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (schedule: Schedule) => void;
+  numOngoingChallenges: number;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -71,18 +72,19 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({
   isOpen,
   onClose,
   onSubmit,
+  numOngoingChallenges,
 }) => {
   const theme = useTheme();
   const classes = useStyles(theme);
 
   const [schedule, setSchedule] = useState<Schedule>({
-    [DayOfWeek.Monday]: false,
-    [DayOfWeek.Tuesday]: false,
-    [DayOfWeek.Wednesday]: false,
-    [DayOfWeek.Thursday]: false,
-    [DayOfWeek.Friday]: false,
-    [DayOfWeek.Saturday]: false,
-    [DayOfWeek.Sunday]: false,
+    [DayOfWeek.Monday]: true,
+    [DayOfWeek.Tuesday]: true,
+    [DayOfWeek.Wednesday]: true,
+    [DayOfWeek.Thursday]: true,
+    [DayOfWeek.Friday]: true,
+    [DayOfWeek.Saturday]: true,
+    [DayOfWeek.Sunday]: true,
   });
 
   return (
@@ -128,6 +130,10 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({
               }
             />
           </div>
+
+          <Typography component="div" variant="body2">
+            Your ongoing challenges: {numOngoingChallenges} out of 3 (limit)
+          </Typography>
 
           <Stack direction="row" justifyContent="center" alignItems="center">
             <Button

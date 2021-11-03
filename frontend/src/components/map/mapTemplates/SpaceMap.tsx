@@ -23,8 +23,14 @@ interface MapProps {
 }
 
 const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
-  const { username, challengeName, numTasks, currentTaskNum, friends } =
-    props.mapData;
+  const {
+    username,
+    challengeName,
+    prizeName,
+    numTasks,
+    currentTaskNum,
+    friends,
+  } = props.mapData;
   let currentStep = currentTaskNum;
   const numSteps = numTasks;
   const friendsPositions: Record<number, string[]> = {};
@@ -97,7 +103,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
         <color attach="background" args={['#010101']} />
         {/*  x: red, y: green, z: blue */}
         {/* <axesHelper args={[5]} /> */}
-        {stepPositions.length === numSteps + 1 ? (
+        {/* {stepPositions.length === numSteps + 1 ? (
           <EffectComposer>
             <Bloom
               luminanceThreshold={0.8}
@@ -107,7 +113,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
           </EffectComposer>
         ) : (
           <></>
-        )}
+        )} */}
         <directionalLight castShadow position={[0, 10, 0]} intensity={1.5} />
         <pointLight position={[30, 0, 0]} intensity={0.5} />
         <pointLight position={[-30, 0, 0]} intensity={0.5} />
@@ -120,7 +126,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
           width={width}
           widthIncrement={widthIncrement}
           heightIncrement={heightIncrement}
-          prizePath={getPrizePath(challengeName)}
+          prizePath={getPrizePath(prizeName)}
           onMapMounted={(stepPositions) => {
             setStepPositions(stepPositions);
             setCharPosition(stepPositions[currentStep - 1]);

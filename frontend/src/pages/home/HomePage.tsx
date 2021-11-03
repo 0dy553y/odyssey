@@ -5,7 +5,7 @@ import UserTaskCarousel from '../../components/home/UserTaskCarousel';
 import MapDialog from '../../components/map/MapDialog';
 import { getUserTaskListForDay } from '../../store/usertasks/selectors';
 import { RootState } from '../../store';
-import { Grid, IconButton, Skeleton, Typography } from '@mui/material';
+import { Grid, IconButton, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { getUser } from '../../store/auth/selectors';
 import { useHistory } from 'react-router-dom';
@@ -17,6 +17,7 @@ import TodayIcon from '@mui/icons-material/Today';
 import { startOfDay } from 'date-fns';
 import { ChallengeMapData } from 'types/challenges';
 import { getChallengeMaps } from 'store/challenges/selectors';
+import LoadingPage from 'pages/loading/LoadingPage';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -111,7 +112,7 @@ const HomePage: React.FC = () => {
   const user = useSelector(getUser);
   if (!user) {
     history.push(LOGIN_ROUTE);
-    return <Skeleton />;
+    return <LoadingPage />;
   }
 
   return (

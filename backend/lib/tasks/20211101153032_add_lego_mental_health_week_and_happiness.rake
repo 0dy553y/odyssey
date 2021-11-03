@@ -23,7 +23,8 @@ task add_lego_mental_health_week_and_happiness: :environment do
                                       creator_id: user_odyssey.id,
                                       color: 3,
                                       original_creator: 'Fun Learning for Kids',
-                                      link_to_reference: 'https://funlearningforkids.com/lego-challenge-calendar-building-ideas/')
+                                      link_to_reference: 'https://funlearningforkids.com/lego-challenge-calendar-building-ideas/',
+                                      prize_name: 'LEGO')
     Task.create(challenge_id: challenge_lego.id,
                 name: 'Day 1',
                 description: 'Make something tall',
@@ -154,7 +155,8 @@ task add_lego_mental_health_week_and_happiness: :environment do
                                                creator_id: user_odyssey.id,
                                                color: 1,
                                                original_creator: 'Spectrum Mental Health',
-                                               link_to_reference: 'https://mentalhealth.ie/blog/mental-health-week-7-day-challenge')
+                                               link_to_reference: 'https://mentalhealth.ie/blog/mental-health-week-7-day-challenge',
+                                              prize_name: 'Rainbow Umbrella')
     Task.create(challenge_id: challenge_mental_health.id,
                 name: 'Day 1 - Take Time to Laugh',
                 description: 'Watch a comedy or check out your favorite comedian. Laughter helps reduce anxiety.',
@@ -193,7 +195,8 @@ task add_lego_mental_health_week_and_happiness: :environment do
                                            creator_id: user_odyssey.id,
                                            color: 4,
                                            original_creator: 'Captivating Crazy',
-                                           link_to_reference: 'https://captivatingcrazy.com/how-to-be-happy/')
+                                           link_to_reference: 'https://captivatingcrazy.com/how-to-be-happy/',
+                                          prize_name: "Sun's Flower")
     Task.create(challenge_id: challenge_happiness.id,
                 name: 'Day 1 - Clean the Bed Sheets',
                 description: 'Getting into a nice fresh bed at the end of the day is a great way to feel all your troubles & stress leave your body.',

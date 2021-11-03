@@ -11,7 +11,7 @@ import { RootState } from 'store';
 import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
 import { getOngoingOrCompletedUserChallengeDataForChallenge } from 'store/userchallenges/selectors';
-import { Box, IconButton, Menu, MenuItem, Skeleton } from '@mui/material';
+import { Box, IconButton, Menu, MenuItem } from '@mui/material';
 import ChallengeContent from 'components/challenge/ChallengeContent';
 import { makeStyles } from '@mui/styles';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -20,6 +20,7 @@ import { getUser } from 'store/auth/selectors';
 import { loadPostsForChallenge } from 'store/posts/operations';
 import { getChallengePostList } from 'store/posts/selectors';
 import ConfirmationModal from 'components/common/ConfirmationModal';
+import LoadingPage from 'pages/loading/LoadingPage';
 
 const useStyles = makeStyles(() => ({
   joinButton: {
@@ -114,7 +115,7 @@ const ChallengeDetailsPage: React.FC = () => {
     !!userChallenge && !userChallenge.completedAt && !userChallenge.forfeitedAt;
 
   if (!challenge) {
-    return <Skeleton />;
+    return <LoadingPage />;
   }
 
   return (
