@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { getCategoryList } from 'store/categories/selectors';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { getHeadingFromCategory } from 'utils/naming';
 import { CATEGORY_ROUTE, CHALLENGE_ROUTE } from '../../routing/routes';
 import CategoryListItem from '../../components/category/CategoryListItem';
@@ -25,10 +25,12 @@ import {
 import { getChallengePercentageComplete } from 'utils/progress';
 
 const ExplorePage: React.FC = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const categories = useSelector((state: RootState) => getCategoryList(state))!;
 
-  const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
@@ -112,12 +114,13 @@ const ExplorePage: React.FC = () => {
           <ul>
             {categories.map((category) => (
               <li key={category.id}>
-                <Link to={`${CATEGORY_ROUTE}/${category.id}`}>
-                  <CategoryPreview
-                    title={category.title}
-                    heading={getHeadingFromCategory(category.title)}
-                  />
-                </Link>
+                <CategoryPreview
+                  title={category.title}
+                  heading={getHeadingFromCategory(category.title)}
+                  onClick={() =>
+                    history.push(`${CATEGORY_ROUTE}/${category.id}`)
+                  }
+                />
               </li>
             ))}
           </ul>

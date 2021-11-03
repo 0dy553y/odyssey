@@ -34,13 +34,16 @@ const useStyles = makeStyles(() => ({
 interface CategoryPreviewProps {
   title: string;
   heading: string;
+  onClick: () => void;
 }
 
 const CategoryPreview: React.FC<CategoryPreviewProps> = (props) => {
   const classes = useStyles();
-  const { title, heading } = props;
+  const { title, heading, onClick } = props;
   /* eslint-disable */
-  const headerImage = require('../../assets/images/' + title.toLowerCase() + '.png');
+  const headerImage = require('../../assets/images/' +
+    title.toLowerCase() +
+    '.png');
 
   return (
     <Box
@@ -54,6 +57,7 @@ const CategoryPreview: React.FC<CategoryPreviewProps> = (props) => {
         alignItems: 'center',
         overflow: 'hidden',
       }}
+      onClick={onClick}
     >
       <img src={headerImage.default} className={classes.backgroundImage} />
       <div className={classes.overlayText}>
