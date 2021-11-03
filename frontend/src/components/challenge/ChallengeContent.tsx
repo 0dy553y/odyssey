@@ -27,7 +27,6 @@ import { MemoizedFeedPostList } from 'components/feed/FeedPostList';
 import { UserData } from 'types/auth';
 import { addSnackbar } from '../../store/snackbars/actions';
 import { getAllOngoingUserChallenges } from '../../store/userchallenges/selectors';
-
 import {
   addReactionToPost,
   removeReactionFromPost,

@@ -14,6 +14,10 @@ export function getCommunityPostList(state: RootState): PostListData[] {
   return getLocalState(state).communityPostList;
 }
 
+export function getUserPostList(state: RootState): PostListData[] {
+  return getLocalState(state).userPostList;
+}
+
 export function getChallengePostList(
   state: RootState,
   challengeId: number
