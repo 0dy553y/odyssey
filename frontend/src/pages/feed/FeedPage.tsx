@@ -9,7 +9,7 @@ import {
   ToggleButtonGroup,
 } from '@mui/material';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from '@mui/icons-material/AddRounded';
 import { makeStyles } from '@mui/styles';
 import {
   loadAllPosts,

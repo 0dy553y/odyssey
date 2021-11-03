@@ -45,7 +45,7 @@ const useStyles = makeStyles(() => ({
     position: 'fixed',
     zIndex: 5,
     color: 'white',
-    top: '0.45em',
+    top: '0.3em',
     left: '1.5em',
   },
   menuIcon: {

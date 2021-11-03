@@ -9,6 +9,7 @@ import { EXPLORE_ROUTE } from '../../routing/routes';
 import { useHistory } from 'react-router-dom';
 import { isBefore, isToday } from 'date-fns';
 import { displayDate } from '../../utils/formatting';
+import astronaut from 'assets/gifs/obebebe.gif';
 
 import './UserTaskCarousel.scss';
 
@@ -17,14 +18,20 @@ const useStyles = makeStyles(() => ({
     height: '100%',
     display: 'grid',
     placeItems: 'center',
+    gap: 0,
+    gridTemplateRows: '1fr auto 1fr',
   },
   text: {
     color: 'gray',
     marginLeft: 50,
     marginRight: 50,
+    marginBottom: 100,
   },
   handCursorLink: {
     cursor: 'pointer',
+  },
+  astronaut: {
+    maxHeight: '5em',
   },
 }));
 
@@ -47,6 +54,7 @@ const UserTaskCarousel: React.FC<Props> = ({
   if (userTaskList.length == 0 && isToday(date)) {
     return (
       <div className={classes.textContainer}>
+        <img className={classes.astronaut} src={astronaut} />
         <Typography align="center" className={classes.text}>
           You have no tasks for today!
           <br />
@@ -67,6 +75,7 @@ const UserTaskCarousel: React.FC<Props> = ({
   if (userTaskList.length == 0) {
     return (
       <div className={classes.textContainer}>
+        <img className={classes.astronaut} src={astronaut} />
         <Typography align="center" className={classes.text}>
           {`You ${
             isBefore(date, new Date()) ? 'had' : 'have'

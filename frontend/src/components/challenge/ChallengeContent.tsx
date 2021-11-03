@@ -145,6 +145,32 @@ const useStyles = makeStyles((theme: Theme) => ({
     zIndex: 5,
     textTransform: 'none',
   },
+  tab: {
+    textTransform: 'none',
+    fontWeight: theme.typography.fontWeightRegular,
+    fontSize: '1em',
+    color: 'rgba(0, 0, 0, 0.5)',
+    '&.Mui-selected': {
+      color: '#000',
+    },
+    '&.Mui-focusVisible': {
+      backgroundColor: 'rgba(0, 0, 0, 0.32)',
+    },
+  },
+  styledTabs: {
+    '& .MuiTabs-indicator': {
+      display: 'flex',
+      justifyContent: 'center',
+      backgroundColor: 'transparent',
+      height: '5px',
+    },
+    '& .MuiTabs-indicatorSpan': {
+      maxWidth: 50,
+      width: '100%',
+      backgroundColor: '#635ee7',
+    },
+    boxShadow: 'inset 0px -5px 0 0 #e8e8e8',
+  },
 }));
 
 enum TabItem {
@@ -295,11 +321,11 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
 
   return (
     <Box>
-      {!inView && (
-        <div
-          className={classes.collapsedHeader}
-          style={{ backgroundColor: getHexCode(challenge.color) }}
-        >
+      <div
+        className={classes.collapsedHeader}
+        style={{ backgroundColor: getHexCode(challenge.color) }}
+      >
+        {!inView && (
           <span className={classes.collapsedHeaderText}>
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -309,8 +335,8 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
               {challenge.name}
             </motion.div>
           </span>
-        </div>
-      )}
+        )}
+      </div>
       <div
         className={classes.contentContainer}
         style={{ backgroundColor: getHexCode(challenge.color) }}
@@ -342,15 +368,17 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
               </Typography>
 
               {challenge.referenceLink && (
-                <Link
-                  href={challenge.referenceLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={classes.white}
-                  underline="always"
-                >
-                  Learn more about this challenge
-                </Link>
+                <span>
+                  <Link
+                    href={challenge.referenceLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={classes.white}
+                    underline="always"
+                  >
+                    Learn more about this challenge
+                  </Link>
+                </span>
               )}
 
               <Typography className={`${classes.white} ${classes.topPadding}`}>
@@ -413,6 +441,19 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
           <TabContext value={currentTabItem}>
             <Box className={classes.tabs}>
               <TabList
+                TabIndicatorProps={{
+                  children: <span />,
+                  style: {
+                    background: getHexCode(challenge.color),
+                    height: '5px',
+                    width: '3em',
+                    marginLeft: '8.5%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                  },
+                }}
+                centered
+                variant="fullWidth"
                 onChange={(_: React.SyntheticEvent, newValue: TabItem) => {
                   setCurrentTabItem(newValue);
                 }}
@@ -424,11 +465,17 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                     }
                     return null;
                   }
-                  return <Tab key={tabItem} label={tabItem} value={tabItem} />;
+                  return (
+                    <Tab
+                      className={classes.tab}
+                      key={tabItem}
+                      label={tabItem}
+                      value={tabItem}
+                    />
+                  );
                 })}
               </TabList>
             </Box>
-
             {Object.values(TabItem).map((tabItem) => (
               <TabPanel key={tabItem} value={tabItem}>
                 {tabPanelRenderer(tabItem)}

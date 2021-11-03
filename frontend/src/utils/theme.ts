@@ -7,7 +7,7 @@ const theme = createTheme({
       contrastText: 'white',
     },
     secondary: {
-      main: '#ff4081',
+      main: '#000',
     },
     background: {
       paper: '#fff',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import CheckIcon from '@mui/icons-material/Check';
+import CheckIcon from '@mui/icons-material/CheckRounded';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import CircularProgress, {

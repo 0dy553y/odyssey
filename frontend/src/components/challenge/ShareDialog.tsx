@@ -1,5 +1,11 @@
 import React from 'react';
-import { Dialog, DialogContent, DialogTitle } from '@mui/material';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  DialogActions,
+} from '@mui/material';
 import {
   EmailIcon,
   EmailShareButton,
@@ -12,6 +18,7 @@ import {
   WhatsappIcon,
   WhatsappShareButton,
 } from 'react-share';
+import CloseIcon from '@mui/icons-material/CloseRounded';
 import { ChallengeData } from '../../types/challenges';
 import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
@@ -29,6 +36,10 @@ const useStyles = makeStyles(() => ({
     display: 'grid',
     gridAutoFlow: 'column',
     gridColumnGap: '10px',
+  },
+  modalHeader: {
+    fontSize: '24px',
+    fontWeight: 'bold',
   },
 }));
 
@@ -48,8 +59,28 @@ const ShareDialog: React.FC<Props> = ({
   const isIconRound = true;
 
   return (
-    <Dialog open={isOpen} onClose={onClose} fullWidth maxWidth="xs">
-      <DialogTitle>Invite your friends!</DialogTitle>
+    <Dialog
+      open={isOpen}
+      onClose={onClose}
+      fullWidth
+      maxWidth="xs"
+      PaperProps={{
+        style: { borderRadius: '1.5em', padding: '1em' },
+      }}
+    >
+      <DialogActions
+        sx={{
+          marginBottom: '-3em',
+          marginTop: '-0.5em',
+        }}
+      >
+        <IconButton onClick={onClose}>
+          <CloseIcon width="1.5em" />
+        </IconButton>
+      </DialogActions>
+      <DialogTitle className={classes.modalHeader}>
+        Invite your friends!
+      </DialogTitle>
       <DialogContent>
         <CopyTextField text={url} textDescription="challenge link" />
         <div className={classes.shareContainer}>

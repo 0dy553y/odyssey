@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import CheckIcon from '@mui/icons-material/Check';
+import CheckIcon from '@mui/icons-material/CheckRounded';
 import { UserData } from '../../types/auth';
 import { displayUsername } from '../../utils/formatting';
 

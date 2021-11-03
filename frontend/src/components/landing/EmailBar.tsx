@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Button, Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import obebebe from '../../assets/gifs/obebebe.gif';
+import obebebe from 'assets/gifs/obebebe.gif';
 import { useHistory } from 'react-router-dom';
 import { ONBOARDING_ROUTE } from 'routing/routes';
 

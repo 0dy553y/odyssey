@@ -13,7 +13,7 @@ import { useHistory } from 'react-router-dom';
 import api from '../../api';
 import { ApiResponse } from '../../types/api';
 import { AddFriendListData } from '../../types/friends';
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from '@mui/icons-material/SearchRounded';
 import AddFriendsList from '../../components/friendsList/AddFriendsList';
 import { makeStyles } from '@mui/styles';
 

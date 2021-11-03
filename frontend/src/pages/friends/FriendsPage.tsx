@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     bottom: theme.spacing(4),
     backgroundColor: 'black',
     color: 'white',
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+    },
   },
 }));
 

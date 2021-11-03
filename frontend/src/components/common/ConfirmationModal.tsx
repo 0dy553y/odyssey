@@ -1,4 +1,5 @@
 import React from 'react';
+import { makeStyles } from '@mui/styles';
 import {
   Button,
   Dialog,
@@ -15,6 +16,17 @@ interface ConfirmationModalProps {
   onCancel: () => void;
 }
 
+const useStyles = makeStyles(() => ({
+  modalHeader: {
+    fontSize: '24px',
+    fontWeight: 'bold',
+  },
+  actionButtons: {
+    textTransform: 'none',
+    borderRadius: '1em',
+  },
+}));
+
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   title,
   message,
@@ -22,17 +34,40 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   onCancel,
   onConfirm,
 }) => {
+  const classes = useStyles();
+
   return (
-    <Dialog open={isOpen} onClose={onCancel} fullWidth maxWidth="sm">
-      {title && <DialogTitle>{title}</DialogTitle>}
+    <Dialog
+      open={isOpen}
+      onClose={onCancel}
+      fullWidth
+      maxWidth="sm"
+      PaperProps={{
+        style: { borderRadius: '1.5em', padding: '1em' },
+      }}
+    >
+      {title && (
+        <DialogTitle className={classes.modalHeader}>{title}</DialogTitle>
+      )}
 
       <DialogContent>{message}</DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={onCancel} variant="outlined">
+        <Button
+          className={classes.actionButtons}
+          autoFocus
+          onClick={onCancel}
+          variant="outlined"
+        >
           Cancel
         </Button>
 
-        <Button autoFocus onClick={onConfirm} variant="contained">
+        <Button
+          className={classes.actionButtons}
+          autoFocus
+          onClick={onConfirm}
+          variant="contained"
+          disableElevation
+        >
           Confirm
         </Button>
       </DialogActions>
