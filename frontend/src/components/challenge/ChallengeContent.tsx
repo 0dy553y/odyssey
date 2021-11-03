@@ -10,7 +10,7 @@ import UserChallengeStats from 'components/challenge/UserChallengeStats';
 import { UserChallengeData, UserChallengeListData } from 'types/userchallenge';
 import { TabPanel, TabContext, TabList } from '@mui/lab';
 import ChallengeMilestones from 'components/challenge/ChallengeMilestones';
-import ChallengeCompletedModal from 'components/challengeCompletedModal';
+import ChallengeCompletedDialog from 'components/challengeCompletedDialog';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import ScheduleModal from 'components/challenge/ScheduleModal';
@@ -185,17 +185,25 @@ interface ChallengeContentProps {
   tasks: TaskListData[];
   posts: PostListData[];
   currentUser: UserData;
+  onTaskCompleted: () => void;
 }
 
-interface ChallengeCompletedModalState {
+interface ChallengeCompletedDialogState {
   isOpen: boolean;
-  completedChallengeName?: string;
+  completedChallengeId?: number;
 }
 
 const privateTabs = [TabItem.YourStats];
 
 const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
-  const { challenge, userChallenge, tasks, posts, currentUser } = props;
+  const {
+    challenge,
+    userChallenge,
+    tasks,
+    posts,
+    currentUser,
+    onTaskCompleted,
+  } = props;
   const classes = useStyles(challenge);
   const dispatch = useDispatch();
 
@@ -211,16 +219,16 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
   const [isScheduleModalOpen, setIsScheduleModalOpen] =
     useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
-  const [challengeCompletedModalState, setChallengeCompletedModalState] =
+  const [ChallengeCompletedDialogState, setChallengeCompletedDialogState] =
     useReducer(
       (
-        state: ChallengeCompletedModalState,
-        newState: Partial<ChallengeCompletedModalState>
+        state: ChallengeCompletedDialogState,
+        newState: Partial<ChallengeCompletedDialogState>
       ) => ({
         ...state,
         ...newState,
       }),
-      { isOpen: false, completedChallengeName: undefined }
+      { isOpen: false, completedChallengeId: undefined }
     );
 
   const ongoingChallenges: UserChallengeListData[] = useSelector(
@@ -231,10 +239,10 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
     threshold: 0.3,
   });
 
-  const onChallengeCompleted = (completedChallengeName: string) => {
-    setChallengeCompletedModalState({
+  const onChallengeCompleted = (completedChallengeId: number) => {
+    setChallengeCompletedDialogState({
       isOpen: true,
-      completedChallengeName: completedChallengeName,
+      completedChallengeId: completedChallengeId,
     });
   };
 
@@ -250,6 +258,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
             tasks={tasks}
             userTasks={userChallenge?.userTasks ?? []}
             onChallengeCompleted={onChallengeCompleted}
+            onTaskCompleted={onTaskCompleted}
           />
         );
       case TabItem.YourStats:
@@ -483,12 +492,12 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
             ))}
           </TabContext>
         </div>
-        {challengeCompletedModalState.completedChallengeName && (
-          <ChallengeCompletedModal
-            isOpen={challengeCompletedModalState.isOpen}
-            challengeName={challengeCompletedModalState.completedChallengeName}
+        {ChallengeCompletedDialogState.completedChallengeId && (
+          <ChallengeCompletedDialog
+            isOpen={ChallengeCompletedDialogState.isOpen}
+            challengeId={1}
             onClose={() => {
-              setChallengeCompletedModalState({ isOpen: false });
+              setChallengeCompletedDialogState({ isOpen: false });
             }}
           />
         )}

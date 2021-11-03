@@ -15,6 +15,7 @@ export interface ChallengeData extends ChallengeListData {
   categoryId: number;
   originalCreator?: string;
   referenceLink?: string;
+  prizeName: string;
 }
 
 export interface ChallengePostData {

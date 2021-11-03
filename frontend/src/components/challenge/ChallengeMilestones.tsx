@@ -24,7 +24,8 @@ import { isBefore, isToday } from 'date-fns';
 interface ChallengeMilestonesProps {
   tasks: TaskListData[];
   userTasks: UserTaskListData[] | null;
-  onChallengeCompleted: (completedChallengeName: string) => void;
+  onChallengeCompleted: (completedChallengeId: number) => void;
+  onTaskCompleted: () => void;
 }
 
 const useStyles = makeStyles(() => ({
@@ -71,7 +72,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
-  const { tasks, userTasks, onChallengeCompleted } = props;
+  const { tasks, userTasks, onChallengeCompleted, onTaskCompleted } = props;
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -135,7 +136,11 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
               throw new Error('No matching user task found for task');
             }
             dispatch(
-              markUserTaskAsDoneFromChallenge(userTask.id, onChallengeCompleted)
+              markUserTaskAsDoneFromChallenge(
+                userTask.id,
+                onChallengeCompleted,
+                onTaskCompleted
+              )
             );
           }}
           className={classes.checkbox}

@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
 interface Props {
   userTaskList: UserTaskListData[];
   date: Date;
-  onChallengeCompleted: (completedChallengeName: string) => void;
+  onChallengeCompleted: (completedChallengeId: number) => void;
   onTaskCompleted: (openChallengeName: string) => void;
 }
 

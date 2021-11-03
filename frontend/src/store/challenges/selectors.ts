@@ -24,3 +24,12 @@ export function getChallenge(
 export function getChallengeMaps(state: RootState): ChallengeMapData[] {
   return getLocalState(state).challengeMaps;
 }
+
+export function getChallengeMap(
+  state: RootState,
+  challengeId: number
+): ChallengeMapData | undefined {
+  return getLocalState(state).challengeMaps.find(
+    (map: ChallengeMapData) => map.challengeId === challengeId
+  );
+}
