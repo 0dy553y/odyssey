@@ -8,6 +8,7 @@ import {
   Theme,
   Typography,
   Tab,
+  Tabs,
 } from '@mui/material';
 import { TaskListData } from 'types/tasks';
 import { useParams } from 'react-router-dom';
@@ -147,6 +148,32 @@ const useStyles = makeStyles((theme: Theme) => ({
     bottom: 0,
     zIndex: 5,
     textTransform: 'none',
+  },
+  test: {
+    textTransform: 'none',
+    fontWeight: theme.typography.fontWeightRegular,
+    fontSize: '1em',
+    color: 'rgba(0, 0, 0, 0.5)',
+    '&.Mui-selected': {
+      color: '#000',
+    },
+    '&.Mui-focusVisible': {
+      backgroundColor: 'rgba(0, 0, 0, 0.32)',
+    },
+  },
+  styledTabs: {
+    '& .MuiTabs-indicator': {
+      display: 'flex',
+      justifyContent: 'center',
+      backgroundColor: 'transparent',
+      height: '5px',
+    },
+    '& .MuiTabs-indicatorSpan': {
+      maxWidth: 50,
+      width: '100%',
+      backgroundColor: '#635ee7',
+    },
+    boxShadow: 'inset 0px -5px 0 0 #e8e8e8',
   },
 }));
 
@@ -381,24 +408,30 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
         </div>
         <div className={classes.contentDetails}>
           <TabContext value={currentTabItem}>
-            <Box className={classes.tabs}>
-              <TabList
-                onChange={(_: React.SyntheticEvent, newValue: TabItem) => {
-                  setCurrentTabItem(newValue);
-                }}
-              >
-                {Object.values(TabItem).map((tabItem) => {
-                  if (privateTabs.includes(tabItem) && !isEnrolled) {
-                    if (currentTabItem === tabItem) {
-                      setCurrentTabItem(TabItem.Milestones);
-                    }
-                    return null;
+            {/* <Box className={classes.tabs}> */}
+            <TabList
+              onChange={(_: React.SyntheticEvent, newValue: TabItem) => {
+                setCurrentTabItem(newValue);
+              }}
+            >
+              {Object.values(TabItem).map((tabItem) => {
+                if (privateTabs.includes(tabItem) && !isEnrolled) {
+                  if (currentTabItem === tabItem) {
+                    setCurrentTabItem(TabItem.Milestones);
                   }
-                  return <Tab key={tabItem} label={tabItem} value={tabItem} />;
-                })}
-              </TabList>
-            </Box>
-
+                  return null;
+                }
+                return (
+                  <Tab
+                    className={classes.test}
+                    key={tabItem}
+                    label={tabItem}
+                    value={tabItem}
+                  />
+                );
+              })}
+            </TabList>
+            {/* </Box> */}
             {Object.values(TabItem).map((tabItem) => (
               <TabPanel key={tabItem} value={tabItem}>
                 {tabPanelRenderer(tabItem)}

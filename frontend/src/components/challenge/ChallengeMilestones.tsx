@@ -92,7 +92,6 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
     if (!isEnrolled)
       return (
         <Circle
-          elevation={0}
           style={{
             boxShadow: 'none',
             height: '0.7em',
@@ -137,11 +136,17 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
           <TimelineItem key={t.id}>
             <TimelineOppositeContent className={classes.opposite} />
             <TimelineSeparator>
-              <TimelineDot color="secondary" className={getDotStyle(t.id)}>
+              <TimelineDot
+                sx={{ margin: '0em' }}
+                color="secondary"
+                className={getDotStyle(t.id)}
+              >
                 {renderCorrectIcon(t.id)}
               </TimelineDot>
               {index < tasks.length - 1 ? (
-                <TimelineConnector />
+                <TimelineConnector
+                  sx={{ backgroundColor: 'rgba(0, 0, 0, 0.07)' }}
+                />
               ) : (
                 // Don't show trailing line on last element.
                 <div />
