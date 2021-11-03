@@ -221,7 +221,7 @@ task add_couch_and_meditation: :environment do
                 description: 'Meditate for 10 min. Think of all the great things about you and say out loud 3 compliments to yourself. You can do it after your meditation practice, once you wake up or even in the middle of the day before an important meeting.',
                 index: 17)
     Task.create(challenge_id: challenge_meditation.id,
-                name: 'Day 19 - List 3 positive things that happened today',
+                name: 'Day 19 - List 3 positive things',
                 description: 'Meditate for 10 min. List 3 great things that happened to you today before you fall asleep.',
                 index: 18)
     Task.create(challenge_id: challenge_meditation.id,
