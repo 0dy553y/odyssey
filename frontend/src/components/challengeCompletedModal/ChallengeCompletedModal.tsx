@@ -20,7 +20,7 @@ import { getChallenge } from 'store/challenges/selectors';
 import { loadChallenge } from 'store/challenges/operations';
 import { RootState } from 'store';
 import { ChallengeData } from 'types/challenges';
-import PrizeModelDisplay from 'components/common/prizeInfoModal/PrizeModelDisplay';
+import PrizeModelDisplay from 'components/common/prizeInfoDialog/PrizeModelDisplay';
 import { getPrize, getPrizePath } from 'utils/prizes';
 
 interface ChallengeCompletedModalProps {
