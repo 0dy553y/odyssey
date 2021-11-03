@@ -164,7 +164,7 @@ interface ChallengeContentProps {
 
 interface ChallengeCompletedModalState {
   isOpen: boolean;
-  completedChallengeName?: string;
+  completedChallengeId?: number;
 }
 
 const privateTabs = [TabItem.YourStats];
@@ -202,7 +202,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
         ...state,
         ...newState,
       }),
-      { isOpen: false, completedChallengeName: undefined }
+      { isOpen: false, completedChallengeId: undefined }
     );
 
   const ongoingChallenges: UserChallengeListData[] = useSelector(
@@ -213,10 +213,10 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
     threshold: 0.3,
   });
 
-  const onChallengeCompleted = (completedChallengeName: string) => {
+  const onChallengeCompleted = (completedChallengeId: number) => {
     setChallengeCompletedModalState({
       isOpen: true,
-      completedChallengeName: completedChallengeName,
+      completedChallengeId: completedChallengeId,
     });
   };
 
@@ -228,13 +228,10 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
     switch (tabItem) {
       case TabItem.Milestones:
         return (
-          // TODO: update
           <ChallengeMilestones
             tasks={tasks}
             userTasks={userChallenge?.userTasks ?? []}
-            onChallengeCompleted={(challengeId: number) => {
-              return;
-            }}
+            onChallengeCompleted={onChallengeCompleted}
             onTaskCompleted={onTaskCompleted}
           />
         );
@@ -448,8 +445,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
             ))}
           </TabContext>
         </div>
-        {/* TODO: update */}
-        {challengeCompletedModalState.completedChallengeName && (
+        {challengeCompletedModalState.completedChallengeId && (
           <ChallengeCompletedModal
             isOpen={challengeCompletedModalState.isOpen}
             challengeId={1}
