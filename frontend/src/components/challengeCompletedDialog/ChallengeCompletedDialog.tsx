@@ -1,7 +1,16 @@
 import React, { useEffect, Suspense } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles, useTheme } from '@mui/styles';
-import { Box, Dialog, DialogContent, Link, Typography } from '@mui/material';
+import {
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  IconButton,
+  Link,
+  Typography,
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/CloseRounded';
 import { BADGE_ROUTE, EXPLORE_ROUTE } from '../../routing/routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { getChallenge } from 'store/challenges/selectors';
@@ -72,6 +81,16 @@ const ChallengeCompletedDialog: React.FC<ChallengeCompletedDialogProps> = ({
           style: { borderRadius: '1.5em', padding: '1em' },
         }}
       >
+        <DialogActions
+          sx={{
+            marginBottom: '-3em',
+            marginTop: '-0.5em',
+          }}
+        >
+          <IconButton onClick={onClose}>
+            <CloseIcon width="1.5em" />
+          </IconButton>
+        </DialogActions>
         {challenge !== undefined ? (
           <DialogContent>
             <Typography variant="h4" className={classes.title}>
