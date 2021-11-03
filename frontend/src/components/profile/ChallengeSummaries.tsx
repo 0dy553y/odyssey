@@ -5,7 +5,7 @@ import { loadAllChallenges } from 'store/challenges/operations';
 import { RootState } from 'store';
 import { getChallengeList } from 'store/challenges/selectors';
 import CategoryListItem from 'components/category/CategoryListItem';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { CHALLENGE_ROUTE } from 'routing/routes';
 import { UserChallengeListData } from 'types/userchallenge';
 import { ChallengeListData } from 'types/challenges';
@@ -21,6 +21,7 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
   const { challenges, isCurrentUser } = props;
 
   const dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {
     dispatch(loadAllChallenges());
   }, []);
@@ -54,19 +55,17 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
             if (challengeDetails !== undefined) {
               return (
                 <li key={challenge.challengeId}>
-                  <Link
-                    to={{
-                      pathname: `${CHALLENGE_ROUTE}/${challenge.challengeId}`,
-                      state: { challenge: challenge },
-                    }}
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <CategoryListItem
-                      name={challengeDetails.name}
-                      duration={challengeDetails.duration}
-                      percentageComplete={challenge.percentCompleted}
-                    />
-                  </Link>
+                  <CategoryListItem
+                    name={challengeDetails.name}
+                    duration={challengeDetails.duration}
+                    percentageComplete={challenge.percentCompleted}
+                    onClick={() =>
+                      history.push(
+                        `${CHALLENGE_ROUTE}/${challenge.challengeId}`,
+                        { challenge: challenge }
+                      )
+                    }
+                  />
                 </li>
               );
             }

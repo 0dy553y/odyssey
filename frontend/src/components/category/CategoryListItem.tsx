@@ -44,10 +44,11 @@ interface CategoryListProps {
   name: string;
   duration: number;
   percentageComplete: number;
+  onClick: () => void;
 }
 
 const CategoryListItem: React.FC<CategoryListProps> = (props) => {
-  const { name, duration, percentageComplete } = props;
+  const { name, duration, percentageComplete, onClick } = props;
   const classes = useStyles();
 
   const [progress, setProgress] = React.useState(0);
@@ -57,7 +58,7 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
   }, []);
 
   return (
-    <Box>
+    <Box onClick={onClick}>
       <div className={classes.container}>
         <div className="square-pic">
           <Avatar square={true} variant={'beam'} size={65} name={name} />

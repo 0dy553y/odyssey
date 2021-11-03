@@ -159,23 +159,20 @@ const CategoryPage: React.FC = () => {
             .filter((challenge) => challenge.categoryId == category.id)
             .map((challenge) => (
               <li key={challenge.id}>
-                <Link
-                  to={{
-                    pathname: `${CHALLENGE_ROUTE}/${challenge.id}`,
-                    state: { challenge: challenge },
-                  }}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <CategoryListItem
-                    name={challenge.name}
-                    duration={challenge.duration}
-                    percentageComplete={getChallengePercentageComplete(
-                      challenge.id,
-                      completedChallenges,
-                      ongoingChallenges
-                    )}
-                  />
-                </Link>
+                <CategoryListItem
+                  name={challenge.name}
+                  duration={challenge.duration}
+                  percentageComplete={getChallengePercentageComplete(
+                    challenge.id,
+                    completedChallenges,
+                    ongoingChallenges
+                  )}
+                  onClick={() =>
+                    history.push(`${CHALLENGE_ROUTE}/${challenge.id}`, {
+                      challenge: challenge,
+                    })
+                  }
+                />
               </li>
             ))}
         </ul>
