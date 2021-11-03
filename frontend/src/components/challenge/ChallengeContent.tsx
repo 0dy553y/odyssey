@@ -215,10 +215,13 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
     switch (tabItem) {
       case TabItem.Milestones:
         return (
+          // TODO: update
           <ChallengeMilestones
             tasks={tasks}
             userTasks={userChallenge?.userTasks ?? []}
-            onChallengeCompleted={onChallengeCompleted}
+            onChallengeCompleted={(challengeId: number) => {
+              return;
+            }}
           />
         );
       case TabItem.YourStats:
@@ -404,10 +407,11 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
             ))}
           </TabContext>
         </div>
+        {/* TODO: update */}
         {challengeCompletedModalState.completedChallengeName && (
           <ChallengeCompletedModal
             isOpen={challengeCompletedModalState.isOpen}
-            challengeName={challengeCompletedModalState.completedChallengeName}
+            challengeId={1}
             onClose={() => {
               setChallengeCompletedModalState({ isOpen: false });
             }}

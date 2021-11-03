@@ -17,7 +17,7 @@ import { getDirectionVector, nextDirectionCW } from 'utils/direction';
 import { translate } from 'utils/map';
 import { ChallengeMapData } from 'types/challenges';
 import { getPrize, getPrizePath } from 'utils/prizes';
-import PrizeInfoModal from 'components/common/PrizeInfoModal';
+import PrizeInfoModal from 'components/common/prizeInfoModal/PrizeInfoModal';
 
 interface MapProps {
   mapData: ChallengeMapData;

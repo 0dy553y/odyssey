@@ -20,7 +20,7 @@ import { isBefore, isToday } from 'date-fns';
 interface ChallengeMilestonesProps {
   tasks: TaskListData[];
   userTasks: UserTaskListData[] | null;
-  onChallengeCompleted: (completedChallengeName: string) => void;
+  onChallengeCompleted: (completedChallengeId: number) => void;
 }
 
 const useStyles = makeStyles(() => ({

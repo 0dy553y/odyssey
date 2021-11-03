@@ -17,6 +17,7 @@ import TodayIcon from '@mui/icons-material/Today';
 import { startOfDay } from 'date-fns';
 import { ChallengeMapData } from 'types/challenges';
 import { getChallengeMaps } from 'store/challenges/selectors';
+import { getPrize } from 'utils/prizes';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -47,7 +48,7 @@ const useStyles = makeStyles(() => ({
 
 interface ChallengeCompletedModalState {
   isOpen: boolean;
-  completedChallengeName?: string;
+  completedChallengeId?: number;
 }
 
 interface TaskCompletedDialogState {
@@ -69,13 +70,13 @@ const HomePage: React.FC = () => {
         ...state,
         ...newState,
       }),
-      { isOpen: false, completedChallengeName: undefined }
+      { isOpen: false, completedChallengeId: undefined }
     );
 
-  const onChallengeCompleted = (completedChallengeName: string) => {
+  const onChallengeCompleted = (completedChallengeId: number) => {
     setChallengeCompletedModalState({
       isOpen: true,
-      completedChallengeName: completedChallengeName,
+      completedChallengeId: completedChallengeId,
     });
   };
   const [taskCompletedDialogState, setTaskCompletedDialogState] = useReducer(
@@ -164,10 +165,10 @@ const HomePage: React.FC = () => {
         />
       </div>
 
-      {challengeCompletedModalState.completedChallengeName && (
+      {challengeCompletedModalState.completedChallengeId && (
         <ChallengeCompletedModal
           isOpen={challengeCompletedModalState.isOpen}
-          challengeName={challengeCompletedModalState.completedChallengeName}
+          challengeId={challengeCompletedModalState.completedChallengeId}
           onClose={() => setChallengeCompletedModalState({ isOpen: false })}
         />
       )}

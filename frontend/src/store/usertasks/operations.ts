@@ -23,7 +23,7 @@ export function loadUserTasksForDay(date: Date): OperationResult {
 
 function markUserTaskAsDone(
   userTaskId: number,
-  onChallengeCompleted: (completedChallengeName: string) => void,
+  onChallengeCompleted: (completedChallengeId: number) => void,
   onTaskCompleted: (openChallengeName: string) => void,
   onOperationComplete: (
     dispatch: ThunkDispatch<RootState, undefined, AnyAction>,
@@ -35,7 +35,7 @@ function markUserTaskAsDone(
     const userTask: UserTaskData = response.payload.data;
     onTaskCompleted(userTask.challengeName);
     if (userTask.isChallengeCompleted) {
-      onChallengeCompleted(userTask.challengeName);
+      onChallengeCompleted(userTask.challengeId);
     }
     onOperationComplete(dispatch, userTask);
   };
@@ -43,7 +43,7 @@ function markUserTaskAsDone(
 
 export function markUserTaskAsDoneFromHome(
   userTaskId: number,
-  onChallengeCompleted: (completedChallengeName: string) => void,
+  onChallengeCompleted: (completedChallengeId: number) => void,
   onTaskCompleted: (openChallengeName: string) => void
 ): OperationResult {
   return markUserTaskAsDone(
@@ -60,7 +60,7 @@ export function markUserTaskAsDoneFromHome(
 
 export function markUserTaskAsDoneFromChallenge(
   userTaskId: number,
-  onChallengeCompleted: (completedChallengeName: string) => void
+  onChallengeCompleted: (completedChallengeId: number) => void
 ): OperationResult {
   return markUserTaskAsDone(
     userTaskId,
