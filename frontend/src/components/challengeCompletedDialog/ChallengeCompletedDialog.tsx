@@ -94,7 +94,7 @@ const ChallengeCompletedDialog: React.FC<ChallengeCompletedDialogProps> = ({
         {challenge !== undefined ? (
           <DialogContent>
             <Typography variant="h4" className={classes.title}>
-              Challenge Complete!
+              challenge complete!
             </Typography>
             <Typography variant="body1" className={classes.challengeName}>
               {challenge.name}
