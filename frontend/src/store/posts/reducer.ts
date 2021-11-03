@@ -5,6 +5,7 @@ import { PostsState } from './types';
 const initialState: PostsState = {
   friendPostList: [],
   communityPostList: [],
+  userPostList: [],
   challengePostLists: {},
 };
 
@@ -33,6 +34,9 @@ export const postsSlice = createSlice({
     ): void => {
       state.communityPostList = [action.payload, ...state.communityPostList];
     },
+    setUserPostList: (state, action: PayloadAction<PostListData[]>): void => {
+      state.userPostList = action.payload;
+    },
     updatePost: (state, action: PayloadAction<PostListData>): void => {
       const newPost = action.payload;
 
@@ -45,6 +49,8 @@ export const postsSlice = createSlice({
         newPost,
         state.communityPostList
       );
+
+      state.userPostList = updatedPostListWithPost(newPost, state.userPostList);
 
       const challengePostList = updatedPostListWithPost(
         newPost,
@@ -63,6 +69,7 @@ export const postsSlice = createSlice({
     resetPosts: (state): void => {
       state.friendPostList = [];
       state.communityPostList = [];
+      state.userPostList = [];
       state.challengePostLists = [];
     },
   },
