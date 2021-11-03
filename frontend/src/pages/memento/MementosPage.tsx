@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadAllCompletedUserChallenges } from 'store/userchallenges/operations';
 import { getAllCompletedUserChallenges } from 'store/userchallenges/selectors';
 import { RootState } from 'store';
-import PrizeDisplay from 'components/badge/PrizeDisplay';
-import PrizeInfoModal from 'components/badge/PrizeInfoModal';
+import PrizeDisplay from 'components/memento/PrizeDisplay';
+import PrizeInfoModal from 'components/memento/PrizeInfoModal';
 import { CompletedUserChallengeListData } from 'types/userchallenge';
 import { getPrize } from 'utils/prizes';
 import { Prize } from 'types/prize';
@@ -21,7 +21,7 @@ interface PrizeOpenState {
   prize: PrizeWithChallengeName;
 }
 
-const BadgePage: React.FC = () => {
+const MementosPage: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { username } = useParams<{ username: string | undefined }>();
@@ -103,4 +103,4 @@ const BadgePage: React.FC = () => {
   );
 };
 
-export default BadgePage;
+export default MementosPage;

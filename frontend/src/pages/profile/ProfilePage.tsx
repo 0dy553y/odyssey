@@ -24,7 +24,7 @@ import UserStats from '../../components/profile/UserStats';
 import ChallengeSummaries from '../../components/profile/ChallengeSummaries';
 import { useHistory, useParams } from 'react-router-dom';
 import {
-  BADGE_ROUTE,
+  MEMENTOS_ROUTE,
   COMPLETED_CHALLENGES_ROUTE,
   EDIT_PROFILE_ROUTE,
   FRIENDS_ROUTE,
@@ -157,9 +157,9 @@ const ProfilePage: React.FC = () => {
       count: completedChallenges.length,
       onClick: () => {
         if (isOwnProfilePage) {
-          history.push(BADGE_ROUTE);
+          history.push(MEMENTOS_ROUTE);
         } else {
-          history.push(`${BADGE_ROUTE}/${username}`);
+          history.push(`${MEMENTOS_ROUTE}/${username}`);
         }
       },
     },

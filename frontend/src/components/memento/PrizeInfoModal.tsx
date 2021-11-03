@@ -4,7 +4,7 @@ import { makeStyles } from '@mui/styles';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from 'react-three-fiber';
 import PrizeModel from 'components/map/composite/Prize';
-import { PrizeWithChallengeName } from '../../pages/badge/BadgePage';
+import { PrizeWithChallengeName } from '../../pages/memento/MementosPage';
 
 const useStyles = makeStyles((theme: Theme) => ({
   modalBox: {

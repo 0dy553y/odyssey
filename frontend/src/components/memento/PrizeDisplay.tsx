@@ -4,7 +4,7 @@ import PrizeModel from 'components/map/composite/Prize';
 import { translate } from 'utils/map';
 import { Axis } from 'types/map';
 import { Html } from '@react-three/drei';
-import { PrizeWithChallengeName } from '../../pages/badge/BadgePage';
+import { PrizeWithChallengeName } from '../../pages/memento/MementosPage';
 
 interface PrizeDisplayProps {
   prizes: PrizeWithChallengeName[];
