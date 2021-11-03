@@ -47,6 +47,10 @@ const useStyles = makeStyles(() => ({
   displayLineBreak: {
     whiteSpace: 'pre-line',
   },
+  wrapText: {
+    wordBreak: 'break-word',
+    hyphens: 'auto',
+  },
 }));
 
 const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
@@ -138,7 +142,9 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
             </TimelineSeparator>
             <TimelineContent>
               <Typography className={classes.title}>{t.name}</Typography>
-              <Typography className={classes.displayLineBreak}>
+              <Typography
+                className={`${classes.displayLineBreak} ${classes.wrapText}`}
+              >
                 {t.description}
               </Typography>
             </TimelineContent>

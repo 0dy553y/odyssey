@@ -66,6 +66,22 @@ class PostsAPI extends BaseAPI {
     });
   }
 
+  public getPostsListForUser(username?: string): ApiPromise<PostListData[]> {
+    return this.get(
+      `${PostsAPI.getPostsUrl()}/posts_for_user?username=${username ?? ''}`
+    ).then((resp) => {
+      const data = (resp.payload.data as PseudoPostListData[]).map(
+        postListDataMapper
+      );
+      return {
+        ...resp,
+        payload: {
+          data,
+        },
+      };
+    });
+  }
+
   public addReaction(
     postId: number,
     reactionPostData: ReactionPostData

@@ -2,16 +2,20 @@ import React, { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { getUser } from 'store/auth/selectors';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {
   AppBar,
   Box,
+  Divider,
   Grid,
   IconButton,
   Menu,
   MenuItem,
+  Stack,
   Theme,
   Toolbar,
+  Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import ProfileHeader from '../../components/profile/ProfileHeader';
@@ -24,6 +28,7 @@ import {
   COMPLETED_CHALLENGES_ROUTE,
   EDIT_PROFILE_ROUTE,
   FRIENDS_ROUTE,
+  POSTS_ROUTE,
 } from 'routing/routes';
 import { logout } from 'store/auth/operations';
 import useScrollbarSize from 'react-scrollbar-size';
@@ -44,6 +49,9 @@ import { FriendListData } from '../../types/friends';
 import { getFriendList } from '../../store/friends/selectors';
 import { loadUser } from '../../store/users/operations';
 import { getUserByUsername } from '../../store/users/selectors';
+import { loadPostsForUser } from 'store/posts/operations';
+import { PostListData } from 'types/posts';
+import { getUserPostList } from 'store/posts/selectors';
 
 export interface StyleProps {
   scrollbarWidth: number;
@@ -88,6 +96,7 @@ const ProfilePage: React.FC = () => {
       dispatch(loadAllCompletedUserChallenges(username));
       dispatch(loadAllFriends(username));
       dispatch(loadUserTaskActivityData(username));
+      dispatch(loadPostsForUser(username));
     });
   }, []);
 
@@ -111,7 +120,8 @@ const ProfilePage: React.FC = () => {
 
   const friends: FriendListData[] = useSelector(getFriendList);
 
-  // TODO: replace these
+  const userPosts: PostListData[] = useSelector(getUserPostList);
+
   const userProfileItems: {
     label: string;
     count: number;
@@ -187,36 +197,61 @@ const ProfilePage: React.FC = () => {
                 </div>
               )}
               <Box sx={{ flexGrow: 1 }} />
-              <IconButton edge="end" color="primary" onClick={handleMenuClick}>
-                <MoreVertIcon />
-              </IconButton>
-              <Menu
-                anchorEl={menuAnchorEl}
-                open={isMenuOpen}
-                onClose={handleMenuClose}
-              >
-                <MenuItem
-                  onClick={() => {
-                    handleMenuClose();
-                    history.push(EDIT_PROFILE_ROUTE);
-                  }}
-                >
-                  Edit Profile
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    handleMenuClose();
-                    dispatch(logout(history));
-                  }}
-                >
-                  Logout
-                </MenuItem>
-              </Menu>
+              {isOwnProfilePage && (
+                <>
+                  <IconButton
+                    edge="end"
+                    color="primary"
+                    onClick={handleMenuClick}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                  <Menu
+                    anchorEl={menuAnchorEl}
+                    open={isMenuOpen}
+                    onClose={handleMenuClose}
+                  >
+                    <MenuItem
+                      onClick={() => {
+                        handleMenuClose();
+                        history.push(EDIT_PROFILE_ROUTE);
+                      }}
+                    >
+                      Edit Profile
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        handleMenuClose();
+                        dispatch(logout(history));
+                      }}
+                    >
+                      Logout
+                    </MenuItem>
+                  </Menu>
+                </>
+              )}
             </Toolbar>
           </AppBar>
 
           <ProfileHeader user={user} userProfileItems={userProfileItems} />
         </Grid>
+
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          onClick={() => {
+            if (isOwnProfilePage) {
+              history.push(POSTS_ROUTE);
+            } else {
+              history.push(`${POSTS_ROUTE}/${username}`);
+            }
+          }}
+        >
+          <Typography>View posts ({userPosts.length})</Typography>
+
+          <ChevronRightIcon />
+        </Stack>
+        <Divider />
 
         <ActivityMap activityMapData={userTaskActivityData} />
 

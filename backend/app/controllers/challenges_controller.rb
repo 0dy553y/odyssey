@@ -52,7 +52,7 @@ class ChallengesController < ApplicationController
   end
 
   def ongoing_and_completed_challenges
-    @challenges = current_user.challenges
+    @challenges = current_user.challenges.uniq
 
     render 'challenges/index', status: :ok
   end

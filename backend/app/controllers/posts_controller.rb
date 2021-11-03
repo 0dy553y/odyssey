@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
+  include UserHelper
+
   def friend_posts
     friend_ids = current_user.friends.pluck(:id)
     friend_and_self_ids = friend_ids + [current_user.id]
@@ -20,6 +22,12 @@ class PostsController < ApplicationController
 
   def posts_for_challenge
     @posts = Post.includes(:post_reactions, :creator).where(challenge_id: params.require(:challenge_id))
+
+    render 'posts/index', status: :ok
+  end
+
+  def posts_for_user
+    @posts = Post.includes(:post_reactions, :creator).where(creator_id: user.id)
 
     render 'posts/index', status: :ok
   end

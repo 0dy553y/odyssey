@@ -1,19 +1,11 @@
 import React, { useEffect } from 'react';
-import {
-  AppBar,
-  Box,
-  Skeleton,
-  Tab,
-  Tabs,
-  IconButton,
-  Toolbar,
-} from '@mui/material';
+import { AppBar, Box, Tab, Tabs, IconButton, Toolbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import CategoryHeader from '../../components/category/CategoryHeader';
 import CategoryListItem from '../../components/category/CategoryListItem';
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams, Link } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { getCategory } from 'store/categories/selectors';
 import { loadAllChallenges } from 'store/challenges/operations';
@@ -30,6 +22,7 @@ import {
   getAllCompletedUserChallenges,
 } from 'store/userchallenges/selectors';
 import { getChallengePercentageComplete } from 'utils/progress';
+import LoadingPage from 'pages/loading/LoadingPage';
 
 interface StyledTabProps {
   label: string;
@@ -116,7 +109,7 @@ const CategoryPage: React.FC = () => {
   )!;
 
   if (!category) {
-    return <Skeleton />;
+    return <LoadingPage />;
   }
 
   return (
@@ -166,23 +159,20 @@ const CategoryPage: React.FC = () => {
             .filter((challenge) => challenge.categoryId == category.id)
             .map((challenge) => (
               <li key={challenge.id}>
-                <Link
-                  to={{
-                    pathname: `${CHALLENGE_ROUTE}/${challenge.id}`,
-                    state: { challenge: challenge },
-                  }}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <CategoryListItem
-                    name={challenge.name}
-                    duration={challenge.duration}
-                    percentageComplete={getChallengePercentageComplete(
-                      challenge.id,
-                      completedChallenges,
-                      ongoingChallenges
-                    )}
-                  />
-                </Link>
+                <CategoryListItem
+                  name={challenge.name}
+                  duration={challenge.duration}
+                  percentageComplete={getChallengePercentageComplete(
+                    challenge.id,
+                    completedChallenges,
+                    ongoingChallenges
+                  )}
+                  onClick={() =>
+                    history.push(`${CHALLENGE_ROUTE}/${challenge.id}`, {
+                      challenge: challenge,
+                    })
+                  }
+                />
               </li>
             ))}
         </ul>
