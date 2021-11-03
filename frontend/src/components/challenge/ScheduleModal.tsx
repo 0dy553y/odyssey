@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     left: '50%',
     transform: 'translate(-50%, -50%)',
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: '2px solid #fff',
     padding: '2em 1.5em 1em 1.5em',
     '&>:not(:last-child)': {
       marginBottom: '0.3em',
@@ -134,7 +134,7 @@ const ScheduleModal: React.FC<ScheduleModalProps> = ({
               className={classes.startChallengeButton}
               onClick={() => onSubmit(schedule)}
             >
-              <Typography variant="h6">Let&apos;s go!</Typography>
+              <Typography variant="body1">Let&apos;s go!</Typography>
             </Button>
           </Stack>
         </Box>

@@ -65,7 +65,7 @@ const ShareDialog: React.FC<Props> = ({
       fullWidth
       maxWidth="xs"
       PaperProps={{
-        style: { borderRadius: '2em', padding: '1em' },
+        style: { borderRadius: '1.5em', padding: '1em' },
       }}
     >
       <DialogActions
