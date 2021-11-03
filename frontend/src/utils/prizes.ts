@@ -5,7 +5,7 @@ export const prizes: Prize[] = [
   {
     prizeName: 'Talaria',
     prizePath: 'shoe.vox',
-    prizeDescription: 'Winged shoes to give you that extra spring in your step',
+    prizeDescription: 'Winged shoes. Boosts speed',
   },
   {
     prizeName: 'Journal',

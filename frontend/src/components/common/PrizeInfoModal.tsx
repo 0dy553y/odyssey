@@ -26,6 +26,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   header: {
     textAlign: 'center',
   },
+  subtitle: {
+    textAlign: 'center',
+    color: 'gray',
+    fontSize: '0.9em',
+  },
   description: {
     textAlign: 'center',
     paddingTop: '0.4em',
@@ -61,6 +66,9 @@ const PrizeInfoModal: React.FC<PrizeInfoModalProps> = ({
           </Box>
           <Typography variant="h5" className={classes.header}>
             {prize.prizeName}
+          </Typography>
+          <Typography variant="body1" className={classes.subtitle}>
+            {prize.prizeDescription}
           </Typography>
           <Typography className={classes.description}>
             Awarded for completing the {prize.challengeName} challenge
