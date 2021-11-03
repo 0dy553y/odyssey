@@ -8,7 +8,6 @@ import {
   Theme,
   Typography,
   Tab,
-  Tabs,
 } from '@mui/material';
 import { TaskListData } from 'types/tasks';
 import { useParams } from 'react-router-dom';
@@ -408,30 +407,43 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
         </div>
         <div className={classes.contentDetails}>
           <TabContext value={currentTabItem}>
-            {/* <Box className={classes.tabs}> */}
-            <TabList
-              onChange={(_: React.SyntheticEvent, newValue: TabItem) => {
-                setCurrentTabItem(newValue);
-              }}
-            >
-              {Object.values(TabItem).map((tabItem) => {
-                if (privateTabs.includes(tabItem) && !isEnrolled) {
-                  if (currentTabItem === tabItem) {
-                    setCurrentTabItem(TabItem.Milestones);
+            <Box className={classes.tabs}>
+              <TabList
+                TabIndicatorProps={{
+                  children: <span />,
+                  style: {
+                    background: getHexCode(challenge.color),
+                    height: '5px',
+                    width: '3em',
+                    marginLeft: '8%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                  },
+                }}
+                centered
+                variant="fullWidth"
+                onChange={(_: React.SyntheticEvent, newValue: TabItem) => {
+                  setCurrentTabItem(newValue);
+                }}
+              >
+                {Object.values(TabItem).map((tabItem) => {
+                  if (privateTabs.includes(tabItem) && !isEnrolled) {
+                    if (currentTabItem === tabItem) {
+                      setCurrentTabItem(TabItem.Milestones);
+                    }
+                    return null;
                   }
-                  return null;
-                }
-                return (
-                  <Tab
-                    className={classes.test}
-                    key={tabItem}
-                    label={tabItem}
-                    value={tabItem}
-                  />
-                );
-              })}
-            </TabList>
-            {/* </Box> */}
+                  return (
+                    <Tab
+                      className={classes.test}
+                      key={tabItem}
+                      label={tabItem}
+                      value={tabItem}
+                    />
+                  );
+                })}
+              </TabList>
+            </Box>
             {Object.values(TabItem).map((tabItem) => (
               <TabPanel key={tabItem} value={tabItem}>
                 {tabPanelRenderer(tabItem)}
