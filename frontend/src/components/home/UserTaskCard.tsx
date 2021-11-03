@@ -33,11 +33,15 @@ const useStyles = makeStyles(() => ({
     color: 'white',
     opacity: 80,
   },
+  scrollableText: {
+    flexGrow: 1,
+    height: '75px',
+    // Padding for scrollbar
+    paddingRight: '8px',
+    overflowY: 'scroll',
+  },
   padding: {
     height: 15,
-  },
-  doneToggle: {
-    flexGrow: 1,
   },
   toggle: {
     width: 50,
@@ -116,7 +120,10 @@ const UserTaskCard: React.FC<Props> = ({
           {userTask.challengeName}
         </Typography>
         <div className={classes.padding} />
-        <Typography align="left" className={classes.secondaryText}>
+        <Typography
+          align="left"
+          className={`${classes.secondaryText} ${classes.scrollableText}`}
+        >
           {userTask.description}
         </Typography>
         <Stack
@@ -124,7 +131,6 @@ const UserTaskCard: React.FC<Props> = ({
           justifyContent="flex-end"
           alignItems="flex-end"
           spacing={2}
-          className={classes.doneToggle}
         >
           <IconButton
             component={Link}
