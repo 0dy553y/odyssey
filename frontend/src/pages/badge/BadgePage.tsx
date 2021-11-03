@@ -33,7 +33,12 @@ const BadgePage: React.FC = () => {
     }),
     {
       isOpen: false,
-      prize: { prizeName: '', prizePath: '', challengeName: '' },
+      prize: {
+        prizeName: '',
+        prizePath: '',
+        challengeName: '',
+        prizeDescription: '',
+      },
     }
   );
 

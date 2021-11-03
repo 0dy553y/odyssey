@@ -5,26 +5,32 @@ export const prizes: Prize[] = [
   {
     prizeName: 'Talaria',
     prizePath: 'shoe.vox',
+    prizeDescription: 'Winged shoes to give you that extra spring in your step',
   },
   {
     prizeName: 'Journal',
     prizePath: 'journal.vox',
+    prizeDescription: 'Dear Diary',
   },
   {
     prizeName: 'Moon Cheese',
     prizePath: 'moon_cheese.vox',
+    prizeDescription: 'Who moved my cheese?',
   },
   {
     prizeName: 'Brick Phone',
     prizePath: 'brick_phone.vox',
+    prizeDescription: 'Before social media was a thing',
   },
   {
     prizeName: 'CS3216',
     prizePath: '3216.vox',
+    prizeDescription: 'Changing the world, one app at a time',
   },
   {
     prizeName: 'LEGO',
     prizePath: 'lego.vox',
+    prizeDescription: 'Building blocks of imagination',
   },
 ];
 
@@ -50,5 +56,6 @@ export function getPrize(
   return {
     prizeName: `${challengeName} Trophy`,
     prizePath: 'trophy',
+    prizeDescription: 'Not your ordinary trophy',
   };
 }
