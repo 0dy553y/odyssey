@@ -145,7 +145,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     zIndex: 5,
     textTransform: 'none',
   },
-  test: {
+  tab: {
     textTransform: 'none',
     fontWeight: theme.typography.fontWeightRegular,
     fontSize: '1em',
@@ -467,7 +467,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                   }
                   return (
                     <Tab
-                      className={classes.test}
+                      className={classes.tab}
                       key={tabItem}
                       label={tabItem}
                       value={tabItem}
