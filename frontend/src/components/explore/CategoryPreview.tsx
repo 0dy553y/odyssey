@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
     objectFit: 'cover',
     objectPosition: '100% 40%',
     borderRadius: '2em',
-    height: '17em',
+    height: '14em',
   },
   gradient: {
     display: 'inline-block',
@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
     position: 'absolute',
     top: 0,
     left: 0,
-    paddingTop: '7.5em',
+    paddingTop: '6em',
     paddingLeft: '1em',
   },
   handCursor: {
@@ -53,7 +53,7 @@ const CategoryPreview: React.FC<CategoryPreviewProps> = (props) => {
       className={`${classes.gradient} ${classes.handCursor}`}
       sx={{
         width: '100%',
-        height: '17em',
+        height: '14em',
         borderRadius: '2em',
         margin: '0 0 1em 0',
         position: 'relative',
