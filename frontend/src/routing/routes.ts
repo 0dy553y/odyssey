@@ -5,6 +5,7 @@ import EditProfilePage from 'pages/editProfile';
 import FriendsPage from 'pages/friends/FriendsPage';
 import LandingPage from 'pages/landing/LandingPage';
 import OnboardingPage from 'pages/onboarding/OnboardingPage';
+import PostsPage from 'pages/posts/PostsPage';
 import CategoryPage from '../pages/category';
 import ChallengeDetailsPage from '../pages/challenge';
 import ExplorePage from '../pages/explore';
@@ -31,6 +32,7 @@ export const ADD_FRIENDS_ROUTE = '/add-friends';
 export const NOTIFICATIONS_ROUTE = '/notifications';
 export const COMPLETED_CHALLENGES_ROUTE = '/completed';
 export const BADGE_ROUTE = '/badges';
+export const POSTS_ROUTE = '/posts';
 export const ONBOARDING_ROUTE = '/welcome';
 export const CHALLENGE_ROUTE = '/challenge';
 export const LANDING_ROUTE = '/landing';
@@ -90,6 +92,16 @@ export const privateRoutes: RouteEntry[] = [
   {
     path: BADGE_ROUTE + '/:username',
     component: BadgePage,
+    exact: true,
+  },
+  {
+    path: POSTS_ROUTE,
+    component: PostsPage,
+    exact: true,
+  },
+  {
+    path: POSTS_ROUTE + '/:username',
+    component: PostsPage,
     exact: true,
   },
   {
