@@ -10,7 +10,7 @@ import UserChallengeStats from 'components/challenge/UserChallengeStats';
 import { UserChallengeData, UserChallengeListData } from 'types/userchallenge';
 import { TabPanel, TabContext, TabList } from '@mui/lab';
 import ChallengeMilestones from 'components/challenge/ChallengeMilestones';
-import ChallengeCompletedModal from 'components/challengeCompletedModal';
+import ChallengeCompletedDialog from 'components/challengeCompletedDialog';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import ScheduleModal from 'components/challenge/ScheduleModal';
@@ -162,7 +162,7 @@ interface ChallengeContentProps {
   onTaskCompleted: () => void;
 }
 
-interface ChallengeCompletedModalState {
+interface ChallengeCompletedDialogState {
   isOpen: boolean;
   completedChallengeId?: number;
 }
@@ -193,11 +193,11 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
   const [isScheduleModalOpen, setIsScheduleModalOpen] =
     useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
-  const [challengeCompletedModalState, setChallengeCompletedModalState] =
+  const [ChallengeCompletedDialogState, setChallengeCompletedDialogState] =
     useReducer(
       (
-        state: ChallengeCompletedModalState,
-        newState: Partial<ChallengeCompletedModalState>
+        state: ChallengeCompletedDialogState,
+        newState: Partial<ChallengeCompletedDialogState>
       ) => ({
         ...state,
         ...newState,
@@ -214,7 +214,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
   });
 
   const onChallengeCompleted = (completedChallengeId: number) => {
-    setChallengeCompletedModalState({
+    setChallengeCompletedDialogState({
       isOpen: true,
       completedChallengeId: completedChallengeId,
     });
@@ -445,12 +445,12 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
             ))}
           </TabContext>
         </div>
-        {challengeCompletedModalState.completedChallengeId && (
-          <ChallengeCompletedModal
-            isOpen={challengeCompletedModalState.isOpen}
+        {ChallengeCompletedDialogState.completedChallengeId && (
+          <ChallengeCompletedDialog
+            isOpen={ChallengeCompletedDialogState.isOpen}
             challengeId={1}
             onClose={() => {
-              setChallengeCompletedModalState({ isOpen: false });
+              setChallengeCompletedDialogState({ isOpen: false });
             }}
           />
         )}
