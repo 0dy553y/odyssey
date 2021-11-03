@@ -7,6 +7,7 @@ import { loadAllUserChallengesDataForChallenge } from 'store/userchallenges/oper
 import { OperationResult } from 'types/store';
 import { UserTaskData, UserTaskListData } from 'types/usertasks';
 import { RootState } from '../index';
+import { withStatusMessages } from 'utils/ui';
 import {
   saveUserTaskActivityData,
   saveUserTaskForDay,
@@ -31,7 +32,10 @@ function markUserTaskAsDone(
   ) => void
 ): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.userTasks.markUserTaskAsDone(userTaskId);
+    const response = await withStatusMessages(
+      dispatch,
+      api.userTasks.markUserTaskAsDone(userTaskId)
+    );
     const userTask: UserTaskData = response.payload.data;
     onTaskCompleted(userTask.challengeName);
     if (userTask.isChallengeCompleted) {
