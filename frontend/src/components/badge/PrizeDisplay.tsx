@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Canvas, Vector3 } from '@react-three/fiber';
 import PrizeModel from 'components/map/composite/Prize';
 import { translate } from 'utils/map';
@@ -17,18 +17,51 @@ const PrizeDisplay: React.FC<PrizeDisplayProps> = ({
   onPrizeOpen,
   showName,
 }) => {
+  const getWindowDimensions = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height,
+    };
+  };
+
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  );
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  console.log(windowDimensions);
+
+  // 30 pixels for one unit in canvas.
+  const pixelToCoordRatio = 30;
+  const horizontalMargin = 60;
+  const adjustedWidth = Math.min(windowDimensions.width, 600);
+
+  const baseX = -(adjustedWidth / 2 - horizontalMargin) / pixelToCoordRatio;
+  const baseY = (windowDimensions.height * 0.4) / pixelToCoordRatio;
+
   const numPrizesInRow = 3;
   const prizePositions: Vector3[] = [];
-  let base: Vector3 = [-4, 8, 0];
-  const rowIncrement = 12 / numPrizesInRow;
-  const colIncrement = 3;
+  let base: Vector3 = [baseX, baseY, 0];
+  const rowIncrement =
+    (adjustedWidth - 2 * horizontalMargin) /
+    pixelToCoordRatio /
+    (numPrizesInRow - 1);
+  const colIncrement = 4;
 
   for (let i = 0; i < prizes.length; i++) {
     prizePositions.push(base);
 
     if ((i + 1) % numPrizesInRow === 0) {
       base = translate(base, { [Axis.Y]: -colIncrement });
-      (base as number[])[0] = -4;
+      (base as number[])[0] = baseX;
     } else {
       base = translate(base, { [Axis.X]: rowIncrement });
     }
