@@ -51,7 +51,7 @@ const PrizeInfoModal: React.FC<PrizeInfoModalProps> = ({
     <Suspense fallback={<div />}>
       <Modal open={isOpen} onClose={onClose}>
         <Box className={classes.modalBox}>
-          <Box sx={{ marginTop: '2em', height: '50%' }}>
+          <Box sx={{ marginTop: '1em', height: '50%' }}>
             <PrizeModelDisplay prizePath={prize.prizePath} />
           </Box>
           <Typography variant="h5" className={classes.header}>

@@ -82,7 +82,10 @@ const ChallengeCompletedModal: React.FC<ChallengeCompletedModalProps> = ({
     getChallenge(state, Number(challengeId))
   );
 
-  const prize = getPrize(getPrizePath(challenge.prizeName), challenge.name);
+  const prize =
+    challenge !== undefined
+      ? getPrize(getPrizePath(challenge.prizeName), challenge.name)
+      : getPrize('', '');
 
   return (
     <Suspense fallback="<div/>">
@@ -95,34 +98,41 @@ const ChallengeCompletedModal: React.FC<ChallengeCompletedModalProps> = ({
           timeout: 500,
         }}
       >
-        <Fade in={isOpen}>
-          <Box className={classes.modal}>
-            <Typography variant="h4" className={classes.title}>
-              Congratulations!
-            </Typography>
-            <Typography variant="body1" className={classes.completedText}>
-              Completed - {challenge.name}
-            </Typography>
-            <Box sx={{ marginTop: '1em', height: '8em' }}>
-              <PrizeModelDisplay prizePath={prize.prizePath} />
+        {challenge !== undefined ? (
+          <Fade in={isOpen}>
+            <Box className={classes.modal}>
+              <Typography variant="h4" className={classes.title}>
+                Congratulations!
+              </Typography>
+              <Typography variant="body1" className={classes.completedText}>
+                Completed - {challenge.name}
+              </Typography>
+              <Box sx={{ marginTop: '1em', height: '8em' }}>
+                <PrizeModelDisplay prizePath={prize.prizePath} />
+              </Box>
+              <Typography variant="h5" className={classes.prizeHeader}>
+                {prize.prizeName}
+              </Typography>
+              <Typography variant="body1" className={classes.prizeSubtitle}>
+                {prize.prizeDescription}
+              </Typography>
+              <Typography component="div" variant="body1">
+                has been added to your
+                <Link onClick={() => history.push(BADGE_ROUTE)}>mementos</Link>.
+              </Typography>
+              <Typography component="div" variant="body1">
+                Head onto
+                <Link onClick={() => history.push(EXPLORE_ROUTE)}>
+                  {' '}
+                  Explore{' '}
+                </Link>
+                to embark on your next odyssey!
+              </Typography>
             </Box>
-            <Typography variant="h5" className={classes.prizeHeader}>
-              {prize.prizeName}
-            </Typography>
-            <Typography variant="body1" className={classes.prizeSubtitle}>
-              {prize.prizeDescription}
-            </Typography>
-            <Typography component="div" variant="body1">
-              has been added to your
-              <Link onClick={() => history.push(BADGE_ROUTE)}>mementos</Link>.
-            </Typography>
-            <Typography component="div" variant="body1">
-              Head onto
-              <Link onClick={() => history.push(EXPLORE_ROUTE)}> Explore </Link>
-              to embark on your next odyssey!
-            </Typography>
-          </Box>
-        </Fade>
+          </Fade>
+        ) : (
+          <></>
+        )}
       </Modal>
     </Suspense>
   );
