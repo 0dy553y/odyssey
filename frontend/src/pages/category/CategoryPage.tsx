@@ -5,7 +5,7 @@ import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import CategoryHeader from '../../components/category/CategoryHeader';
 import CategoryListItem from '../../components/category/CategoryListItem';
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams, Link } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { getCategory } from 'store/categories/selectors';
 import { loadAllChallenges } from 'store/challenges/operations';

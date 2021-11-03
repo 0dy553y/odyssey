@@ -11,7 +11,7 @@ import { RootState } from 'store';
 import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
 import { getOngoingOrCompletedUserChallengeDataForChallenge } from 'store/userchallenges/selectors';
-import { Box, IconButton, Menu, MenuItem, Skeleton } from '@mui/material';
+import { Box, IconButton, Menu, MenuItem } from '@mui/material';
 import ChallengeContent from 'components/challenge/ChallengeContent';
 import { makeStyles } from '@mui/styles';
 import MoreVertIcon from '@mui/icons-material/MoreVert';

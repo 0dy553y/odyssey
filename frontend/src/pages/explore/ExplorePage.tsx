@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { getCategoryList } from 'store/categories/selectors';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { getHeadingFromCategory } from 'utils/naming';
 import { CATEGORY_ROUTE, CHALLENGE_ROUTE } from '../../routing/routes';
 import CategoryListItem from '../../components/category/CategoryListItem';

@@ -5,7 +5,7 @@ import UserTaskCarousel from '../../components/home/UserTaskCarousel';
 import MapDialog from '../../components/map/MapDialog';
 import { getUserTaskListForDay } from '../../store/usertasks/selectors';
 import { RootState } from '../../store';
-import { Grid, IconButton, Skeleton, Typography } from '@mui/material';
+import { Grid, IconButton, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { getUser } from '../../store/auth/selectors';
 import { useHistory } from 'react-router-dom';

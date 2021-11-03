@@ -5,7 +5,7 @@ import { loadAllChallenges } from 'store/challenges/operations';
 import { RootState } from 'store';
 import { getChallengeList } from 'store/challenges/selectors';
 import CategoryListItem from 'components/category/CategoryListItem';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { CHALLENGE_ROUTE } from 'routing/routes';
 import { UserChallengeListData } from 'types/userchallenge';
 import { ChallengeListData } from 'types/challenges';

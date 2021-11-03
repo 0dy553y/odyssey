@@ -1,14 +1,6 @@
 import React, { useReducer, useState, useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
-import {
-  Box,
-  Button,
-  Link,
-  Skeleton,
-  Theme,
-  Typography,
-  Tab,
-} from '@mui/material';
+import { Box, Button, Link, Theme, Typography, Tab } from '@mui/material';
 import { TaskListData } from 'types/tasks';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
