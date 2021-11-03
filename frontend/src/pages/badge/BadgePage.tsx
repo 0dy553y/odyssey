@@ -7,7 +7,7 @@ import { loadAllCompletedUserChallenges } from 'store/userchallenges/operations'
 import { getAllCompletedUserChallenges } from 'store/userchallenges/selectors';
 import { RootState } from 'store';
 import PrizeDisplay from 'components/badge/PrizeDisplay';
-import PrizeInfoModal from 'components/common/prizeInfoModal/PrizeInfoModal';
+import PrizeInfoDialog from 'components/common/prizeInfoDialog/PrizeInfoDialog';
 import { CompletedUserChallengeListData } from 'types/userchallenge';
 import { getPrize } from 'utils/prizes';
 import { Prize } from 'types/prize';
@@ -97,7 +97,7 @@ const BadgePage: React.FC = () => {
           showName={!prizeOpenState.isOpen}
         />
       </Box>
-      <PrizeInfoModal
+      <PrizeInfoDialog
         isOpen={prizeOpenState.isOpen}
         onClose={() => {
           setPrizeOpenState({ isOpen: false });
