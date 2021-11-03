@@ -197,31 +197,39 @@ const ProfilePage: React.FC = () => {
                 </div>
               )}
               <Box sx={{ flexGrow: 1 }} />
-              <IconButton edge="end" color="primary" onClick={handleMenuClick}>
-                <MoreVertIcon />
-              </IconButton>
-              <Menu
-                anchorEl={menuAnchorEl}
-                open={isMenuOpen}
-                onClose={handleMenuClose}
-              >
-                <MenuItem
-                  onClick={() => {
-                    handleMenuClose();
-                    history.push(EDIT_PROFILE_ROUTE);
-                  }}
-                >
-                  Edit Profile
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    handleMenuClose();
-                    dispatch(logout(history));
-                  }}
-                >
-                  Logout
-                </MenuItem>
-              </Menu>
+              {isOwnProfilePage && (
+                <>
+                  <IconButton
+                    edge="end"
+                    color="primary"
+                    onClick={handleMenuClick}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                  <Menu
+                    anchorEl={menuAnchorEl}
+                    open={isMenuOpen}
+                    onClose={handleMenuClose}
+                  >
+                    <MenuItem
+                      onClick={() => {
+                        handleMenuClose();
+                        history.push(EDIT_PROFILE_ROUTE);
+                      }}
+                    >
+                      Edit Profile
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        handleMenuClose();
+                        dispatch(logout(history));
+                      }}
+                    >
+                      Logout
+                    </MenuItem>
+                  </Menu>
+                </>
+              )}
             </Toolbar>
           </AppBar>
 
