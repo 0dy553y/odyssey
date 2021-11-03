@@ -1,14 +1,6 @@
 import React, { useReducer, useState, useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
-import {
-  Box,
-  Button,
-  Link,
-  Skeleton,
-  Theme,
-  Typography,
-  Tab,
-} from '@mui/material';
+import { Box, Button, Link, Theme, Typography, Tab } from '@mui/material';
 import { TaskListData } from 'types/tasks';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,6 +19,7 @@ import { MemoizedFeedPostList } from 'components/feed/FeedPostList';
 import { UserData } from 'types/auth';
 import { addSnackbar } from '../../store/snackbars/actions';
 import { getAllOngoingUserChallenges } from '../../store/userchallenges/selectors';
+import LoadingPage from 'pages/loading/LoadingPage';
 import {
   addReactionToPost,
   removeReactionFromPost,
@@ -235,7 +228,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
         );
       case TabItem.YourStats:
         if (!userChallenge) {
-          return <Skeleton />;
+          return <LoadingPage />;
         }
         return (
           <UserChallengeStats

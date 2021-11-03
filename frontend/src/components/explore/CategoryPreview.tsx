@@ -29,22 +29,28 @@ const useStyles = makeStyles(() => ({
     paddingTop: '7.5em',
     paddingLeft: '1em',
   },
+  handCursor: {
+    cursor: 'pointer',
+  },
 }));
 
 interface CategoryPreviewProps {
   title: string;
   heading: string;
+  onClick: () => void;
 }
 
 const CategoryPreview: React.FC<CategoryPreviewProps> = (props) => {
   const classes = useStyles();
-  const { title, heading } = props;
+  const { title, heading, onClick } = props;
   /* eslint-disable */
-  const headerImage = require('../../assets/images/' + title.toLowerCase() + '.png');
+  const headerImage = require('../../assets/images/' +
+    title.toLowerCase() +
+    '.png');
 
   return (
     <Box
-      className={classes.gradient}
+      className={`${classes.gradient} ${classes.handCursor}`}
       sx={{
         width: '100%',
         height: '17em',
@@ -54,6 +60,7 @@ const CategoryPreview: React.FC<CategoryPreviewProps> = (props) => {
         alignItems: 'center',
         overflow: 'hidden',
       }}
+      onClick={onClick}
     >
       <img src={headerImage.default} className={classes.backgroundImage} />
       <div className={classes.overlayText}>

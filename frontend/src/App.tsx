@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, CircularProgress, Container } from '@mui/material';
+import { Container } from '@mui/material';
 import { Global } from '@emotion/react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import {
@@ -23,10 +23,11 @@ import Notifier from 'components/notifier';
 import FeedbackOverlay from './components/common/FeedbackOverlay';
 import { useCache } from 'components/common/cacheProvider';
 import GoogleAnalytics from './GoogleAnalytics';
+import LoadingPage from 'pages/loading/LoadingPage';
+import { setRedirectUrl } from './store/auth/actions';
 
 import './App.scss';
 import 'swiper/swiper-bundle.css';
-import { setRedirectUrl } from './store/auth/actions';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -76,14 +77,7 @@ function App(): JSX.Element {
         <Container className="column-container" disableGutters maxWidth="sm">
           <Switch>
             {isValidatingToken ? (
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                minHeight="100vh"
-              >
-                <CircularProgress />
-              </Box>
+              <LoadingPage />
             ) : (
               <>
                 {publicRoutes.map((route: RouteEntry) => (
