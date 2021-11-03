@@ -29,8 +29,7 @@ const LoginPage: React.FC = () => {
   return (
     <Box
       sx={{
-        marginTop: 8,
-        padding: '2em 1.5em 0 1.5em',
+        padding: '5em 1.5em 0 1.5em',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

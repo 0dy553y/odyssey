@@ -67,7 +67,7 @@ const OnboardingPage: React.FC = () => {
   return (
     <Box
       sx={{
-        marginTop: 5,
+        paddingTop: 5,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

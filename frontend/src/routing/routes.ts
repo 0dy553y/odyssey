@@ -45,12 +45,11 @@ export const notAuthenticatedRoutes: RouteEntry[] = [
   { path: ONBOARDING_ROUTE, component: OnboardingPage },
   { path: LOGIN_ROUTE, component: LoginPage },
   { path: REGISTER_ROUTE, component: RegistrationPage },
+  { path: LANDING_ROUTE, component: LandingPage },
 ];
 
 // Public routes that are accessible regardless of authentication status
-export const publicRoutes: RouteEntry[] = [
-  { path: LANDING_ROUTE, component: LandingPage },
-];
+export const publicRoutes: RouteEntry[] = [];
 
 // Route that appear on the navbar
 export const mainRoutes: RouteEntry[] = [
