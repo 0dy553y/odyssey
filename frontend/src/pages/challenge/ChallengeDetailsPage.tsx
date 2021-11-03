@@ -20,6 +20,7 @@ import { getUser } from 'store/auth/selectors';
 import { loadPostsForChallenge } from 'store/posts/operations';
 import { getChallengePostList } from 'store/posts/selectors';
 import ConfirmationModal from 'components/common/ConfirmationModal';
+import LoadingPage from 'pages/loading/LoadingPage';
 
 const useStyles = makeStyles(() => ({
   joinButton: {
@@ -114,7 +115,7 @@ const ChallengeDetailsPage: React.FC = () => {
     !!userChallenge && !userChallenge.completedAt && !userChallenge.forfeitedAt;
 
   if (!challenge) {
-    return <Skeleton />;
+    return <LoadingPage />;
   }
 
   return (

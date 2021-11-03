@@ -17,6 +17,7 @@ import TodayIcon from '@mui/icons-material/Today';
 import { startOfDay } from 'date-fns';
 import { ChallengeMapData } from 'types/challenges';
 import { getChallengeMaps } from 'store/challenges/selectors';
+import LoadingPage from 'pages/loading/LoadingPage';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -111,7 +112,7 @@ const HomePage: React.FC = () => {
   const user = useSelector(getUser);
   if (!user) {
     history.push(LOGIN_ROUTE);
-    return <Skeleton />;
+    return <LoadingPage />;
   }
 
   return (

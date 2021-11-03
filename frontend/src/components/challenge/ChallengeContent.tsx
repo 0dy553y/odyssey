@@ -27,7 +27,7 @@ import { MemoizedFeedPostList } from 'components/feed/FeedPostList';
 import { UserData } from 'types/auth';
 import { addSnackbar } from '../../store/snackbars/actions';
 import { getAllOngoingUserChallenges } from '../../store/userchallenges/selectors';
-
+import LoadingPage from 'pages/loading/LoadingPage';
 import {
   addReactionToPost,
   removeReactionFromPost,
@@ -236,7 +236,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
         );
       case TabItem.YourStats:
         if (!userChallenge) {
-          return <Skeleton />;
+          return <LoadingPage />;
         }
         return (
           <UserChallengeStats

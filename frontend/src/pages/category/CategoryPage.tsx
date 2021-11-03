@@ -1,13 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  AppBar,
-  Box,
-  Skeleton,
-  Tab,
-  Tabs,
-  IconButton,
-  Toolbar,
-} from '@mui/material';
+import { AppBar, Box, Tab, Tabs, IconButton, Toolbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import CategoryHeader from '../../components/category/CategoryHeader';
@@ -30,6 +22,7 @@ import {
   getAllCompletedUserChallenges,
 } from 'store/userchallenges/selectors';
 import { getChallengePercentageComplete } from 'utils/progress';
+import LoadingPage from 'pages/loading/LoadingPage';
 
 interface StyledTabProps {
   label: string;
@@ -116,7 +109,7 @@ const CategoryPage: React.FC = () => {
   )!;
 
   if (!category) {
-    return <Skeleton />;
+    return <LoadingPage />;
   }
 
   return (
