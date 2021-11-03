@@ -42,10 +42,11 @@ const PrizeDisplay: React.FC<PrizeDisplayProps> = ({
   // 30 pixels for one unit in canvas.
   const pixelToCoordRatio = 30;
   const horizontalMargin = 60;
+  const topMargin = 32;
   const adjustedWidth = Math.min(windowDimensions.width, 600);
 
   const baseX = -(adjustedWidth / 2 - horizontalMargin) / pixelToCoordRatio;
-  const baseY = (windowDimensions.height * 0.4) / pixelToCoordRatio;
+  const baseY = (windowDimensions.height * 0.4 - topMargin) / pixelToCoordRatio;
 
   const numPrizesInRow = 3;
   const prizePositions: Vector3[] = [];
