@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import {
   Box,
@@ -11,11 +11,11 @@ import {
 } from '@mui/material';
 import { TaskListData } from 'types/tasks';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ChallengeData, Schedule } from 'types/challenges';
 import { getHexCode, getComplementaryColor } from 'utils/color';
 import UserChallengeStats from 'components/challenge/UserChallengeStats';
-import { UserChallengeData } from 'types/userchallenge';
+import { UserChallengeData, UserChallengeListData } from 'types/userchallenge';
 import { TabPanel, TabContext, TabList } from '@mui/lab';
 import ChallengeMilestones from 'components/challenge/ChallengeMilestones';
 import ChallengeCompletedModal from 'components/challengeCompletedModal';
@@ -25,12 +25,17 @@ import ScheduleModal from 'components/challenge/ScheduleModal';
 import { joinChallenge } from 'store/challenges/operations';
 import { MemoizedFeedPostList } from 'components/feed/FeedPostList';
 import { UserData } from 'types/auth';
+import { addSnackbar } from '../../store/snackbars/actions';
+import { getAllOngoingUserChallenges } from '../../store/userchallenges/selectors';
+
 import {
   addReactionToPost,
   removeReactionFromPost,
 } from 'store/posts/operations';
 import { PostListData, ReactionEmoji } from 'types/posts';
 import ShareDialog from './ShareDialog';
+import { RootState } from 'store';
+import { loadAllOngoingUserChallenges } from 'store/userchallenges/operations';
 
 const useStyles = makeStyles((theme: Theme) => ({
   contentContainer: {
@@ -181,6 +186,10 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
 
   const { challengeId } = useParams<{ challengeId: string }>();
 
+  useEffect(() => {
+    dispatch(loadAllOngoingUserChallenges());
+  }, []);
+
   const [isScheduleModalOpen, setIsScheduleModalOpen] =
     useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
@@ -195,6 +204,10 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
       }),
       { isOpen: false, completedChallengeName: undefined }
     );
+
+  const ongoingChallenges: UserChallengeListData[] = useSelector(
+    (state: RootState) => getAllOngoingUserChallenges(state)
+  );
 
   const [ref, inView] = useInView({
     threshold: 0.3,
@@ -255,6 +268,37 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
       default:
         throw new Error('Unknown tab item!');
     }
+  };
+
+  const handleJoinChallenge = (schedule: Schedule) => {
+    let hasOneTrue = false;
+    Object.values(schedule).forEach((bool) => {
+      hasOneTrue = hasOneTrue || bool;
+    });
+    if (!hasOneTrue) {
+      dispatch(
+        addSnackbar({
+          message: `Schedule cannot be empty`,
+          variant: 'error',
+        })
+      );
+      return;
+    }
+    dispatch(joinChallenge(Number(challengeId), schedule));
+    setIsScheduleModalOpen(false);
+  };
+
+  const onClickJoinChallenge = () => {
+    if (ongoingChallenges.length >= 3) {
+      dispatch(
+        addSnackbar({
+          message: `Can only join maximum 3 challenges at a time`,
+          variant: 'error',
+        })
+      );
+      return;
+    }
+    setIsScheduleModalOpen(true);
   };
 
   return (
@@ -338,19 +382,15 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
                     fullWidth
                     disableElevation
                     className={classes.joinButton}
-                    onClick={() => {
-                      setIsScheduleModalOpen(true);
-                    }}
+                    onClick={onClickJoinChallenge}
                   >
                     <Typography variant="body1">Join Challenge!</Typography>
                   </Button>
                   <ScheduleModal
                     isOpen={isScheduleModalOpen}
                     onClose={() => setIsScheduleModalOpen(false)}
-                    onSubmit={(schedule: Schedule) => {
-                      dispatch(joinChallenge(Number(challengeId), schedule));
-                      setIsScheduleModalOpen(false);
-                    }}
+                    onSubmit={handleJoinChallenge}
+                    numOngoingChallenges={ongoingChallenges.length}
                   />
                 </>
               )}
@@ -422,19 +462,15 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
             className={`${classes.secondaryJoinButton} ${
               !inView ? classes.fadeIn : classes.fadeOut
             }`}
-            onClick={() => {
-              setIsScheduleModalOpen(true);
-            }}
+            onClick={onClickJoinChallenge}
           >
             <Typography variant="body1">Join!</Typography>
           </Button>
           <ScheduleModal
             isOpen={isScheduleModalOpen}
             onClose={() => setIsScheduleModalOpen(false)}
-            onSubmit={(schedule: Schedule) => {
-              dispatch(joinChallenge(Number(challengeId), schedule));
-              setIsScheduleModalOpen(false);
-            }}
+            onSubmit={handleJoinChallenge}
+            numOngoingChallenges={ongoingChallenges.length}
           />
         </>
       )}
