@@ -17,12 +17,6 @@ interface ConfirmationModalProps {
 }
 
 const useStyles = makeStyles(() => ({
-  shareContainer: {
-    marginTop: '20px',
-    display: 'grid',
-    gridAutoFlow: 'column',
-    gridColumnGap: '10px',
-  },
   modalHeader: {
     fontSize: '24px',
     fontWeight: 'bold',
