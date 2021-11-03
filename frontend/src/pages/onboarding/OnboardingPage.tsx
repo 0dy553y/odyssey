@@ -5,7 +5,7 @@ import { LOGIN_ROUTE, REGISTER_ROUTE } from 'routing/routes';
 import { useHistory } from 'react-router-dom';
 import onboardingImage from '../../assets/images/onboarding.png';
 import Modal from '@mui/material/Modal';
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from '@mui/icons-material/CloseRounded';
 
 import './OnboardingPage.scss';
 

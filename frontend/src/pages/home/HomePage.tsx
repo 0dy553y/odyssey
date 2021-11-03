@@ -13,7 +13,7 @@ import { LOGIN_ROUTE, NOTIFICATIONS_ROUTE } from '../../routing/routes';
 import DateCarousel from '../../components/home/DateCarousel';
 import ChallengeCompletedModal from 'components/challengeCompletedModal';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
-import TodayIcon from '@mui/icons-material/Today';
+import TodayIcon from '@mui/icons-material/TodayRounded';
 import { startOfDay } from 'date-fns';
 import { ChallengeMapData } from 'types/challenges';
 import { getChallengeMaps } from 'store/challenges/selectors';

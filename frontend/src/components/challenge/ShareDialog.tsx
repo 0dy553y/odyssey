@@ -18,7 +18,7 @@ import {
   WhatsappIcon,
   WhatsappShareButton,
 } from 'react-share';
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from '@mui/icons-material/CloseRounded';
 import { ChallengeData } from '../../types/challenges';
 import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
