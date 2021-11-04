@@ -1,6 +1,6 @@
 import React from 'react';
 import { getDirectionVector } from './direction';
-import { Direction, Axis, TranslationVector } from '../types/map';
+import { Direction, Axis, TranslationVector, Land } from '../types/map';
 import { Arch, Columns } from '../components/map';
 import { Vector3 } from '@react-three/fiber';
 
@@ -180,4 +180,13 @@ export function buildDiagonalRepeated({
       })}
     </>
   );
+}
+
+export function getLandPath(land: Land): string {
+  switch (land) {
+    case Land.GRASS:
+      return 'land/grass.vox';
+    default:
+      return 'land/grass.vox';
+  }
 }

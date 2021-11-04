@@ -1,4 +1,5 @@
 import { DayOfWeek } from './date';
+import { Land } from './map';
 
 export interface ChallengeListData {
   id: number;
@@ -48,15 +49,5 @@ export enum ChallengeStatus {
 export type Schedule = Record<DayOfWeek, boolean>;
 
 export interface ChallengeMapTheme {
-  land: MapLand;
-}
-
-// anyhow put for now.
-export enum MapLand {
-  GRASS,
-  SAND,
-  MOON,
-  STONE,
-  WATER,
-  LAVA,
+  land: Land;
 }
