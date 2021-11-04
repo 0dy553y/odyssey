@@ -55,11 +55,13 @@ const EditProfilePage: React.FC = () => {
   );
 
   const onSubmit = handleSubmit(async (data: EditProfileFormState) => {
-    const userPutData: UserPutData = { displayName: data.displayName };
+    const userPutData: UserPutData = {
+      displayName: data.displayName,
+      character: selectedCharacter,
+    };
     if (avatarBase64DataUrl) {
       userPutData.avatar = avatarBase64DataUrl;
     }
-    userPutData.character = selectedCharacter;
     dispatch(updateUser(userPutData, history));
   });
 

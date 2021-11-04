@@ -7,12 +7,14 @@ import { animated, config, useSpring } from '@react-spring/three';
 
 interface CharacterDisplayProps {
   character: string;
-  isActive: boolean;
+  isActive?: boolean;
+  scaleOverride?: number;
 }
 
 const CharacterDisplay: React.FC<CharacterDisplayProps> = ({
   character,
-  isActive,
+  isActive = false,
+  scaleOverride,
 }) => {
   const { scale } = useSpring({
     scale: isActive ? 3 : 2,
@@ -22,7 +24,6 @@ const CharacterDisplay: React.FC<CharacterDisplayProps> = ({
     <>
       <Suspense fallback={<div />}>
         <Canvas camera={{ zoom: 20 }} orthographic={true}>
-          <axesHelper />
           <directionalLight position={[0, 10, 0]} intensity={0.8} />
           <directionalLight position={[10, 0, 0]} intensity={0.2} />
           <directionalLight position={[0, 0, 10]} intensity={0.75} />
@@ -30,7 +31,7 @@ const CharacterDisplay: React.FC<CharacterDisplayProps> = ({
           <animated.group rotation={[Math.PI / 8, Math.PI / 3, 0]}>
             <Model
               position={[0, -2, 0]}
-              scale={scale}
+              scale={scaleOverride ? scaleOverride : scale}
               fileName={getCharacterPath(character)}
             />
           </animated.group>

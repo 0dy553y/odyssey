@@ -1,11 +1,10 @@
 import { Box } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import React, { useState } from 'react';
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperClass from 'swiper/types/swiper-class';
 
 import { Character } from 'types/map';
-import CharacterDisplay from './CharacterDisplay';
+import CharacterDisplay from '../common/CharacterDisplay';
 
 interface CharacterCarouselProps {
   selectedCharacter: Character;

@@ -6,6 +6,8 @@ import UserAvatar from 'components/common/userAvatar';
 import FriendControls from './FriendControls';
 
 import './ProfileHeader.scss';
+import CharacterDisplay from 'components/common/CharacterDisplay';
+import { Character } from 'types/map';
 
 interface ProfileHeaderProps {
   user?: UserData;
@@ -22,13 +24,28 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
   return (
     <Box className="profile-header">
       <IconButton>
-        <UserAvatar
-          className="avatar"
-          src={user.avatar}
-          username={user.username}
-          displayName={user.displayName}
-          shouldLinkToProfile={false}
-        />
+        <Box sx={{ position: 'relative' }}>
+          <UserAvatar
+            className="avatar"
+            src={user.avatar}
+            username={user.username}
+            displayName={user.displayName}
+            shouldLinkToProfile={false}
+          />
+          <Box
+            sx={{
+              position: 'absolute',
+              height: '100%',
+              width: '100%',
+              transform: 'translate(40%, -90%)',
+            }}
+          >
+            <CharacterDisplay
+              character={Character[user.character]}
+              scaleOverride={1.3}
+            />
+          </Box>
+        </Box>
       </IconButton>
 
       <Typography component="h1" variant="h5">

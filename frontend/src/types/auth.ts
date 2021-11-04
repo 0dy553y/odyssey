@@ -19,12 +19,12 @@ export interface UserData {
   username: string;
   displayName?: string;
   avatar?: DataUrl;
-  character?: Character;
+  character: Character;
   registrationDate: Date;
 }
 
 export interface UserPutData {
   displayName?: string;
   avatar?: DataUrl;
-  character?: Character;
+  character: Character;
 }
