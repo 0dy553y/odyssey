@@ -1,8 +1,4 @@
-import {
-  ChallengeData,
-  ChallengeListData,
-  ChallengeMapData,
-} from '../../types/challenges';
+import { ChallengeData, ChallengeListData } from '../../types/challenges';
 
 // Action names
 export const SAVE_CHALLENGE_LIST = 'challenges/SAVE_CHALLENGE_LIST';
@@ -34,5 +30,4 @@ export type ChallengeActions =
 export interface ChallengesState {
   challengeList: ChallengeListData[];
   challenges: Record<number, ChallengeData>;
-  challengeMaps: ChallengeMapData[];
 }

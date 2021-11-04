@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { ChallengeMapData } from 'types/challenges';
+import { UserChallengeMapData } from 'types/userchallenge';
 import {
   CompletedUserChallengeListData,
   UserChallengeListData,
@@ -70,7 +70,7 @@ export function loadAllCompletedUserChallenges(
 export function loadAllOngoingChallengeMaps(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.map.getAllOngoingChallengeMaps();
-    const challengeMaps: ChallengeMapData[] = response.payload.data;
+    const challengeMaps: UserChallengeMapData[] = response.payload.data;
     dispatch(updateOngoingChallengeMapsData({ data: [...challengeMaps] }));
   };
 }

@@ -10,7 +10,6 @@ import {
 const initialState: ChallengesState = {
   challengeList: [],
   challenges: {},
-  challengeMaps: [],
 };
 
 const challengesReducer = produce(

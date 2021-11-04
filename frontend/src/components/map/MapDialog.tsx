@@ -2,7 +2,7 @@
 import React, { useCallback } from 'react';
 import { Dialog, Typography, Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { ChallengeMapData } from 'types/challenges';
+import { UserChallengeMapData } from 'types/userchallenge';
 import SpaceMap from './mapTemplates/SpaceMap';
 import { useDispatch } from 'react-redux';
 import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
 interface MapDialogProps {
   isOpen: boolean;
   close: () => void;
-  mapData: ChallengeMapData;
+  mapData: UserChallengeMapData;
 }
 
 const MapDialog: React.FC<MapDialogProps> = ({ isOpen, close, mapData }) => {

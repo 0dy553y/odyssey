@@ -1,4 +1,4 @@
-import { ChallengeMapData } from 'types/challenges';
+import { UserChallengeMapData } from 'types/userchallenge';
 import {
   CompletedUserChallengeListData,
   UserChallengeData,
@@ -10,6 +10,6 @@ type ChallengeId = number;
 export interface UserChallengesState {
   allUserChallengesData: Record<ChallengeId, UserChallengeData[]>;
   ongoingUserChallengesList: UserChallengeListData[];
-  ongoingChallengeMapsList: ChallengeMapData[];
+  ongoingChallengeMapsList: UserChallengeMapData[];
   completedUserChallengesList: CompletedUserChallengeListData[];
 }

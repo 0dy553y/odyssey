@@ -21,3 +21,19 @@ export interface CompletedUserChallengeListData {
   prizeName: string | null;
   completedAt: Date;
 }
+
+export interface UserChallengeMapData {
+  username: string;
+  challengeId: number;
+  challengeName: string;
+  prizeName: string;
+  numTasks: number;
+  currentTaskNum: number;
+  friends: UserChallengeFriendMapData[];
+}
+
+export interface UserChallengeFriendMapData {
+  username: string;
+  displayName: string;
+  currentTaskNum: number;
+}

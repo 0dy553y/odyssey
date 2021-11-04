@@ -15,11 +15,11 @@ import { Axis, Direction } from '../../../types/map';
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionCW } from 'utils/direction';
 import { translate } from 'utils/map';
-import { ChallengeMapData } from 'types/challenges';
+import { UserChallengeMapData } from 'types/userchallenge';
 import { getPrizePath } from 'utils/prizes';
 
 interface MapProps {
-  mapData: ChallengeMapData;
+  mapData: UserChallengeMapData;
 }
 
 const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {

@@ -45,19 +45,3 @@ export enum ChallengeStatus {
 }
 
 export type Schedule = Record<DayOfWeek, boolean>;
-
-export interface ChallengeMapData {
-  username: string;
-  challengeId: number;
-  challengeName: string;
-  prizeName: string;
-  numTasks: number;
-  currentTaskNum: number;
-  friends: ChallengeFriendMapData[];
-}
-
-export interface ChallengeFriendMapData {
-  username: string;
-  displayName: string;
-  currentTaskNum: number;
-}
