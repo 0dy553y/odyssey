@@ -10,17 +10,22 @@ import { Html } from '@react-three/drei';
 import { useSpring, animated, config } from '@react-spring/three';
 import { Direction } from '../../../types/map';
 import { getRotation } from '../../../utils/direction';
-import { DirectionPosition } from '../../../types/map';
+import {
+  DirectionPosition,
+  Character as MapCharacter,
+} from '../../../types/map';
 import Model from '../basic/Model';
+import { getCharacterPath } from 'utils/map';
 
 interface CharacterProps {
   position: Vector3;
   direction: Direction;
   username: string;
+  character: MapCharacter;
 }
 
 const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
-  const { position, direction, username } = props;
+  const { position, direction, username, character } = props;
 
   const characterRef = useRef();
   const [flip, set] = useState(false);
@@ -70,7 +75,7 @@ const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
       <Model
         position={localPos as any as Vector3}
         direction={Direction.LEFT}
-        fileName={'astronaut'}
+        fileName={getCharacterPath(character)}
         scale={0.8}
       />
     </animated.group>

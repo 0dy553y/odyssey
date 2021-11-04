@@ -1,6 +1,12 @@
 import React from 'react';
 import { getDirectionVector } from './direction';
-import { Direction, Axis, TranslationVector, Land } from '../types/map';
+import {
+  Direction,
+  Axis,
+  TranslationVector,
+  Land,
+  Character,
+} from '../types/map';
 import { Arch, Columns } from '../components/map';
 import { Vector3 } from '@react-three/fiber';
 
@@ -189,4 +195,8 @@ export function getLandPath(land: Land): string {
     default:
       return 'land/grass.vox';
   }
+}
+
+export function getCharacterPath(character: Character): string {
+  return `characters/${Character[character].toLowerCase()}.vox`;
 }

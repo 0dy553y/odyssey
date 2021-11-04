@@ -11,7 +11,7 @@ import { Canvas } from '@react-three/fiber';
 import { MapControls, Stars } from '@react-three/drei';
 import { Character } from '..';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import { Axis, Direction } from '../../../types/map';
+import { Axis, Direction, Character as MapCharacter } from '../../../types/map';
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionCW } from 'utils/direction';
 import { translate } from 'utils/map';
@@ -144,6 +144,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
             position={charPosition.pos}
             direction={charPosition.direction}
             username={username}
+            character={MapCharacter.ASTRONAUT}
           />
           {/* spawn friends */}
           {stepPositions.length === numSteps + 1 ? (
@@ -164,6 +165,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
                         })}
                         direction={direction}
                         username={username}
+                        character={MapCharacter.ASTRONAUT}
                       />
                     );
                   }

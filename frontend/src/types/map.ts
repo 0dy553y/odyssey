@@ -33,3 +33,11 @@ export enum Land {
   WATER,
   LAVA,
 }
+
+export enum Character {
+  ASTRONAUT,
+  BLUE_ASTRONAUT,
+  YELLOW_ASTRONAUT,
+  FISHBOWL_ASTRONAUT,
+  PUMPKIN_ASTRONAIT,
+}

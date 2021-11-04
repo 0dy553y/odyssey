@@ -4,7 +4,7 @@
 o 
 
 # material
-mtllib fish_bowl_astronaut.vox.mtl
+mtllib fishbowl_astronaut.vox.mtl
 usemtl palette
 
 # normals
