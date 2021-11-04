@@ -49,46 +49,45 @@ const SideNavigationBar: React.FC = () => {
   ];
 
   return (
-    <Paper elevation={0}>
-      <Drawer
-        sx={{
-          width: '25vw',
+    <Drawer
+      sx={{
+        width: '20vw',
+        height: '100%',
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: '20vw',
+          paddingTop: '3em',
           height: '100%',
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: '25vw',
-            height: '100%',
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="permanent"
-        anchor="left"
-      >
-        <List>
-          {items.map((item) => {
-            const isSelected = firstPathSegment === item.route;
+          boxSizing: 'border-box',
+        },
+      }}
+      variant="permanent"
+      anchor="left"
+    >
+      <List>
+        {items.map((item) => {
+          const isSelected = firstPathSegment === item.route;
 
-            return (
-              <ListItem
-                button
-                key={item.route}
-                onClick={() => history.push(item.route)}
-              >
-                <ListItemIcon>
-                  {React.createElement(item.icon, {
-                    color: isSelected ? 'primary' : undefined,
-                  })}
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.label}
-                  sx={{ color: isSelected ? 'primary.main' : undefined }}
-                />
-              </ListItem>
-            );
-          })}
-        </List>
-      </Drawer>
-    </Paper>
+          return (
+            <ListItem
+              button
+              key={item.route}
+              onClick={() => history.push(item.route)}
+            >
+              <ListItemIcon>
+                {React.createElement(item.icon, {
+                  color: isSelected ? 'primary' : undefined,
+                })}
+              </ListItemIcon>
+              <ListItemText
+                primary={item.label}
+                sx={{ color: isSelected ? 'primary.main' : undefined }}
+              />
+            </ListItem>
+          );
+        })}
+      </List>
+    </Drawer>
   );
 };
 
