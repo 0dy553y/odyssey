@@ -2,8 +2,10 @@ import api from 'api';
 import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { loadAllOngoingChallengeMaps } from 'store/challenges/operations';
-import { loadAllUserChallengesDataForChallenge } from 'store/userchallenges/operations';
+import {
+  loadAllUserChallengesDataForChallenge,
+  loadAllOngoingChallengeMaps,
+} from 'store/userchallenges/operations';
 import { OperationResult } from 'types/store';
 import { UserTaskData, UserTaskListData } from 'types/usertasks';
 import { RootState } from '../index';

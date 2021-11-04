@@ -16,7 +16,7 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import TodayIcon from '@mui/icons-material/TodayRounded';
 import { startOfDay } from 'date-fns';
 import { ChallengeMapData } from 'types/challenges';
-import { getChallengeMaps } from 'store/challenges/selectors';
+import { getChallengeMaps } from 'store/userchallenges/selectors';
 import LoadingPage from 'pages/loading/LoadingPage';
 
 const useStyles = makeStyles(() => ({

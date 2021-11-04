@@ -7,7 +7,7 @@ class MapAPI extends BaseAPI {
     return 'map';
   }
 
-  public loadAllOngoingChallengeMaps(): ApiPromise<ChallengeMapData[]> {
+  public getAllOngoingChallengeMaps(): ApiPromise<ChallengeMapData[]> {
     return this.get(`${MapAPI.getMapUrl()}/all_ongoing_challenge_maps`);
   }
 }

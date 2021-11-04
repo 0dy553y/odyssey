@@ -26,16 +26,10 @@ export interface RemoveChallengeAction {
   challengeId: number;
 }
 
-export interface SaveChallengeMapsAction {
-  type: typeof SAVE_CHALLENGE_MAPS;
-  challengeMaps: ChallengeMapData[];
-}
-
 export type ChallengeActions =
   | SaveChallengeListAction
   | SaveChallengeAction
-  | RemoveChallengeAction
-  | SaveChallengeMapsAction;
+  | RemoveChallengeAction;
 
 export interface ChallengesState {
   challengeList: ChallengeListData[];

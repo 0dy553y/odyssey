@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { loadAllOngoingChallengeMaps } from 'store/challenges/operations';
-import { getChallengeMaps } from 'store/challenges/selectors';
+import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
+import { getChallengeMaps } from 'store/userchallenges/selectors';
 import { useHistory, useParams } from 'react-router-dom';
 import MapCarousel from '../../components/map/MapCarousel';
 import { RootState } from 'store';

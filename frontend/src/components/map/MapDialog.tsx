@@ -5,7 +5,7 @@ import { makeStyles } from '@mui/styles';
 import { ChallengeMapData } from 'types/challenges';
 import SpaceMap from './mapTemplates/SpaceMap';
 import { useDispatch } from 'react-redux';
-import { loadAllOngoingChallengeMaps } from 'store/challenges/operations';
+import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
 const useStyles = makeStyles(() => ({
   header: {
     color: 'white',

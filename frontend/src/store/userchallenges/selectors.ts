@@ -1,3 +1,4 @@
+import { ChallengeMapData } from 'types/challenges';
 import {
   CompletedUserChallengeListData,
   UserChallengeData,
@@ -49,4 +50,8 @@ export function getAllCompletedUserChallenges(
   state: RootState
 ): CompletedUserChallengeListData[] {
   return getLocalState(state).completedUserChallengesList;
+}
+
+export function getChallengeMaps(state: RootState): ChallengeMapData[] {
+  return getLocalState(state).ongoingChallengeMapsList;
 }
