@@ -15,12 +15,12 @@ import { Axis, Direction } from '../../../types/map';
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionCW } from 'utils/direction';
 import { translate } from 'utils/map';
-import { ChallengeMapData } from 'types/challenges';
+import { UserChallengeMapData } from 'types/userchallenge';
 import { getPrize, getPrizePath } from 'utils/prizes';
 import PrizeInfoModal from 'components/common/prizeInfoDialog/PrizeInfoDialog';
 
 interface MapProps {
-  mapData: ChallengeMapData;
+  mapData: UserChallengeMapData;
 }
 
 const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
@@ -31,6 +31,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
     numTasks,
     currentTaskNum,
     friends,
+    mapTheme,
   } = props.mapData;
   let currentStep = currentTaskNum;
   const numSteps = numTasks;
@@ -117,7 +118,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
           ) : (
             <></>
           )} */}
-          <directionalLight castShadow position={[0, 10, 0]} intensity={1.5} />
+          <directionalLight position={[0, 30, 0]} intensity={1} />
           <pointLight position={[30, 0, 0]} intensity={0.5} />
           <pointLight position={[-30, 0, 0]} intensity={0.5} />
           <pointLight position={[0, 0, 30]} intensity={0.2} />
@@ -135,6 +136,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
               setCharPosition(stepPositions[currentStep - 1]);
             }}
             onClickPrize={() => setIsPrizeModalOpen(true)}
+            mapTheme={mapTheme}
           />
           <Character
             ref={characterRef}

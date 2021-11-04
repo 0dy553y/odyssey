@@ -1,8 +1,4 @@
-import {
-  ChallengeData,
-  ChallengeListData,
-  ChallengeMapData,
-} from '../../types/challenges';
+import { ChallengeData, ChallengeListData } from '../../types/challenges';
 
 // Action names
 export const SAVE_CHALLENGE_LIST = 'challenges/SAVE_CHALLENGE_LIST';
@@ -26,19 +22,12 @@ export interface RemoveChallengeAction {
   challengeId: number;
 }
 
-export interface SaveChallengeMapsAction {
-  type: typeof SAVE_CHALLENGE_MAPS;
-  challengeMaps: ChallengeMapData[];
-}
-
 export type ChallengeActions =
   | SaveChallengeListAction
   | SaveChallengeAction
-  | RemoveChallengeAction
-  | SaveChallengeMapsAction;
+  | RemoveChallengeAction;
 
 export interface ChallengesState {
   challengeList: ChallengeListData[];
   challenges: Record<number, ChallengeData>;
-  challengeMaps: ChallengeMapData[];
 }

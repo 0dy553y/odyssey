@@ -39,6 +39,3 @@ Task.create(challenge_id: challenge_gratitude.id,
             name: 'Day 3',
             description: 'Don’t complain for a day, and write about your experience.',
             index: 2)
-
-
-

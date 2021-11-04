@@ -5,13 +5,11 @@ import {
   REMOVE_CHALLENGE,
   SAVE_CHALLENGE,
   SAVE_CHALLENGE_LIST,
-  SAVE_CHALLENGE_MAPS,
 } from './types';
 
 const initialState: ChallengesState = {
   challengeList: [],
   challenges: {},
-  challengeMaps: [],
 };
 
 const challengesReducer = produce(
@@ -27,10 +25,6 @@ const challengesReducer = produce(
       }
       case REMOVE_CHALLENGE: {
         delete draft.challenges[action.challengeId];
-        break;
-      }
-      case SAVE_CHALLENGE_MAPS: {
-        draft.challengeMaps = action.challengeMaps;
         break;
       }
     }

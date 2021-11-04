@@ -2,7 +2,7 @@ import React from 'react';
 import { Stack, Typography } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { makeStyles } from '@mui/styles';
-import { ChallengeMapData } from '../../types/challenges';
+import { UserChallengeMapData } from '../../types/userchallenge';
 import SpaceMap from './mapTemplates/SpaceMap';
 import './MapCarousel.scss';
 
@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface MapCarouselProps {
-  maps: ChallengeMapData[];
+  maps: UserChallengeMapData[];
   initialIndex: number;
 }
 
@@ -50,7 +50,7 @@ const MapCarousel: React.FC<MapCarouselProps> = ({ maps, initialIndex }) => {
       noSwipingClass="swiper-slide"
       className={classes.mapSlider}
     >
-      {maps.map((mapData: ChallengeMapData) => (
+      {maps.map((mapData: UserChallengeMapData) => (
         <SwiperSlide key={mapData.challengeId} className="swiper-slide">
           <div className={classes.container}>
             <Stack className={classes.name}>

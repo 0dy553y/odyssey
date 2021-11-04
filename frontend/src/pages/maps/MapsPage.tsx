@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { loadFriendsOnSameChallenges } from 'store/challenges/operations';
-import { getChallengeMaps } from 'store/challenges/selectors';
+import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
+import { getChallengeMaps } from 'store/userchallenges/selectors';
 import { useHistory, useParams } from 'react-router-dom';
 import MapCarousel from '../../components/map/MapCarousel';
 import { RootState } from 'store';
 import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
-import { ChallengeMapData } from 'types/challenges';
+import { UserChallengeMapData } from 'types/userchallenge';
 
 const MapsPage: React.FC = () => {
   const { challengeId } = useParams<{ challengeId: string }>();
@@ -15,7 +15,7 @@ const MapsPage: React.FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     batch(() => {
-      dispatch(loadFriendsOnSameChallenges());
+      dispatch(loadAllOngoingChallengeMaps());
     });
   }, []);
 
@@ -25,7 +25,7 @@ const MapsPage: React.FC = () => {
   )!;
 
   const challengeIdToSwiperIndexMap: Record<string, number> = {};
-  challengeMaps.map((data: ChallengeMapData, index: number) => {
+  challengeMaps.map((data: UserChallengeMapData, index: number) => {
     challengeIdToSwiperIndexMap[data.challengeId] = index;
   });
 

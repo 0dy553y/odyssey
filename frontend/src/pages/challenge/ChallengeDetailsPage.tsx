@@ -8,9 +8,12 @@ import {
 } from 'store/userchallenges/operations';
 import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
-import { getChallenge, getChallengeMap } from 'store/challenges/selectors';
+import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
-import { getOngoingOrCompletedUserChallengeDataForChallenge } from 'store/userchallenges/selectors';
+import {
+  getOngoingOrCompletedUserChallengeDataForChallenge,
+  getChallengeMap,
+} from 'store/userchallenges/selectors';
 import { Box, IconButton, Menu, MenuItem } from '@mui/material';
 import ChallengeContent from 'components/challenge/ChallengeContent';
 import { makeStyles } from '@mui/styles';

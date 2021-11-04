@@ -23,3 +23,13 @@ export interface DirectionPosition {
   pos: Vector3;
   direction: Direction;
 }
+
+// anyhow put for now.
+export enum Land {
+  GRASS,
+  SAND,
+  MOON,
+  STONE,
+  WATER,
+  LAVA,
+}

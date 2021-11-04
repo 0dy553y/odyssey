@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_02_123038) do
+ActiveRecord::Schema.define(version: 2021_11_04_064011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,14 @@ ActiveRecord::Schema.define(version: 2021_11_02_123038) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "maps", force: :cascade do |t|
+    t.bigint "challenge_id", null: false
+    t.integer "land", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["challenge_id"], name: "index_maps_on_challenge_id"
   end
 
   create_table "post_reactions", force: :cascade do |t|
@@ -202,6 +210,7 @@ ActiveRecord::Schema.define(version: 2021_11_02_123038) do
   add_foreign_key "friend_requests", "users", column: "sender_id"
   add_foreign_key "friendships", "users", column: "first_user_id"
   add_foreign_key "friendships", "users", column: "second_user_id"
+  add_foreign_key "maps", "challenges"
   add_foreign_key "post_reactions", "posts"
   add_foreign_key "post_reactions", "users", column: "creator_id"
   add_foreign_key "posts", "challenges"

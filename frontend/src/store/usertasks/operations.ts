@@ -2,8 +2,10 @@ import api from 'api';
 import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { loadFriendsOnSameChallenges } from 'store/challenges/operations';
-import { loadAllUserChallengesDataForChallenge } from 'store/userchallenges/operations';
+import {
+  loadAllUserChallengesDataForChallenge,
+  loadAllOngoingChallengeMaps,
+} from 'store/userchallenges/operations';
 import { OperationResult } from 'types/store';
 import { UserTaskData, UserTaskListData } from 'types/usertasks';
 import { RootState } from '../index';
@@ -90,7 +92,7 @@ export function markUserTaskAsNotDone(userTaskId: number): OperationResult {
     const userTask: UserTaskData = response.payload.data;
     batch(() => {
       dispatch(saveUserTaskForDay(userTask.scheduledFor, userTask));
-      dispatch(loadFriendsOnSameChallenges());
+      dispatch(loadAllOngoingChallengeMaps());
     });
   };
 }

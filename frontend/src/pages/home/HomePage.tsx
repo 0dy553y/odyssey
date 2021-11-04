@@ -15,8 +15,8 @@ import ChallengeCompletedDialog from 'components/challengeCompletedDialog';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import TodayIcon from '@mui/icons-material/TodayRounded';
 import { startOfDay } from 'date-fns';
-import { ChallengeMapData } from 'types/challenges';
-import { getChallengeMaps } from 'store/challenges/selectors';
+import { UserChallengeMapData } from 'types/userchallenge';
+import { getChallengeMaps } from 'store/userchallenges/selectors';
 import LoadingPage from 'pages/loading/LoadingPage';
 
 const useStyles = makeStyles(() => ({
@@ -172,7 +172,7 @@ const HomePage: React.FC = () => {
           onClose={() => setChallengeCompletedDialogState({ isOpen: false })}
         />
       )}
-      {challengeMaps.map((mapData: ChallengeMapData) => (
+      {challengeMaps.map((mapData: UserChallengeMapData) => (
         <MapDialog
           key={mapData.challengeId}
           isOpen={
