@@ -25,6 +25,7 @@ import { useCache } from 'components/common/cacheProvider';
 import GoogleAnalytics from './GoogleAnalytics';
 import LoadingPage from 'pages/loading/LoadingPage';
 import { setRedirectUrl } from './store/auth/actions';
+import Div100vh from 'react-div-100vh';
 
 import './App.scss';
 import 'swiper/swiper-bundle.css';
@@ -61,56 +62,63 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <Container className="App" component="main" disableGutters maxWidth={false}>
-      <GoogleAnalytics />
-      <ScrollToTop />
-      <Notifier />
-      <Global
-        styles={{
-          '.MuiDrawer-root > .MuiPaper-root': {
-            height: `calc(50%)`,
-            overflow: 'visible',
-          },
-        }}
-      />
-      <div className="App-content-container">
-        <Container className="column-container" disableGutters maxWidth="sm">
-          <Switch>
-            {isValidatingToken ? (
-              <LoadingPage />
-            ) : (
-              <>
-                {publicRoutes.map((route: RouteEntry) => (
-                  <Route key={route.path} {...route} />
-                ))}
+    <Div100vh>
+      <Container
+        className="App"
+        component="main"
+        disableGutters
+        maxWidth={false}
+      >
+        <GoogleAnalytics />
+        <ScrollToTop />
+        <Notifier />
+        <Global
+          styles={{
+            '.MuiDrawer-root > .MuiPaper-root': {
+              height: `calc(50%)`,
+              overflow: 'visible',
+            },
+          }}
+        />
+        <div className="App-content-container">
+          <Container className="column-container" disableGutters maxWidth="sm">
+            <Switch>
+              {isValidatingToken ? (
+                <LoadingPage />
+              ) : (
+                <>
+                  {publicRoutes.map((route: RouteEntry) => (
+                    <Route key={route.path} {...route} />
+                  ))}
 
-                {notAuthenticatedRoutes.map((route: RouteEntry) => (
-                  <RouteWithRedirect
-                    key={route.path}
-                    {...route}
-                    {...defaultNotAuthenticatedRouteProps}
-                  />
-                ))}
+                  {notAuthenticatedRoutes.map((route: RouteEntry) => (
+                    <RouteWithRedirect
+                      key={route.path}
+                      {...route}
+                      {...defaultNotAuthenticatedRouteProps}
+                    />
+                  ))}
 
-                {privateRoutes.map((route: RouteEntry) => (
-                  <RouteWithRedirect
-                    key={route.path}
-                    {...route}
-                    {...defaultPrivateRouteProps}
-                  />
-                ))}
-              </>
-            )}
-          </Switch>
-        </Container>
-      </div>
-      {mainRoutes
-        .map((route: RouteEntry) => route.path)
-        .includes(location.pathname) && <BottomNavigationBar />}
-      {privateRoutes
-        .map((route: RouteEntry) => route.path)
-        .includes(location.pathname) && <FeedbackOverlay />}
-    </Container>
+                  {privateRoutes.map((route: RouteEntry) => (
+                    <RouteWithRedirect
+                      key={route.path}
+                      {...route}
+                      {...defaultPrivateRouteProps}
+                    />
+                  ))}
+                </>
+              )}
+            </Switch>
+          </Container>
+        </div>
+        {mainRoutes
+          .map((route: RouteEntry) => route.path)
+          .includes(location.pathname) && <BottomNavigationBar />}
+        {privateRoutes
+          .map((route: RouteEntry) => route.path)
+          .includes(location.pathname) && <FeedbackOverlay />}
+      </Container>
+    </Div100vh>
   );
 }
 
