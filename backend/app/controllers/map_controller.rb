@@ -17,6 +17,7 @@ class MapController < ApplicationController
                    {
                      username: f.username,
                      display_name: f.display_name,
+                     character: f.character,
                      current_task_num: f.user_challenges.ongoing.where(challenge_id: uc.challenge_id).first
                                         .user_tasks.where.not(completed_at: nil).size + 1
                    }
