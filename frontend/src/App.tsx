@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Stack, Theme, Container, useMediaQuery } from '@mui/material';
+import { Stack, Container } from '@mui/material';
 import { Global } from '@emotion/react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import {
