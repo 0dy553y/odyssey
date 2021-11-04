@@ -53,7 +53,6 @@ const SideNavigationBar: React.FC = () => {
       sx={{
         width: '20vw',
         height: '100%',
-        flexShrink: 0,
         '& .MuiDrawer-paper': {
           width: '20vw',
           paddingTop: '3em',

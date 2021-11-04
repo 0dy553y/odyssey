@@ -10,6 +10,7 @@ a {
   display: flex !important;
   flex-direction: column;
   height: 100vh;
+  overflow-x: hidden;
 }
 
 .App-content-container {

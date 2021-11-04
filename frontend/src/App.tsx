@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Theme, Container, useMediaQuery } from '@mui/material';
+import { Stack, Theme, Container, useMediaQuery } from '@mui/material';
 import { Global } from '@emotion/react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import {
@@ -86,7 +86,7 @@ function App(): JSX.Element {
           <Container
             className="column-container"
             disableGutters
-            maxWidth={isDesktop ? 'lg' : 'sm'}
+            maxWidth={isDesktop ? false : 'sm'}
           >
             <Switch>
               {isValidatingToken ? (
@@ -130,11 +130,10 @@ function App(): JSX.Element {
 
   const renderDesktopApp = () => {
     return (
-      <div className="desktop-app-container">
+      <Stack direction="row">
         <SideNavigationBar />
-
         {renderContent()}
-      </div>
+      </Stack>
     );
   };
 
