@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { UserChallengeMapData } from 'types/userchallenge';
 import {
   CompletedUserChallengeListData,
   UserChallengeData,
@@ -9,6 +10,7 @@ import { UserChallengesState } from './types';
 const initialState: UserChallengesState = {
   allUserChallengesData: {},
   ongoingUserChallengesList: [],
+  ongoingChallengeMapsList: [],
   completedUserChallengesList: [],
 };
 
@@ -34,6 +36,12 @@ export const userChallengesSlice = createSlice({
       action: PayloadAction<{ data: CompletedUserChallengeListData[] }>
     ) => {
       state.completedUserChallengesList = action.payload.data;
+    },
+    updateOngoingChallengeMapsData: (
+      state,
+      action: PayloadAction<{ data: UserChallengeMapData[] }>
+    ) => {
+      state.ongoingChallengeMapsList = action.payload.data;
     },
     resetUserChallenges: (state) => {
       state.allUserChallengesData = {};

@@ -9,17 +9,11 @@ import {
   ChallengeListData,
   ChallengePostData,
   ChallengePutData,
-  ChallengeMapData,
   Schedule,
 } from '../../types/challenges';
 import { OperationResult } from '../../types/store';
 import { RootState } from '../index';
-import {
-  removeChallenge,
-  saveChallenge,
-  saveChallengeList,
-  saveChallengeMaps,
-} from './actions';
+import { removeChallenge, saveChallenge, saveChallengeList } from './actions';
 
 export function loadAllChallenges(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
@@ -78,13 +72,5 @@ export function deleteChallenge(challengeId: number): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     await api.challenges.deleteChallenge(challengeId);
     dispatch(removeChallenge(challengeId));
-  };
-}
-
-export function loadFriendsOnSameChallenges(): OperationResult {
-  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.map.getFriendsOnSameChallenges();
-    const challengeMaps: ChallengeMapData[] = response.payload.data;
-    dispatch(saveChallengeMaps(challengeMaps));
   };
 }

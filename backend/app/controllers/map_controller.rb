@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MapController < ApplicationController
-  def friends_on_same_challenges
+  def all_ongoing_challenge_maps
     friends = current_user.friends
     @user_challenges = current_user.user_challenges.ongoing.map do |uc|
       {
@@ -10,6 +10,7 @@ class MapController < ApplicationController
         prize_name: uc.challenge.prize_name,
         num_tasks: uc.challenge.tasks.count,
         current_task_num: uc.user_tasks.where.not(completed_at: nil).count + 1,
+        map_theme: uc.challenge.map,
         friends: friends.select do |f|
                    f.user_challenges.ongoing.where(challenge_id: uc.challenge_id).first
                  end.map do |f|

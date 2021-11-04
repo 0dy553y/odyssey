@@ -10,7 +10,10 @@ import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { getChallenge } from 'store/challenges/selectors';
 import { getTaskList } from 'store/tasks/selectors';
-import { getOngoingOrCompletedUserChallengeDataForChallenge } from 'store/userchallenges/selectors';
+import {
+  getOngoingOrCompletedUserChallengeDataForChallenge,
+  getChallengeMap,
+} from 'store/userchallenges/selectors';
 import { Box, IconButton, Menu, MenuItem } from '@mui/material';
 import ChallengeContent from 'components/challenge/ChallengeContent';
 import { makeStyles } from '@mui/styles';
@@ -21,6 +24,7 @@ import { loadPostsForChallenge } from 'store/posts/operations';
 import { getChallengePostList } from 'store/posts/selectors';
 import ConfirmationModal from 'components/common/ConfirmationModal';
 import LoadingPage from 'pages/loading/LoadingPage';
+import { MapDialog } from 'components/map';
 
 const useStyles = makeStyles(() => ({
   joinButton: {
@@ -74,6 +78,8 @@ const ChallengeDetailsPage: React.FC = () => {
   const [isForfeitConfirmationModalOpen, setIsForfeitConfirmationModalOpen] =
     useState<boolean>(false);
 
+  const [isMapDialogOpen, setIsMapDialogOpen] = useState<boolean>(false);
+
   useEffect(() => {
     batch(() => {
       dispatch(loadChallenge(Number(challengeId)));
@@ -99,6 +105,10 @@ const ChallengeDetailsPage: React.FC = () => {
       state,
       Number(challengeId)
     )
+  );
+
+  const challengeMap = useSelector((state: RootState) =>
+    getChallengeMap(state, Number(challengeId))
   );
 
   const posts = useSelector((state: RootState) =>
@@ -163,6 +173,7 @@ const ChallengeDetailsPage: React.FC = () => {
         tasks={tasks}
         currentUser={user}
         posts={posts}
+        onTaskCompleted={() => setIsMapDialogOpen(true)}
       />
 
       <ConfirmationModal
@@ -182,6 +193,15 @@ const ChallengeDetailsPage: React.FC = () => {
         }}
         onCancel={() => setIsForfeitConfirmationModalOpen(false)}
       />
+      {challengeMap ? (
+        <MapDialog
+          isOpen={isMapDialogOpen}
+          close={() => setIsMapDialogOpen(false)}
+          mapData={challengeMap}
+        />
+      ) : (
+        <></>
+      )}
     </Box>
   );
 };

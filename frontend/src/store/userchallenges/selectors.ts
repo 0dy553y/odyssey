@@ -1,3 +1,4 @@
+import { UserChallengeMapData } from 'types/userchallenge';
 import {
   CompletedUserChallengeListData,
   UserChallengeData,
@@ -49,4 +50,17 @@ export function getAllCompletedUserChallenges(
   state: RootState
 ): CompletedUserChallengeListData[] {
   return getLocalState(state).completedUserChallengesList;
+}
+
+export function getChallengeMaps(state: RootState): UserChallengeMapData[] {
+  return getLocalState(state).ongoingChallengeMapsList;
+}
+
+export function getChallengeMap(
+  state: RootState,
+  challengeId: number
+): UserChallengeMapData | undefined {
+  return getLocalState(state).ongoingChallengeMapsList.find(
+    (map: UserChallengeMapData) => map.challengeId === challengeId
+  );
 }

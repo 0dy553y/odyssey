@@ -11,4 +11,5 @@ json.data do
   json.categoryId @challenge.category_id
   json.originalCreator @challenge.original_creator.presence
   json.referenceLink @challenge.link_to_reference.presence
+  json.prizeName @challenge.prize_name
 end

@@ -15,11 +15,12 @@ import { Axis, Direction } from '../../../types/map';
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionCW } from 'utils/direction';
 import { translate } from 'utils/map';
-import { ChallengeMapData } from 'types/challenges';
-import { getPrizePath } from 'utils/prizes';
+import { UserChallengeMapData } from 'types/userchallenge';
+import { getPrize, getPrizePath } from 'utils/prizes';
+import PrizeInfoModal from 'components/common/prizeInfoDialog/PrizeInfoDialog';
 
 interface MapProps {
-  mapData: ChallengeMapData;
+  mapData: UserChallengeMapData;
 }
 
 const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
@@ -30,6 +31,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
     numTasks,
     currentTaskNum,
     friends,
+    mapTheme,
   } = props.mapData;
   let currentStep = currentTaskNum;
   const numSteps = numTasks;
@@ -45,6 +47,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
     pos: [0, 0, 0],
     direction: Direction.FORWARD,
   });
+  const [isPrizeModalOpen, setIsPrizeModalOpen] = useState<boolean>(false);
   const width = 7;
   const widthIncrement = 1.5;
   const heightIncrement = 0.5;
@@ -96,86 +99,98 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
 
   return (
     <Suspense fallback={<div />}>
-      <Canvas
-        camera={{ zoom: cameraZoom, position: [d, d, d] }}
-        orthographic={true}
-      >
-        <color attach="background" args={['#010101']} />
-        {/*  x: red, y: green, z: blue */}
-        {/* <axesHelper args={[5]} /> */}
-        {/* {stepPositions.length === numSteps + 1 ? (
-          <EffectComposer>
-            <Bloom
-              luminanceThreshold={0.8}
-              intensity={1.5}
-              luminanceSmoothing={0.1}
-            />
-          </EffectComposer>
-        ) : (
-          <></>
-        )} */}
-        <directionalLight castShadow position={[0, 10, 0]} intensity={1.5} />
-        <pointLight position={[30, 0, 0]} intensity={0.5} />
-        <pointLight position={[-30, 0, 0]} intensity={0.5} />
-        <pointLight position={[0, 0, 30]} intensity={0.2} />
-        <pointLight position={[0, 0, -30]} intensity={0.2} />
-        <SpaceMapStructure
-          ref={mapRef}
-          numSteps={numSteps}
-          currentStep={currentStep}
-          width={width}
-          widthIncrement={widthIncrement}
-          heightIncrement={heightIncrement}
-          prizePath={getPrizePath(prizeName)}
-          onMapMounted={(stepPositions) => {
-            setStepPositions(stepPositions);
-            setCharPosition(stepPositions[currentStep - 1]);
+      <>
+        <Canvas
+          camera={{ zoom: cameraZoom, position: [d, d, d] }}
+          orthographic={true}
+        >
+          <color attach="background" args={['#010101']} />
+          {/*  x: red, y: green, z: blue */}
+          {/* <axesHelper args={[5]} /> */}
+          {/* {stepPositions.length === numSteps + 1 ? (
+            <EffectComposer>
+              <Bloom
+                luminanceThreshold={0.8}
+                intensity={1.5}
+                luminanceSmoothing={0.1}
+              />
+            </EffectComposer>
+          ) : (
+            <></>
+          )} */}
+          <directionalLight position={[0, 30, 0]} intensity={1} />
+          <pointLight position={[30, 0, 0]} intensity={0.5} />
+          <pointLight position={[-30, 0, 0]} intensity={0.5} />
+          <pointLight position={[0, 0, 30]} intensity={0.2} />
+          <pointLight position={[0, 0, -30]} intensity={0.2} />
+          <SpaceMapStructure
+            ref={mapRef}
+            numSteps={numSteps}
+            currentStep={currentStep}
+            width={width}
+            widthIncrement={widthIncrement}
+            heightIncrement={heightIncrement}
+            prizePath={getPrizePath(prizeName)}
+            onMapMounted={(stepPositions) => {
+              setStepPositions(stepPositions);
+              setCharPosition(stepPositions[currentStep - 1]);
+            }}
+            onClickPrize={() => setIsPrizeModalOpen(true)}
+            mapTheme={mapTheme}
+          />
+          <Character
+            ref={characterRef}
+            key={`${challengeName}-${charPosition.pos as unknown as string}`}
+            position={charPosition.pos}
+            direction={charPosition.direction}
+            username={username}
+          />
+          {/* spawn friends */}
+          {stepPositions.length === numSteps + 1 ? (
+            <>
+              {Object.keys(friendsPositions).map((step: string) =>
+                friendsPositions[Number(step)].map(
+                  (username: string, index: number) => {
+                    const { pos, direction } = stepPositions[Number(step) - 1];
+                    const dv = getDirectionVector(
+                      nextDirectionCW(direction)
+                    ) as number[];
+                    return (
+                      <Character
+                        key={`${challengeName}-${username}`}
+                        position={translate(pos, {
+                          [Axis.X]: dv[0] * (index + 1) * 2,
+                          [Axis.Z]: dv[1] * (index + 1) * 2,
+                        })}
+                        direction={direction}
+                        username={username}
+                      />
+                    );
+                  }
+                )
+              )}
+            </>
+          ) : (
+            <></>
+          )}
+          <MapControls
+            addEventListener={undefined}
+            hasEventListener={undefined}
+            removeEventListener={undefined}
+            dispatchEvent={undefined}
+            minZoom={cameraZoom - 8}
+          />
+          <Stars factor={10} radius={60 - cameraZoom} saturation={1} fade />
+        </Canvas>
+        <PrizeInfoModal
+          isOpen={isPrizeModalOpen}
+          onClose={() => setIsPrizeModalOpen(false)}
+          prize={{
+            ...getPrize(prizeName, challengeName),
+            challengeName: challengeName,
           }}
         />
-        <Character
-          ref={characterRef}
-          key={`${challengeName}-${charPosition.pos as unknown as string}`}
-          position={charPosition.pos}
-          direction={charPosition.direction}
-          username={username}
-        />
-        {/* spawn friends */}
-        {stepPositions.length === numSteps + 1 ? (
-          <>
-            {Object.keys(friendsPositions).map((step: string) =>
-              friendsPositions[Number(step)].map(
-                (username: string, index: number) => {
-                  const { pos, direction } = stepPositions[Number(step) - 1];
-                  const dv = getDirectionVector(
-                    nextDirectionCW(direction)
-                  ) as number[];
-                  return (
-                    <Character
-                      key={`${challengeName}-${username}`}
-                      position={translate(pos, {
-                        [Axis.X]: dv[0] * (index + 1) * 2,
-                        [Axis.Z]: dv[1] * (index + 1) * 2,
-                      })}
-                      direction={direction}
-                      username={username}
-                    />
-                  );
-                }
-              )
-            )}
-          </>
-        ) : (
-          <></>
-        )}
-        <MapControls
-          addEventListener={undefined}
-          hasEventListener={undefined}
-          removeEventListener={undefined}
-          dispatchEvent={undefined}
-          minZoom={cameraZoom - 8}
-        />
-        <Stars factor={10} radius={60 - cameraZoom} saturation={1} fade />
-      </Canvas>
+      </>
     </Suspense>
   );
 };

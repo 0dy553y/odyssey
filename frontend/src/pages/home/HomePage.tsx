@@ -11,12 +11,12 @@ import { getUser } from '../../store/auth/selectors';
 import { useHistory } from 'react-router-dom';
 import { LOGIN_ROUTE, NOTIFICATIONS_ROUTE } from '../../routing/routes';
 import DateCarousel from '../../components/home/DateCarousel';
-import ChallengeCompletedModal from 'components/challengeCompletedModal';
+import ChallengeCompletedDialog from 'components/challengeCompletedDialog';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import TodayIcon from '@mui/icons-material/TodayRounded';
 import { startOfDay } from 'date-fns';
-import { ChallengeMapData } from 'types/challenges';
-import { getChallengeMaps } from 'store/challenges/selectors';
+import { UserChallengeMapData } from 'types/userchallenge';
+import { getChallengeMaps } from 'store/userchallenges/selectors';
 import LoadingPage from 'pages/loading/LoadingPage';
 
 const useStyles = makeStyles(() => ({
@@ -46,9 +46,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-interface ChallengeCompletedModalState {
+interface ChallengeCompletedDialogState {
   isOpen: boolean;
-  completedChallengeName?: string;
+  completedChallengeId?: number;
 }
 
 interface TaskCompletedDialogState {
@@ -61,22 +61,22 @@ const HomePage: React.FC = () => {
   const history = useHistory();
 
   const [date, setDate] = useState(startOfDay(new Date()));
-  const [challengeCompletedModalState, setChallengeCompletedModalState] =
+  const [ChallengeCompletedDialogState, setChallengeCompletedDialogState] =
     useReducer(
       (
-        state: ChallengeCompletedModalState,
-        newState: Partial<ChallengeCompletedModalState>
+        state: ChallengeCompletedDialogState,
+        newState: Partial<ChallengeCompletedDialogState>
       ) => ({
         ...state,
         ...newState,
       }),
-      { isOpen: false, completedChallengeName: undefined }
+      { isOpen: false, completedChallengeId: undefined }
     );
 
-  const onChallengeCompleted = (completedChallengeName: string) => {
-    setChallengeCompletedModalState({
+  const onChallengeCompleted = (completedChallengeId: number) => {
+    setChallengeCompletedDialogState({
       isOpen: true,
-      completedChallengeName: completedChallengeName,
+      completedChallengeId: completedChallengeId,
     });
   };
   const [taskCompletedDialogState, setTaskCompletedDialogState] = useReducer(
@@ -165,14 +165,14 @@ const HomePage: React.FC = () => {
         />
       </div>
 
-      {challengeCompletedModalState.completedChallengeName && (
-        <ChallengeCompletedModal
-          isOpen={challengeCompletedModalState.isOpen}
-          challengeName={challengeCompletedModalState.completedChallengeName}
-          onClose={() => setChallengeCompletedModalState({ isOpen: false })}
+      {ChallengeCompletedDialogState.completedChallengeId && (
+        <ChallengeCompletedDialog
+          isOpen={ChallengeCompletedDialogState.isOpen}
+          challengeId={ChallengeCompletedDialogState.completedChallengeId}
+          onClose={() => setChallengeCompletedDialogState({ isOpen: false })}
         />
       )}
-      {challengeMaps.map((mapData: ChallengeMapData) => (
+      {challengeMaps.map((mapData: UserChallengeMapData) => (
         <MapDialog
           key={mapData.challengeId}
           isOpen={
