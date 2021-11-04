@@ -197,6 +197,9 @@ export function getLandPath(land: Land): string {
   }
 }
 
-export function getCharacterPath(character: Character): string {
+export function getCharacterPath(character: Character | string): string {
+  if (typeof character === 'string') {
+    return `characters/${character.toLowerCase()}.vox`;
+  }
   return `characters/${Character[character].toLowerCase()}.vox`;
 }
