@@ -1,4 +1,5 @@
 import { ChallengeMapTheme, Schedule } from './challenges';
+import { Character } from './map';
 import { UserTaskListData } from './usertasks';
 
 export interface UserChallengeListData {
@@ -24,6 +25,7 @@ export interface CompletedUserChallengeListData {
 
 export interface UserChallengeMapData {
   username: string;
+  character: Character;
   challengeId: number;
   challengeName: string;
   prizeName: string;
@@ -36,5 +38,6 @@ export interface UserChallengeMapData {
 export interface UserChallengeFriendMapData {
   username: string;
   displayName: string;
+  character: Character;
   currentTaskNum: number;
 }
