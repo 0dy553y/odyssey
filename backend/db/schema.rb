@@ -63,13 +63,11 @@ ActiveRecord::Schema.define(version: 2021_11_04_064011) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "creator_id", default: 1, null: false
     t.integer "color", default: 0, null: false
-    t.string "original_creator", default: ""
-    t.string "link_to_reference", default: ""
+    t.string "original_creator"
+    t.string "link_to_reference"
     t.string "prize_name"
-    t.bigint "maps_id"
     t.index ["category_id"], name: "index_challenges_on_category_id"
     t.index ["creator_id"], name: "index_challenges_on_creator_id"
-    t.index ["maps_id"], name: "index_challenges_on_maps_id"
   end
 
   create_table "friend_requests", force: :cascade do |t|
@@ -100,9 +98,11 @@ ActiveRecord::Schema.define(version: 2021_11_04_064011) do
   end
 
   create_table "maps", force: :cascade do |t|
+    t.bigint "challenge_id", null: false
     t.integer "land", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["challenge_id"], name: "index_maps_on_challenge_id"
   end
 
   create_table "post_reactions", force: :cascade do |t|
@@ -205,12 +205,12 @@ ActiveRecord::Schema.define(version: 2021_11_04_064011) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "challenges", "categories"
-  add_foreign_key "challenges", "maps", column: "maps_id"
   add_foreign_key "challenges", "users", column: "creator_id"
   add_foreign_key "friend_requests", "users", column: "receiver_id"
   add_foreign_key "friend_requests", "users", column: "sender_id"
   add_foreign_key "friendships", "users", column: "first_user_id"
   add_foreign_key "friendships", "users", column: "second_user_id"
+  add_foreign_key "maps", "challenges"
   add_foreign_key "post_reactions", "posts"
   add_foreign_key "post_reactions", "users", column: "creator_id"
   add_foreign_key "posts", "challenges"

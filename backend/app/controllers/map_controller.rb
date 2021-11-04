@@ -10,6 +10,7 @@ class MapController < ApplicationController
         prize_name: uc.challenge.prize_name,
         num_tasks: uc.challenge.tasks.count,
         current_task_num: uc.user_tasks.where.not(completed_at: nil).count + 1,
+        map_theme: uc.challenge.map,
         friends: friends.select do |f|
                    f.user_challenges.ongoing.where(challenge_id: uc.challenge_id).first
                  end.map do |f|
