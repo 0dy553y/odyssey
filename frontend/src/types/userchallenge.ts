@@ -1,4 +1,4 @@
-import { Schedule } from './challenges';
+import { ChallengeMapTheme, Schedule } from './challenges';
 import { UserTaskListData } from './usertasks';
 
 export interface UserChallengeListData {
@@ -30,6 +30,7 @@ export interface UserChallengeMapData {
   numTasks: number;
   currentTaskNum: number;
   friends: UserChallengeFriendMapData[];
+  mapTheme: ChallengeMapTheme;
 }
 
 export interface UserChallengeFriendMapData {
