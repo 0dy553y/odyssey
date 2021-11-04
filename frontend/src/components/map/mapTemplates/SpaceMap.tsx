@@ -106,7 +106,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
         >
           <color attach="background" args={['#010101']} />
           {/*  x: red, y: green, z: blue */}
-          <axesHelper args={[5]} />
+          {/* <axesHelper args={[5]} /> */}
           {/* {stepPositions.length === numSteps + 1 ? (
             <EffectComposer>
               <Bloom
