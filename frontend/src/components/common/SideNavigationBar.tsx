@@ -23,28 +23,25 @@ import { getFirstPathSegment } from '../../utils/url';
 const SideNavigationBar: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
+  const firstPathSegment = getFirstPathSegment(location.pathname);
 
   const items: {
-    value: string;
     route: string;
     label: string;
     icon: React.ElementType;
   }[] = [
-    { value: 'home', route: HOME_ROUTE, label: 'Home', icon: HomeOutlinedIcon },
+    { route: HOME_ROUTE, label: 'Home', icon: HomeOutlinedIcon },
     {
-      value: 'explore',
       route: EXPLORE_ROUTE,
       label: 'Explore',
       icon: SearchOutlinedIcon,
     },
     {
-      value: 'feed',
       route: FEED_ROUTE,
       label: 'Feed',
       icon: PeopleOutlineIcon,
     },
     {
-      value: 'profile',
       route: PROFILE_ROUTE,
       label: 'Profile',
       icon: AccountCircleOutlinedIcon,
@@ -69,14 +66,23 @@ const SideNavigationBar: React.FC = () => {
       >
         <List>
           {items.map((item) => {
+            const isSelected = firstPathSegment === item.route;
+
             return (
               <ListItem
                 button
-                key={item.value}
+                key={item.route}
                 onClick={() => history.push(item.route)}
               >
-                <ListItemIcon>{React.createElement(item.icon)}</ListItemIcon>
-                <ListItemText primary={item.label} />
+                <ListItemIcon>
+                  {React.createElement(item.icon, {
+                    color: isSelected ? 'primary' : undefined,
+                  })}
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.label}
+                  sx={{ color: isSelected ? 'primary.main' : undefined }}
+                />
               </ListItem>
             );
           })}
