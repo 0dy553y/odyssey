@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/CloseRounded';
-import { BADGE_ROUTE, EXPLORE_ROUTE } from '../../routing/routes';
+import { MEMENTOS_ROUTE, EXPLORE_ROUTE } from '../../routing/routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { getChallenge } from 'store/challenges/selectors';
 import { loadChallenge } from 'store/challenges/operations';
@@ -117,8 +117,8 @@ const ChallengeCompletedDialog: React.FC<ChallengeCompletedDialogProps> = ({
               className={classes.body}
             >
               has been added to{' '}
-              <Link onClick={() => history.push(BADGE_ROUTE)}>mementos</Link>.
-              Head onto{' '}
+              <Link onClick={() => history.push(MEMENTOS_ROUTE)}>mementos</Link>
+              . Head onto{' '}
               <Link onClick={() => history.push(EXPLORE_ROUTE)}>Explore</Link>{' '}
               to embark on your next odyssey!
             </Typography>

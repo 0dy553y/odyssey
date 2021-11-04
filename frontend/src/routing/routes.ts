@@ -1,5 +1,5 @@
 import DemoMap from 'components/map/mapTemplates/DemoMap';
-import BadgePage from 'pages/badge/BadgePage';
+import MementosPage from 'pages/memento/MementosPage';
 import CompletedChallengesPage from 'pages/completedChallenges/CompletedChallengesPage';
 import EditProfilePage from 'pages/editProfile';
 import FriendsPage from 'pages/friends/FriendsPage';
@@ -31,7 +31,7 @@ export const FRIENDS_ROUTE = '/friends';
 export const ADD_FRIENDS_ROUTE = '/add-friends';
 export const NOTIFICATIONS_ROUTE = '/notifications';
 export const COMPLETED_CHALLENGES_ROUTE = '/completed';
-export const BADGE_ROUTE = '/badges';
+export const MEMENTOS_ROUTE = '/mementos';
 export const POSTS_ROUTE = '/posts';
 export const ONBOARDING_ROUTE = '/welcome';
 export const CHALLENGE_ROUTE = '/challenge';
@@ -84,13 +84,13 @@ export const privateRoutes: RouteEntry[] = [
     exact: true,
   },
   {
-    path: BADGE_ROUTE,
-    component: BadgePage,
+    path: MEMENTOS_ROUTE,
+    component: MementosPage,
     exact: true,
   },
   {
-    path: BADGE_ROUTE + '/:username',
-    component: BadgePage,
+    path: MEMENTOS_ROUTE + '/:username',
+    component: MementosPage,
     exact: true,
   },
   {
