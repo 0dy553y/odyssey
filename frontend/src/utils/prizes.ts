@@ -95,7 +95,10 @@ export function getPrize(
 ): Prize {
   const prize = prizes.find((p: Prize) => p.prizeName === prizeName);
   if (prize) {
-    return prize;
+    return {
+      ...prize,
+      prizePath: `prizes/${prize.prizePath}.vox`,
+    };
   }
 
   return {
