@@ -4,77 +4,77 @@ import { Prize } from 'types/prize';
 export const prizes: Prize[] = [
   {
     prizeName: 'Talaria',
-    prizePath: 'shoe.vox',
+    prizePath: 'shoe',
     prizeDescription: 'Winged shoes - perfect for walking',
   },
   {
     prizeName: 'Red Talaria',
-    prizePath: 'shoe_5k.vox',
+    prizePath: 'shoe_5k',
     prizeDescription: 'Red shoes make you fly',
   },
   {
     prizeName: 'Journal',
-    prizePath: 'journal.vox',
+    prizePath: 'journal',
     prizeDescription: 'Dear Diary',
   },
   {
     prizeName: 'Moon Cheese',
-    prizePath: 'moon_cheese.vox',
+    prizePath: 'moon_cheese',
     prizeDescription: 'Who moved my cheese?',
   },
   {
     prizeName: 'Mindful Orb',
-    prizePath: 'blue_orb.vox',
+    prizePath: 'blue_orb',
     prizeDescription: 'Ormmmmmmm',
   },
   {
     prizeName: 'Golden Gauntlet',
-    prizePath: 'gauntlet.vox',
+    prizePath: 'gauntlet',
     prizeDescription: 'Helps you do pull ups',
   },
   {
     prizeName: 'Antique Disc',
-    prizePath: 'music_disc.vox',
+    prizePath: 'music_disc',
     prizeDescription: 'Wonder what it stores?',
   },
   {
     prizeName: "Sun's Flower",
-    prizePath: 'sunflower.vox',
+    prizePath: 'sunflower',
     prizeDescription: "There's a zombie on my lawn",
   },
   {
     prizeName: 'Rainbow Umbrella',
-    prizePath: 'umbrella.vox',
+    prizePath: 'umbrella',
     prizeDescription: 'Protects you from rainy days',
   },
   {
     prizeName: 'Peach',
-    prizePath: 'peach.vox',
+    prizePath: 'peach',
     prizeDescription: '👀',
   },
   {
     prizeName: 'Squid Ink',
-    prizePath: 'ink_bottle.vox',
+    prizePath: 'ink_bottle',
     prizeDescription: 'Let your words flow',
   },
   {
     prizeName: 'Alarmed Clock',
-    prizePath: 'alarmed_clock.vox',
+    prizePath: 'alarmed_clock',
     prizeDescription: 'Brrrr brrrr',
   },
   {
     prizeName: 'Brick Phone',
-    prizePath: 'brick_phone.vox',
+    prizePath: 'brick_phone',
     prizeDescription: 'Before social media was a thing',
   },
   {
     prizeName: 'CS3216',
-    prizePath: '3216.vox',
+    prizePath: '3216',
     prizeDescription: 'Changing the world, one app at a time',
   },
   {
     prizeName: 'LEGO',
-    prizePath: 'lego.vox',
+    prizePath: 'lego',
     prizeDescription: 'Building blocks of imagination',
   },
 ];
@@ -82,11 +82,11 @@ export const prizes: Prize[] = [
 export function getPrizePath(prizeName: string | null): string {
   const prize = prizes.find((p: Prize) => p.prizeName === prizeName);
   if (prize) {
-    return prize.prizePath;
+    return `prizes/${prize.prizePath}.vox`;
   }
 
   // placeholder.
-  return 'trophy';
+  return 'prizes/trophy';
 }
 
 export function getPrize(
@@ -100,7 +100,7 @@ export function getPrize(
 
   return {
     prizeName: `${challengeName} Trophy`,
-    prizePath: 'trophy',
+    prizePath: 'prizes/trophy',
     prizeDescription: 'Not your ordinary trophy',
   };
 }
