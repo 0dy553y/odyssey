@@ -48,11 +48,11 @@ export enum ChallengeStatus {
 export type Schedule = Record<DayOfWeek, boolean>;
 
 export interface ChallengeMapTheme {
-  land: ChallengeMapLand;
+  land: MapLand;
 }
 
 // anyhow put for now.
-export enum ChallengeMapLand {
+export enum MapLand {
   GRASS,
   SAND,
   MOON,

@@ -31,6 +31,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
     numTasks,
     currentTaskNum,
     friends,
+    mapTheme,
   } = props.mapData;
   let currentStep = currentTaskNum;
   const numSteps = numTasks;
@@ -105,7 +106,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
         >
           <color attach="background" args={['#010101']} />
           {/*  x: red, y: green, z: blue */}
-          {/* <axesHelper args={[5]} /> */}
+          <axesHelper args={[5]} />
           {/* {stepPositions.length === numSteps + 1 ? (
             <EffectComposer>
               <Bloom
@@ -117,7 +118,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
           ) : (
             <></>
           )} */}
-          <directionalLight castShadow position={[0, 10, 0]} intensity={1.5} />
+          <directionalLight position={[0, 30, 0]} intensity={1} />
           <pointLight position={[30, 0, 0]} intensity={0.5} />
           <pointLight position={[-30, 0, 0]} intensity={0.5} />
           <pointLight position={[0, 0, 30]} intensity={0.2} />
@@ -135,6 +136,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
               setCharPosition(stepPositions[currentStep - 1]);
             }}
             onClickPrize={() => setIsPrizeModalOpen(true)}
+            mapTheme={mapTheme}
           />
           <Character
             ref={characterRef}

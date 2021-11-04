@@ -5,7 +5,7 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import { Vector3 } from '@react-three/fiber';
-import { Island, Disc, NextDisc } from '..';
+import { Disc, NextDisc, Model } from '..';
 
 import { Direction, Axis } from '../../../types/map';
 import {
@@ -16,18 +16,24 @@ import {
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionACW } from '../../../utils/direction';
 import Prize from '../composite/Prize';
-interface MapProps {
+import { ChallengeMapTheme } from 'types/challenges';
+import { getLandPath } from 'utils/mapTheme';
+interface MapStructureProps {
   numSteps: number;
   currentStep: number;
   width: number;
   widthIncrement: number;
   heightIncrement: number;
   prizePath: string;
+  mapTheme: ChallengeMapTheme;
   onMapMounted: (pos: DirectionPosition[]) => void;
   onClickPrize: () => void;
 }
 
-const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
+const SpaceMapStructure = (
+  props: MapStructureProps,
+  ref: React.Ref<unknown>
+) => {
   const {
     numSteps,
     currentStep,
@@ -35,6 +41,7 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
     widthIncrement,
     heightIncrement,
     prizePath,
+    mapTheme,
     onMapMounted,
     onClickPrize,
   } = props;
@@ -94,7 +101,7 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
         const nextDirection = nextDirectionACW(currentDirection);
         const dv = getDirectionVector(currentDirection) as number[];
         const nextDv = getDirectionVector(nextDirection) as number[];
-        const stageIncrement = 3;
+        const stageIncrement = 1.5;
 
         const stage = (
           <group key={i}>
@@ -114,31 +121,32 @@ const SpaceMapStructure = (props: MapProps, ref: React.Ref<unknown>) => {
                 base = position;
               },
             })}
-            <Island
+            <Model
               key={(i + 1) * width}
+              scale={2}
               position={translate(
-                regularTranslate(base, currentDirection, widthIncrement),
+                regularTranslate(base, currentDirection, widthIncrement + 0.5),
                 {
-                  [Axis.X]: nextDv[0],
-                  [Axis.Y]: 0.5,
-                  [Axis.Z]: nextDv[1],
+                  [Axis.X]: dv[0],
+                  [Axis.Y]: -0.5,
+                  [Axis.Z]: dv[1],
                 }
               )}
               direction={nextDirection}
-              ladderHeight={stageIncrement}
+              fileName={getLandPath(mapTheme.land)}
             />
           </group>
         );
-        base = regularTranslate(base, currentDirection, widthIncrement);
+        base = regularTranslate(base, currentDirection, widthIncrement + 0.5);
         stepPositions.push({
           pos: base,
           direction: currentDirection,
         });
         currentDirection = nextDirection;
         base = translate(base, {
-          [Axis.X]: dv[0] + nextDv[0] * (widthIncrement + 1),
+          [Axis.X]: dv[0] + nextDv[0] * (widthIncrement + 1.5),
           [Axis.Y]: stageIncrement,
-          [Axis.Z]: dv[1] + nextDv[1] * (widthIncrement + 1),
+          [Axis.Z]: dv[1] + nextDv[1] * (widthIncrement + 1.5),
         });
 
         return stage;

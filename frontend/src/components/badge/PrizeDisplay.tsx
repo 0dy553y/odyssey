@@ -37,8 +37,6 @@ const PrizeDisplay: React.FC<PrizeDisplayProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  console.log(windowDimensions);
-
   // 30 pixels for one unit in canvas.
   const pixelToCoordRatio = 30;
   const horizontalMargin = 60;
