@@ -26,6 +26,7 @@ import GoogleAnalytics from './GoogleAnalytics';
 import LoadingPage from 'pages/loading/LoadingPage';
 import { setRedirectUrl } from './store/auth/actions';
 import SideNavigationBar from 'components/common/SideNavigationBar';
+import { useIsDesktop } from 'utils/windowSize';
 
 import './App.scss';
 import 'swiper/swiper-bundle.css';
@@ -34,7 +35,7 @@ function App(): JSX.Element {
   const dispatch = useDispatch();
   const location = useLocation();
   const { isLatestVersion, refreshCacheAndReload } = useCache();
-  const isDesktop = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
+  const isDesktop = useIsDesktop();
 
   const user = useSelector(getUser);
   const isValidatingToken = useSelector(getIsValidatingToken);
