@@ -81,9 +81,9 @@ export function deleteChallenge(challengeId: number): OperationResult {
   };
 }
 
-export function loadFriendsOnSameChallenges(): OperationResult {
+export function loadAllOngoingChallengeMaps(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.map.getFriendsOnSameChallenges();
+    const response = await api.map.loadAllOngoingChallengeMaps();
     const challengeMaps: ChallengeMapData[] = response.payload.data;
     dispatch(saveChallengeMaps(challengeMaps));
   };

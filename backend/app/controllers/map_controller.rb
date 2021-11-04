@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MapController < ApplicationController
-  def friends_on_same_challenges
+  def all_ongoing_challenge_maps
     friends = current_user.friends
     @user_challenges = current_user.user_challenges.ongoing.map do |uc|
       {

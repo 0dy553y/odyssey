@@ -5,7 +5,7 @@ import { makeStyles } from '@mui/styles';
 import { ChallengeMapData } from 'types/challenges';
 import SpaceMap from './mapTemplates/SpaceMap';
 import { useDispatch } from 'react-redux';
-import { loadFriendsOnSameChallenges } from 'store/challenges/operations';
+import { loadAllOngoingChallengeMaps } from 'store/challenges/operations';
 const useStyles = makeStyles(() => ({
   header: {
     color: 'white',
@@ -48,7 +48,7 @@ const MapDialog: React.FC<MapDialogProps> = ({ isOpen, close, mapData }) => {
       fullScreen
       open={isOpen}
       onClick={() => {
-        dispatch(loadFriendsOnSameChallenges());
+        dispatch(loadAllOngoingChallengeMaps());
         close();
       }}
     >

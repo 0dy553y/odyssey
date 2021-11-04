@@ -7,8 +7,8 @@ class MapAPI extends BaseAPI {
     return 'map';
   }
 
-  public getFriendsOnSameChallenges(): ApiPromise<ChallengeMapData[]> {
-    return this.get(`${MapAPI.getMapUrl()}/friends_on_same_challenges`);
+  public loadAllOngoingChallengeMaps(): ApiPromise<ChallengeMapData[]> {
+    return this.get(`${MapAPI.getMapUrl()}/all_ongoing_challenge_maps`);
   }
 }
 

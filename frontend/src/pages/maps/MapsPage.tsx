@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { loadFriendsOnSameChallenges } from 'store/challenges/operations';
+import { loadAllOngoingChallengeMaps } from 'store/challenges/operations';
 import { getChallengeMaps } from 'store/challenges/selectors';
 import { useHistory, useParams } from 'react-router-dom';
 import MapCarousel from '../../components/map/MapCarousel';
@@ -15,7 +15,7 @@ const MapsPage: React.FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     batch(() => {
-      dispatch(loadFriendsOnSameChallenges());
+      dispatch(loadAllOngoingChallengeMaps());
     });
   }, []);
 
