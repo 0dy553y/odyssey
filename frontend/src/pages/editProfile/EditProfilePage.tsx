@@ -26,6 +26,7 @@ import CharacterCarousel from 'components/editProfile/CharacterCarousel';
 
 import './EditProfilePage.scss';
 import { makeStyles } from '@mui/styles';
+import { Character } from 'types/map';
 
 const useStyles = makeStyles(() => ({
   header: {
@@ -49,12 +50,16 @@ const EditProfilePage: React.FC = () => {
 
   const [avatarBase64DataUrl, setAvatarBase64DataUrl] =
     useState<DataUrl | null>(null);
+  const [selectedCharacter, setSelectedCharacter] = useState<Character>(
+    user.character ?? Character.ASTRONAUT
+  );
 
   const onSubmit = handleSubmit(async (data: EditProfileFormState) => {
     const userPutData: UserPutData = { displayName: data.displayName };
     if (avatarBase64DataUrl) {
       userPutData.avatar = avatarBase64DataUrl;
     }
+    userPutData.character = selectedCharacter;
     dispatch(updateUser(userPutData, history));
   });
 
@@ -143,7 +148,10 @@ const EditProfilePage: React.FC = () => {
             />
           </Grid>
         </Grid>
-        <CharacterCarousel />
+        <CharacterCarousel
+          selectedCharacter={selectedCharacter}
+          setSelectedCharacter={setSelectedCharacter}
+        />
 
         <Button
           type="submit"

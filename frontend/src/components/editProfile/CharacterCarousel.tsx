@@ -7,18 +7,15 @@ import SwiperClass from 'swiper/types/swiper-class';
 import { Character } from 'types/map';
 import CharacterDisplay from './CharacterDisplay';
 
-const useStyles = makeStyles(() => ({
-  carousel: {
-    marginTop: '2em',
-  },
-}));
+interface CharacterCarouselProps {
+  selectedCharacter: Character;
+  setSelectedCharacter: React.Dispatch<React.SetStateAction<Character>>;
+}
 
-const CharacterCarousel: React.FC = () => {
-  const classes = useStyles();
-  const [selectedCharacter, setSelectedCharacter] = useState<Character>(
-    Character.ASTRONAUT
-  );
-
+const CharacterCarousel: React.FC<CharacterCarouselProps> = ({
+  selectedCharacter,
+  setSelectedCharacter,
+}) => {
   const handleActiveIndexChange = (swiper: SwiperClass) => {
     setSelectedCharacter(swiper.activeIndex as Character);
   };
@@ -44,7 +41,6 @@ const CharacterCarousel: React.FC = () => {
       }}
       grabCursor={true}
       onActiveIndexChange={handleActiveIndexChange}
-      className={classes.carousel}
       onClick={handleClick}
     >
       {Object.keys(Character)
