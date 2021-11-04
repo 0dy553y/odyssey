@@ -41,6 +41,10 @@ const useStyles = makeStyles(() => ({
   displayLineBreak: {
     whiteSpace: 'pre-line',
   },
+  wrapText: {
+    wordBreak: 'break-word',
+    hyphens: 'auto',
+  },
 }));
 
 const getAggregatedReactions = (
@@ -122,7 +126,11 @@ export const FeedPost: React.FC<FeedPostProps> = ({
           primary={creator.displayName ?? displayUsername(creator.username)}
         />
 
-        <Grid item xs={12} className={classes.displayLineBreak}>
+        <Grid
+          item
+          xs={12}
+          className={`${classes.displayLineBreak} ${classes.wrapText}`}
+        >
           {post.body}
         </Grid>
 
