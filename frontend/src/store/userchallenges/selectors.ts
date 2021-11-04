@@ -55,3 +55,12 @@ export function getAllCompletedUserChallenges(
 export function getChallengeMaps(state: RootState): UserChallengeMapData[] {
   return getLocalState(state).ongoingChallengeMapsList;
 }
+
+export function getChallengeMap(
+  state: RootState,
+  challengeId: number
+): UserChallengeMapData | undefined {
+  return getLocalState(state).ongoingChallengeMapsList.find(
+    (map: UserChallengeMapData) => map.challengeId === challengeId
+  );
+}
