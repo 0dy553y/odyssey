@@ -17,7 +17,7 @@ import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionACW } from '../../../utils/direction';
 import Prize from '../composite/Prize';
 import { ChallengeMapTheme } from 'types/challenges';
-import { getLandPath } from 'utils/mapTheme';
+import { getLandPath } from 'utils/map';
 interface MapStructureProps {
   numSteps: number;
   currentStep: number;
