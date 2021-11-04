@@ -7,6 +7,7 @@ class Challenge < ApplicationRecord
   has_many :users, through: :user_challenges
   belongs_to :creator, class_name: 'User', inverse_of: :created_challenges
   has_many :posts, dependent: :destroy
+  has_one :map, dependent: :destroy
 
   default_scope -> { order(name: :asc) }
   validates :name,
