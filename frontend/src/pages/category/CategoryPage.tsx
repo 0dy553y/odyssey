@@ -131,24 +131,14 @@ const CategoryPage: React.FC = () => {
         title={category.title}
         heading={getHeadingFromCategory(category.title)}
       />
-      <Box
-        sx={{
-          paddingBottom: '-2em',
-          position: 'relative',
-          margin: '0 -50vw -2em -50vw',
-          maxWidth: '100vw',
-          maxHeight: '55vh',
-          left: '50%',
-          right: '50%',
-          width: '100vw',
-        }}
-      >
-        <StyledTabs value={value} onChange={handleChange}>
-          <StyledTab label="All challenges" />
-          <StyledTab label="Curated" />
-        </StyledTabs>
-        <Box sx={{ p: 3 }} />
-      </Box>
+
+      <StyledTabs value={value} onChange={handleChange}>
+        <StyledTab label="All challenges" />
+        <StyledTab label="Curated" />
+      </StyledTabs>
+
+      <Box sx={{ p: 1 }} />
+
       <Box sx={{ padding: '0 1.5em 0 1.5em' }}>
         <ul>
           {challenges
