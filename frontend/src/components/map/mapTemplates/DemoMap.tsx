@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { Canvas, Vector3 } from '@react-three/fiber';
 import { OrbitControls, Stars } from '@react-three/drei';
 import { Box, Character, Ladder, Model, Stairs } from '..';
-import { Direction, Axis } from '../../../types/map';
+import { Direction, Axis, Character as MapCharacter } from '../../../types/map';
 import { translate, buildRepeated, buildArch } from '../../../utils/map';
 
 function Map(): JSX.Element {
@@ -29,6 +29,7 @@ function Map(): JSX.Element {
           position={base}
           direction={Direction.RIGHT}
           username="unclesoo"
+          character={MapCharacter.ASTRONAUT}
         />
         <Model
           position={translate(base, { [Axis.Y]: 5, [Axis.Z]: -5 })}

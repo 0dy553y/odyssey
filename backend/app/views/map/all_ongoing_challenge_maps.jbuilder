@@ -2,6 +2,7 @@
 
 json.data @user_challenges do |user_challenge|
   json.username current_user.username
+  json.character current_user.character
   json.challengeId user_challenge[:challenge_id]
   json.challengeName user_challenge[:name]
   json.prizeName user_challenge[:prize_name]
@@ -13,6 +14,7 @@ json.data @user_challenges do |user_challenge|
   json.friends user_challenge[:friends] do |friend|
     json.username friend[:username]
     json.displayName friend[:display_name]
+    json.character friend[:character]
     json.currentTaskNum friend[:current_task_num]
   end
 end
