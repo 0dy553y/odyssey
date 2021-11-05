@@ -52,7 +52,7 @@ task add_productivity_challenge: :environment do
         description: "Create a workspace you love"
       },
       {
-        description: "Shop for an ergonomic chair"
+        description: "Read up on ergonomic principles and apply what you learnt to improve your own workspace"
       },
       {
         description: "De-clutter your workspace"
