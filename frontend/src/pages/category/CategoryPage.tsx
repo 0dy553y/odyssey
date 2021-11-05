@@ -159,12 +159,14 @@ const CategoryPage: React.FC = () => {
       >
         <AppBar position="static">
           <Toolbar>
-            <Box
-              onClick={() => {
-                history.goBack();
-              }}
-            >
-              <IconButton edge="start" sx={{ color: 'white', padding: '1em' }}>
+            <Box>
+              <IconButton
+                edge="start"
+                sx={{ color: 'white', padding: '1em' }}
+                onClick={() => {
+                  history.goBack();
+                }}
+              >
                 <BackArrow height="1.5em" width="1.5em" />
               </IconButton>
             </Box>

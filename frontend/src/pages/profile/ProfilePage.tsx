@@ -218,8 +218,12 @@ const ProfilePage: React.FC = () => {
                     edge="end"
                     color="primary"
                     onClick={handleMenuClick}
+                    sx={{
+                      color: 'white',
+                      padding: '1em',
+                    }}
                   >
-                    <MoreVertIcon style={{ fill: 'white' }} />
+                    <MoreVertIcon />
                   </IconButton>
                   <Menu
                     anchorEl={menuAnchorEl}

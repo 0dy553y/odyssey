@@ -51,13 +51,6 @@ import LoadingPage from 'pages/loading/LoadingPage';
 import { MapDialog } from 'components/map';
 
 const useStyles = makeStyles((theme: Theme) => ({
-  menuIcon: {
-    position: 'fixed',
-    zIndex: 5,
-    color: 'white',
-    top: '0.45em',
-    right: '1.5em',
-  },
   white: {
     color: 'white',
   },
@@ -75,6 +68,14 @@ const useStyles = makeStyles((theme: Theme) => ({
       color: 'black',
       transition: '0.5s ease',
     },
+  },
+  collapsedHeaderText: {
+    color: 'white',
+    fontSize: '1.3em',
+    fontFamily: 'Frock',
+    textAlign: 'center',
+    textOverflow: 'ellipsis',
+    flex: 1,
   },
 }));
 
@@ -207,46 +208,65 @@ const ChallengeDetailsPage: React.FC = () => {
           backgroundColor: getHexCode(challenge.color),
           paddingBottom: '8em',
         }}
-        justifyContent="space-between"
       >
         <AppBar position="static">
           <Toolbar>
             <Box
-              onClick={() => {
-                history.goBack();
+              sx={{
+                display: 'flex',
+                flex: '1',
+                alignItems: 'center',
+                justifyContent: 'space-between',
               }}
             >
-              <IconButton edge="start" sx={{ color: 'white', padding: '1em' }}>
+              <IconButton
+                edge="start"
+                sx={{ color: 'white', padding: '1em' }}
+                onClick={() => {
+                  history.goBack();
+                }}
+              >
                 <BackArrow height="1.5em" width="1.5em" />
               </IconButton>
-            </Box>
+              <Box className={classes.collapsedHeaderText}>
+                {/* <motion.div
+               initial={{ opacity: 0, y: 10 }}
+               // animate={!inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+               animate={!true ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+               transition={{ duration: 0.5, ease: 'easeOut' }}
+               > */}
+                {challenge.name}
 
-            {canForfeitChallenge && (
-              <>
-                <IconButton
-                  edge="end"
-                  color="primary"
-                  onClick={handleMenuClick}
-                  className={classes.menuIcon}
+                {/* </motion.div> */}
+              </Box>
+
+              <IconButton
+                edge="end"
+                color="primary"
+                onClick={handleMenuClick}
+                sx={{
+                  color: 'white',
+                  padding: '1em',
+                  visibility: canForfeitChallenge ? undefined : 'hidden',
+                }}
+              >
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                anchorEl={menuAnchorEl}
+                open={isMenuOpen}
+                onClose={handleMenuClose}
+              >
+                <MenuItem
+                  onClick={() => {
+                    setIsForfeitConfirmationModalOpen(true);
+                    handleMenuClose();
+                  }}
                 >
-                  <MoreVertIcon />
-                </IconButton>
-                <Menu
-                  anchorEl={menuAnchorEl}
-                  open={isMenuOpen}
-                  onClose={handleMenuClose}
-                >
-                  <MenuItem
-                    onClick={() => {
-                      setIsForfeitConfirmationModalOpen(true);
-                      handleMenuClose();
-                    }}
-                  >
-                    Forfeit Challenge
-                  </MenuItem>
-                </Menu>
-              </>
-            )}
+                  Forfeit Challenge
+                </MenuItem>
+              </Menu>
+            </Box>
           </Toolbar>
         </AppBar>
 
