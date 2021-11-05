@@ -233,7 +233,7 @@ const ChallengeDetailsPage: React.FC = () => {
           position="sticky"
           sx={{
             backgroundColor: getHexCode(challenge.color),
-            height: '4em',
+            height: '4.1em',
           }}
         >
           <Toolbar>
