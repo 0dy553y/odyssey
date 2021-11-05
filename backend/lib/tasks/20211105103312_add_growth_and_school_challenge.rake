@@ -16,7 +16,7 @@ task add_growth_and_school_challenge: :environment do
   ActiveRecord::Base.transaction do
     challenge_growth_desc = 'Ready to make this year your best yet? Then you’re in the right place. It takes hard work, resilience, and persistence to make this thirty-day challenge happen. But if you do? You’ll be strapped to a rocket and ready to make this the best year of your entire life. Whether you follow this thirty-day challenge to the ‘T’ or adapt your own, use this as a framework for creating the change you want to see in your life this year.'
     challenge_growth = Challenge.create!(category_id: category_habits.id,
-                                      name: 'Growth Challenge',
+                                      name: 'Starting the year right',
                                       description: challenge_growth_desc,
                                       duration: 28,
                                       schedule: 'Every day for 1 month',
@@ -168,7 +168,7 @@ task add_growth_and_school_challenge: :environment do
 
     challenge_back_to_school_desc = 'Embark on this challenge to help yourself get back into the swing of school. Each day, prepare a picture (or text post) following that day’s prompt!'
     challenge_back_to_school = Challenge.create!(category_id: category_productivity.id,
-                                         name: 'Back to School Challenge',
+                                         name: 'Back to School',
                                          description: challenge_back_to_school_desc,
                                          duration: 30,
                                          schedule: 'Every day for 1 month',
