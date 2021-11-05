@@ -39,7 +39,7 @@ import {
 } from '@mui/material';
 import ChallengeContent from 'components/challenge/ChallengeContent';
 import { useInView } from 'react-intersection-observer';
-import { useTheme, makeStyles } from '@mui/styles';
+import { makeStyles } from '@mui/styles';
 import { ChallengeData, Schedule } from 'types/challenges';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
@@ -50,7 +50,7 @@ import ConfirmationModal from 'components/common/ConfirmationModal';
 import LoadingPage from 'pages/loading/LoadingPage';
 import { MapDialog } from 'components/map';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   white: {
     color: 'white',
   },

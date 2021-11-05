@@ -51,14 +51,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: 'rgba(0, 0, 0, 0.32)',
     },
   },
-  styledTabs: {
-    '& .MuiTabs-indicatorSpan': {
-      maxWidth: 50,
-      width: '100%',
-      backgroundColor: '#635ee7',
-    },
-    boxShadow: 'inset 0px -5px 0 0 #e8e8e8',
-  },
 }));
 
 enum TabItem {
