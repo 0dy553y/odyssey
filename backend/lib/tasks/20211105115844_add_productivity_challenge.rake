@@ -51,9 +51,8 @@ task add_productivity_challenge: :environment do
       {
         description: "Create a workspace you love"
       },
-
       {
-        description: "Find an ergonomic chair"
+        description: "Shop for an ergonomic chair"
       },
       {
         description: "De-clutter your workspace"
@@ -62,7 +61,7 @@ task add_productivity_challenge: :environment do
         description: "Play upbeat music to boost energy and simulate alertness"
       },
       {
-        description: "Drink enough water"
+        description: "Drink more water"
       },
       {
         description: "Keep an agenda with daily tasks"
@@ -119,7 +118,7 @@ task add_productivity_challenge: :environment do
         description: "Use your commute time for minor tasks such as checking and answering emails, or catching up on readings"
       },
       {
-        description: "Exercise daily"
+        description: "Exercise today"
       },
       {
         description: "Make a weekly list of your achievements"
@@ -128,7 +127,7 @@ task add_productivity_challenge: :environment do
         description: "Reward yourself"
       },
       {
-        description: "Sleep at least 8 hours every night"
+        description: "Sleep at least 8 hours"
       },
     ]
 

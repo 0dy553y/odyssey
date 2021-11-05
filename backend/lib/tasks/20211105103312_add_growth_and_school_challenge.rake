@@ -28,7 +28,7 @@ task add_growth_and_school_challenge: :environment do
 
     Task.create!(challenge_id: challenge_growth.id,
                 name: 'Day 1',
-                description: 'Last last year behind and commit to no expectations. This could be something as simple as taking a short walk on the beach and allowing yourself to let the past rest behind you.',
+                description: 'Leave last year behind and commit to no expectations. This could be something as simple as taking a short walk on the beach and allowing yourself to let the past rest behind you.',
                 index: 0)
 
     Task.create!(challenge_id: challenge_growth.id,
@@ -48,7 +48,7 @@ task add_growth_and_school_challenge: :environment do
 
     Task.create!(challenge_id: challenge_growth.id,
                  name: 'Day 5',
-                 description: 'Make a vision board. I know, sounds hoaky – but it’s not. Don’t pass this one up! (Even if it takes more than a day.)',
+                 description: 'Make a vision board. Don’t pass this one up! (Even if it takes more than a day.)',
                  index: 4)
 
     Task.create!(challenge_id: challenge_growth.id,
@@ -78,7 +78,7 @@ task add_growth_and_school_challenge: :environment do
 
     Task.create!(challenge_id: challenge_growth.id,
                  name: 'Day 11',
-                 description: 'Minimize or get rid of T.V. I know, you can’t do without Game of Thrones. That’s okay, as long as you reduce your T.V. consumption down to just a few hours a week you’re good.',
+                 description: 'Minimize or get rid of TV shows and movies. As long as you reduce your consumption down to just a few hours a week you’re good.',
                  index: 10)
 
     Task.create!(challenge_id: challenge_growth.id,
@@ -108,7 +108,7 @@ task add_growth_and_school_challenge: :environment do
 
     Task.create!(challenge_id: challenge_growth.id,
                  name: 'Day 17',
-                 description: 'Adopt a mindfulness practice.',
+                 description: 'Adopt a mindfulness practice by checking in on your mind and body a few times throughout the day.',
                  index: 16)
 
     Task.create!(challenge_id: challenge_growth.id,
@@ -133,12 +133,12 @@ task add_growth_and_school_challenge: :environment do
 
     Task.create!(challenge_id: challenge_growth.id,
                  name: 'Day 22',
-                 description: 'Start reading. Depending on your profession, this can be anything that brings you value. Same goes for the next point.',
+                 description: 'Start reading. The book can be anything that brings you value.',
                  index: 21)
 
     Task.create!(challenge_id: challenge_growth.id,
                  name: 'Day 23',
-                 description: 'Start listening to podcasts. Unlike books, which require your undivided attention, podcasts are great because you can take them on the go. So are audiobooks. Highly recommended.',
+                 description: 'Start listening to podcasts. Unlike books, which require your undivided attention, podcasts are great because you can take them on the go.',
                  index: 22)
 
     Task.create!(challenge_id: challenge_growth.id,
@@ -158,7 +158,7 @@ task add_growth_and_school_challenge: :environment do
 
     Task.create!(challenge_id: challenge_growth.id,
                  name: 'Day 27',
-                 description: 'Perform an act of kindness. You’ll notice this doesn’t seem to fit with the theme of this week. However, I’ve found that most of us have lost touch with (or never knew) the power of helping others without expecting anything in return. This knowledge, and the understanding that you always have the ability to exercise it, doesn’t just make you happier and more fulfilled, it can serve you in your career in a big way. Such acts of kindness are the perfect way to start off a long and beautiful business relationship or personal connection.',
+                 description: 'Perform an act of kindness.',
                  index: 26)
 
     Task.create!(challenge_id: challenge_growth.id,
