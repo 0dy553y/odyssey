@@ -10,7 +10,7 @@ import {
 
 import CloseIcon from '@mui/icons-material/CloseRounded';
 import { makeStyles } from '@mui/styles';
-import { PrizeWithChallengeName } from '../../../pages/badge/BadgePage';
+import { PrizeWithChallengeName } from '../../../pages/memento/MementosPage';
 import PrizeModelDisplay from './PrizeModelDisplay';
 
 const useStyles = makeStyles(() => ({

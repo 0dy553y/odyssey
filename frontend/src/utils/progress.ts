@@ -7,7 +7,7 @@ export const getChallengePercentageComplete = (
   challengeId: number,
   completedChallenges: CompletedUserChallengeListData[],
   ongoingChallenges: UserChallengeListData[]
-): number => {
+): number | null => {
   if (
     completedChallenges.find(
       (challenge) => challenge.challengeId === challengeId
@@ -19,5 +19,9 @@ export const getChallengePercentageComplete = (
     (challenge) => challenge.challengeId === challengeId
   );
 
-  return ongoing?.percentCompleted ?? 0;
+  if (!ongoing) {
+    return null;
+  }
+
+  return ongoing.percentCompleted;
 };

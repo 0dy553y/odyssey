@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface CategoryListProps {
   name: string;
   duration: number;
-  percentageComplete: number;
+  percentageComplete: number | null;
   onClick: () => void;
 }
 
@@ -57,7 +57,7 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
   const [progress, setProgress] = React.useState(0);
 
   React.useEffect(() => {
-    setProgress(percentageComplete);
+    setProgress(percentageComplete ?? 0);
   }, []);
 
   return (
@@ -83,7 +83,7 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
                 strokeLinecap: 'round',
               },
               marginTop: '0.5em',
-              opacity: percentageComplete === 0 ? 0 : 0.3,
+              opacity: percentageComplete === null ? 0 : 0.3,
             }}
             value={100}
             size={50}
