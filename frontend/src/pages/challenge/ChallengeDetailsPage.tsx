@@ -50,13 +50,31 @@ import ConfirmationModal from 'components/common/ConfirmationModal';
 import LoadingPage from 'pages/loading/LoadingPage';
 import { MapDialog } from 'components/map';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   menuIcon: {
     position: 'fixed',
     zIndex: 5,
     color: 'white',
     top: '0.45em',
     right: '1.5em',
+  },
+  white: {
+    color: 'white',
+  },
+  bold: {
+    fontWeight: 'bold',
+  },
+  joinButton: {
+    borderRadius: '20px',
+    height: '50px',
+    maxWidth: '300px',
+    textTransform: 'none',
+    '&:hover, &:focus': {
+      backgroundColor: (challenge: ChallengeData) =>
+        getComplementaryColor(challenge.color),
+      color: 'black',
+      transition: '0.5s ease',
+    },
   },
 }));
 
@@ -68,7 +86,6 @@ interface ChallengeCompletedDialogState {
 const ChallengeDetailsPage: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const classes = useStyles();
   const { challengeId } = useParams<{ challengeId: string }>();
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -94,6 +111,8 @@ const ChallengeDetailsPage: React.FC = () => {
   const ongoingChallenges: UserChallengeListData[] = useSelector(
     (state: RootState) => getAllOngoingUserChallenges(state)
   );
+
+  const classes = useStyles(challenge);
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(menuAnchorEl);
@@ -186,7 +205,7 @@ const ChallengeDetailsPage: React.FC = () => {
       <Stack
         sx={{
           backgroundColor: getHexCode(challenge.color),
-          height: '40vh',
+          paddingBottom: '8em',
         }}
         justifyContent="space-between"
       >
@@ -230,6 +249,79 @@ const ChallengeDetailsPage: React.FC = () => {
             )}
           </Toolbar>
         </AppBar>
+
+        <Stack sx={{ paddingLeft: '2em' }}>
+          <Typography className={classes.white}>
+            {!isEnrolled
+              ? '👻 UNENROLLED'
+              : !isChallengeCompleted
+              ? '🔥 ONGOING'
+              : '🎉 COMPLETED'}
+          </Typography>
+          <Typography variant="h1" className={classes.white}>
+            {challenge.name}
+          </Typography>
+          <Typography className={`${classes.white} ${classes.bold}`}>
+            {challenge.duration} days · Created by{' '}
+            {challenge.originalCreator ?? challenge.createdBy}
+          </Typography>
+
+          {challenge.referenceLink && (
+            <span>
+              <Link
+                href={challenge.referenceLink}
+                target="_blank"
+                rel="noreferrer"
+                className={classes.white}
+                underline="always"
+              >
+                Learn more about this challenge
+              </Link>
+            </span>
+          )}
+
+          <Typography className={`${classes.white}`}>
+            {challenge.description}
+          </Typography>
+          <Typography
+            variant="h6"
+            className={`${classes.white} ${classes.bold}`}
+          >
+            Recommended schedule
+          </Typography>
+          <Typography className={`${classes.white}`}>
+            {challenge.schedule}
+          </Typography>
+        </Stack>
+
+        <Stack alignItems="center" sx={{ marginTop: '2em' }}>
+          {!isEnrolled && (
+            <>
+              <Button
+                variant="contained"
+                fullWidth
+                disableElevation
+                className={classes.joinButton}
+                onClick={onClickJoinChallenge}
+              >
+                <Typography variant="body1">Join Challenge!</Typography>
+              </Button>
+            </>
+          )}
+          {isEnrolled && (
+            <>
+              <Button
+                variant="contained"
+                fullWidth
+                disableElevation
+                className={classes.joinButton}
+                onClick={() => setIsShareModalOpen(true)}
+              >
+                <Typography variant="body1">Invite Your Friends!</Typography>
+              </Button>
+            </>
+          )}
+        </Stack>
       </Stack>
 
       {canForfeitChallenge && (
