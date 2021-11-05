@@ -52,6 +52,7 @@ import { getUserByUsername } from '../../store/users/selectors';
 import { loadPostsForUser } from 'store/posts/operations';
 import { PostListData } from 'types/posts';
 import { getUserPostList } from 'store/posts/selectors';
+import { useIsDesktop } from 'utils/windowSize';
 
 export interface StyleProps {
   scrollbarWidth: number;
@@ -69,6 +70,8 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     background: '#1C1C1C',
     paddingBottom: theme.spacing(3),
     position: 'relative',
+  },
+  mobileProfileHeaderContainer: {
     borderRadius: '0 0 2em 2em',
     margin: (props) =>
       `0 calc(-50vw + ${props.scrollbarWidth / 2}px) 1em calc(-50vw + ${
@@ -77,6 +80,10 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     left: '50%',
     right: '50%',
     width: (props) => `calc(100vw - ${props.scrollbarWidth}px)`,
+  },
+  desktopProfileHeaderContainer: {
+    marginTop: theme.spacing(3),
+    borderRadius: '2em',
   },
 }));
 
@@ -88,6 +95,7 @@ const ProfilePage: React.FC = () => {
   const { username } = useParams<{ username: string | undefined }>();
 
   const isOwnProfilePage = username === undefined;
+  const isDesktop = useIsDesktop();
 
   useEffect(() => {
     batch(() => {
@@ -182,7 +190,14 @@ const ProfilePage: React.FC = () => {
         className={classes.profilePageContainer}
         sx={{ padding: '0 1.5em 0 1.5em' }}
       >
-        <Grid container className={classes.profileHeaderContainer}>
+        <Grid
+          container
+          className={`${classes.profileHeaderContainer} ${
+            isDesktop
+              ? classes.desktopProfileHeaderContainer
+              : classes.mobileProfileHeaderContainer
+          }`}
+        >
           <AppBar position="static">
             <Toolbar>
               {!isOwnProfilePage && (
