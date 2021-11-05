@@ -102,10 +102,7 @@ const ExplorePage: React.FC = () => {
         ))}
       {searchQuery.length == 0 && (
         <>
-          <Typography
-            variant="h6"
-            sx={{ fontStyle: 'italic', paddingBottom: '2em' }}
-          >
+          <Typography variant="h6" sx={{ fontStyle: 'italic' }}>
             I want to...
           </Typography>
           <ul>

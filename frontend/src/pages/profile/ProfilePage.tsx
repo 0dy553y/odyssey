@@ -253,17 +253,25 @@ const ProfilePage: React.FC = () => {
         </Stack>
         <Divider />
 
-        <ActivityMap activityMapData={userTaskActivityData} />
+        <Grid container columnSpacing={5} rowSpacing={3}>
+          <Grid item xs={12} md={6}>
+            <ActivityMap activityMapData={userTaskActivityData} />
+          </Grid>
 
-        <UserStats
-          challengesCompleted={completedChallenges.length}
-          registrationDate={user?.registrationDate}
-        />
+          <Grid item xs={12} md={6}>
+            <UserStats
+              challengesCompleted={completedChallenges.length}
+              registrationDate={user?.registrationDate}
+            />
+          </Grid>
 
-        <ChallengeSummaries
-          challenges={ongoingChallenges}
-          isCurrentUser={isOwnProfilePage}
-        />
+          <Grid item xs={12}>
+            <ChallengeSummaries
+              challenges={ongoingChallenges}
+              isCurrentUser={isOwnProfilePage}
+            />
+          </Grid>
+        </Grid>
       </Box>
     </>
   );

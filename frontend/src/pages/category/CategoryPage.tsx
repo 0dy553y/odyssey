@@ -143,11 +143,7 @@ const CategoryPage: React.FC = () => {
           width: '100vw',
         }}
       >
-        <StyledTabs
-          value={value}
-          onChange={handleChange}
-          aria-label="styled tabs example"
-        >
+        <StyledTabs value={value} onChange={handleChange}>
           <StyledTab label="All challenges" />
           <StyledTab label="Curated" />
         </StyledTabs>
