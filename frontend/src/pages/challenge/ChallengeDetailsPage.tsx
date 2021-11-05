@@ -232,23 +232,25 @@ const ChallengeDetailsPage: React.FC = () => {
         </AppBar>
       </Stack>
 
-      <ConfirmationModal
-        title="Forfeit challenge"
-        message="Are you sure? All your existing progress will be gone."
-        isOpen={isForfeitConfirmationModalOpen}
-        onConfirm={() => {
-          if (!userChallenge) {
-            throw new Error(
-              'Should not be able to forfeit challenge if user is not enrolled'
+      {canForfeitChallenge && (
+        <ConfirmationModal
+          title="Forfeit challenge"
+          message="Are you sure? All your existing progress will be gone."
+          isOpen={isForfeitConfirmationModalOpen}
+          onConfirm={() => {
+            if (!userChallenge) {
+              throw new Error(
+                'Should not be able to forfeit challenge if user is not enrolled'
+              );
+            }
+            dispatch(
+              forfeitUserChallenge(userChallenge.id, userChallenge.challengeId)
             );
-          }
-          dispatch(
-            forfeitUserChallenge(userChallenge.id, userChallenge.challengeId)
-          );
-          setIsForfeitConfirmationModalOpen(false);
-        }}
-        onCancel={() => setIsForfeitConfirmationModalOpen(false)}
-      />
+            setIsForfeitConfirmationModalOpen(false);
+          }}
+          onCancel={() => setIsForfeitConfirmationModalOpen(false)}
+        />
+      )}
       {challengeMap && (
         <MapDialog
           isOpen={isMapDialogOpen}
@@ -256,18 +258,21 @@ const ChallengeDetailsPage: React.FC = () => {
           mapData={challengeMap}
         />
       )}
-      <ScheduleModal
-        isOpen={isScheduleModalOpen}
-        onClose={() => setIsScheduleModalOpen(false)}
-        onSubmit={handleJoinChallenge}
-        numOngoingChallenges={ongoingChallenges.length}
-      />
-      <ShareDialog
-        isOpen={isShareModalOpen}
-        onClose={() => setIsShareModalOpen(false)}
-        challenge={challenge}
-      />
-
+      {!isEnrolled && (
+        <ScheduleModal
+          isOpen={isScheduleModalOpen}
+          onClose={() => setIsScheduleModalOpen(false)}
+          onSubmit={handleJoinChallenge}
+          numOngoingChallenges={ongoingChallenges.length}
+        />
+      )}
+      {isEnrolled && (
+        <ShareDialog
+          isOpen={isShareModalOpen}
+          onClose={() => setIsShareModalOpen(false)}
+          challenge={challenge}
+        />
+      )}
       {challengeCompletedDialogState.completedChallengeId && (
         <ChallengeCompletedDialog
           isOpen={challengeCompletedDialogState.isOpen}
