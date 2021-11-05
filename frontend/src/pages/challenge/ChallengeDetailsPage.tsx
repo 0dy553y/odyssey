@@ -33,7 +33,6 @@ import {
   Menu,
   MenuItem,
   Stack,
-  Theme,
   Toolbar,
   Typography,
 } from '@mui/material';
