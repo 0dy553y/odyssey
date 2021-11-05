@@ -35,14 +35,19 @@ const useStyles = makeStyles(() => ({
     marginLeft: 30,
     marginRight: 30,
     width: 'auto',
+    display: 'flex',
+    flexDirection: 'row',
   },
   tasksContainer: {
     height: '100%',
     marginTop: 10,
     marginBottom: 15,
   },
+  greetingsContainer: {
+    flexGrow: 1,
+  },
   controlsContainer: {
-    textAlign: 'right',
+    whiteSpace: 'nowrap',
   },
 }));
 
@@ -119,21 +124,14 @@ const HomePage: React.FC = () => {
     <div className={classes.baseContainer}>
       <div className={classes.headerContainer}>
         <Grid container direction="column" spacing={2}>
-          <Grid
-            item
-            container
-            direction="row"
-            className={classes.headerNonCarouselItem}
-          >
-            <Grid item container xs={6} sm={9}>
-              <Grid item>
-                <Typography variant="h4">Hello,</Typography>
-                <Typography variant="h4">
-                  {user.displayName ?? user.username}
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item xs={6} sm={3} className={classes.controlsContainer}>
+          <Grid item direction="row" className={classes.headerNonCarouselItem}>
+            <div className={classes.greetingsContainer}>
+              <Typography variant="h4">Hello,</Typography>
+              <Typography variant="h4">
+                {user.displayName ?? user.username}
+              </Typography>
+            </div>
+            <div className={classes.controlsContainer}>
               <IconButton
                 size="large"
                 onClick={() => history.push(NOTIFICATIONS_ROUTE)}
@@ -146,7 +144,7 @@ const HomePage: React.FC = () => {
               >
                 <TodayIcon fontSize="inherit" />
               </IconButton>
-            </Grid>
+            </div>
           </Grid>
           <Grid item className={classes.headerCarouselItem}>
             <DateCarousel date={date} setDate={setDate} />
