@@ -14,9 +14,27 @@ import {
   getOngoingOrCompletedUserChallengeDataForChallenge,
   getChallengeMap,
 } from 'store/userchallenges/selectors';
-import { Box, IconButton, Menu, MenuItem } from '@mui/material';
+import { motion } from 'framer-motion';
+import ScheduleModal from 'components/challenge/ScheduleModal';
+import ShareDialog from 'components/challenge/ShareDialog';
+import { getHexCode, getComplementaryColor } from 'utils/color';
+import {
+  AppBar,
+  Box,
+  Button,
+  IconButton,
+  Link,
+  Menu,
+  MenuItem,
+  Stack,
+  Theme,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import ChallengeContent from 'components/challenge/ChallengeContent';
-import { makeStyles } from '@mui/styles';
+import { useInView } from 'react-intersection-observer';
+import { useTheme, makeStyles } from '@mui/styles';
+import { ChallengeData, Schedule } from 'types/challenges';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import { getUser } from 'store/auth/selectors';
@@ -27,31 +45,6 @@ import LoadingPage from 'pages/loading/LoadingPage';
 import { MapDialog } from 'components/map';
 
 const useStyles = makeStyles(() => ({
-  joinButton: {
-    marginTop: '28px',
-    borderRadius: '20px',
-    height: '50px',
-    maxWidth: '300px',
-    left: '50%',
-    transform: 'translateX(-50%) translateY(280px)',
-    alignSelf: 'center',
-    position: 'absolute',
-    zIndex: 1,
-    textTransform: 'none',
-  },
-  white: {
-    color: 'white',
-  },
-  spacer: {
-    flexGrow: 1,
-  },
-  backIcon: {
-    position: 'fixed',
-    zIndex: 5,
-    color: 'white',
-    top: '0.3em',
-    left: '1.5em',
-  },
   menuIcon: {
     position: 'fixed',
     zIndex: 5,
@@ -62,9 +55,32 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ChallengeDetailsPage: React.FC = () => {
-  const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
+  const classes = useStyles();
+  const { challengeId } = useParams<{ challengeId: string }>();
+
+  const challenge = useSelector((state: RootState) =>
+    getChallenge(state, Number(challengeId))
+  );
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const tasks = useSelector((state: RootState) =>
+    getTaskList(state, Number(challengeId))
+  )!;
+  const userChallenge = useSelector((state: RootState) =>
+    getOngoingOrCompletedUserChallengeDataForChallenge(
+      state,
+      Number(challengeId)
+    )
+  );
+  const challengeMap = useSelector((state: RootState) =>
+    getChallengeMap(state, Number(challengeId))
+  );
+  const posts = useSelector((state: RootState) =>
+    getChallengePostList(state, Number(challengeId))
+  );
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const user = useSelector(getUser)!;
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(menuAnchorEl);
@@ -74,10 +90,8 @@ const ChallengeDetailsPage: React.FC = () => {
   const handleMenuClose = () => {
     setMenuAnchorEl(null);
   };
-
   const [isForfeitConfirmationModalOpen, setIsForfeitConfirmationModalOpen] =
     useState<boolean>(false);
-
   const [isMapDialogOpen, setIsMapDialogOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -89,35 +103,8 @@ const ChallengeDetailsPage: React.FC = () => {
     });
   }, []);
 
-  const { challengeId } = useParams<{ challengeId: string }>();
-
-  const challenge = useSelector((state: RootState) =>
-    getChallenge(state, Number(challengeId))
-  );
-
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const tasks = useSelector((state: RootState) =>
-    getTaskList(state, Number(challengeId))
-  )!;
-
-  const userChallenge = useSelector((state: RootState) =>
-    getOngoingOrCompletedUserChallengeDataForChallenge(
-      state,
-      Number(challengeId)
-    )
-  );
-
-  const challengeMap = useSelector((state: RootState) =>
-    getChallengeMap(state, Number(challengeId))
-  );
-
-  const posts = useSelector((state: RootState) =>
-    getChallengePostList(state, Number(challengeId))
-  );
-
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const user = useSelector(getUser)!;
-
+  const isEnrolled = !!userChallenge;
+  const isChallengeCompleted = isEnrolled && !!userChallenge.completedAt;
   const canForfeitChallenge =
     // (1) Must be enrolled in the challenge
     // (2) Challenge must not already be completed
@@ -130,51 +117,54 @@ const ChallengeDetailsPage: React.FC = () => {
 
   return (
     <Box>
-      <Box
-        onClick={() => {
-          history.goBack();
+      <Stack
+        sx={{
+          backgroundColor: getHexCode(challenge.color),
+          height: '40vh',
         }}
+        justifyContent="space-between"
       >
-        <IconButton edge="start" className={classes.backIcon}>
-          <BackArrow height="1.5em" width="1.5em" />
-        </IconButton>
-      </Box>
-
-      {canForfeitChallenge && (
-        <>
-          <IconButton
-            edge="end"
-            color="primary"
-            onClick={handleMenuClick}
-            className={classes.menuIcon}
-          >
-            <MoreVertIcon />
-          </IconButton>
-          <Menu
-            anchorEl={menuAnchorEl}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-          >
-            <MenuItem
+        <AppBar position="static">
+          <Toolbar>
+            <Box
               onClick={() => {
-                setIsForfeitConfirmationModalOpen(true);
-                handleMenuClose();
+                history.goBack();
               }}
             >
-              Forfeit Challenge
-            </MenuItem>
-          </Menu>
-        </>
-      )}
+              <IconButton edge="start" sx={{ color: 'white', padding: '1em' }}>
+                <BackArrow height="1.5em" width="1.5em" />
+              </IconButton>
+            </Box>
 
-      <ChallengeContent
-        challenge={challenge}
-        userChallenge={userChallenge}
-        tasks={tasks}
-        currentUser={user}
-        posts={posts}
-        onTaskCompleted={() => setIsMapDialogOpen(true)}
-      />
+            {canForfeitChallenge && (
+              <>
+                <IconButton
+                  edge="end"
+                  color="primary"
+                  onClick={handleMenuClick}
+                  className={classes.menuIcon}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+                <Menu
+                  anchorEl={menuAnchorEl}
+                  open={isMenuOpen}
+                  onClose={handleMenuClose}
+                >
+                  <MenuItem
+                    onClick={() => {
+                      setIsForfeitConfirmationModalOpen(true);
+                      handleMenuClose();
+                    }}
+                  >
+                    Forfeit Challenge
+                  </MenuItem>
+                </Menu>
+              </>
+            )}
+          </Toolbar>
+        </AppBar>
+      </Stack>
 
       <ConfirmationModal
         title="Forfeit challenge"
