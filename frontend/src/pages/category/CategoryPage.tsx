@@ -1,8 +1,16 @@
 import React, { useEffect } from 'react';
-import { AppBar, Box, Tab, Tabs, IconButton, Toolbar } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  Tab,
+  Tabs,
+  Typography,
+  IconButton,
+  Toolbar,
+  Stack,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
-import CategoryHeader from '../../components/category/CategoryHeader';
 import CategoryListItem from '../../components/category/CategoryListItem';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -112,47 +120,77 @@ const CategoryPage: React.FC = () => {
     return <LoadingPage />;
   }
 
+  /* eslint-disable */
+  const headerImage = require('../../assets/images/' +
+    category.title.toLowerCase() +
+    '.png');
+
+  const defaultImageHeaderPosition = {
+    backgroundPosition: '20% 30%',
+  };
+  const lowerImageHeaderPosition = {
+    backgroundPosition: '20% 60%',
+  };
+
+  const getImageHeaderPosition = (title: string) => {
+    switch (title) {
+      case 'Mindfulness':
+      case 'Habits':
+        return lowerImageHeaderPosition;
+      default:
+        return defaultImageHeaderPosition;
+    }
+  };
+
   return (
     <Box>
-      <AppBar position="absolute">
-        <Toolbar>
-          <div
-            onClick={() => {
-              history.goBack();
-            }}
-          >
-            <IconButton edge="start" sx={{ color: 'white', padding: '1em' }}>
-              <BackArrow height="1.5em" width="1.5em" />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-      <CategoryHeader
-        title={category.title}
-        heading={getHeadingFromCategory(category.title)}
-      />
-      <Box
+      <Stack
         sx={{
-          paddingBottom: '-2em',
-          position: 'relative',
-          margin: '0 -50vw -2em -50vw',
-          maxWidth: '100vw',
-          maxHeight: '55vh',
-          left: '50%',
-          right: '50%',
-          width: '100vw',
+          backgroundImage: `
+            linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%),
+            url(${headerImage.default})
+          `,
+          backgroundSize: 'cover',
+          height: '40vh',
+          borderRadius: '0 0 5vh 5vh',
+          ...getImageHeaderPosition(category.title),
         }}
+        justifyContent="space-between"
       >
-        <StyledTabs
-          value={value}
-          onChange={handleChange}
-          aria-label="styled tabs example"
-        >
-          <StyledTab label="All challenges" />
-          <StyledTab label="Curated" />
-        </StyledTabs>
-        <Box sx={{ p: 3 }} />
-      </Box>
+        <AppBar position="static">
+          <Toolbar>
+            <Box>
+              <IconButton
+                edge="start"
+                sx={{ color: 'white', padding: '1em' }}
+                onClick={() => {
+                  history.goBack();
+                }}
+              >
+                <BackArrow height="1.5em" width="1.5em" />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+
+        <Box sx={{ color: 'white', paddingLeft: '2em' }}>
+          <Typography variant="h5">I want to...</Typography>
+          <Typography
+            variant="h1"
+            sx={{ paddingBottom: '0.5em', fontFamily: 'Frock' }}
+          >
+            {getHeadingFromCategory(category.title)}
+          </Typography>
+        </Box>
+      </Stack>
+
+      <StyledTabs value={value} onChange={handleChange}>
+        <StyledTab label="All challenges" />
+        <StyledTab label="Curated" />
+      </StyledTabs>
+
+      <Box sx={{ p: 1 }} />
+
       <Box sx={{ padding: '0 1.5em 0 1.5em' }}>
         <ul>
           {challenges

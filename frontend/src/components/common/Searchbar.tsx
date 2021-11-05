@@ -15,11 +15,12 @@ const Search = styled('div')(({ theme }) => ({
   backgroundColor: alpha(theme.palette.common.white, 1),
   width: '100%',
   textAlign: 'center',
+  display: 'flex',
+  alignItems: 'center',
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
-  width: '70%',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1.5, 0, 1.5, 0),
   },
@@ -28,11 +29,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
-  position: 'absolute',
   pointerEvents: 'none',
   display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
 }));
 
 const Searchbar: React.FC<SearchbarProps> = (props) => {

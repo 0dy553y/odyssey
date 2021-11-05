@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
 import Searchbar from '../../components/common/Searchbar';
 import CategoryPreview from '../../components/explore/CategoryPreview';
-import Typography from '@mui/material/Typography';
+import { Box, Grid, Typography } from '@mui/material';
 import { getCategoryList } from 'store/categories/selectors';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
@@ -102,15 +101,18 @@ const ExplorePage: React.FC = () => {
         ))}
       {searchQuery.length == 0 && (
         <>
-          <Typography
-            variant="h6"
-            sx={{ fontStyle: 'italic', paddingBottom: '2em' }}
-          >
+          <Typography variant="h6" sx={{ fontStyle: 'italic' }}>
             I want to...
           </Typography>
-          <ul>
+
+          <Grid
+            container
+            columnSpacing={5}
+            alignItems="center"
+            sx={{ marginTop: '0.5em' }}
+          >
             {categories.map((category) => (
-              <li key={category.id}>
+              <Grid item key={category.id} xs={12} md={6}>
                 <CategoryPreview
                   title={category.title}
                   heading={getHeadingFromCategory(category.title)}
@@ -118,9 +120,9 @@ const ExplorePage: React.FC = () => {
                     history.push(`${CATEGORY_ROUTE}/${category.id}`)
                   }
                 />
-              </li>
+              </Grid>
             ))}
-          </ul>
+          </Grid>
         </>
       )}
     </Box>
