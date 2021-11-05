@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { UserTaskListData } from '../../types/usertasks';
 import { Card, IconButton, Switch, Stack, Typography } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
 import MapIcon from '@mui/icons-material/Map';
 import { makeStyles } from '@mui/styles';
 import {
@@ -11,7 +12,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { getHexCode, getComplementaryColor } from 'utils/color';
 import { isAfter } from 'date-fns';
-import { MAP_ROUTE } from '../../routing/routes';
+import { CHALLENGE_ROUTE, MAP_ROUTE } from '../../routing/routes';
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -71,6 +72,12 @@ const useStyles = makeStyles(() => ({
       opacity: 0.3,
     },
   },
+  controlsContainer: {
+    display: 'flex',
+  },
+  toggleContainer: {
+    flexGrow: 1,
+  },
 }));
 
 interface Props {
@@ -126,26 +133,42 @@ const UserTaskCard: React.FC<Props> = ({
         >
           {userTask.description}
         </Typography>
-        <Stack
-          direction="row"
-          justifyContent="flex-end"
-          alignItems="flex-end"
-          spacing={2}
-        >
-          <IconButton
-            component={Link}
-            to={`${MAP_ROUTE}/${userTask.challengeId}`}
+        <div className={classes.controlsContainer}>
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            spacing={2}
           >
-            <MapIcon filter="invert(1)" />
-          </IconButton>
-          {!isAfter(userTask.scheduledFor, new Date()) && (
-            <Switch
-              checked={!!userTask.completedAt}
-              onChange={handleDoneToggle}
-              className={classes.toggle}
-            />
-          )}
-        </Stack>
+            <IconButton
+              component={Link}
+              to={`${MAP_ROUTE}/${userTask.challengeId}`}
+            >
+              <MapIcon filter="invert(1)" />
+            </IconButton>
+            <IconButton
+              component={Link}
+              to={`${CHALLENGE_ROUTE}/${userTask.challengeId}`}
+            >
+              <InfoIcon filter="invert(1)" />
+            </IconButton>
+          </Stack>
+          <Stack
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="flex-end"
+            spacing={2}
+            className={classes.toggleContainer}
+          >
+            {!isAfter(userTask.scheduledFor, new Date()) && (
+              <Switch
+                checked={!!userTask.completedAt}
+                onChange={handleDoneToggle}
+                className={classes.toggle}
+              />
+            )}
+          </Stack>
+        </div>
       </div>
     </Card>
   );
