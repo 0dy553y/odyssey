@@ -57,6 +57,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   bold: {
     fontWeight: 'bold',
   },
+  fadeIn: {
+    transform: 'translateY(0%)',
+    transition: 'transform 0.5s',
+  },
+  fadeOut: {
+    transform: 'translateY(100%)',
+    transition: 'transform 0.5s',
+  },
   joinButton: {
     borderRadius: '20px',
     height: '50px',
@@ -68,6 +76,16 @@ const useStyles = makeStyles((theme: Theme) => ({
       color: 'black',
       transition: '0.5s ease',
     },
+  },
+  secondaryJoinButton: {
+    marginTop: '3em',
+    borderRadius: '2.5em 0 0 0',
+    right: 0,
+    padding: '1.2em 2em',
+    position: 'fixed',
+    bottom: 0,
+    zIndex: 5,
+    textTransform: 'none',
   },
   collapsedHeaderText: {
     color: 'white',
@@ -88,6 +106,9 @@ const ChallengeDetailsPage: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { challengeId } = useParams<{ challengeId: string }>();
+  const [ref, inView] = useInView({
+    threshold: 0.3,
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const user = useSelector(getUser)!;
@@ -206,15 +227,20 @@ const ChallengeDetailsPage: React.FC = () => {
       <Stack
         sx={{
           backgroundColor: getHexCode(challenge.color),
-          paddingBottom: '8em',
         }}
       >
-        <AppBar position="static">
+        <AppBar
+          position="sticky"
+          sx={{
+            backgroundColor: getHexCode(challenge.color),
+            height: '4em',
+          }}
+        >
           <Toolbar>
             <Box
               sx={{
                 display: 'flex',
-                flex: '1',
+                flex: 1,
                 alignItems: 'center',
                 justifyContent: 'space-between',
               }}
@@ -228,17 +254,20 @@ const ChallengeDetailsPage: React.FC = () => {
               >
                 <BackArrow height="1.5em" width="1.5em" />
               </IconButton>
-              <Box className={classes.collapsedHeaderText}>
-                {/* <motion.div
-               initial={{ opacity: 0, y: 10 }}
-               // animate={!inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-               animate={!true ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-               transition={{ duration: 0.5, ease: 'easeOut' }}
-               > */}
-                {challenge.name}
 
-                {/* </motion.div> */}
-              </Box>
+              {!inView && (
+                <Box className={classes.collapsedHeaderText}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={
+                      !inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }
+                    }
+                    transition={{ duration: 0.5, ease: 'easeOut' }}
+                  >
+                    {challenge.name}
+                  </motion.div>
+                </Box>
+              )}
 
               <IconButton
                 edge="end"
@@ -270,78 +299,100 @@ const ChallengeDetailsPage: React.FC = () => {
           </Toolbar>
         </AppBar>
 
-        <Stack sx={{ paddingLeft: '2em' }}>
-          <Typography className={classes.white}>
-            {!isEnrolled
-              ? '👻 UNENROLLED'
-              : !isChallengeCompleted
-              ? '🔥 ONGOING'
-              : '🎉 COMPLETED'}
-          </Typography>
-          <Typography variant="h1" className={classes.white}>
-            {challenge.name}
-          </Typography>
-          <Typography className={`${classes.white} ${classes.bold}`}>
-            {challenge.duration} days · Created by{' '}
-            {challenge.originalCreator ?? challenge.createdBy}
-          </Typography>
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
+          <Stack sx={{ paddingLeft: '2em', marginTop: '1em' }}>
+            <Typography className={classes.white}>
+              {!isEnrolled
+                ? '👻 UNENROLLED'
+                : !isChallengeCompleted
+                ? '🔥 ONGOING'
+                : '🎉 COMPLETED'}
+            </Typography>
+            <Typography variant="h1" className={classes.white}>
+              {challenge.name}
+            </Typography>
+            <Typography className={`${classes.white} ${classes.bold}`}>
+              {challenge.duration} days · Created by{' '}
+              {challenge.originalCreator ?? challenge.createdBy}
+            </Typography>
 
-          {challenge.referenceLink && (
-            <span>
-              <Link
-                href={challenge.referenceLink}
-                target="_blank"
-                rel="noreferrer"
-                className={classes.white}
-                underline="always"
-              >
-                Learn more about this challenge
-              </Link>
-            </span>
-          )}
+            {challenge.referenceLink && (
+              <span>
+                <Link
+                  href={challenge.referenceLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={classes.white}
+                  underline="always"
+                >
+                  Learn more about this challenge
+                </Link>
+              </span>
+            )}
 
-          <Typography className={`${classes.white}`}>
-            {challenge.description}
-          </Typography>
-          <Typography
-            variant="h6"
-            className={`${classes.white} ${classes.bold}`}
+            <Typography className={`${classes.white}`}>
+              {challenge.description}
+            </Typography>
+            <Typography
+              variant="h6"
+              className={`${classes.white} ${classes.bold}`}
+            >
+              Recommended schedule
+            </Typography>
+            <Typography className={`${classes.white}`}>
+              {challenge.schedule}
+            </Typography>
+          </Stack>
+
+          <Stack
+            alignItems="center"
+            sx={{ marginTop: '2em', marginBottom: '2em' }}
           >
-            Recommended schedule
-          </Typography>
-          <Typography className={`${classes.white}`}>
-            {challenge.schedule}
-          </Typography>
-        </Stack>
+            {!isEnrolled && (
+              <>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  disableElevation
+                  className={classes.joinButton}
+                  onClick={onClickJoinChallenge}
+                >
+                  <Typography variant="body1">Join Challenge!</Typography>
+                </Button>
+              </>
+            )}
+            {isEnrolled && (
+              <>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  disableElevation
+                  className={classes.joinButton}
+                  onClick={() => setIsShareModalOpen(true)}
+                >
+                  <Typography variant="body1">Invite Your Friends!</Typography>
+                </Button>
+              </>
+            )}
+          </Stack>
+        </motion.div>
 
-        <Stack alignItems="center" sx={{ marginTop: '2em' }}>
-          {!isEnrolled && (
-            <>
-              <Button
-                variant="contained"
-                fullWidth
-                disableElevation
-                className={classes.joinButton}
-                onClick={onClickJoinChallenge}
-              >
-                <Typography variant="body1">Join Challenge!</Typography>
-              </Button>
-            </>
-          )}
-          {isEnrolled && (
-            <>
-              <Button
-                variant="contained"
-                fullWidth
-                disableElevation
-                className={classes.joinButton}
-                onClick={() => setIsShareModalOpen(true)}
-              >
-                <Typography variant="body1">Invite Your Friends!</Typography>
-              </Button>
-            </>
-          )}
-        </Stack>
+        <ChallengeContent
+          challenge={challenge}
+          userChallenge={userChallenge}
+          tasks={tasks}
+          posts={posts}
+          currentUser={user}
+          isEnrolled={isEnrolled}
+          isChallengeCompleted={isChallengeCompleted}
+          onTaskCompleted={() => setIsMapDialogOpen(true)}
+          onChallengeCompleted={onChallengeCompleted}
+        />
       </Stack>
 
       {canForfeitChallenge && (
@@ -393,6 +444,20 @@ const ChallengeDetailsPage: React.FC = () => {
             setChallengeCompletedDialogState({ isOpen: false });
           }}
         />
+      )}
+      {!isEnrolled && (
+        <>
+          <Button
+            variant="contained"
+            disableElevation
+            className={`${classes.secondaryJoinButton} ${
+              !inView ? classes.fadeIn : classes.fadeOut
+            }`}
+            onClick={onClickJoinChallenge}
+          >
+            <Typography variant="body1">Join!</Typography>
+          </Button>
+        </>
       )}
     </Box>
   );
