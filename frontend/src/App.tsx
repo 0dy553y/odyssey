@@ -67,7 +67,12 @@ function App(): JSX.Element {
   const renderContent = () => {
     return (
       <Div100vh className="App">
-        <Container component="main" disableGutters maxWidth={false}>
+        <Container
+          className="App"
+          component="main"
+          disableGutters
+          maxWidth={false}
+        >
           <GoogleAnalytics />
           <ScrollToTop />
           <Notifier />
