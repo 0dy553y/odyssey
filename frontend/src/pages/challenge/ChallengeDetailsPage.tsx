@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { loadChallenge } from 'store/challenges/operations';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { loadAllTasks } from 'store/tasks/operations';
@@ -14,9 +14,15 @@ import {
   getOngoingOrCompletedUserChallengeDataForChallenge,
   getChallengeMap,
 } from 'store/userchallenges/selectors';
+import { UserChallengeListData } from 'types/userchallenge';
+import { loadAllOngoingUserChallenges } from 'store/userchallenges/operations';
 import { motion } from 'framer-motion';
+import { getAllOngoingUserChallenges } from '../../store/userchallenges/selectors';
 import ScheduleModal from 'components/challenge/ScheduleModal';
 import ShareDialog from 'components/challenge/ShareDialog';
+import { joinChallenge } from 'store/challenges/operations';
+import { addSnackbar } from '../../store/snackbars/actions';
+import ChallengeCompletedDialog from 'components/challengeCompletedDialog';
 import { getHexCode, getComplementaryColor } from 'utils/color';
 import {
   AppBar,
@@ -54,19 +60,25 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+interface ChallengeCompletedDialogState {
+  isOpen: boolean;
+  completedChallengeId?: number;
+}
+
 const ChallengeDetailsPage: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
   const { challengeId } = useParams<{ challengeId: string }>();
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const user = useSelector(getUser)!;
+  const tasks = useSelector((state: RootState) =>
+    getTaskList(state, Number(challengeId))
+  );
   const challenge = useSelector((state: RootState) =>
     getChallenge(state, Number(challengeId))
   );
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const tasks = useSelector((state: RootState) =>
-    getTaskList(state, Number(challengeId))
-  )!;
   const userChallenge = useSelector((state: RootState) =>
     getOngoingOrCompletedUserChallengeDataForChallenge(
       state,
@@ -79,8 +91,9 @@ const ChallengeDetailsPage: React.FC = () => {
   const posts = useSelector((state: RootState) =>
     getChallengePostList(state, Number(challengeId))
   );
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const user = useSelector(getUser)!;
+  const ongoingChallenges: UserChallengeListData[] = useSelector(
+    (state: RootState) => getAllOngoingUserChallenges(state)
+  );
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(menuAnchorEl);
@@ -93,6 +106,20 @@ const ChallengeDetailsPage: React.FC = () => {
   const [isForfeitConfirmationModalOpen, setIsForfeitConfirmationModalOpen] =
     useState<boolean>(false);
   const [isMapDialogOpen, setIsMapDialogOpen] = useState<boolean>(false);
+  const [isScheduleModalOpen, setIsScheduleModalOpen] =
+    useState<boolean>(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
+  const [challengeCompletedDialogState, setChallengeCompletedDialogState] =
+    useReducer(
+      (
+        state: ChallengeCompletedDialogState,
+        newState: Partial<ChallengeCompletedDialogState>
+      ) => ({
+        ...state,
+        ...newState,
+      }),
+      { isOpen: false, completedChallengeId: undefined }
+    );
 
   useEffect(() => {
     batch(() => {
@@ -100,6 +127,7 @@ const ChallengeDetailsPage: React.FC = () => {
       dispatch(loadAllTasks(Number(challengeId)));
       dispatch(loadAllUserChallengesDataForChallenge(Number(challengeId)));
       dispatch(loadPostsForChallenge(Number(challengeId)));
+      dispatch(loadAllOngoingUserChallenges());
     });
   }, []);
 
@@ -110,6 +138,44 @@ const ChallengeDetailsPage: React.FC = () => {
     // (2) Challenge must not already be completed
     // (3) Challenge must not already be forfeited
     !!userChallenge && !userChallenge.completedAt && !userChallenge.forfeitedAt;
+
+  const handleJoinChallenge = (schedule: Schedule) => {
+    let hasOneTrue = false;
+    Object.values(schedule).forEach((bool) => {
+      hasOneTrue = hasOneTrue || bool;
+    });
+    if (!hasOneTrue) {
+      dispatch(
+        addSnackbar({
+          message: `Schedule cannot be empty`,
+          variant: 'error',
+        })
+      );
+      return;
+    }
+    dispatch(joinChallenge(Number(challengeId), schedule));
+    setIsScheduleModalOpen(false);
+  };
+
+  const onClickJoinChallenge = () => {
+    if (ongoingChallenges.length >= 3) {
+      dispatch(
+        addSnackbar({
+          message: `Can only join maximum 3 challenges at a time`,
+          variant: 'error',
+        })
+      );
+      return;
+    }
+    setIsScheduleModalOpen(true);
+  };
+
+  const onChallengeCompleted = (completedChallengeId: number) => {
+    setChallengeCompletedDialogState({
+      isOpen: true,
+      completedChallengeId: completedChallengeId,
+    });
+  };
 
   if (!challenge) {
     return <LoadingPage />;
@@ -183,14 +249,33 @@ const ChallengeDetailsPage: React.FC = () => {
         }}
         onCancel={() => setIsForfeitConfirmationModalOpen(false)}
       />
-      {challengeMap ? (
+      {challengeMap && (
         <MapDialog
           isOpen={isMapDialogOpen}
           close={() => setIsMapDialogOpen(false)}
           mapData={challengeMap}
         />
-      ) : (
-        <></>
+      )}
+      <ScheduleModal
+        isOpen={isScheduleModalOpen}
+        onClose={() => setIsScheduleModalOpen(false)}
+        onSubmit={handleJoinChallenge}
+        numOngoingChallenges={ongoingChallenges.length}
+      />
+      <ShareDialog
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        challenge={challenge}
+      />
+
+      {challengeCompletedDialogState.completedChallengeId && (
+        <ChallengeCompletedDialog
+          isOpen={challengeCompletedDialogState.isOpen}
+          challengeId={1}
+          onClose={() => {
+            setChallengeCompletedDialogState({ isOpen: false });
+          }}
+        />
       )}
     </Box>
   );
