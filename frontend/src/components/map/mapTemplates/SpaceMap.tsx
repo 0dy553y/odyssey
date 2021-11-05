@@ -15,7 +15,10 @@ import { Axis, Direction } from '../../../types/map';
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionCW } from 'utils/direction';
 import { translate } from 'utils/map';
-import { UserChallengeMapData } from 'types/userchallenge';
+import {
+  UserChallengeFriendMapData,
+  UserChallengeMapData,
+} from 'types/userchallenge';
 import { getPrize, getPrizePath } from 'utils/prizes';
 import PrizeInfoModal from 'components/common/prizeInfoDialog/PrizeInfoDialog';
 
@@ -26,6 +29,7 @@ interface MapProps {
 const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
   const {
     username,
+    character,
     challengeName,
     prizeName,
     numTasks,
@@ -35,12 +39,12 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
   } = props.mapData;
   let currentStep = currentTaskNum;
   const numSteps = numTasks;
-  const friendsPositions: Record<number, string[]> = {};
-  friends.map(({ username, currentTaskNum }) => {
+  const friendsPositions: Record<number, UserChallengeFriendMapData[]> = {};
+  friends.map((f: UserChallengeFriendMapData) => {
     if (!(currentTaskNum in friendsPositions)) {
-      friendsPositions[currentTaskNum] = [];
+      friendsPositions[f.currentTaskNum] = [];
     }
-    friendsPositions[currentTaskNum].push(username);
+    friendsPositions[f.currentTaskNum].push(f);
   });
   const [stepPositions, setStepPositions] = useState<DirectionPosition[]>([]);
   const [charPosition, setCharPosition] = useState<DirectionPosition>({
@@ -144,13 +148,14 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
             position={charPosition.pos}
             direction={charPosition.direction}
             username={username}
+            character={character}
           />
           {/* spawn friends */}
           {stepPositions.length === numSteps + 1 ? (
             <>
               {Object.keys(friendsPositions).map((step: string) =>
                 friendsPositions[Number(step)].map(
-                  (username: string, index: number) => {
+                  ({ username, character }, index: number) => {
                     const { pos, direction } = stepPositions[Number(step) - 1];
                     const dv = getDirectionVector(
                       nextDirectionCW(direction)
@@ -164,6 +169,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
                         })}
                         direction={direction}
                         username={username}
+                        character={character}
                       />
                     );
                   }

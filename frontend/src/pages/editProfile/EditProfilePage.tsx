@@ -22,8 +22,17 @@ import { updateUser } from 'store/auth/operations';
 import { compressThenConvertToBase64DataUrl } from 'utils/file';
 import { DataUrl, UserPutData } from 'types/auth';
 import UserAvatar from 'components/common/userAvatar';
+import CharacterCarousel from 'components/editProfile/CharacterCarousel';
 
 import './EditProfilePage.scss';
+import { makeStyles } from '@mui/styles';
+import { Character } from 'types/map';
+
+const useStyles = makeStyles(() => ({
+  header: {
+    fontSize: '1.8em',
+  },
+}));
 
 interface EditProfileFormState {
   displayName?: string;
@@ -32,6 +41,7 @@ interface EditProfileFormState {
 const EditProfilePage: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const classes = useStyles();
   const { control, handleSubmit } = useForm<EditProfileFormState>();
 
   // user should never be undefined (assuming auth routing works)
@@ -40,9 +50,15 @@ const EditProfilePage: React.FC = () => {
 
   const [avatarBase64DataUrl, setAvatarBase64DataUrl] =
     useState<DataUrl | null>(null);
+  const [selectedCharacter, setSelectedCharacter] = useState<Character>(
+    user.character ?? Character.ASTRONAUT
+  );
 
   const onSubmit = handleSubmit(async (data: EditProfileFormState) => {
-    const userPutData: UserPutData = { displayName: data.displayName };
+    const userPutData: UserPutData = {
+      displayName: data.displayName,
+      character: selectedCharacter,
+    };
     if (avatarBase64DataUrl) {
       userPutData.avatar = avatarBase64DataUrl;
     }
@@ -63,7 +79,7 @@ const EditProfilePage: React.FC = () => {
         </Toolbar>
       </AppBar>
 
-      <Typography component="h1" variant="h5">
+      <Typography variant="h5" className={classes.header}>
         Edit Profile
       </Typography>
 
@@ -71,7 +87,7 @@ const EditProfilePage: React.FC = () => {
         component="form"
         noValidate
         onSubmit={onSubmit}
-        sx={{ mt: 1, padding: '0 1.5em 0 1.5em' }}
+        sx={{ mt: 1, padding: '0 1.5em 0 1.5em', width: '100%' }}
       >
         <Grid container>
           <Grid item xs={12}>
@@ -134,6 +150,10 @@ const EditProfilePage: React.FC = () => {
             />
           </Grid>
         </Grid>
+        <CharacterCarousel
+          selectedCharacter={selectedCharacter}
+          setSelectedCharacter={setSelectedCharacter}
+        />
 
         <Button
           type="submit"
