@@ -47,9 +47,9 @@ const SpaceMapStructure = (
   } = props;
   const numStages = Math.floor(numSteps / width);
   let base: Vector3 = [
-    width * widthIncrement,
+    (width * widthIncrement) / 2,
     10 - numSteps / 2,
-    width * widthIncrement,
+    (width * widthIncrement) / 2,
   ];
   let currentDirection = Direction.RIGHT;
 

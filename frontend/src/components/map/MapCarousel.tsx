@@ -5,6 +5,7 @@ import { makeStyles } from '@mui/styles';
 import { UserChallengeMapData } from '../../types/userchallenge';
 import SpaceMap from './mapTemplates/SpaceMap';
 import './MapCarousel.scss';
+import MapWrapper from './mapTemplates/MapWrapper';
 
 const useStyles = makeStyles(() => ({
   mapSlider: {
@@ -59,7 +60,7 @@ const MapCarousel: React.FC<MapCarouselProps> = ({ maps, initialIndex }) => {
               </Typography>
             </Stack>
             <div className={classes.map}>
-              <SpaceMap mapData={mapData} />
+              <MapWrapper mapData={mapData} />
             </div>
           </div>
         </SwiperSlide>

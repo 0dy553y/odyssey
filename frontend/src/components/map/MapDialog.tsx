@@ -6,6 +6,8 @@ import { UserChallengeMapData } from 'types/userchallenge';
 import SpaceMap from './mapTemplates/SpaceMap';
 import { useDispatch } from 'react-redux';
 import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
+import MapWrapper from './mapTemplates/MapWrapper';
+
 const useStyles = makeStyles(() => ({
   header: {
     color: 'white',
@@ -59,7 +61,7 @@ const MapDialog: React.FC<MapDialogProps> = ({ isOpen, close, mapData }) => {
           </Typography>
         </Stack>
         <div className={classes.map}>
-          <SpaceMap mapData={mapData} ref={mapRef} />
+          <MapWrapper mapData={mapData} ref={mapRef} />
         </div>
       </>
     </Dialog>
