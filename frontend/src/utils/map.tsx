@@ -204,7 +204,7 @@ export function getCharacterPath(character: Character | string): string {
   return `characters/${Character[character].toLowerCase()}.vox`;
 }
 
-const cameraZoomBreakpoints = [
+const cameraZoomBreakpointsMobile = [
   // numSteps, zoomFactor
   [20, 15],
   [6, 18],
@@ -213,14 +213,33 @@ const cameraZoomBreakpoints = [
   [3, 40],
   [0, 45],
 ];
-// camera distance
-const d = 35;
 
-export function getCameraZoom(numSteps: number): number {
-  const myBp = cameraZoomBreakpoints.find((a) => {
+const cameraZoomBreakpointsDesktop = [
+  // numSteps, zoomFactor
+  [20, 20],
+  [10, 25],
+  [6, 30],
+  [5, 35],
+  [4, 40],
+  [3, 45],
+  [0, 50],
+];
+
+// camera distance
+const d = 60;
+
+export function getCameraZoomForMobile(numSteps: number): number {
+  const myBp = cameraZoomBreakpointsMobile.find((a) => {
     return a[0] < numSteps;
   });
   return myBp ? myBp[1] : 45;
+}
+
+export function getCameraZoomForDesktop(numSteps: number): number {
+  const myBp = cameraZoomBreakpointsDesktop.find((a) => {
+    return a[0] < numSteps;
+  });
+  return myBp ? myBp[1] : 50;
 }
 
 export function getCameraPosition(characterDirection: Direction): Vector3 {

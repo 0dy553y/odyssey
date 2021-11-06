@@ -14,7 +14,12 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Axis, Direction } from '../../../types/map';
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionCW } from 'utils/direction';
-import { getCameraPosition, getCameraZoom, translate } from 'utils/map';
+import {
+  getCameraPosition,
+  getCameraZoomForDesktop,
+  getCameraZoomForMobile,
+  translate,
+} from 'utils/map';
 import {
   UserChallengeFriendMapData,
   UserChallengeMapData,
@@ -24,10 +29,11 @@ import { getPrizePath } from 'utils/prizes';
 interface MapProps {
   mapData: UserChallengeMapData;
   setIsPrizeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isDesktop: boolean;
 }
 
 const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
-  const { mapData, setIsPrizeModalOpen } = props;
+  const { mapData, setIsPrizeModalOpen, isDesktop } = props;
   const {
     username,
     character,
@@ -110,7 +116,9 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
     },
   }));
 
-  const cameraZoom = getCameraZoom(numSteps);
+  const cameraZoom = isDesktop
+    ? getCameraZoomForDesktop(numSteps)
+    : getCameraZoomForMobile(numSteps);
 
   useEffect(() => {
     const cameraPosition = getCameraPosition(
@@ -128,7 +136,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
   return (
     <>
       {/*  x: red, y: green, z: blue */}
-      {/* <axesHelper args={[5]} /> */}
+      <axesHelper args={[5]} />
       {/* {isMapLoaded ? (
             <EffectComposer>
               <Bloom

@@ -5,6 +5,7 @@ import { UserChallengeMapData } from 'types/userchallenge';
 import SpaceMap from './SpaceMap';
 import PrizeInfoModal from 'components/common/prizeInfoDialog/PrizeInfoDialog';
 import { getPrize } from 'utils/prizes';
+import { useIsDesktop } from 'utils/windowSize';
 
 interface MapWrapperProps {
   mapData: UserChallengeMapData;
@@ -16,6 +17,8 @@ const MapWrapper: React.FC<MapWrapperProps> = ({
   shouldMoveCharacterForward,
 }) => {
   const [isPrizeModalOpen, setIsPrizeModalOpen] = useState<boolean>(false);
+  // Need to call here because won't work inside SpaceMap.
+  const isDesktop = useIsDesktop();
 
   const mapRef = useCallback(
     (node) => {
@@ -39,6 +42,7 @@ const MapWrapper: React.FC<MapWrapperProps> = ({
           <SpaceMap
             mapData={mapData}
             setIsPrizeModalOpen={setIsPrizeModalOpen}
+            isDesktop={isDesktop}
             ref={mapRef}
           />
         </Canvas>
