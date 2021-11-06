@@ -48,6 +48,11 @@ const useStyles = makeStyles(() => ({
   handCursor: {
     cursor: 'pointer',
   },
+  listItemText: {
+    fontFamily: 'CircularStd',
+    fontWeight: 'bold',
+    lineHeight: '1em',
+  },
 }));
 
 const getAggregatedReactions = (
@@ -126,9 +131,9 @@ export const FeedPost: React.FC<FeedPostProps> = ({
       </ListItemAvatar>
       <Grid container alignItems="center">
         <ListItemText
+          classes={{ primary: classes.listItemText }}
           primary={creator.displayName ?? displayUsername(creator.username)}
         />
-
         <Grid
           item
           xs={12}
@@ -152,9 +157,6 @@ export const FeedPost: React.FC<FeedPostProps> = ({
               {post.challenge.name}
             </Typography>
           </Link>
-        </Grid>
-
-        <Grid item xs={12}>
           <Tooltip
             arrow
             title={displayDateWithTimestamp(post.createdAt)}
@@ -166,7 +168,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({
               variant="subtitle2"
               className={classes.subtitle}
             >
-              {dayjs(post.createdAt).fromNow()}
+              &nbsp; / {dayjs(post.createdAt).fromNow()}
             </Typography>
           </Tooltip>
         </Grid>
