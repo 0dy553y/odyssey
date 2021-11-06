@@ -7,10 +7,15 @@
     justify-content: center;
     width: 4.2em;
     aspect-ratio: 1/1;
-    @media only screen and (max-width: 500px) {
-      height: calc(min(4.2em, 15vw));
-    }
   }
+
+  @media not all and (min-resolution:.001dpcm) { 
+    @supports (-webkit-appearance:none) {
+      .swiper-slide {
+        height: calc(min(4.2em, 14vw));
+      }
+    }
+}
 
   .swiper-slide-active {
     border-radius: 50%;
