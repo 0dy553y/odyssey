@@ -48,7 +48,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
   const numSteps = numTasks;
   const friendsPositions: Record<number, UserChallengeFriendMapData[]> = {};
   friends.map((f: UserChallengeFriendMapData) => {
-    if (!(currentTaskNum in friendsPositions)) {
+    if (!(f.currentTaskNum in friendsPositions)) {
       friendsPositions[f.currentTaskNum] = [];
     }
     friendsPositions[f.currentTaskNum].push(f);
@@ -208,7 +208,12 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
         dispatchEvent={undefined}
         minZoom={cameraZoom - 8}
       />
-      <Stars factor={10} radius={60 - cameraZoom} saturation={1} fade />
+      <Stars
+        factor={cameraZoom > 40 ? 1 : 10}
+        radius={60 - cameraZoom}
+        saturation={1}
+        fade
+      />
     </>
   );
 };
