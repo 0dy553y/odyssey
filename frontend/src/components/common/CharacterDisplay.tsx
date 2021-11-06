@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { Suspense, useState } from 'react';
+import React, { Suspense } from 'react';
 import { Canvas, Euler, Vector3 } from '@react-three/fiber';
 import { Model } from 'components/map';
 
@@ -25,21 +25,16 @@ const CharacterDisplay: React.FC<CharacterDisplayProps> = ({
   zoom = 20,
   isAnimated = false,
 }) => {
-  const [flip, set] = useState(false);
-
   const { scale } = useSpring({
     scale: isActive ? 3 : 2,
     config: config.wobbly,
   });
 
   const { localPos } = useSpring({
-    reset: true,
+    loop: true,
     from: { localPos: [0, -3.2, 0] },
-    reverse: flip,
-    localPos: [0, -2.8, 0],
-    delay: 200,
+    to: [{ localPos: [0, -2.8, 0] }, { localPos: [0, -3.2, 0] }],
     config: { ...config.slow, duration: 1000 },
-    onRest: () => set(!flip),
   });
   return (
     <>
