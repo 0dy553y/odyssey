@@ -5,7 +5,7 @@ import UserTaskCarousel from '../../components/home/UserTaskCarousel';
 import MapDialog from '../../components/map/MapDialog';
 import { getUserTaskListForDay } from '../../store/usertasks/selectors';
 import { RootState } from '../../store';
-import { Grid, IconButton, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { getUser } from '../../store/auth/selectors';
 import { useHistory } from 'react-router-dom';
@@ -18,6 +18,7 @@ import { startOfDay } from 'date-fns';
 import { UserChallengeMapData } from 'types/userchallenge';
 import { getChallengeMaps } from 'store/userchallenges/selectors';
 import LoadingPage from 'pages/loading/LoadingPage';
+import { useIsDesktop } from 'utils/windowSize';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -64,6 +65,7 @@ const HomePage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const isDesktop = useIsDesktop();
 
   const [date, setDate] = useState(startOfDay(new Date()));
   const [ChallengeCompletedDialogState, setChallengeCompletedDialogState] =
@@ -124,7 +126,7 @@ const HomePage: React.FC = () => {
     <div className={classes.baseContainer}>
       <div className={classes.headerContainer}>
         <Grid container direction="column" spacing={2}>
-          <Grid item direction="row" className={classes.headerNonCarouselItem}>
+          <Grid item className={classes.headerNonCarouselItem}>
             <div className={classes.greetingsContainer}>
               <Typography variant="h4">Hello,</Typography>
               <Typography variant="h4">
@@ -154,14 +156,19 @@ const HomePage: React.FC = () => {
           </Grid>
         </Grid>
       </div>
-      <div className={classes.tasksContainer}>
+      <Box
+        className={classes.tasksContainer}
+        sx={{ marginLeft: isDesktop ? 6 : undefined }}
+      >
         <UserTaskCarousel
           userTaskList={userTaskList}
           date={date}
           onChallengeCompleted={onChallengeCompleted}
           onTaskCompleted={onTaskCompleted}
+          cardsPerView={isDesktop ? 3.3 : 1.3}
+          centeredCards={!isDesktop}
         />
-      </div>
+      </Box>
 
       {ChallengeCompletedDialogState.completedChallengeId && (
         <ChallengeCompletedDialog

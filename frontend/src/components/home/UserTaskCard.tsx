@@ -50,7 +50,7 @@ const useStyles = makeStyles(() => ({
     height: '75px',
     // Padding for scrollbar
     paddingRight: '8px',
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
   padding: {
     height: 15,
@@ -88,6 +88,9 @@ const useStyles = makeStyles(() => ({
   },
   toggleContainer: {
     flexGrow: 1,
+  },
+  displayLineBreak: {
+    whiteSpace: 'pre-line',
   },
 }));
 
@@ -141,7 +144,7 @@ const UserTaskCard: React.FC<Props> = ({
 
         <Typography
           align="left"
-          className={`${classes.secondaryText} ${classes.scrollableText}`}
+          className={`${classes.secondaryText} ${classes.scrollableText} ${classes.displayLineBreak}`}
         >
           <Linkify
             componentDecorator={(

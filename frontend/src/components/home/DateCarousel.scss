@@ -1,14 +1,18 @@
-.date-slider .swiper-slide {
-  border-radius: 50%;
-  align-items: center;
-  justify-content: center;
-  justify-items: center;
-  padding: calc(min(2vw, 29px));
-  box-sizing:border-box;
-}
+.date-slider {
+  width: 100%;
 
-.date-slider .swiper-slide-active {
-  color: white;
-  background: black;
-  transition: background 0.5s ease-out;
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    width: 4.2em;
+  }
+
+  .swiper-slide-active {
+    border-radius: 50%;
+    color: white;
+    background: black;
+    transition: background 0.5s ease-out;
+  }
 }
