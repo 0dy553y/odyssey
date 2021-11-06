@@ -22,7 +22,7 @@ const Search = styled('div')(({ theme }) => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
-    padding: theme.spacing(1.5, 30, 1.5, 0),
+    padding: theme.spacing(1.5, 1.5, 1.5, 0),
   },
   width: '100%',
 }));

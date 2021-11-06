@@ -5,9 +5,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    aspect-ratio: 1;
     width: 4.2em;
-    height: 4.2em;
+    aspect-ratio: 1/1;
+    @media only screen and (max-width: 500px) {
+      height: calc(min(4.2em, 15vw));
+    }
   }
 
   .swiper-slide-active {
