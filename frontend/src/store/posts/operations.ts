@@ -14,6 +14,7 @@ import {
   setUserPostList,
   updatePost,
 } from './actions';
+import { withStatusMessages } from 'utils/ui';
 
 export function loadAllPosts(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
@@ -73,7 +74,10 @@ export function removeReactionFromPost(
 
 export function createNewPost(postPostData: PostPostData): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.posts.createPost(postPostData);
+    const response = await withStatusMessages(
+      dispatch,
+      api.posts.createPost(postPostData)
+    );
 
     batch(() => {
       // Assumption is that the newly created post will appear in both the

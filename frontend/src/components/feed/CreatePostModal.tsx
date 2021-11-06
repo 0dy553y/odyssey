@@ -34,6 +34,14 @@ const useStyles = makeStyles(() => ({
       marginBottom: '1em',
     },
   },
+  modalHeader: {
+    fontSize: '24px',
+    fontWeight: 'bold',
+  },
+  actionButtons: {
+    textTransform: 'none',
+    borderRadius: '1em',
+  },
 }));
 
 export const CreatePostModal: React.FC<CreatePostModalProps> = ({
@@ -133,6 +141,9 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
       }}
       fullWidth
       maxWidth="sm"
+      PaperProps={{
+        style: { borderRadius: '1.5em', padding: '1em' },
+      }}
     >
       <Box
         component="form"
@@ -142,17 +153,23 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
           reset();
         })}
       >
-        <DialogTitle>Create Post</DialogTitle>
+        <DialogTitle className={classes.modalHeader}>Create Post</DialogTitle>
 
         <DialogContent className={classes.createPostForm}>
           {dialogContent()}
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={onClose} variant="outlined">
+          <Button
+            className={classes.actionButtons}
+            autoFocus
+            onClick={onClose}
+            variant="outlined"
+          >
             Close
           </Button>
 
           <Button
+            className={classes.actionButtons}
             autoFocus
             variant="contained"
             type="submit"
