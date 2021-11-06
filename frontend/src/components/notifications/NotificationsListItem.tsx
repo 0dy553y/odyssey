@@ -51,7 +51,10 @@ const NotificationsListItem: React.FC<Props> = ({ friendRequest }: Props) => {
   const sender = friendRequest.sender;
 
   return (
-    <ListItem alignItems="flex-start">
+    <ListItem
+      alignItems="flex-start"
+      sx={{ marginTop: '0.5em', marginBottom: '1em' }}
+    >
       <ListItemAvatar>
         <UserAvatar
           src={sender.avatar}
