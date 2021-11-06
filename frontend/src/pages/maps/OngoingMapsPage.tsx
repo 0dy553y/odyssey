@@ -9,7 +9,7 @@ import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import { UserChallengeMapData } from 'types/userchallenge';
 
-const MapsPage: React.FC = () => {
+const OngoingMapsPage: React.FC = () => {
   const { challengeId } = useParams<{ challengeId: string }>();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -54,4 +54,4 @@ const MapsPage: React.FC = () => {
   );
 };
 
-export default MapsPage;
+export default OngoingMapsPage;

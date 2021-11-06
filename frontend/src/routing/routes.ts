@@ -12,7 +12,7 @@ import FeedPage from '../pages/feed';
 import AddFriendsPage from '../pages/friends/AddFriendsPage';
 import HomePage from '../pages/home';
 import LoginPage from '../pages/login';
-import MapsPage from '../pages/maps';
+import { CompletedMapPage, OngoingMapsPage } from '../pages/maps';
 import NotificationsPage from '../pages/notifications/NotificationsPage';
 import ProfilePage from '../pages/profile';
 import RegistrationPage from '../pages/registration';
@@ -37,6 +37,7 @@ export const LANDING_ROUTE = '/landing';
 // TODO: remove when no longer needed.
 export const DEMO_MAP_ROUTE = '/map/demo';
 export const MAP_ROUTE = '/map';
+export const COMPLETED_MAP_ROUTE = '/map/completed';
 
 // Routes that are accessible only if user is not authenticated
 export const notAuthenticatedRoutes: RouteEntry[] = [
@@ -99,7 +100,12 @@ export const privateRoutes: RouteEntry[] = [
   { path: EXPLORE_ROUTE, component: ExplorePage },
   { path: DEMO_MAP_ROUTE, component: DemoMap },
   {
-    path: MAP_ROUTE + '/:challengeId',
-    component: MapsPage,
+    path: MAP_ROUTE + '/:userChallengeId',
+    component: OngoingMapsPage,
+    exact: true,
+  },
+  {
+    path: COMPLETED_MAP_ROUTE + '/:userChallengeId',
+    component: CompletedMapPage,
   },
 ];
