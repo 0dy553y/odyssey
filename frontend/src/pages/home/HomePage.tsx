@@ -109,14 +109,15 @@ const HomePage: React.FC = () => {
     });
   };
   useEffect(() => {
-    dispatch(loadAllOngoingChallengeMaps());
+    batch(() => {
+      dispatch(loadAllOngoingChallengeMaps());
+      dispatch(loadAllFriendRequests());
+    });
   }, []);
 
   useEffect(() => {
-    batch(() => {
-      dispatch(loadAllFriendRequests());
-      dispatch(loadUserTasksForDay(date));
-    });
+    dispatch(loadUserTasksForDay(date));
+
     // Note: Not batched on purpose so that today's tasks load faster.
     dispatch(loadUserTasksForDays(date, 15));
   }, [date]);
