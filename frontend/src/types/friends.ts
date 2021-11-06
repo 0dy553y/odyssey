@@ -1,9 +1,11 @@
 import { DataUrl } from './auth';
+import { Character } from './map';
 
 export interface FriendListData {
   id: number;
   username: string;
   displayName: string;
+  character: Character;
   avatar?: DataUrl;
 }
 

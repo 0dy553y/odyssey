@@ -34,6 +34,7 @@ const AddFriendsListItem: React.FC<Props> = ({ user }: Props) => {
           src={user.avatar}
           username={user.username}
           displayName={user.displayName}
+          character={user.character}
         />
       </ListItemAvatar>
       <ListItemText

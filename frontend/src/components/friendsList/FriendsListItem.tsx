@@ -34,6 +34,7 @@ export const FriendsListItem: React.FC<FriendsListItemProps> = ({ friend }) => {
           src={friend.avatar}
           username={friend.username}
           displayName={friend.displayName}
+          character={friend.character}
         />
       </ListItemAvatar>
       <ListItemText

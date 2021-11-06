@@ -6,11 +6,15 @@ import { useHistory } from 'react-router-dom';
 import { PROFILE_ROUTE } from 'routing/routes';
 import { getUser } from 'store/auth/selectors';
 import { useSelector } from 'react-redux';
+import CharacterDisplay from '../CharacterDisplay';
+import { Character } from 'types/map';
+import { useCallback, useState } from 'react';
 
 interface UserAvatarProps {
   src: DataUrl | undefined;
   username: string;
   displayName?: string;
+  character: Character;
   className?: string;
   shouldLinkToProfile?: boolean;
 }
@@ -19,11 +23,19 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
   src,
   username,
   displayName,
+  character,
   className,
   shouldLinkToProfile = true,
 }) => {
   const history = useHistory();
   const user = useSelector(getUser);
+  const [diameter, setDiameter] = useState<number>(40);
+
+  const avatarRef = useCallback((node) => {
+    if (node !== null) {
+      setDiameter(node.getBoundingClientRect().height);
+    }
+  }, []);
 
   return (
     <Avatar
@@ -45,7 +57,15 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
         }
         history.push(`${PROFILE_ROUTE}/${username}`);
       }}
-    />
+      ref={avatarRef}
+    >
+      <CharacterDisplay
+        character={Character[character]}
+        zoomOverride={diameter > 100 ? 40 : 12}
+        positionOverride={[0, -3, 0]}
+        rotationOverride={[Math.PI / 8, (2 * Math.PI) / 3, 0]}
+      />
+    </Avatar>
   );
 };
 

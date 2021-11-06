@@ -30,6 +30,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
             src={user.avatar}
             username={user.username}
             displayName={user.displayName}
+            character={user.character}
             shouldLinkToProfile={false}
           />
           <Box

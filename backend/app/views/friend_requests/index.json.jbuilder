@@ -8,6 +8,7 @@ json.data @friend_requests do |friend_request|
     json.id sender.id
     json.username sender.username
     json.displayName sender.display_name
+    json.character sender.character
     json.avatar encoded_file_data_url(sender.avatar) if sender.avatar.attached?
   end
 end
