@@ -4,8 +4,8 @@ class UserTasksController < ApplicationController
   include UserHelper
 
   def tasks_in_period
-    from_date = params.require(:from).to_date.beginning_of_day
-    to_date = params.require(:to).to_date.end_of_day
+    from_date = params.require(:from).to_date
+    to_date = params.require(:to).to_date
     date_range = from_date..to_date
     @user_tasks = current_user.user_tasks.joins(:user_challenge)
                               .where(scheduled_for: date_range,
