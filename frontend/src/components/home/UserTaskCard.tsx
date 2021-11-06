@@ -1,7 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { UserTaskListData } from '../../types/usertasks';
-import { Card, IconButton, Switch, Stack, Typography } from '@mui/material';
+import {
+  Card,
+  IconButton,
+  Link as MuiLink,
+  Switch,
+  Stack,
+  Typography,
+} from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import MapIcon from '@mui/icons-material/Map';
 import { makeStyles } from '@mui/styles';
@@ -13,6 +20,7 @@ import { useDispatch } from 'react-redux';
 import { getHexCode, getComplementaryColor } from 'utils/color';
 import { isAfter } from 'date-fns';
 import { CHALLENGE_ROUTE, MAP_ROUTE } from '../../routing/routes';
+import Linkify from 'react-linkify';
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -33,6 +41,9 @@ const useStyles = makeStyles(() => ({
   secondaryText: {
     color: 'white',
     opacity: 80,
+  },
+  link: {
+    textDecorationColor: 'white',
   },
   scrollableText: {
     flexGrow: 1,
@@ -127,11 +138,31 @@ const UserTaskCard: React.FC<Props> = ({
           {userTask.challengeName}
         </Typography>
         <div className={classes.padding} />
+
         <Typography
           align="left"
           className={`${classes.secondaryText} ${classes.scrollableText}`}
         >
-          {userTask.description}
+          <Linkify
+            componentDecorator={(
+              decoratedHref: string,
+              decoratedText: string,
+              key: number
+            ) => (
+              <MuiLink
+                href={decoratedHref}
+                target="_blank"
+                rel="noreferrer"
+                underline="always"
+                key={key}
+                className={`${classes.secondaryText} ${classes.link}`}
+              >
+                {decoratedText}
+              </MuiLink>
+            )}
+          >
+            {userTask.description}
+          </Linkify>
         </Typography>
         <div className={classes.controlsContainer}>
           <Stack
