@@ -35,7 +35,20 @@ const CategoryListItem: React.FC<CategoryListProps> = (props) => {
       <div>
         <div className={classes.container}>
           <div className="square">
-            <Avatar square={true} variant={'beam'} size={65} name={name} />
+            <Avatar
+              square={true}
+              variant={'beam'}
+              size={65}
+              name={name}
+              colors={[
+                '#B17B9C',
+                '#CC871F',
+                '#3CA195',
+                '#2B2A5E',
+                '#9F88E3',
+                '#3836A6',
+              ]}
+            />
           </div>
           <Grid item xs={9}>
             <Typography component="div" variant="h6">
