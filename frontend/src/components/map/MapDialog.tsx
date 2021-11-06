@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { Dialog, Typography, Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { UserChallengeMapData } from 'types/userchallenge';
@@ -34,6 +34,14 @@ interface MapDialogProps {
 const MapDialog: React.FC<MapDialogProps> = ({ isOpen, close, mapData }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => {
+        close();
+      }, 2500);
+    }
+  }, [isOpen]);
 
   return (
     <Dialog
