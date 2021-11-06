@@ -5,7 +5,7 @@ task update_maps_for_challenges: :environment do
 
     # Land is currently 0 to 3 (To update if we add more)
     # finding by name in case we want the land to match the challenge in some way
-    Challenge.find_by(name: 'Couch to 5k').map.update!(land: 1)
+  Challenge.find_by(name: 'Couch to 5k').map.update!(land: 1)
     Challenge.find_by(name: 'Meditation').map.update!(land: 2)
     Challenge.find_by(name: 'Your First Pull-Up').map.update!(land: 3)
     Challenge.find_by(name: 'Music Production').map.update!(land: 0)
