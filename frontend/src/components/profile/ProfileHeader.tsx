@@ -33,19 +33,23 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
             character={user.character}
             shouldLinkToProfile={false}
           />
-          <Box
-            sx={{
-              position: 'absolute',
-              height: '100%',
-              width: '100%',
-              transform: 'translate(40%, -90%)',
-            }}
-          >
-            <CharacterDisplay
-              character={Character[user.character]}
-              scaleOverride={1.3}
-            />
-          </Box>
+          {user.avatar ? (
+            <Box
+              sx={{
+                position: 'absolute',
+                height: '100%',
+                width: '100%',
+                transform: 'translate(40%, -90%)',
+              }}
+            >
+              <CharacterDisplay
+                character={Character[user.character]}
+                scaleOverride={1.3}
+              />
+            </Box>
+          ) : (
+            <></>
+          )}
         </Box>
       </IconButton>
 
