@@ -48,7 +48,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
   const numSteps = numTasks;
   const friendsPositions: Record<number, UserChallengeFriendMapData[]> = {};
   friends.map((f: UserChallengeFriendMapData) => {
-    if (!(currentTaskNum in friendsPositions)) {
+    if (!(f.currentTaskNum in friendsPositions)) {
       friendsPositions[f.currentTaskNum] = [];
     }
     friendsPositions[f.currentTaskNum].push(f);
