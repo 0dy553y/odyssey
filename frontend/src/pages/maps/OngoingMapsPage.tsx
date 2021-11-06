@@ -8,6 +8,7 @@ import { RootState } from 'store';
 import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import { UserChallengeMapData } from 'types/userchallenge';
+import { COMPLETED_MAP_ROUTE } from 'routing/routes';
 
 const OngoingMapsPage: React.FC = () => {
   const { challengeId } = useParams<{ challengeId: string }>();
@@ -28,6 +29,10 @@ const OngoingMapsPage: React.FC = () => {
   challengeMaps.map((data: UserChallengeMapData, index: number) => {
     challengeIdToSwiperIndexMap[data.challengeId] = index;
   });
+
+  if (!(challengeId in challengeIdToSwiperIndexMap)) {
+    history.replace(`${COMPLETED_MAP_ROUTE}/${challengeId}`);
+  }
 
   return (
     <>

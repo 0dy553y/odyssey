@@ -100,12 +100,12 @@ export const privateRoutes: RouteEntry[] = [
   { path: EXPLORE_ROUTE, component: ExplorePage },
   { path: DEMO_MAP_ROUTE, component: DemoMap },
   {
-    path: MAP_ROUTE + '/:userChallengeId',
+    path: MAP_ROUTE + '/:challengeId',
     component: OngoingMapsPage,
     exact: true,
   },
   {
-    path: COMPLETED_MAP_ROUTE + '/:userChallengeId',
+    path: COMPLETED_MAP_ROUTE + '/:challengeId',
     component: CompletedMapPage,
   },
 ];
