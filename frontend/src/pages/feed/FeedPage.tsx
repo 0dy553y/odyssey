@@ -24,6 +24,7 @@ import { CreatePostModal } from 'components/feed/CreatePostModal';
 import { ChallengeListData } from 'types/challenges';
 import api from 'api';
 import { MemoizedFeedPostList } from 'components/feed/FeedPostList';
+import { useIsDesktop } from 'utils/windowSize';
 
 const useStyles = makeStyles((theme: Theme) => ({
   toggleButtonContainer: {
@@ -53,12 +54,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     overflowY: 'scroll',
     scrollBehavior: 'smooth',
   },
-  fab: {
+  baseFab: {
     position: 'absolute',
-    right: theme.spacing(2),
-    bottom: theme.spacing(8),
     backgroundColor: 'black',
     color: 'white',
+  },
+  mobileFab: {
+    right: theme.spacing(2),
+    bottom: theme.spacing(8),
+  },
+  desktopFab: {
+    right: theme.spacing(3),
+    bottom: theme.spacing(3),
   },
 }));
 
@@ -71,6 +78,7 @@ interface FeedPageState {
 const FeedPage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const isDesktop = useIsDesktop();
 
   const friendPosts: PostListData[] = useSelector(getFriendPostList);
   const communityPosts: PostListData[] = useSelector(getCommunityPostList);
@@ -170,7 +178,9 @@ const FeedPage: React.FC = () => {
       </Box>
 
       <Fab
-        className={classes.fab}
+        className={`${classes.baseFab} ${
+          isDesktop ? classes.desktopFab : classes.mobileFab
+        }`}
         onClick={() => setState({ isCreatePostModalOpen: true })}
       >
         <Badge
