@@ -62,8 +62,9 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
       <CharacterDisplay
         character={Character[character]}
         zoomOverride={diameter > 100 ? 40 : 12}
-        positionOverride={[0, -3, 0]}
         rotationOverride={[Math.PI / 8, (2 * Math.PI) / 3, 0]}
+        isAnimated={diameter > 100}
+        positionOverride={[0, -3, 0]}
       />
     </Avatar>
   );

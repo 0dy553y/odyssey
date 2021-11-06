@@ -1,4 +1,5 @@
-import React, { Suspense } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { Suspense, useState } from 'react';
 import { Canvas, Euler, Vector3 } from '@react-three/fiber';
 import { Model } from 'components/map';
 
@@ -12,6 +13,7 @@ interface CharacterDisplayProps {
   positionOverride?: Vector3;
   rotationOverride?: Euler;
   zoomOverride?: number;
+  isAnimated?: boolean;
 }
 
 const CharacterDisplay: React.FC<CharacterDisplayProps> = ({
@@ -21,10 +23,23 @@ const CharacterDisplay: React.FC<CharacterDisplayProps> = ({
   positionOverride,
   rotationOverride,
   zoomOverride,
+  isAnimated = false,
 }) => {
+  const [flip, set] = useState(false);
+
   const { scale } = useSpring({
     scale: isActive ? 3 : 2,
     config: config.wobbly,
+  });
+
+  const { localPos } = useSpring({
+    reset: true,
+    from: { localPos: [0, -3.2, 0] },
+    reverse: flip,
+    localPos: [0, -2.8, 0],
+    delay: 200,
+    config: { ...config.slow, duration: 1000 },
+    onRest: () => set(!flip),
   });
   return (
     <>
@@ -45,7 +60,13 @@ const CharacterDisplay: React.FC<CharacterDisplayProps> = ({
             }
           >
             <Model
-              position={positionOverride ? positionOverride : [0, -2, 0]}
+              position={
+                isAnimated
+                  ? (localPos as any as Vector3)
+                  : positionOverride
+                  ? positionOverride
+                  : [0, -2, 0]
+              }
               scale={scaleOverride ? scaleOverride : scale}
               fileName={getCharacterPath(character)}
             />
