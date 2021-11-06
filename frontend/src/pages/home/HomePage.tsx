@@ -1,8 +1,5 @@
 import React, { useEffect, useState, useReducer } from 'react';
-import {
-  loadUserTasksForDay,
-  loadUserTasksForDays,
-} from '../../store/usertasks/operations';
+import { loadUserTasksForDays } from '../../store/usertasks/operations';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import UserTaskCarousel from '../../components/home/UserTaskCarousel';
 import MapDialog from '../../components/map/MapDialog';
@@ -111,10 +108,8 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     batch(() => {
       dispatch(loadAllFriendRequests());
-      dispatch(loadUserTasksForDay(date));
+      dispatch(loadUserTasksForDays(date, 15));
     });
-    // Note: Not batched on purpose so that today's tasks load faster.
-    dispatch(loadUserTasksForDays(date, 15));
   }, [date]);
 
   const userTaskList = Array.from(
