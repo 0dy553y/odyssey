@@ -91,7 +91,13 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
         <CheckIcon className={classes.icon} />
         <Typography variant="body1">Friends</Typography>
       </Button>
-      <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
+      <Dialog
+        open={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        PaperProps={{
+          style: { borderRadius: '1.5em', padding: '1em' },
+        }}
+      >
         <DialogTitle>
           {`Remove ${
             user.displayName ?? displayUsername(user.username)
@@ -107,13 +113,13 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
               });
             }}
           >
-            Yes
+            <Typography variant="body1">Yes</Typography>
           </Button>
           <Button
             className={classes.rejectButton}
             onClick={() => setIsDialogOpen(false)}
           >
-            No
+            <Typography variant="body1">No</Typography>
           </Button>
         </DialogActions>
       </Dialog>

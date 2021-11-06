@@ -51,6 +51,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           background: 'black',
+          textTransform: 'none',
         },
         outlined: {
           background: 'transparent',
