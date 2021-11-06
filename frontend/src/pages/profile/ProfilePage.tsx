@@ -85,6 +85,10 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     marginTop: theme.spacing(3),
     borderRadius: '2em',
   },
+  viewPosts: {
+    cursor: 'pointer',
+    paddingTop: '1em',
+  },
 }));
 
 const ProfilePage: React.FC = () => {
@@ -256,6 +260,7 @@ const ProfilePage: React.FC = () => {
         </Grid>
 
         <Stack
+          className={classes.viewPosts}
           direction="row"
           justifyContent="space-between"
           onClick={() => {
@@ -277,7 +282,7 @@ const ProfilePage: React.FC = () => {
             <ActivityMap activityMapData={userTaskActivityData} />
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6} sx={{ marginTop: '0.5em' }}>
             <UserStats
               challengesCompleted={completedChallenges.length}
               registrationDate={user?.registrationDate}

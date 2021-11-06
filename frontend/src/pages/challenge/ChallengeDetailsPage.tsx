@@ -35,6 +35,7 @@ import {
   Stack,
   Toolbar,
   Typography,
+  Theme,
 } from '@mui/material';
 import ChallengeContent from 'components/challenge/ChallengeContent';
 import { useInView } from 'react-intersection-observer';
@@ -48,8 +49,9 @@ import { getChallengePostList } from 'store/posts/selectors';
 import ConfirmationModal from 'components/common/ConfirmationModal';
 import LoadingPage from 'pages/loading/LoadingPage';
 import { MapDialog } from 'components/map';
+import { useIsDesktop } from 'utils/windowSize';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles<Theme>((theme) => ({
   white: {
     color: 'white',
   },
@@ -94,6 +96,23 @@ const useStyles = makeStyles(() => ({
     textOverflow: 'ellipsis',
     flex: 1,
   },
+  addMarginTop: {
+    marginTop: '1em',
+  },
+  desktopMargins: {
+    borderRadius: '2em',
+    overflow: 'hidden',
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
+    marginTop: theme.spacing(3),
+  },
+  desktopContent: {
+    padding: '4em 2em 1em 2em ',
+  },
+  mobileContent: {
+    paddingLeft: '2em',
+    marginTop: '1em',
+  },
 }));
 
 interface ChallengeCompletedDialogState {
@@ -108,6 +127,7 @@ const ChallengeDetailsPage: React.FC = () => {
   const [ref, inView] = useInView({
     threshold: 0.3,
   });
+  const isDesktop = useIsDesktop();
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const user = useSelector(getUser)!;
@@ -222,89 +242,97 @@ const ChallengeDetailsPage: React.FC = () => {
   }
 
   return (
-    <Box>
+    <Box className={isDesktop ? classes.desktopMargins : ''}>
       <Stack
         sx={{
           backgroundColor: getHexCode(challenge.color),
         }}
       >
-        <AppBar
-          position="sticky"
-          sx={{
-            backgroundColor: getHexCode(challenge.color),
-            height: '4.1em',
-          }}
-        >
-          <Toolbar>
-            <Box
-              sx={{
-                display: 'flex',
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <IconButton
-                edge="start"
-                sx={{ color: 'white', padding: '1em' }}
-                onClick={() => {
-                  history.goBack();
-                }}
-              >
-                <BackArrow height="1.5em" width="1.5em" />
-              </IconButton>
-
-              {!inView && (
-                <Box className={classes.collapsedHeaderText}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={
-                      !inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }
-                    }
-                    transition={{ duration: 0.5, ease: 'easeOut' }}
-                  >
-                    {challenge.name}
-                  </motion.div>
-                </Box>
-              )}
-
-              <IconButton
-                edge="end"
-                color="primary"
-                onClick={handleMenuClick}
+        {!isDesktop && (
+          <AppBar
+            position="sticky"
+            sx={{
+              backgroundColor: getHexCode(challenge.color),
+              height: '4.1em',
+            }}
+          >
+            <Toolbar>
+              <Box
                 sx={{
-                  color: 'white',
-                  padding: '1em',
-                  visibility: canForfeitChallenge ? undefined : 'hidden',
+                  display: 'flex',
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
                 }}
               >
-                <MoreVertIcon />
-              </IconButton>
-              <Menu
-                anchorEl={menuAnchorEl}
-                open={isMenuOpen}
-                onClose={handleMenuClose}
-              >
-                <MenuItem
+                <IconButton
+                  edge="start"
+                  sx={{ color: 'white', padding: '1em' }}
                   onClick={() => {
-                    setIsForfeitConfirmationModalOpen(true);
-                    handleMenuClose();
+                    history.goBack();
                   }}
                 >
-                  Forfeit Challenge
-                </MenuItem>
-              </Menu>
-            </Box>
-          </Toolbar>
-        </AppBar>
+                  <BackArrow height="1.5em" width="1.5em" />
+                </IconButton>
+
+                {!inView && (
+                  <Box className={classes.collapsedHeaderText}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={
+                        !inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }
+                      }
+                      transition={{ duration: 0.5, ease: 'easeOut' }}
+                    >
+                      {challenge.name}
+                    </motion.div>
+                  </Box>
+                )}
+
+                <IconButton
+                  edge="end"
+                  color="primary"
+                  onClick={handleMenuClick}
+                  sx={{
+                    color: 'white',
+                    padding: '1em',
+                    visibility: canForfeitChallenge ? undefined : 'hidden',
+                  }}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+                <Menu
+                  anchorEl={menuAnchorEl}
+                  open={isMenuOpen}
+                  onClose={handleMenuClose}
+                >
+                  <MenuItem
+                    onClick={() => {
+                      setIsForfeitConfirmationModalOpen(true);
+                      handleMenuClose();
+                    }}
+                  >
+                    Forfeit Challenge
+                  </MenuItem>
+                </Menu>
+              </Box>
+            </Toolbar>
+          </AppBar>
+        )}
 
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 10 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          initial={isDesktop ? { opacity: 1 } : { opacity: 0, y: 10 }}
+          animate={
+            inView || isDesktop ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }
+          }
           transition={{ duration: 0.5, ease: 'easeOut' }}
         >
-          <Stack sx={{ paddingLeft: '2em', marginTop: '1em' }}>
+          <Stack
+            className={
+              isDesktop ? classes.desktopContent : classes.mobileContent
+            }
+          >
             <Typography className={classes.white}>
               {!isEnrolled
                 ? '👻 UNENROLLED'
@@ -334,12 +362,12 @@ const ChallengeDetailsPage: React.FC = () => {
               </span>
             )}
 
-            <Typography className={`${classes.white}`}>
+            <Typography className={`${classes.white} ${classes.addMarginTop}`}>
               {challenge.description}
             </Typography>
             <Typography
               variant="h6"
-              className={`${classes.white} ${classes.bold}`}
+              className={`${classes.white} ${classes.bold} ${classes.addMarginTop}`}
             >
               Recommended schedule
             </Typography>

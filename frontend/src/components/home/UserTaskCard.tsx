@@ -28,6 +28,7 @@ const useStyles = makeStyles(() => ({
       getHexCode(userTask.challengeColor),
     borderRadius: 25,
     height: '100%',
+    maxWidth: '30em',
   },
   cardContents: {
     padding: 25,

@@ -9,7 +9,8 @@ import {
   Toolbar,
   Stack,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import { styled, Theme } from '@mui/material/styles';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import CategoryListItem from '../../components/category/CategoryListItem';
 import { batch, useDispatch, useSelector } from 'react-redux';
@@ -31,6 +32,7 @@ import {
 } from 'store/userchallenges/selectors';
 import { getChallengePercentageComplete } from 'utils/progress';
 import LoadingPage from 'pages/loading/LoadingPage';
+import { useIsDesktop } from 'utils/windowSize';
 
 interface StyledTabProps {
   label: string;
@@ -77,10 +79,23 @@ const StyledTab = styled((props: StyledTabProps) => (
   },
 }));
 
+const useStyles = makeStyles<Theme>((theme) => ({
+  desktopCategoryCoverContainer: {
+    margin: theme.spacing(3),
+    borderRadius: '5vh',
+  },
+  mobileCategoryCoverContainer: {
+    borderRadius: '0 0 5vh 5vh',
+  },
+}));
+
 const CategoryPage: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { categoryId } = useParams<{ categoryId: string }>();
+  const classes = useStyles();
+
+  const isDesktop = useIsDesktop();
 
   const [value, setValue] = React.useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -145,6 +160,7 @@ const CategoryPage: React.FC = () => {
   return (
     <Box>
       <Stack
+        className={isDesktop? classes.desktopCategoryCoverContainer : classes.mobileCategoryCoverContainer}
         sx={{
           backgroundImage: `
             linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%),
@@ -152,7 +168,6 @@ const CategoryPage: React.FC = () => {
           `,
           backgroundSize: 'cover',
           height: '40vh',
-          borderRadius: '0 0 5vh 5vh',
           ...getImageHeaderPosition(category.title),
         }}
         justifyContent="space-between"
