@@ -147,16 +147,13 @@ const ProfilePage: React.FC = () => {
       },
     },
     {
-      label:
-        completedChallenges.length === 1
-          ? 'completed challenge'
-          : 'completed challenges',
-      count: completedChallenges.length,
+      label: userPosts.length === 1 ? 'post' : 'posts',
+      count: userPosts.length,
       onClick: () => {
         if (isOwnProfilePage) {
-          history.push(COMPLETED_CHALLENGES_ROUTE);
+          history.push(POSTS_ROUTE);
         } else {
-          history.push(`${COMPLETED_CHALLENGES_ROUTE}/${username}`);
+          history.push(`${POSTS_ROUTE}/${username}`);
         }
       },
     },
@@ -254,23 +251,6 @@ const ProfilePage: React.FC = () => {
 
           <ProfileHeader user={user} userProfileItems={userProfileItems} />
         </Grid>
-
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          onClick={() => {
-            if (isOwnProfilePage) {
-              history.push(POSTS_ROUTE);
-            } else {
-              history.push(`${POSTS_ROUTE}/${username}`);
-            }
-          }}
-        >
-          <Typography>View posts ({userPosts.length})</Typography>
-
-          <ChevronRightIcon />
-        </Stack>
-        <Divider />
 
         <Grid container columnSpacing={5} rowSpacing={3}>
           <Grid item xs={12} md={6}>
