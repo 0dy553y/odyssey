@@ -18,7 +18,7 @@ task update_maps_for_challenges: :environment do
     Challenge.find_by(name: 'LEGO').map.update!(land: 3)
     Challenge.find_by(name: 'Mental Health Week').map.update!(land: 1)
     Challenge.find_by(name: 'Happiness').map.update!(land: 1)
-    # Challenge.find_by(name: 'Starting the Year Right').map.update!(land: 1)
+  # Challenge.find_by(name: 'Starting the Year Right').map.update!(land: 1)
     # Challenge.find_by(name: 'Back to School').map.update!(land: 1)
     # Challenge.find_by(name: 'Becoming More Productive').map.update!(land: 1)
 end
