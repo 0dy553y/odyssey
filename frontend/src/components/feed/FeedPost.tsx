@@ -52,6 +52,7 @@ const useStyles = makeStyles(() => ({
     fontFamily: 'CircularStd',
     fontWeight: 'bold',
     lineHeight: '1em',
+    cursor: 'pointer',
   },
 }));
 
@@ -124,7 +125,11 @@ export const FeedPost: React.FC<FeedPostProps> = ({
     <ListItem alignItems="flex-start">
       <ListItemAvatar
         onClick={() => {
-          history.push(`${PROFILE_ROUTE}/${creator.username}`);
+          history.push(
+            `${PROFILE_ROUTE}${
+              creator.id === currentUserId ? '' : '/' + creator.username
+            }`
+          );
         }}
       >
         <UserAvatar
@@ -136,6 +141,13 @@ export const FeedPost: React.FC<FeedPostProps> = ({
       <Grid container alignItems="center">
         <ListItemText
           classes={{ primary: classes.listItemText }}
+          onClick={() => {
+            history.push(
+              `${PROFILE_ROUTE}${
+                creator.id === currentUserId ? '' : '/' + creator.username
+              }`
+            );
+          }}
           primary={creator.displayName ?? displayUsername(creator.username)}
         />
         <Grid
