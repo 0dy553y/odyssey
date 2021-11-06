@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
       resources :user_tasks, only: [] do
         collection do
-          get 'tasks_for_day', to: 'tasks_for_day'
+          get 'tasks_in_period', to: 'tasks_in_period'
           get 'user_task_activity_data', to: 'user_task_activity_data'
         end
         member do

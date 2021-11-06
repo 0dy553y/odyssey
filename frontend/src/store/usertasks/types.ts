@@ -5,6 +5,8 @@ import {
 } from '../../types/usertasks';
 
 // Action names
+export const BULK_SAVE_USER_TASK_LISTS =
+  'usertasks/BULK_SAVE_USER_TASK_FOR_DAYS';
 export const SAVE_USER_TASK_LIST_FOR_DAY =
   'usertasks/SAVE_USER_TASK_LIST_FOR_DAY';
 export const SAVE_USER_TASK_FOR_DAY = 'usertasks/SAVE_USER_TASK_FOR_DAY';
@@ -13,6 +15,11 @@ export const SAVE_USER_TASK_ACTIVITY_DATA =
 export const RESET_USER_TASKS = 'usertasks/RESET_USER_TASKS';
 
 // Action types
+export interface BulkSaveUserTaskListAction {
+  type: typeof BULK_SAVE_USER_TASK_LISTS;
+  userTaskLists: Record<string, UserTaskListData[]>;
+}
+
 export interface SaveUserTaskListForDayAction {
   type: typeof SAVE_USER_TASK_LIST_FOR_DAY;
   date: Date;
@@ -35,6 +42,7 @@ export interface ResetUserTasksAction {
 }
 
 export type UserTaskActions =
+  | BulkSaveUserTaskListAction
   | SaveUserTaskListForDayAction
   | SaveUserTaskForDayAction
   | SaveUserTaskActivityDataAction
