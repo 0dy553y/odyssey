@@ -89,7 +89,10 @@ const SpaceMapStructure = (
       currentDirection,
       widthIncrement
     );
-    stepPositions.push({ pos: finalPosition, direction: currentDirection });
+    stepPositions.push({
+      pos: translate(finalPosition, { [Axis.Y]: 1 }),
+      direction: currentDirection,
+    });
     return (
       <group onClick={onClickPrize}>
         <Prize position={finalPosition} modelPath={prizePath} />

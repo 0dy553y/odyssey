@@ -30,6 +30,7 @@ const OngoingMapsPage: React.FC = () => {
     challengeIdToSwiperIndexMap[data.challengeId] = index;
   });
 
+  // Re-route to completed map page.
   if (!(challengeId in challengeIdToSwiperIndexMap)) {
     history.replace(`${COMPLETED_MAP_ROUTE}/${challengeId}`);
   }
