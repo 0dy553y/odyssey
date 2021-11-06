@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
-import { getChallengeMaps } from 'store/userchallenges/selectors';
+import { getOngoingChallengeMaps } from 'store/userchallenges/selectors';
 import { useHistory, useParams } from 'react-router-dom';
 import MapCarousel from '../../components/map/MapCarousel';
 import { RootState } from 'store';
@@ -22,7 +22,7 @@ const OngoingMapsPage: React.FC = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const challengeMaps = useSelector((state: RootState) =>
-    getChallengeMaps(state)
+    getOngoingChallengeMaps(state)
   )!;
 
   const challengeIdToSwiperIndexMap: Record<string, number> = {};

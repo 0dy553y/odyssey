@@ -77,7 +77,7 @@ Rails.application.routes.draw do
         get 'all_ongoing_user_challenge_maps', to: 'all_ongoing_user_challenge_maps'
       end
 
-      # if i put it inside namespace it becomes map/map#show, feel free to move
+      # if I put it inside namespace it becomes map/map#show, feel free to move
       # it back in the correct way haha
       get 'map/:id', to: 'map#show'
     end

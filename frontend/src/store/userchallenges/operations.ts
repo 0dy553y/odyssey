@@ -13,6 +13,7 @@ import {
   updateCompletedUserChallengesListData,
   updateOngoingChallengeMapsData,
   updateOngoingUserChallengesListData,
+  updateChallengeMapData,
 } from './actions';
 
 export function loadAllUserChallengesDataForChallenge(
@@ -72,6 +73,14 @@ export function loadAllOngoingChallengeMaps(): OperationResult {
     const response = await api.map.getAllOngoingChallengeMaps();
     const challengeMaps: UserChallengeMapData[] = response.payload.data;
     dispatch(updateOngoingChallengeMapsData({ data: [...challengeMaps] }));
+  };
+}
+
+export function loadChallengeMap(challengeId: number): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    const response = await api.map.getChallengeMap(challengeId);
+    const challengeMap: UserChallengeMapData = response.payload.data;
+    dispatch(updateChallengeMapData({ data: challengeMap }));
   };
 }
 

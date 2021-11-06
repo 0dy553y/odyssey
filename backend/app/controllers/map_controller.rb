@@ -8,7 +8,7 @@ class MapController < ApplicationController
   end
 
   def show
-    @user_challenge_map = construct_user_challenge_map_data(UserChallenge.find(params[:id]))
+    @user_challenge_map = construct_user_challenge_map_data(current_user.user_challenges.find_by(challenge_id: params[:id]))
   end
 
   private
