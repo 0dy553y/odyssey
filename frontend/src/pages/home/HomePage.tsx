@@ -105,7 +105,6 @@ const HomePage: React.FC = () => {
     setTaskCompletedDialogState({
       openChallengeName: openChallengeName,
     });
-    console.log('hello');
   };
   useEffect(() => {
     dispatch(loadAllOngoingChallengeMaps());
