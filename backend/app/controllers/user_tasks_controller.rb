@@ -6,7 +6,7 @@ class UserTasksController < ApplicationController
   def tasks_in_period
     from_date = params.require(:from).to_date
     to_date = params.require(:to).to_date
-    date_range = from_date..to_date
+    date_range = from_date...to_date
     @user_tasks = current_user.user_tasks.joins(:user_challenge)
                               .where(scheduled_for: date_range,
                                      user_challenge: { forfeited_at: nil })
