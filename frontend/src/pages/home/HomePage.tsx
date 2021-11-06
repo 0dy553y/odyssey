@@ -117,7 +117,6 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     dispatch(loadUserTasksForDay(date));
-
     // Note: Not batched on purpose so that today's tasks load faster.
     dispatch(loadUserTasksForDays(date, 15));
   }, [date]);
