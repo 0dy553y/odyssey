@@ -16,7 +16,7 @@ import { PostListData, ReactionEmoji, ReactionListData } from 'types/posts';
 import { displayDateWithTimestamp, displayUsername } from 'utils/formatting';
 import { ReactionChip } from './ReactionChip';
 import { ReactionPicker } from './ReactionPicker';
-import { CHALLENGE_ROUTE } from 'routing/routes';
+import { CHALLENGE_ROUTE, PROFILE_ROUTE } from 'routing/routes';
 
 interface FeedPostProps {
   post: PostListData;
@@ -122,7 +122,11 @@ export const FeedPost: React.FC<FeedPostProps> = ({
 
   return (
     <ListItem alignItems="flex-start">
-      <ListItemAvatar>
+      <ListItemAvatar
+        onClick={() => {
+          history.push(`${PROFILE_ROUTE}/${creator.username}`);
+        }}
+      >
         <UserAvatar
           src={creator.avatar}
           username={creator.username}
