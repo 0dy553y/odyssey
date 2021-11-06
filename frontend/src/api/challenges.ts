@@ -66,7 +66,7 @@ class ChallengesAPI extends BaseAPI {
     categoryId: number
   ): ApiPromise<ChallengeListData[]> {
     return this.get(
-      `${ChallengesAPI.getChallengesUrl()}/get_popular_challenges`,
+      `${ChallengesAPI.getChallengesUrl()}/show_popular_challenges`,
       { params: { categoryId: categoryId } }
     );
   }
