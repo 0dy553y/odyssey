@@ -123,15 +123,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({
 
   return (
     <ListItem alignItems="flex-start">
-      <ListItemAvatar
-        onClick={() => {
-          history.push(
-            `${PROFILE_ROUTE}${
-              creator.id === currentUserId ? '' : '/' + creator.username
-            }`
-          );
-        }}
-      >
+      <ListItemAvatar>
         <UserAvatar
           src={creator.avatar}
           username={creator.username}
