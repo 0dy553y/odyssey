@@ -221,6 +221,10 @@ const ProfilePage: React.FC = () => {
                     anchorEl={menuAnchorEl}
                     open={isMenuOpen}
                     onClose={handleMenuClose}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'center',
+                    }}
                   >
                     <MenuItem
                       onClick={() => {
