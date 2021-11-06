@@ -18,6 +18,7 @@ import { startOfDay } from 'date-fns';
 import { UserChallengeMapData } from 'types/userchallenge';
 import { getChallengeMaps } from 'store/userchallenges/selectors';
 import LoadingPage from 'pages/loading/LoadingPage';
+import { useIsDesktop } from 'utils/windowSize';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -64,6 +65,7 @@ const HomePage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const isDesktop = useIsDesktop();
 
   const [date, setDate] = useState(startOfDay(new Date()));
   const [ChallengeCompletedDialogState, setChallengeCompletedDialogState] =
@@ -160,6 +162,7 @@ const HomePage: React.FC = () => {
           date={date}
           onChallengeCompleted={onChallengeCompleted}
           onTaskCompleted={onTaskCompleted}
+          cardsPerView={isDesktop ? 3.3 : 1.3}
         />
       </div>
 

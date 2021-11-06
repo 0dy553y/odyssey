@@ -78,6 +78,9 @@ const useStyles = makeStyles(() => ({
   toggleContainer: {
     flexGrow: 1,
   },
+  displayLineBreak: {
+    whiteSpace: 'pre-line',
+  },
 }));
 
 interface Props {
@@ -129,7 +132,7 @@ const UserTaskCard: React.FC<Props> = ({
         <div className={classes.padding} />
         <Typography
           align="left"
-          className={`${classes.secondaryText} ${classes.scrollableText}`}
+          className={`${classes.secondaryText} ${classes.scrollableText} ${classes.displayLineBreak}`}
         >
           {userTask.description}
         </Typography>
