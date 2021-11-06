@@ -1,7 +1,6 @@
 import React from 'react';
 import { FriendRequestListData } from '../../types/friendrequests';
 import {
-  Box,
   Button,
   Grid,
   ListItem,
@@ -51,10 +50,7 @@ const NotificationsListItem: React.FC<Props> = ({ friendRequest }: Props) => {
   const sender = friendRequest.sender;
 
   return (
-    <ListItem
-      alignItems="flex-start"
-      sx={{ marginTop: '0.5em', marginBottom: '1em' }}
-    >
+    <ListItem alignItems="flex-start">
       <ListItemAvatar>
         <UserAvatar
           src={sender.avatar}
