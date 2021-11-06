@@ -44,13 +44,7 @@ const MapsPage: React.FC = () => {
           </div>
         </Toolbar>
       </AppBar>
-      <Box
-        sx={
-          {
-            // position: 'relative',
-          }
-        }
-      >
+      <Box>
         <MapCarousel
           maps={challengeMaps}
           initialIndex={challengeIdToSwiperIndexMap[challengeId]}

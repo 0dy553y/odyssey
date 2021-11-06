@@ -35,8 +35,10 @@ const MapDialog: React.FC<MapDialogProps> = ({ isOpen, close, mapData }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const isLastStep = mapData.currentTaskNum >= mapData.numTasks;
+
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && !isLastStep) {
       setTimeout(() => {
         close();
       }, 2500);
