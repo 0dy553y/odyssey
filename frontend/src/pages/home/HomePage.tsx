@@ -5,7 +5,7 @@ import UserTaskCarousel from '../../components/home/UserTaskCarousel';
 import MapDialog from '../../components/map/MapDialog';
 import { getUserTaskListForDay } from '../../store/usertasks/selectors';
 import { RootState } from '../../store';
-import { Grid, IconButton, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { getUser } from '../../store/auth/selectors';
 import { useHistory } from 'react-router-dom';
@@ -18,6 +18,7 @@ import { startOfDay } from 'date-fns';
 import { UserChallengeMapData } from 'types/userchallenge';
 import { getChallengeMaps } from 'store/userchallenges/selectors';
 import LoadingPage from 'pages/loading/LoadingPage';
+import { useIsDesktop } from 'utils/windowSize';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -35,14 +36,19 @@ const useStyles = makeStyles(() => ({
     marginLeft: 30,
     marginRight: 30,
     width: 'auto',
+    display: 'flex',
+    flexDirection: 'row',
   },
   tasksContainer: {
     height: '100%',
     marginTop: 10,
     marginBottom: 15,
   },
+  greetingsContainer: {
+    flexGrow: 1,
+  },
   controlsContainer: {
-    textAlign: 'right',
+    whiteSpace: 'nowrap',
   },
 }));
 
@@ -59,6 +65,7 @@ const HomePage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const isDesktop = useIsDesktop();
 
   const [date, setDate] = useState(startOfDay(new Date()));
   const [ChallengeCompletedDialogState, setChallengeCompletedDialogState] =
@@ -119,21 +126,14 @@ const HomePage: React.FC = () => {
     <div className={classes.baseContainer}>
       <div className={classes.headerContainer}>
         <Grid container direction="column" spacing={2}>
-          <Grid
-            item
-            container
-            direction="row"
-            className={classes.headerNonCarouselItem}
-          >
-            <Grid item container xs={6} sm={9}>
-              <Grid item>
-                <Typography variant="h4">Hello,</Typography>
-                <Typography variant="h4">
-                  {user.displayName ?? user.username}
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item xs={6} sm={3} className={classes.controlsContainer}>
+          <Grid item className={classes.headerNonCarouselItem}>
+            <div className={classes.greetingsContainer}>
+              <Typography variant="h4">Hello,</Typography>
+              <Typography variant="h4">
+                {user.displayName ?? user.username}
+              </Typography>
+            </div>
+            <div className={classes.controlsContainer}>
               <IconButton
                 size="large"
                 onClick={() => history.push(NOTIFICATIONS_ROUTE)}
@@ -146,7 +146,7 @@ const HomePage: React.FC = () => {
               >
                 <TodayIcon fontSize="inherit" />
               </IconButton>
-            </Grid>
+            </div>
           </Grid>
           <Grid item className={classes.headerCarouselItem}>
             <DateCarousel date={date} setDate={setDate} />
@@ -156,14 +156,19 @@ const HomePage: React.FC = () => {
           </Grid>
         </Grid>
       </div>
-      <div className={classes.tasksContainer}>
+      <Box
+        className={classes.tasksContainer}
+        sx={{ marginLeft: isDesktop ? 6 : undefined }}
+      >
         <UserTaskCarousel
           userTaskList={userTaskList}
           date={date}
           onChallengeCompleted={onChallengeCompleted}
           onTaskCompleted={onTaskCompleted}
+          cardsPerView={isDesktop ? 3.3 : 1.3}
+          centeredCards={!isDesktop}
         />
-      </div>
+      </Box>
 
       {ChallengeCompletedDialogState.completedChallengeId && (
         <ChallengeCompletedDialog

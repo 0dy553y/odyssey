@@ -1,7 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { UserTaskListData } from '../../types/usertasks';
-import { Card, IconButton, Switch, Stack, Typography } from '@mui/material';
+import {
+  Card,
+  IconButton,
+  Link as MuiLink,
+  Switch,
+  Stack,
+  Typography,
+} from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
 import MapIcon from '@mui/icons-material/Map';
 import { makeStyles } from '@mui/styles';
 import {
@@ -11,7 +19,8 @@ import {
 import { useDispatch } from 'react-redux';
 import { getHexCode, getComplementaryColor } from 'utils/color';
 import { isAfter } from 'date-fns';
-import { MAP_ROUTE } from '../../routing/routes';
+import { CHALLENGE_ROUTE, MAP_ROUTE } from '../../routing/routes';
+import Linkify from 'react-linkify';
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -33,12 +42,15 @@ const useStyles = makeStyles(() => ({
     color: 'white',
     opacity: 80,
   },
+  link: {
+    textDecorationColor: 'white',
+  },
   scrollableText: {
     flexGrow: 1,
     height: '75px',
     // Padding for scrollbar
     paddingRight: '8px',
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
   padding: {
     height: 15,
@@ -70,6 +82,15 @@ const useStyles = makeStyles(() => ({
       borderRadius: 34 / 2,
       opacity: 0.3,
     },
+  },
+  controlsContainer: {
+    display: 'flex',
+  },
+  toggleContainer: {
+    flexGrow: 1,
+  },
+  displayLineBreak: {
+    whiteSpace: 'pre-line',
   },
 }));
 
@@ -120,32 +141,68 @@ const UserTaskCard: React.FC<Props> = ({
           {userTask.challengeName}
         </Typography>
         <div className={classes.padding} />
+
         <Typography
           align="left"
-          className={`${classes.secondaryText} ${classes.scrollableText}`}
+          className={`${classes.secondaryText} ${classes.scrollableText} ${classes.displayLineBreak}`}
         >
-          {userTask.description}
-        </Typography>
-        <Stack
-          direction="row"
-          justifyContent="flex-end"
-          alignItems="flex-end"
-          spacing={2}
-        >
-          <IconButton
-            component={Link}
-            to={`${MAP_ROUTE}/${userTask.challengeId}`}
+          <Linkify
+            componentDecorator={(
+              decoratedHref: string,
+              decoratedText: string,
+              key: number
+            ) => (
+              <MuiLink
+                href={decoratedHref}
+                target="_blank"
+                rel="noreferrer"
+                underline="always"
+                key={key}
+                className={`${classes.secondaryText} ${classes.link}`}
+              >
+                {decoratedText}
+              </MuiLink>
+            )}
           >
-            <MapIcon filter="invert(1)" />
-          </IconButton>
-          {!isAfter(userTask.scheduledFor, new Date()) && (
-            <Switch
-              checked={!!userTask.completedAt}
-              onChange={handleDoneToggle}
-              className={classes.toggle}
-            />
-          )}
-        </Stack>
+            {userTask.description}
+          </Linkify>
+        </Typography>
+        <div className={classes.controlsContainer}>
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            spacing={2}
+          >
+            <IconButton
+              component={Link}
+              to={`${MAP_ROUTE}/${userTask.challengeId}`}
+            >
+              <MapIcon filter="invert(1)" />
+            </IconButton>
+            <IconButton
+              component={Link}
+              to={`${CHALLENGE_ROUTE}/${userTask.challengeId}`}
+            >
+              <InfoIcon filter="invert(1)" />
+            </IconButton>
+          </Stack>
+          <Stack
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="flex-end"
+            spacing={2}
+            className={classes.toggleContainer}
+          >
+            {!isAfter(userTask.scheduledFor, new Date()) && (
+              <Switch
+                checked={!!userTask.completedAt}
+                onChange={handleDoneToggle}
+                className={classes.toggle}
+              />
+            )}
+          </Stack>
+        </div>
       </div>
     </Card>
   );

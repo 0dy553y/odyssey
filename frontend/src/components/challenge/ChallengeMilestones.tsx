@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Box, Checkbox, Typography } from '@mui/material';
+import { Box, Checkbox, Link, Typography } from '@mui/material';
 import {
   CheckRounded,
   RadioButtonUnchecked,
@@ -20,6 +20,7 @@ import { TaskListData } from '../../types/tasks';
 import { UserTaskListData } from '../../types/usertasks';
 import { markUserTaskAsDoneFromChallenge } from '../../store/usertasks/operations';
 import { isBefore, isToday } from 'date-fns';
+import Linkify from 'react-linkify';
 
 interface ChallengeMilestonesProps {
   tasks: TaskListData[];
@@ -179,7 +180,25 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
               <Typography
                 className={`${classes.displayLineBreak} ${classes.wrapText}`}
               >
-                {t.description}
+                <Linkify
+                  componentDecorator={(
+                    decoratedHref: string,
+                    decoratedText: string,
+                    key: number
+                  ) => (
+                    <Link
+                      href={decoratedHref}
+                      target="_blank"
+                      rel="noreferrer"
+                      underline="always"
+                      key={key}
+                    >
+                      {decoratedText}
+                    </Link>
+                  )}
+                >
+                  {t.description}
+                </Linkify>
               </Typography>
             </TimelineContent>
           </TimelineItem>

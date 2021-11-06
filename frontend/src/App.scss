@@ -6,6 +6,8 @@ a {
   display: flex !important;
   flex-direction: column;
   height: 100%;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .App-content-container {

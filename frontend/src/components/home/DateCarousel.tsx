@@ -9,22 +9,10 @@ import DateItem from './DateItem';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Mousewheel, Keyboard } from 'swiper';
 import SwiperClass from 'swiper/types/swiper-class';
-import { Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-
-import './DateCarousel.scss';
+import { Box, Stack, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 
-const useStyles = makeStyles(() => ({
-  monthText: {
-    textAlign: 'center',
-    paddingBottom: 10,
-  },
-  dayText: {
-    textAlign: 'center',
-    paddingBottom: 0,
-  },
-}));
+import './DateCarousel.scss';
 
 interface Props {
   date: Date;
@@ -38,7 +26,6 @@ const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
   const [dates, setDates] = useState(
     getNeighbouringDates(selectedDate, dateRange)
   );
-  const classes = useStyles();
 
   useEffect(() => {
     const diff = dayjs(date).diff(selectedDate, 'day');
@@ -97,20 +84,27 @@ const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
   SwiperCore.use([Navigation, Mousewheel, Keyboard]);
 
   return (
-    <>
-      <div className={classes.monthText}>
+    <Stack
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      spacing={2}
+    >
+      <Box>
         <Typography variant="h5">{getMonthString(selectedDate)}</Typography>
-      </div>
+      </Box>
       <Swiper
         centeredSlides
         initialSlide={previousIndex}
-        slidesPerView={3}
         breakpoints={{
-          '180': {
+          180: {
             slidesPerView: 5,
           },
-          '320': {
+          320: {
             slidesPerView: 7,
+          },
+          700: {
+            slidesPerView: 'auto',
           },
         }}
         watchSlidesProgress
@@ -127,11 +121,12 @@ const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className={classes.dayText}>
+
+      <Stack alignItems="center">
         <Typography variant="h6">{getDayString(selectedDate)}</Typography>
         <Typography>{getDateFromNowString(selectedDate)}</Typography>
-      </div>
-    </>
+      </Stack>
+    </Stack>
   );
 };
 

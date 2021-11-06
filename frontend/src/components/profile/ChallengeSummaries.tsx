@@ -38,7 +38,7 @@ const ChallengeSummaries: React.FC<ChallengeSummariesProps> = (props) => {
 
   return (
     <>
-      <Typography component="div" variant="h5" className="section-heading">
+      <Typography component="div" variant="h5">
         Ongoing challenges
       </Typography>
       <ul>

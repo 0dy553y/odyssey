@@ -40,6 +40,8 @@ interface Props {
   date: Date;
   onChallengeCompleted: (completedChallengeId: number) => void;
   onTaskCompleted: (openChallengeName: string) => void;
+  cardsPerView: number;
+  centeredCards: boolean;
 }
 
 const UserTaskCarousel: React.FC<Props> = ({
@@ -47,6 +49,8 @@ const UserTaskCarousel: React.FC<Props> = ({
   date,
   onChallengeCompleted,
   onTaskCompleted,
+  cardsPerView,
+  centeredCards,
 }: Props) => {
   const classes = useStyles();
   const history = useHistory();
@@ -89,8 +93,8 @@ const UserTaskCarousel: React.FC<Props> = ({
 
   return (
     <Swiper
-      centeredSlides
-      slidesPerView={1.3}
+      centeredSlides={centeredCards}
+      slidesPerView={cardsPerView}
       spaceBetween={20}
       slideToClickedSlide
       keyboard={{ enabled: true }}
