@@ -22,6 +22,7 @@ import { UserChallengeMapData } from 'types/userchallenge';
 import { getChallengeMaps } from 'store/userchallenges/selectors';
 import LoadingPage from 'pages/loading/LoadingPage';
 import { useIsDesktop } from 'utils/windowSize';
+import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -104,7 +105,11 @@ const HomePage: React.FC = () => {
     setTaskCompletedDialogState({
       openChallengeName: openChallengeName,
     });
+    console.log('hello');
   };
+  useEffect(() => {
+    dispatch(loadAllOngoingChallengeMaps());
+  }, []);
 
   useEffect(() => {
     // Note: Not batched on purpose so that today's tasks load faster.
