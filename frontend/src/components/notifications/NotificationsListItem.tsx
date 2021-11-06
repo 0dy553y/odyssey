@@ -32,11 +32,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: theme.palette.primary.main,
     boxShadow: '0px 0px 0px 0px',
     borderRadius: '1em',
+    textTransform: 'none',
   },
   rejectButton: {
     color: theme.palette.secondary.main,
     backgroundColor: 'transparent',
     borderRadius: '1em',
+    textTransform: 'none',
+    marginRight: '1em',
   },
 }));
 
@@ -94,7 +97,6 @@ const NotificationsListItem: React.FC<Props> = ({ friendRequest }: Props) => {
             variant="outlined"
             className={classes.rejectButton}
             onClick={() => dispatch(rejectFriendRequest(friendRequest.id))}
-            sx={{ marginRight: '1em', textTransform: 'none' }}
           >
             Decline
           </Button>
@@ -103,7 +105,6 @@ const NotificationsListItem: React.FC<Props> = ({ friendRequest }: Props) => {
             variant="contained"
             className={classes.acceptButton}
             onClick={() => dispatch(acceptFriendRequest(friendRequest.id))}
-            sx={{ textTransform: 'none' }}
           >
             Accept
           </Button>
