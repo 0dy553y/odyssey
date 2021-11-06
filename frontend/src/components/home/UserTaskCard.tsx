@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => ({
     height: '75px',
     // Padding for scrollbar
     paddingRight: '8px',
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
   padding: {
     height: 15,
