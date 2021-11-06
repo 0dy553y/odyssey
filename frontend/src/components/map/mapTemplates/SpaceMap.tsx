@@ -136,7 +136,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
   return (
     <>
       {/*  x: red, y: green, z: blue */}
-      <axesHelper args={[5]} />
+      {/* <axesHelper args={[5]} /> */}
       {/* {isMapLoaded ? (
             <EffectComposer>
               <Bloom

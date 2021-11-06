@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
   map: {
     position: 'absolute',
     height: '100vh',
-    width: '100vw',
+    width: '100%',
   },
   container: {
     position: 'relative',
