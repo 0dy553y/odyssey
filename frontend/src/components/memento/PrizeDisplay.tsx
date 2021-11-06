@@ -40,7 +40,7 @@ const PrizeDisplay: React.FC<PrizeDisplayProps> = ({
   // 30 pixels for one unit in canvas.
   const pixelToCoordRatio = 30;
   const horizontalMargin = 60;
-  const topMargin = 32;
+  const topMargin = 0;
   const adjustedWidth = Math.min(windowDimensions.width, 600);
 
   const baseX = -(adjustedWidth / 2 - horizontalMargin) / pixelToCoordRatio;
@@ -83,11 +83,11 @@ const PrizeDisplay: React.FC<PrizeDisplayProps> = ({
               <PrizeModel
                 position={[0, 0, 0]}
                 modelPath={p.prizePath}
-                scale={1.5}
+                scale={1.2}
               />
               {showName ? (
                 <Html position={[0, -0.8, 0]} center>
-                  <p>{p.prizeName}</p>
+                  <p style={{ textAlign: 'center' }}>{p.prizeName}</p>
                 </Html>
               ) : (
                 <></>
