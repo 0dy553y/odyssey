@@ -2,20 +2,16 @@ import React, { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { getUser } from 'store/auth/selectors';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {
   AppBar,
   Box,
-  Divider,
   Grid,
   IconButton,
   Menu,
   MenuItem,
-  Stack,
   Theme,
   Toolbar,
-  Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import ProfileHeader from '../../components/profile/ProfileHeader';
@@ -25,7 +21,6 @@ import ChallengeSummaries from '../../components/profile/ChallengeSummaries';
 import { useHistory, useParams } from 'react-router-dom';
 import {
   MEMENTOS_ROUTE,
-  COMPLETED_CHALLENGES_ROUTE,
   EDIT_PROFILE_ROUTE,
   FRIENDS_ROUTE,
   POSTS_ROUTE,
