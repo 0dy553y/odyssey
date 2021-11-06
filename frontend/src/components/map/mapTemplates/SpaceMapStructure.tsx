@@ -12,6 +12,7 @@ import {
   translate,
   buildDiagonalRepeated,
   regularTranslate,
+  getFileFormat,
 } from '../../../utils/map';
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionACW } from '../../../utils/direction';
@@ -134,6 +135,7 @@ const SpaceMapStructure = (
               )}
               direction={nextDirection}
               fileName={getLandPath(mapTheme.land)}
+              fileFormat={getFileFormat(mapTheme.land)}
             />
           </group>
         );

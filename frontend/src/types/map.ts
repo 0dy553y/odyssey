@@ -39,3 +39,8 @@ export enum Character {
   FISHBOWL_ASTRONAUT,
   PUMPKIN_ASTRONAUT,
 }
+
+export enum ModelFileFormat {
+  OBJ,
+  GLB,
+}

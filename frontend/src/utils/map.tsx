@@ -6,6 +6,7 @@ import {
   TranslationVector,
   Land,
   Character,
+  ModelFileFormat,
 } from '../types/map';
 import { Arch, Columns } from '../components/map';
 import { Vector3 } from '@react-three/fiber';
@@ -188,7 +189,16 @@ export function buildDiagonalRepeated({
   );
 }
 
+export function getFileFormat(land: Land): ModelFileFormat {
+  if (land === Land.GRASS) {
+    return ModelFileFormat.GLB;
+  }
+  return ModelFileFormat.OBJ;
+}
 export function getLandPath(land: Land): string {
+  if (land === Land.GRASS) {
+    return 'land/grass';
+  }
   return `land/${Land[land].toLowerCase()}.vox`;
 }
 
