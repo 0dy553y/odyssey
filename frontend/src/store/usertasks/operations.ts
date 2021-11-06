@@ -56,9 +56,7 @@ function markUserTaskAsDone(
       api.userTasks.markUserTaskAsDone(userTaskId)
     );
     const userTask: UserTaskData = response.payload.data;
-    if (onTaskCompleted) {
-      onTaskCompleted(userTask.challengeName);
-    }
+    onTaskCompleted(userTask.challengeName);
     if (userTask.isChallengeCompleted) {
       onChallengeCompleted(userTask.challengeId);
     }

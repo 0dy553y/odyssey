@@ -2,31 +2,38 @@
 import React, {
   useState,
   useRef,
-  Suspense,
   forwardRef,
   useImperativeHandle,
+  useEffect,
 } from 'react';
 import SpaceMapStructure from './SpaceMapStructure';
-import { Canvas } from '@react-three/fiber';
+import { useThree } from '@react-three/fiber';
 import { MapControls, Stars } from '@react-three/drei';
 import { Character } from '..';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Axis, Direction } from '../../../types/map';
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionCW } from 'utils/direction';
-import { translate } from 'utils/map';
+import {
+  getCameraPosition,
+  getCameraZoomForDesktop,
+  getCameraZoomForMobile,
+  translate,
+} from 'utils/map';
 import {
   UserChallengeFriendMapData,
   UserChallengeMapData,
 } from 'types/userchallenge';
-import { getPrize, getPrizePath } from 'utils/prizes';
-import PrizeInfoModal from 'components/common/prizeInfoDialog/PrizeInfoDialog';
+import { getPrizePath } from 'utils/prizes';
 
 interface MapProps {
   mapData: UserChallengeMapData;
+  setIsPrizeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isDesktop: boolean;
 }
 
 const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
+  const { mapData, setIsPrizeModalOpen, isDesktop } = props;
   const {
     username,
     character,
@@ -36,7 +43,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
     currentTaskNum,
     friends,
     mapTheme,
-  } = props.mapData;
+  } = mapData;
   let currentStep = currentTaskNum;
   const numSteps = numTasks;
   const friendsPositions: Record<number, UserChallengeFriendMapData[]> = {};
@@ -51,25 +58,44 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
     pos: [0, 0, 0],
     direction: Direction.FORWARD,
   });
-  const [isPrizeModalOpen, setIsPrizeModalOpen] = useState<boolean>(false);
+  const [isMapLoaded, setIsMapLoaded] = useState<boolean>(false);
+  const [shouldMoveCharacterForward, setShouldMoveCharacterForward] =
+    useState<boolean>(false);
   const width = 7;
   const widthIncrement = 1.5;
   const heightIncrement = 0.5;
   const characterRef = useRef();
   const mapRef = useRef();
+  const { camera } = useThree();
+
+  useEffect(() => {
+    if (stepPositions.length === numTasks + 1) {
+      setIsMapLoaded(true);
+    }
+  }, [stepPositions]);
+
+  useEffect(() => {
+    if (
+      isMapLoaded &&
+      shouldMoveCharacterForward &&
+      characterRef.current !== undefined &&
+      mapRef.current !== undefined
+    ) {
+      currentStep = currentStep + 1;
+      setTimeout(() => {
+        (characterRef.current as any).moveCharacter(
+          stepPositions[currentStep - 2],
+          stepPositions[currentStep - 1]
+        );
+        setShouldMoveCharacterForward(false);
+        (mapRef.current as any).setCurrentStep(currentStep);
+      }, 500);
+    }
+  }, [isMapLoaded]);
 
   useImperativeHandle(ref, () => ({
     moveCharacterForward() {
-      if (characterRef.current !== undefined && mapRef.current !== undefined) {
-        setTimeout(() => {
-          currentStep = currentStep + 1;
-          (characterRef.current as any).moveCharacter(
-            stepPositions[currentStep - 2],
-            stepPositions[currentStep - 1]
-          );
-        }, 500);
-        (mapRef.current as any).setCurrentStep(currentStep);
-      }
+      setShouldMoveCharacterForward(true);
     },
 
     moveCharacterBackward() {
@@ -84,34 +110,34 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
         (mapRef.current as any).setCurrentStep(currentStep);
       }
     },
+
+    isMapLoaded() {
+      return isMapLoaded;
+    },
   }));
 
-  const zoomBreakpoints = [
-    // numSteps, zoomFactor
-    [20, 15],
-    [6, 18],
-    [5, 25],
-    [4, 30],
-    [3, 40],
-    [0, 45],
-  ];
-  const d = 35;
-  const myBp = zoomBreakpoints.find((a) => {
-    return a[0] < numSteps;
-  });
-  const cameraZoom = myBp ? myBp[1] : 45;
+  const cameraZoom = isDesktop
+    ? getCameraZoomForDesktop(numSteps)
+    : getCameraZoomForMobile(numSteps);
+
+  useEffect(() => {
+    const cameraPosition = getCameraPosition(
+      charPosition.direction
+    ) as number[];
+    camera.position.set(
+      cameraPosition[0],
+      cameraPosition[1],
+      cameraPosition[2]
+    );
+    camera.zoom = cameraZoom;
+    camera.updateProjectionMatrix();
+  }, [isMapLoaded]);
 
   return (
-    <Suspense fallback={<div />}>
-      <>
-        <Canvas
-          camera={{ zoom: cameraZoom, position: [d, d, d] }}
-          orthographic={true}
-        >
-          <color attach="background" args={['#010101']} />
-          {/*  x: red, y: green, z: blue */}
-          {/* <axesHelper args={[5]} /> */}
-          {/* {stepPositions.length === numSteps + 1 ? (
+    <>
+      {/*  x: red, y: green, z: blue */}
+      {/* <axesHelper args={[5]} /> */}
+      {/* {isMapLoaded ? (
             <EffectComposer>
               <Bloom
                 luminanceThreshold={0.8}
@@ -122,82 +148,68 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
           ) : (
             <></>
           )} */}
-          <directionalLight position={[0, 30, 0]} intensity={1} />
-          <pointLight position={[30, 0, 0]} intensity={0.5} />
-          <pointLight position={[-30, 0, 0]} intensity={0.5} />
-          <pointLight position={[0, 0, 30]} intensity={0.2} />
-          <pointLight position={[0, 0, -30]} intensity={0.2} />
-          <SpaceMapStructure
-            ref={mapRef}
-            numSteps={numSteps}
-            currentStep={currentStep}
-            width={width}
-            widthIncrement={widthIncrement}
-            heightIncrement={heightIncrement}
-            prizePath={getPrizePath(prizeName)}
-            onMapMounted={(stepPositions) => {
-              setStepPositions(stepPositions);
-              setCharPosition(stepPositions[currentStep - 1]);
-            }}
-            onClickPrize={() => setIsPrizeModalOpen(true)}
-            mapTheme={mapTheme}
-          />
-          <Character
-            ref={characterRef}
-            key={`${challengeName}-${charPosition.pos as unknown as string}`}
-            position={charPosition.pos}
-            direction={charPosition.direction}
-            username={username}
-            character={character}
-          />
-          {/* spawn friends */}
-          {stepPositions.length === numSteps + 1 ? (
-            <>
-              {Object.keys(friendsPositions).map((step: string) =>
-                friendsPositions[Number(step)].map(
-                  ({ username, character }, index: number) => {
-                    const { pos, direction } = stepPositions[Number(step) - 1];
-                    const dv = getDirectionVector(
-                      nextDirectionCW(direction)
-                    ) as number[];
-                    return (
-                      <Character
-                        key={`${challengeName}-${username}`}
-                        position={translate(pos, {
-                          [Axis.X]: dv[0] * (index + 1) * 2,
-                          [Axis.Z]: dv[1] * (index + 1) * 2,
-                        })}
-                        direction={direction}
-                        username={username}
-                        character={character}
-                      />
-                    );
-                  }
-                )
-              )}
-            </>
-          ) : (
-            <></>
+
+      <SpaceMapStructure
+        ref={mapRef}
+        numSteps={numSteps}
+        currentStep={currentStep}
+        width={width}
+        widthIncrement={widthIncrement}
+        heightIncrement={heightIncrement}
+        prizePath={getPrizePath(prizeName)}
+        onMapMounted={(stepPositions) => {
+          setStepPositions(stepPositions);
+          setCharPosition(stepPositions[currentStep - 1]);
+        }}
+        onClickPrize={() => setIsPrizeModalOpen(true)}
+        mapTheme={mapTheme}
+      />
+      <Character
+        ref={characterRef}
+        key={`${challengeName}-${charPosition.pos as unknown as string}`}
+        position={charPosition.pos}
+        direction={charPosition.direction}
+        username={username}
+        character={character}
+      />
+      {/* spawn friends */}
+      {isMapLoaded ? (
+        <>
+          {Object.keys(friendsPositions).map((step: string) =>
+            friendsPositions[Number(step)].map(
+              ({ username, character }, index: number) => {
+                const { pos, direction } = stepPositions[Number(step) - 1];
+                const dv = getDirectionVector(
+                  nextDirectionCW(direction)
+                ) as number[];
+                return (
+                  <Character
+                    key={`${challengeName}-${username}`}
+                    position={translate(pos, {
+                      [Axis.X]: dv[0] * (index + 1) * 2,
+                      [Axis.Z]: dv[1] * (index + 1) * 2,
+                    })}
+                    direction={direction}
+                    username={username}
+                    character={character}
+                  />
+                );
+              }
+            )
           )}
-          <MapControls
-            addEventListener={undefined}
-            hasEventListener={undefined}
-            removeEventListener={undefined}
-            dispatchEvent={undefined}
-            minZoom={cameraZoom - 8}
-          />
-          <Stars factor={10} radius={60 - cameraZoom} saturation={1} fade />
-        </Canvas>
-        <PrizeInfoModal
-          isOpen={isPrizeModalOpen}
-          onClose={() => setIsPrizeModalOpen(false)}
-          prize={{
-            ...getPrize(prizeName, challengeName),
-            challengeName: challengeName,
-          }}
-        />
-      </>
-    </Suspense>
+        </>
+      ) : (
+        <></>
+      )}
+      <MapControls
+        addEventListener={undefined}
+        hasEventListener={undefined}
+        removeEventListener={undefined}
+        dispatchEvent={undefined}
+        minZoom={cameraZoom - 8}
+      />
+      <Stars factor={10} radius={60 - cameraZoom} saturation={1} fade />
+    </>
   );
 };
 

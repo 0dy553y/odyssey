@@ -19,6 +19,7 @@ import { UserChallengeMapData } from 'types/userchallenge';
 import { getChallengeMaps } from 'store/userchallenges/selectors';
 import LoadingPage from 'pages/loading/LoadingPage';
 import { useIsDesktop } from 'utils/windowSize';
+import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
 import { loadAllFriendRequests } from '../../store/notifications/operations';
 import { getFriendRequestList } from '../../store/notifications/selectors';
 
@@ -104,12 +105,15 @@ const HomePage: React.FC = () => {
       openChallengeName: openChallengeName,
     });
   };
-
   useEffect(() => {
     batch(() => {
+      dispatch(loadAllOngoingChallengeMaps());
       dispatch(loadAllFriendRequests());
-      dispatch(loadUserTasksForDays(date, 15));
     });
+  }, []);
+
+  useEffect(() => {
+    dispatch(loadUserTasksForDays(date, 15));
   }, [date]);
 
   const userTaskList = Array.from(
