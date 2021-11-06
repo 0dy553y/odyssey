@@ -48,6 +48,9 @@ const useStyles = makeStyles(() => ({
   body: {
     textAlign: 'center',
   },
+  handCursor: {
+    cursor: 'pointer',
+  },
 }));
 
 const ChallengeCompletedDialog: React.FC<ChallengeCompletedDialogProps> = ({
@@ -117,9 +120,19 @@ const ChallengeCompletedDialog: React.FC<ChallengeCompletedDialogProps> = ({
               className={classes.body}
             >
               has been added to{' '}
-              <Link onClick={() => history.push(MEMENTOS_ROUTE)}>mementos</Link>
+              <Link
+                className={classes.handCursor}
+                onClick={() => history.push(MEMENTOS_ROUTE)}
+              >
+                mementos
+              </Link>
               . Head onto{' '}
-              <Link onClick={() => history.push(EXPLORE_ROUTE)}>Explore</Link>{' '}
+              <Link
+                className={classes.handCursor}
+                onClick={() => history.push(EXPLORE_ROUTE)}
+              >
+                Explore
+              </Link>{' '}
               to embark on your next odyssey!
             </Typography>
           </DialogContent>
