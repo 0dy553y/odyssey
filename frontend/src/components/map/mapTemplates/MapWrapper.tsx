@@ -2,6 +2,7 @@
 import React, {
   forwardRef,
   Suspense,
+  useCallback,
   useImperativeHandle,
   useRef,
   useState,
@@ -14,20 +15,23 @@ import { getPrize } from 'utils/prizes';
 
 interface MapWrapperProps {
   mapData: UserChallengeMapData;
+  shouldMoveCharacterForward?: boolean;
 }
 
-const MapWrapper = (props: MapWrapperProps, ref: React.Ref<unknown>) => {
-  const { mapData } = props;
+const MapWrapper: React.FC<MapWrapperProps> = ({
+  mapData,
+  shouldMoveCharacterForward,
+}) => {
   const [isPrizeModalOpen, setIsPrizeModalOpen] = useState<boolean>(false);
-  const mapRef = useRef();
 
-  useImperativeHandle(ref, () => ({
-    moveCharacterForward() {
-      if (mapRef.current) {
-        (mapRef.current as any).moveCharacterForward();
+  const mapRef = useCallback(
+    (node) => {
+      if (node !== null && shouldMoveCharacterForward) {
+        node.moveCharacterForward();
       }
     },
-  }));
+    [shouldMoveCharacterForward]
+  );
 
   return (
     <>
@@ -58,4 +62,4 @@ const MapWrapper = (props: MapWrapperProps, ref: React.Ref<unknown>) => {
   );
 };
 
-export default forwardRef(MapWrapper);
+export default MapWrapper;

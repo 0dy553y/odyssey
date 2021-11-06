@@ -3,7 +3,6 @@ import React, { useCallback } from 'react';
 import { Dialog, Typography, Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { UserChallengeMapData } from 'types/userchallenge';
-import SpaceMap from './mapTemplates/SpaceMap';
 import { useDispatch } from 'react-redux';
 import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
 import MapWrapper from './mapTemplates/MapWrapper';
@@ -36,15 +35,6 @@ const MapDialog: React.FC<MapDialogProps> = ({ isOpen, close, mapData }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const mapRef = useCallback(
-    (node) => {
-      if (node !== null && isOpen) {
-        node.moveCharacterForward();
-      }
-    },
-    [isOpen]
-  );
-
   return (
     <Dialog
       fullScreen
@@ -61,7 +51,7 @@ const MapDialog: React.FC<MapDialogProps> = ({ isOpen, close, mapData }) => {
           </Typography>
         </Stack>
         <div className={classes.map}>
-          <MapWrapper mapData={mapData} ref={mapRef} />
+          <MapWrapper mapData={mapData} shouldMoveCharacterForward={isOpen} />
         </div>
       </>
     </Dialog>

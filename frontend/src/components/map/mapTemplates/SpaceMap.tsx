@@ -38,7 +38,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
     friends,
     mapTheme,
   } = mapData;
-  let currentStep = 25;
+  let currentStep = currentTaskNum;
   const numSteps = numTasks;
   const friendsPositions: Record<number, UserChallengeFriendMapData[]> = {};
   friends.map((f: UserChallengeFriendMapData) => {
@@ -53,6 +53,8 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
     direction: Direction.FORWARD,
   });
   const [isMapLoaded, setIsMapLoaded] = useState<boolean>(false);
+  const [shouldMoveCharacterForward, setShouldMoveCharacterForward] =
+    useState<boolean>(false);
   const width = 7;
   const widthIncrement = 1.5;
   const heightIncrement = 0.5;
@@ -60,18 +62,34 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
   const mapRef = useRef();
   const { camera } = useThree();
 
+  useEffect(() => {
+    if (stepPositions.length === numTasks + 1) {
+      setIsMapLoaded(true);
+    }
+  }, [stepPositions]);
+
+  useEffect(() => {
+    if (
+      isMapLoaded &&
+      shouldMoveCharacterForward &&
+      characterRef.current !== undefined &&
+      mapRef.current !== undefined
+    ) {
+      currentStep = currentStep + 1;
+      setTimeout(() => {
+        (characterRef.current as any).moveCharacter(
+          stepPositions[currentStep - 2],
+          stepPositions[currentStep - 1]
+        );
+        setShouldMoveCharacterForward(false);
+        (mapRef.current as any).setCurrentStep(currentStep);
+      }, 500);
+    }
+  }, [isMapLoaded]);
+
   useImperativeHandle(ref, () => ({
     moveCharacterForward() {
-      if (characterRef.current !== undefined && mapRef.current !== undefined) {
-        setTimeout(() => {
-          currentStep = currentStep + 1;
-          (characterRef.current as any).moveCharacter(
-            stepPositions[currentStep - 2],
-            stepPositions[currentStep - 1]
-          );
-        }, 500);
-        (mapRef.current as any).setCurrentStep(currentStep);
-      }
+      setShouldMoveCharacterForward(true);
     },
 
     moveCharacterBackward() {
@@ -85,6 +103,10 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
         }, 500);
         (mapRef.current as any).setCurrentStep(currentStep);
       }
+    },
+
+    isMapLoaded() {
+      return isMapLoaded;
     },
   }));
 
@@ -130,7 +152,6 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
         onMapMounted={(stepPositions) => {
           setStepPositions(stepPositions);
           setCharPosition(stepPositions[currentStep - 1]);
-          setIsMapLoaded(true);
         }}
         onClickPrize={() => setIsPrizeModalOpen(true)}
         mapTheme={mapTheme}
