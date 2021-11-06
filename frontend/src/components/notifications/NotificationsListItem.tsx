@@ -1,6 +1,7 @@
 import React from 'react';
 import { FriendRequestListData } from '../../types/friendrequests';
 import {
+  Box,
   Button,
   Grid,
   ListItem,
@@ -28,12 +29,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: '#A5A5A5',
   },
   acceptButton: {
-    color: theme.palette.primary.main,
-    backgroundColor: 'transparent',
+    color: 'white',
+    backgroundColor: theme.palette.primary.main,
+    boxShadow: '0px 0px 0px 0px',
+    borderRadius: '12px',
   },
   rejectButton: {
     color: theme.palette.secondary.main,
     backgroundColor: 'transparent',
+    borderRadius: '12px',
   },
 }));
 
@@ -65,7 +69,7 @@ const NotificationsListItem: React.FC<Props> = ({ friendRequest }: Props) => {
             } sent you a friend request!`}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12}>
           <Tooltip
             arrow
             title={displayDateWithTimestamp(friendRequest.sentAt)}
@@ -81,22 +85,27 @@ const NotificationsListItem: React.FC<Props> = ({ friendRequest }: Props) => {
             </Typography>
           </Tooltip>
         </Grid>
-        <Grid item xs={4}>
+        <Grid
+          container
+          direction="row"
+          alignContent="flex-start"
+          sx={{ marginTop: '0.5em' }}
+        >
           <Button
-            variant="text"
+            variant="outlined"
+            className={classes.rejectButton}
+            onClick={() => dispatch(rejectFriendRequest(friendRequest.id))}
+            sx={{ marginRight: '1em' }}
+          >
+            Decline
+          </Button>
+
+          <Button
+            variant="contained"
             className={classes.acceptButton}
             onClick={() => dispatch(acceptFriendRequest(friendRequest.id))}
           >
             Accept
-          </Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Button
-            variant="text"
-            className={classes.rejectButton}
-            onClick={() => dispatch(rejectFriendRequest(friendRequest.id))}
-          >
-            Reject
           </Button>
         </Grid>
       </Grid>
