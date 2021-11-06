@@ -98,7 +98,6 @@ const UserTaskCarousel: React.FC<Props> = ({
       spaceBetween={20}
       slideToClickedSlide
       keyboard={{ enabled: true }}
-      mousewheel={true}
       className="task-slider"
     >
       {userTaskList.map((userTask: UserTaskListData) => (
