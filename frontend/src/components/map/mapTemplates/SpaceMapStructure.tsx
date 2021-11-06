@@ -48,7 +48,7 @@ const SpaceMapStructure = (
   const numStages = Math.floor(numSteps / width);
   let base: Vector3 = [
     (width * widthIncrement) / 2,
-    10 - numSteps / 2,
+    5 - numSteps / 2,
     (width * widthIncrement) / 2,
   ];
   let currentDirection = Direction.RIGHT;
@@ -139,7 +139,7 @@ const SpaceMapStructure = (
         );
         base = regularTranslate(base, currentDirection, widthIncrement + 0.5);
         stepPositions.push({
-          pos: base,
+          pos: translate(base, { [Axis.Y]: 1 }),
           direction: currentDirection,
         });
         currentDirection = nextDirection;
