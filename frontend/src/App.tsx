@@ -134,7 +134,7 @@ function App(): JSX.Element {
   const renderDesktopApp = () => {
     return (
       <Stack direction="row">
-        {mainRoutes
+        {!notAuthenticatedRoutes
           .map((route: RouteEntry) => route.path)
           .includes(location.pathname) && <SideNavigationBar />}
         {renderContent()}
