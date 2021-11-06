@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useReducer } from 'react';
-import { loadUserTasksForDay } from '../../store/usertasks/operations';
+import {
+  loadUserTasksForDay,
+  loadUserTasksForDays,
+} from '../../store/usertasks/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import UserTaskCarousel from '../../components/home/UserTaskCarousel';
 import MapDialog from '../../components/map/MapDialog';
@@ -104,7 +107,9 @@ const HomePage: React.FC = () => {
   };
 
   useEffect(() => {
+    // Note: Not batched on purpose so that today's tasks load faster.
     dispatch(loadUserTasksForDay(date));
+    dispatch(loadUserTasksForDays(date, 15));
   }, [date]);
 
   const userTaskList = Array.from(

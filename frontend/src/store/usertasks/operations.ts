@@ -15,12 +15,33 @@ import {
   saveUserTaskForDay,
   saveUserTaskListForDay,
 } from './actions';
+import { getNeighbouringDates } from '../../utils/date';
 
 export function loadUserTasksForDay(date: Date): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userTasks.getUserTaskListForDay(date);
     const userTasks: UserTaskListData[] = response.payload.data;
     dispatch(saveUserTaskListForDay(date, userTasks));
+  };
+}
+
+export function loadUserTasksForDays(
+  date: Date,
+  range: number
+): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    const dates = getNeighbouringDates(date, range);
+    const apiCalls: Promise<void>[] = [];
+    dates.forEach((date: Date) => {
+      apiCalls.push(
+        new Promise(async () => {
+          const response = await api.userTasks.getUserTaskListForDay(date);
+          const userTasks: UserTaskListData[] = response.payload.data;
+          dispatch(saveUserTaskListForDay(date, userTasks));
+        })
+      );
+    });
+    await Promise.all(apiCalls);
   };
 }
 
