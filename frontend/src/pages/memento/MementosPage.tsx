@@ -14,6 +14,7 @@ import { Prize } from 'types/prize';
 
 export interface PrizeWithChallengeName extends Prize {
   challengeName: string;
+  completedAt?: Date;
 }
 
 interface PrizeOpenState {
@@ -38,6 +39,7 @@ const MementosPage: React.FC = () => {
         prizePath: '',
         challengeName: '',
         prizeDescription: '',
+        completedAt: undefined,
       },
     }
   );
@@ -62,6 +64,7 @@ const MementosPage: React.FC = () => {
     (challenge: CompletedUserChallengeListData) => {
       return {
         challengeName: challenge.challengeName,
+        completedAt: challenge.completedAt,
         ...getPrize(challenge.prizeName, challenge.challengeName),
       };
     }

@@ -1,9 +1,8 @@
 import DemoMap from 'components/map/mapTemplates/DemoMap';
-import MementosPage from 'pages/memento/MementosPage';
-import CompletedChallengesPage from 'pages/completedChallenges/CompletedChallengesPage';
 import EditProfilePage from 'pages/editProfile';
 import FriendsPage from 'pages/friends/FriendsPage';
 import LandingPage from 'pages/landing/LandingPage';
+import MementosPage from 'pages/memento/MementosPage';
 import OnboardingPage from 'pages/onboarding/OnboardingPage';
 import PostsPage from 'pages/posts/PostsPage';
 import CategoryPage from '../pages/category';
@@ -30,7 +29,6 @@ export const EDIT_PROFILE_ROUTE = '/edit-profile';
 export const FRIENDS_ROUTE = '/friends';
 export const ADD_FRIENDS_ROUTE = '/add-friends';
 export const NOTIFICATIONS_ROUTE = '/notifications';
-export const COMPLETED_CHALLENGES_ROUTE = '/completed';
 export const MEMENTOS_ROUTE = '/mementos';
 export const POSTS_ROUTE = '/posts';
 export const ONBOARDING_ROUTE = '/welcome';
@@ -73,16 +71,6 @@ export const privateRoutes: RouteEntry[] = [
   { path: FRIENDS_ROUTE, component: FriendsPage, exact: true },
   { path: FRIENDS_ROUTE + '/:username', component: FriendsPage, exact: true },
   { path: NOTIFICATIONS_ROUTE, component: NotificationsPage, exact: true },
-  {
-    path: COMPLETED_CHALLENGES_ROUTE,
-    component: CompletedChallengesPage,
-    exact: true,
-  },
-  {
-    path: COMPLETED_CHALLENGES_ROUTE + '/:username',
-    component: CompletedChallengesPage,
-    exact: true,
-  },
   {
     path: MEMENTOS_ROUTE,
     component: MementosPage,

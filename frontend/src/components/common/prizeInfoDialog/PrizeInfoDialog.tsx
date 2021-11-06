@@ -7,11 +7,11 @@ import {
   IconButton,
   DialogContent,
 } from '@mui/material';
-
 import CloseIcon from '@mui/icons-material/CloseRounded';
 import { makeStyles } from '@mui/styles';
 import { PrizeWithChallengeName } from '../../../pages/memento/MementosPage';
 import PrizeModelDisplay from './PrizeModelDisplay';
+import { displayDateWithTimestamp } from 'utils/formatting';
 
 const useStyles = makeStyles(() => ({
   header: {
@@ -71,6 +71,8 @@ const PrizeInfoDialog: React.FC<PrizeInfoDialogProps> = ({
           </Typography>
           <Typography className={classes.description}>
             Awarded for completing the {prize.challengeName} challenge
+            {prize.completedAt &&
+              ` on ${displayDateWithTimestamp(prize.completedAt)}`}
           </Typography>
         </DialogContent>
       </Dialog>

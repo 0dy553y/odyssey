@@ -50,7 +50,7 @@ const PostsPage: React.FC = () => {
       <AppBar position="static">
         <Toolbar>
           <IconButton
-            className="back-arrow"
+            style={{ marginLeft: '-1.5em' }}
             edge="start"
             onClick={() => history.goBack()}
           >
