@@ -126,7 +126,7 @@ const HomePage: React.FC = () => {
     <div className={classes.baseContainer}>
       <div className={classes.headerContainer}>
         <Grid container direction="column" spacing={2}>
-          <Grid item direction="row" className={classes.headerNonCarouselItem}>
+          <Grid item className={classes.headerNonCarouselItem}>
             <div className={classes.greetingsContainer}>
               <Typography variant="h4">Hello,</Typography>
               <Typography variant="h4">
