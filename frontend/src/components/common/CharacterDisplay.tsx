@@ -10,9 +10,9 @@ interface CharacterDisplayProps {
   character: string;
   isActive?: boolean;
   scaleOverride?: number;
-  positionOverride?: Vector3;
-  rotationOverride?: Euler;
-  zoomOverride?: number;
+  position?: Vector3;
+  rotation?: Euler;
+  zoom?: number;
   isAnimated?: boolean;
 }
 
@@ -20,9 +20,9 @@ const CharacterDisplay: React.FC<CharacterDisplayProps> = ({
   character,
   isActive = false,
   scaleOverride,
-  positionOverride,
-  rotationOverride,
-  zoomOverride,
+  position = [0, -2, 0],
+  rotation = [Math.PI / 8, Math.PI / 3, 0],
+  zoom = 20,
   isAnimated = false,
 }) => {
   const [flip, set] = useState(false);
@@ -44,29 +44,14 @@ const CharacterDisplay: React.FC<CharacterDisplayProps> = ({
   return (
     <>
       <Suspense fallback={<div />}>
-        <Canvas
-          camera={{ zoom: zoomOverride ? zoomOverride : 20 }}
-          orthographic={true}
-        >
+        <Canvas camera={{ zoom: zoom }} orthographic={true}>
           <directionalLight position={[0, 10, 0]} intensity={0.8} />
           <directionalLight position={[10, 0, 0]} intensity={0.2} />
           <directionalLight position={[0, 0, 10]} intensity={0.75} />
 
-          <animated.group
-            rotation={
-              rotationOverride
-                ? rotationOverride
-                : [Math.PI / 8, Math.PI / 3, 0]
-            }
-          >
+          <animated.group rotation={rotation}>
             <Model
-              position={
-                isAnimated
-                  ? (localPos as any as Vector3)
-                  : positionOverride
-                  ? positionOverride
-                  : [0, -2, 0]
-              }
+              position={isAnimated ? (localPos as any as Vector3) : position}
               scale={scaleOverride ? scaleOverride : scale}
               fileName={getCharacterPath(character)}
             />
