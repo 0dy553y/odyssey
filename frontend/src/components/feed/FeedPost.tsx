@@ -45,6 +45,9 @@ const useStyles = makeStyles(() => ({
     wordBreak: 'break-word',
     hyphens: 'auto',
   },
+  handCursor: {
+    cursor: 'pointer',
+  },
 }));
 
 const getAggregatedReactions = (
@@ -143,6 +146,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({
               history.push(`${CHALLENGE_ROUTE}/${post.challenge.id}`);
             }}
             style={{ textDecoration: 'none' }}
+            className={shouldLinkToChallenge ? classes.handCursor : undefined}
           >
             <Typography component="span" variant="subtitle2">
               {post.challenge.name}
