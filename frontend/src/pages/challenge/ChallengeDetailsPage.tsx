@@ -5,6 +5,7 @@ import { loadAllTasks } from 'store/tasks/operations';
 import {
   forfeitUserChallenge,
   loadAllUserChallengesDataForChallenge,
+  loadChallengeMap,
 } from 'store/userchallenges/operations';
 import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
@@ -167,7 +168,7 @@ const ChallengeDetailsPage: React.FC = () => {
       dispatch(loadAllTasks(Number(challengeId)));
       dispatch(loadAllUserChallengesDataForChallenge(Number(challengeId)));
       dispatch(loadPostsForChallenge(Number(challengeId)));
-      dispatch(loadAllOngoingUserChallenges());
+      dispatch(loadChallengeMap(Number(challengeId)));
     });
   }, []);
 
