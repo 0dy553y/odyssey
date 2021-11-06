@@ -50,6 +50,7 @@ import ConfirmationModal from 'components/common/ConfirmationModal';
 import LoadingPage from 'pages/loading/LoadingPage';
 import { MapDialog } from 'components/map';
 import { useIsDesktop } from 'utils/windowSize';
+import { MAP_ROUTE } from 'routing/routes';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   white: {
@@ -306,6 +307,16 @@ const ChallengeDetailsPage: React.FC = () => {
                   open={isMenuOpen}
                   onClose={handleMenuClose}
                 >
+                  <MenuItem
+                    onClick={() => {
+                      handleMenuClose();
+                      history.push(
+                        `${MAP_ROUTE}/${userChallenge?.challengeId}`
+                      );
+                    }}
+                  >
+                    View Map
+                  </MenuItem>
                   <MenuItem
                     onClick={() => {
                       setIsForfeitConfirmationModalOpen(true);
