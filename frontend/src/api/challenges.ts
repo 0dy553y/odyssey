@@ -61,6 +61,15 @@ class ChallengesAPI extends BaseAPI {
   public deleteChallenge(challengeId: number): ApiPromise<EmptyPayload> {
     return this.delete(`${ChallengesAPI.getChallengesUrl()}/${challengeId}`);
   }
+
+  public getPopularChallenges(
+    categoryId: number
+  ): ApiPromise<ChallengeListData[]> {
+    return this.get(
+      `${ChallengesAPI.getChallengesUrl()}/get_popular_challenges`,
+      { params: { categoryId: categoryId } }
+    );
+  }
 }
 
 export default ChallengesAPI;

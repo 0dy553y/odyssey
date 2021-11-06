@@ -17,9 +17,15 @@ import { batch, useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { getCategory } from 'store/categories/selectors';
-import { loadAllChallenges } from 'store/challenges/operations';
+import {
+  loadAllChallenges,
+  loadPopularChallenges,
+} from 'store/challenges/operations';
 import { loadCategory } from 'store/categories/operations';
-import { getChallengeList } from 'store/challenges/selectors';
+import {
+  getChallengeList,
+  getPopularChallengeList,
+} from 'store/challenges/selectors';
 import { getHeadingFromCategory } from 'utils/naming';
 import { CHALLENGE_ROUTE } from 'routing/routes';
 import {
@@ -33,6 +39,8 @@ import {
 import { getChallengePercentageComplete } from 'utils/progress';
 import LoadingPage from 'pages/loading/LoadingPage';
 import { useIsDesktop } from 'utils/windowSize';
+import { ChallengeListData } from 'types/challenges';
+import challenge from 'pages/challenge';
 
 interface StyledTabProps {
   label: string;
@@ -144,6 +152,7 @@ const CategoryPage: React.FC = () => {
     batch(() => {
       dispatch(loadCategory(Number(categoryId)));
       dispatch(loadAllChallenges());
+      dispatch(loadPopularChallenges(Number(categoryId)));
       dispatch(loadAllOngoingUserChallenges());
       dispatch(loadAllCompletedUserChallenges());
     });
@@ -157,6 +166,11 @@ const CategoryPage: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const ongoingChallenges = useSelector((state: RootState) =>
     getAllOngoingUserChallenges(state)
+  )!;
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const popularChallenges = useSelector((state: RootState) =>
+    getPopularChallengeList(state)
   )!;
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -188,6 +202,27 @@ const CategoryPage: React.FC = () => {
       default:
         return defaultImageHeaderPosition;
     }
+  };
+
+  const displayChallenges = (challengeList: ChallengeListData[]) => {
+    return challengeList.map((challenge) => (
+      <li key={challenge.id}>
+        <CategoryListItem
+          name={challenge.name}
+          duration={challenge.duration}
+          percentageComplete={getChallengePercentageComplete(
+            challenge.id,
+            completedChallenges,
+            ongoingChallenges
+          )}
+          onClick={() =>
+            history.push(`${CHALLENGE_ROUTE}/${challenge.id}`, {
+              challenge: challenge,
+            })
+          }
+        />
+      </li>
+    ));
   };
 
   return (
@@ -234,60 +269,18 @@ const CategoryPage: React.FC = () => {
 
       <StyledTabs value={value} onChange={handleChange}>
         <StyledTab label="All challenges" {...a11yProps(0)} />
-        <StyledTab label="Unexplored" {...a11yProps(1)} />
+        <StyledTab label="Popular" {...a11yProps(1)} />
       </StyledTabs>
       <TabPanel value={value} index={0}>
         <ul>
-          {challenges
-            .filter((challenge) => challenge.categoryId == category.id)
-            .map((challenge) => (
-              <li key={challenge.id}>
-                <CategoryListItem
-                  name={challenge.name}
-                  duration={challenge.duration}
-                  percentageComplete={getChallengePercentageComplete(
-                    challenge.id,
-                    completedChallenges,
-                    ongoingChallenges
-                  )}
-                  onClick={() =>
-                    history.push(`${CHALLENGE_ROUTE}/${challenge.id}`, {
-                      challenge: challenge,
-                    })
-                  }
-                />
-              </li>
-            ))}
+          {displayChallenges(challenges.filter((challenge) => challenge.categoryId == category.id))}
         </ul>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-
-      {/* <Box sx={{ padding: '0 1.5em 0 1.5em' }}>
         <ul>
-          {challenges
-            .filter((challenge) => challenge.categoryId == category.id)
-            .map((challenge) => (
-              <li key={challenge.id}>
-                <CategoryListItem
-                  name={challenge.name}
-                  duration={challenge.duration}
-                  percentageComplete={getChallengePercentageComplete(
-                    challenge.id,
-                    completedChallenges,
-                    ongoingChallenges
-                  )}
-                  onClick={() =>
-                    history.push(`${CHALLENGE_ROUTE}/${challenge.id}`, {
-                      challenge: challenge,
-                    })
-                  }
-                />
-              </li>
-            ))}
+          {displayChallenges(popularChallenges)}
         </ul>
-      </Box> */}
+      </TabPanel>
     </Box>
   );
 };
