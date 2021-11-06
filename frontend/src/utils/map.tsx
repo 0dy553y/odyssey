@@ -203,3 +203,37 @@ export function getCharacterPath(character: Character | string): string {
   }
   return `characters/${Character[character].toLowerCase()}.vox`;
 }
+
+const cameraZoomBreakpoints = [
+  // numSteps, zoomFactor
+  [20, 15],
+  [6, 18],
+  [5, 25],
+  [4, 30],
+  [3, 40],
+  [0, 45],
+];
+// camera distance
+const d = 35;
+
+export function getCameraZoom(numSteps: number): number {
+  const myBp = cameraZoomBreakpoints.find((a) => {
+    return a[0] < numSteps;
+  });
+  return myBp ? myBp[1] : 45;
+}
+
+export function getCameraPosition(characterDirection: Direction): Vector3 {
+  switch (characterDirection) {
+    case Direction.RIGHT:
+      return [d, d, -d];
+    case Direction.LEFT:
+      return [-d, d, d];
+    case Direction.FORWARD:
+      return [-d, d, -d];
+    case Direction.BACKWARD:
+      return [d, d, d];
+    default:
+      return [d, d, -d];
+  }
+}
