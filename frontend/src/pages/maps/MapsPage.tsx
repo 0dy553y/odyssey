@@ -31,7 +31,7 @@ const MapsPage: React.FC = () => {
 
   return (
     <>
-      <AppBar position="absolute">
+      <AppBar position="absolute" sx={{ right: 'auto' }}>
         <Toolbar>
           <div
             onClick={() => {
@@ -45,16 +45,11 @@ const MapsPage: React.FC = () => {
         </Toolbar>
       </AppBar>
       <Box
-        sx={{
-          paddingBottom: '-2em',
-          position: 'relative',
-          margin: '0 -50vw -2em -50vw',
-          maxWidth: '100vw',
-          maxHeight: '55vh',
-          left: '50%',
-          right: '50%',
-          width: '100vw',
-        }}
+        sx={
+          {
+            // position: 'relative',
+          }
+        }
       >
         <MapCarousel
           maps={challengeMaps}

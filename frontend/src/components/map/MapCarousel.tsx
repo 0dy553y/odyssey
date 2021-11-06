@@ -3,9 +3,8 @@ import { Stack, Typography } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { makeStyles } from '@mui/styles';
 import { UserChallengeMapData } from '../../types/userchallenge';
-import SpaceMap from './mapTemplates/SpaceMap';
-import './MapCarousel.scss';
 import MapWrapper from './mapTemplates/MapWrapper';
+import './MapCarousel.scss';
 
 const useStyles = makeStyles(() => ({
   mapSlider: {

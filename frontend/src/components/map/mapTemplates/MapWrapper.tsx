@@ -1,12 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, {
-  forwardRef,
-  Suspense,
-  useCallback,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
+import React, { Suspense, useCallback, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { UserChallengeMapData } from 'types/userchallenge';
 import SpaceMap from './SpaceMap';
