@@ -89,6 +89,39 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 const CategoryPage: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -200,13 +233,10 @@ const CategoryPage: React.FC = () => {
       </Stack>
 
       <StyledTabs value={value} onChange={handleChange}>
-        <StyledTab label="All challenges" />
-        <StyledTab label="Curated" />
+        <StyledTab label="All challenges" {...a11yProps(0)} />
+        <StyledTab label="Unexplored" {...a11yProps(1)} />
       </StyledTabs>
-
-      <Box sx={{ p: 1 }} />
-
-      <Box sx={{ padding: '0 1.5em 0 1.5em' }}>
+      <TabPanel value={value} index={0}>
         <ul>
           {challenges
             .filter((challenge) => challenge.categoryId == category.id)
@@ -229,7 +259,35 @@ const CategoryPage: React.FC = () => {
               </li>
             ))}
         </ul>
-      </Box>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        Item Two
+      </TabPanel>
+
+      {/* <Box sx={{ padding: '0 1.5em 0 1.5em' }}>
+        <ul>
+          {challenges
+            .filter((challenge) => challenge.categoryId == category.id)
+            .map((challenge) => (
+              <li key={challenge.id}>
+                <CategoryListItem
+                  name={challenge.name}
+                  duration={challenge.duration}
+                  percentageComplete={getChallengePercentageComplete(
+                    challenge.id,
+                    completedChallenges,
+                    ongoingChallenges
+                  )}
+                  onClick={() =>
+                    history.push(`${CHALLENGE_ROUTE}/${challenge.id}`, {
+                      challenge: challenge,
+                    })
+                  }
+                />
+              </li>
+            ))}
+        </ul>
+      </Box> */}
     </Box>
   );
 };

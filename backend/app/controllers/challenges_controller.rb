@@ -57,6 +57,12 @@ class ChallengesController < ApplicationController
     render 'challenges/index', status: :ok
   end
 
+  def get_popular_challenges
+    # @challenges = Challenge.find(categoryId: params.require(:category_id), :limit => 10, :order=> 'posts_count desc')
+    @challenges = Challenge.where(category_id: params.require(:category_id)).order('user_challenges_count DESC').limit(3)
+    render 'challenges/index', status: :ok
+  end
+
   private
 
   def challenge_params
