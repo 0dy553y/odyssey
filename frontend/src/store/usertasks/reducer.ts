@@ -27,10 +27,11 @@ const userTasksReducer = produce(
         const userTaskIndex = draft.tasksByDay[key].findIndex(
           (userTask) => userTask.id === action.userTask.id
         );
+
         draft.tasksByDay[key] = [
-          ...draft.tasksByDay[key].splice(0, userTaskIndex),
+          ...draft.tasksByDay[key].slice(0, userTaskIndex),
           action.userTask,
-          ...draft.tasksByDay[key].splice(userTaskIndex + 1),
+          ...draft.tasksByDay[key].slice(userTaskIndex + 1),
         ];
         break;
       }

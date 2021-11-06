@@ -3,12 +3,12 @@ import {
   loadUserTasksForDay,
   loadUserTasksForDays,
 } from '../../store/usertasks/operations';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import UserTaskCarousel from '../../components/home/UserTaskCarousel';
 import MapDialog from '../../components/map/MapDialog';
 import { getUserTaskListForDay } from '../../store/usertasks/selectors';
 import { RootState } from '../../store';
-import { Box, Grid, IconButton, Typography } from '@mui/material';
+import { Badge, Box, Grid, IconButton, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { getUser } from '../../store/auth/selectors';
 import { useHistory } from 'react-router-dom';
@@ -23,6 +23,8 @@ import { getChallengeMaps } from 'store/userchallenges/selectors';
 import LoadingPage from 'pages/loading/LoadingPage';
 import { useIsDesktop } from 'utils/windowSize';
 import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
+import { loadAllFriendRequests } from '../../store/notifications/operations';
+import { getFriendRequestList } from '../../store/notifications/selectors';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -111,8 +113,11 @@ const HomePage: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    batch(() => {
+      dispatch(loadAllFriendRequests());
+      dispatch(loadUserTasksForDay(date));
+    });
     // Note: Not batched on purpose so that today's tasks load faster.
-    dispatch(loadUserTasksForDay(date));
     dispatch(loadUserTasksForDays(date, 15));
   }, [date]);
 
@@ -124,6 +129,8 @@ const HomePage: React.FC = () => {
   const challengeMaps = useSelector((state: RootState) =>
     getChallengeMaps(state)
   )!;
+
+  const friendRequests = useSelector(getFriendRequestList);
 
   const user = useSelector(getUser);
   if (!user) {
@@ -147,7 +154,9 @@ const HomePage: React.FC = () => {
                 size="large"
                 onClick={() => history.push(NOTIFICATIONS_ROUTE)}
               >
-                <NotificationsOutlinedIcon fontSize="inherit" />
+                <Badge color="primary" badgeContent={friendRequests.length}>
+                  <NotificationsOutlinedIcon fontSize="inherit" />
+                </Badge>
               </IconButton>
               <IconButton
                 size="large"

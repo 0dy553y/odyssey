@@ -189,12 +189,7 @@ export function buildDiagonalRepeated({
 }
 
 export function getLandPath(land: Land): string {
-  switch (land) {
-    case Land.GRASS:
-      return 'land/grass.vox';
-    default:
-      return 'land/grass.vox';
-  }
+  return `land/${Land[land].toLowerCase()}.vox`;
 }
 
 export function getCharacterPath(character: Character | string): string {
