@@ -5,7 +5,7 @@ import UserTaskCarousel from '../../components/home/UserTaskCarousel';
 import MapDialog from '../../components/map/MapDialog';
 import { getUserTaskListForDay } from '../../store/usertasks/selectors';
 import { RootState } from '../../store';
-import { Grid, IconButton, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { getUser } from '../../store/auth/selectors';
 import { useHistory } from 'react-router-dom';
@@ -156,15 +156,19 @@ const HomePage: React.FC = () => {
           </Grid>
         </Grid>
       </div>
-      <div className={classes.tasksContainer}>
+      <Box
+        className={classes.tasksContainer}
+        sx={{ marginLeft: isDesktop ? 6 : undefined }}
+      >
         <UserTaskCarousel
           userTaskList={userTaskList}
           date={date}
           onChallengeCompleted={onChallengeCompleted}
           onTaskCompleted={onTaskCompleted}
           cardsPerView={isDesktop ? 3.3 : 1.3}
+          centeredCards={!isDesktop}
         />
-      </div>
+      </Box>
 
       {ChallengeCompletedDialogState.completedChallengeId && (
         <ChallengeCompletedDialog
