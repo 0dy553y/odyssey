@@ -28,7 +28,7 @@ task add_productivity_challenge: :environment do
   ActiveRecord::Base.transaction do
     challenge_productivity_desc = 'Whatever you’re working on, being productive is the key to reaching your goals. But productivity doesn’t just happen – it comes from the habits you develop and the choices you make every day. Here’s a guide to developing a productivity practice that can help you feel better and accomplish more in just 30 days. Focus on doing one thing each day for the challenge – but make them all habits that become part of your daily routine.'
     challenge_productivity = Challenge.create!(category_id: category_productivity.id,
-                                               name: 'Becoming more productive',
+                                               name: 'Becoming More Productive',
                                                description: challenge_productivity_desc,
                                                duration: 30,
                                                schedule: 'Every day for 1 month',
@@ -52,7 +52,7 @@ task add_productivity_challenge: :environment do
         description: "Create a workspace you love"
       },
       {
-        description: "Read up on ergonomic principles and apply what you learnt to improve your own workspace"
+        description: "Read up on ergonomic principles and apply what you learn to improve your own workspace"
       },
       {
         description: "De-clutter your workspace"

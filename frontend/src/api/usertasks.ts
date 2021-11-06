@@ -1,4 +1,4 @@
-import { startOfDay } from 'date-fns';
+import { endOfDay, startOfDay } from 'date-fns';
 import { ApiPromise } from '../types/api';
 import {
   UserTaskActivityDatum,
@@ -66,9 +66,14 @@ class UserTasksAPI extends BaseAPI {
     return 'user_tasks';
   }
 
-  public getUserTaskListForDay(date: Date): ApiPromise<UserTaskListData[]> {
+  public getUserTaskList(
+    fromDate: Date,
+    toDate: Date
+  ): ApiPromise<UserTaskListData[]> {
     return this.get(
-      `${UserTasksAPI.getUserTasksUrl()}/tasks_for_day?date=${date.toISOString()}`
+      `${UserTasksAPI.getUserTasksUrl()}/tasks_in_period?from=${startOfDay(
+        fromDate
+      ).toISOString()}&to=${endOfDay(toDate).toISOString()}}`
     ).then((resp) => {
       const data = (resp.payload.data as PseudoUserTaskListData[]).map(
         userTaskListDataMapper

@@ -3,7 +3,7 @@ import { Stack, Typography } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { makeStyles } from '@mui/styles';
 import { UserChallengeMapData } from '../../types/userchallenge';
-import SpaceMap from './mapTemplates/SpaceMap';
+import MapWrapper from './mapTemplates/MapWrapper';
 import './MapCarousel.scss';
 
 const useStyles = makeStyles(() => ({
@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
   map: {
     position: 'absolute',
     height: '100vh',
-    width: '100vw',
+    width: '100%',
   },
   container: {
     position: 'relative',
@@ -59,7 +59,7 @@ const MapCarousel: React.FC<MapCarouselProps> = ({ maps, initialIndex }) => {
               </Typography>
             </Stack>
             <div className={classes.map}>
-              <SpaceMap mapData={mapData} />
+              <MapWrapper mapData={mapData} />
             </div>
           </div>
         </SwiperSlide>

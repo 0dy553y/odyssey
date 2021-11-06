@@ -66,7 +66,6 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
           <Box
             key={item.label}
             className={'user-profile-item-container'}
-            sx={{ width: 1 / userProfileItems.length }}
             onClick={item.onClick}
           >
             <Typography component="div" variant="body1" className="hand-cursor">

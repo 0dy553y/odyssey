@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   recurringDaysForm: {
     paddingTop: '1em',
-    overflow: 'scroll',
+    overflow: 'auto',
   },
   startChallengeButton: {
     backgroundColor: 'rgba(0, 0, 0, 1)',

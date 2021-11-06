@@ -14,9 +14,9 @@ task add_growth_and_school_challenge: :environment do
   ########################################################################
 
   ActiveRecord::Base.transaction do
-    challenge_growth_desc = 'Ready to make this year your best yet? Then you’re in the right place. It takes hard work, resilience, and persistence to make this thirty-day challenge happen. But if you do? You’ll be strapped to a rocket and ready to make this the best year of your entire life. Whether you follow this thirty-day challenge to the ‘T’ or adapt your own, use this as a framework for creating the change you want to see in your life this year.'
+    challenge_growth_desc = 'Ready to make this year your best yet? Then you’re in the right place. Whether you follow this thirty-day challenge to the ‘T’ or adapt your own, use this as a framework for creating the change you want to see in your life this year. No longer January? No worries! You can still start this any day of the year.'
     challenge_growth = Challenge.create!(category_id: category_habits.id,
-                                      name: 'Starting the year right',
+                                      name: 'Starting the Year Right',
                                       description: challenge_growth_desc,
                                       duration: 28,
                                       schedule: 'Every day for 1 month',

@@ -4,6 +4,8 @@ import {
   UserTaskListData,
 } from '../../types/usertasks';
 import {
+  BulkSaveUserTaskListAction,
+  BULK_SAVE_USER_TASK_LISTS,
   ResetUserTasksAction,
   RESET_USER_TASKS,
   SaveUserTaskActivityDataAction,
@@ -14,6 +16,14 @@ import {
   SAVE_USER_TASK_LIST_FOR_DAY,
 } from './types';
 
+export function bulkSaveUserTaskLists(
+  userTaskLists: Record<string, UserTaskListData[]>
+): BulkSaveUserTaskListAction {
+  return {
+    type: BULK_SAVE_USER_TASK_LISTS,
+    userTaskLists,
+  };
+}
 export function saveUserTaskListForDay(
   date: Date,
   userTaskList: UserTaskListData[]

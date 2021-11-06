@@ -48,7 +48,7 @@ const useStyles = makeStyles(() => ({
     width: '80vw',
     maxWidth: '600px',
     maxHeight: '80vh',
-    overflow: 'scroll',
+    overflow: 'auto',
     transform: 'translate(-50%, -50%)',
     backgroundColor: 'white',
     outline: 'none',

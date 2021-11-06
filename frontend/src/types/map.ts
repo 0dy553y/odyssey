@@ -28,10 +28,8 @@ export interface DirectionPosition {
 export enum Land {
   GRASS,
   SAND,
-  MOON,
   STONE,
-  WATER,
-  LAVA,
+  BEEHIVE,
 }
 
 export enum Character {

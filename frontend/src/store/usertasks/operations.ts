@@ -1,26 +1,43 @@
 import api from 'api';
+import { addDays, subDays } from 'date-fns';
 import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import {
-  loadAllUserChallengesDataForChallenge,
   loadAllOngoingChallengeMaps,
+  loadAllUserChallengesDataForChallenge,
 } from 'store/userchallenges/operations';
 import { OperationResult } from 'types/store';
 import { UserTaskData, UserTaskListData } from 'types/usertasks';
-import { RootState } from '../index';
+import { getISOStringAtStartOfDay } from 'utils/date';
 import { withStatusMessages } from 'utils/ui';
+import { RootState } from '../index';
 import {
+  bulkSaveUserTaskLists,
   saveUserTaskActivityData,
   saveUserTaskForDay,
-  saveUserTaskListForDay,
 } from './actions';
 
-export function loadUserTasksForDay(date: Date): OperationResult {
+export function loadUserTasksForDays(
+  date: Date,
+  range: number
+): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.userTasks.getUserTaskListForDay(date);
+    const fromDate = subDays(date, range);
+    const toDate = addDays(date, range);
+
+    const response = await api.userTasks.getUserTaskList(fromDate, toDate);
     const userTasks: UserTaskListData[] = response.payload.data;
-    dispatch(saveUserTaskListForDay(date, userTasks));
+
+    const userTasksMap: { [isoDate: string]: UserTaskListData[] } = {};
+    userTasks.forEach((userTask) => {
+      const date = getISOStringAtStartOfDay(userTask.scheduledFor);
+      const userTasks = userTasksMap[date] ?? [];
+      userTasks.push(userTask);
+      userTasksMap[date] = userTasks;
+    });
+
+    dispatch(bulkSaveUserTaskLists(userTasksMap));
   };
 }
 
@@ -39,9 +56,7 @@ function markUserTaskAsDone(
       api.userTasks.markUserTaskAsDone(userTaskId)
     );
     const userTask: UserTaskData = response.payload.data;
-    if (onTaskCompleted) {
-      onTaskCompleted(userTask.challengeName);
-    }
+    onTaskCompleted(userTask.challengeName);
     if (userTask.isChallengeCompleted) {
       onChallengeCompleted(userTask.challengeId);
     }
