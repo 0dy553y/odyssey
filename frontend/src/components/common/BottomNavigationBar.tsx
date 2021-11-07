@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
-import HomeOutlinedIcon from '@mui/icons-material/HomeRounded';
-import SearchOutlinedIcon from '@mui/icons-material/SearchRounded';
-import PeopleOutlineIcon from '@mui/icons-material/PeopleRounded';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleRounded';
+import HomeIcon from '@mui/icons-material/HomeRounded';
+import SearchIcon from '@mui/icons-material/SearchRounded';
+import PeopleIcon from '@mui/icons-material/PeopleRounded';
+import AccountCircleIcon from '@mui/icons-material/AccountCircleRounded';
 import {
   EXPLORE_ROUTE,
   FEED_ROUTE,
@@ -24,28 +24,28 @@ const BottomNavigationBar: React.FC = () => {
       >
         <BottomNavigationAction
           label="Home"
-          icon={<HomeOutlinedIcon />}
+          icon={<HomeIcon />}
           value={HOME_ROUTE}
           component={Link}
           to={HOME_ROUTE}
         />
         <BottomNavigationAction
           label="Explore"
-          icon={<SearchOutlinedIcon />}
+          icon={<SearchIcon />}
           value={EXPLORE_ROUTE}
           component={Link}
           to={EXPLORE_ROUTE}
         />
         <BottomNavigationAction
           label="Feed"
-          icon={<PeopleOutlineIcon />}
+          icon={<PeopleIcon />}
           value={FEED_ROUTE}
           component={Link}
           to={FEED_ROUTE}
         />
         <BottomNavigationAction
           label="Profile"
-          icon={<AccountCircleOutlinedIcon />}
+          icon={<AccountCircleIcon />}
           value={PROFILE_ROUTE}
           component={Link}
           to={PROFILE_ROUTE}

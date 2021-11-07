@@ -7,10 +7,10 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import HomeOutlinedIcon from '@mui/icons-material/HomeRounded';
-import SearchOutlinedIcon from '@mui/icons-material/SearchRounded';
-import PeopleOutlineIcon from '@mui/icons-material/PeopleRounded';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleRounded';
+import HomeIcon from '@mui/icons-material/HomeRounded';
+import SearchIcon from '@mui/icons-material/SearchRounded';
+import PeopleIcon from '@mui/icons-material/PeopleRounded';
+import AccountCircleIcon from '@mui/icons-material/AccountCircleRounded';
 import {
   EXPLORE_ROUTE,
   FEED_ROUTE,
@@ -29,21 +29,21 @@ const SideNavigationBar: React.FC = () => {
     label: string;
     icon: React.ElementType;
   }[] = [
-    { route: HOME_ROUTE, label: 'Home', icon: HomeOutlinedIcon },
+    { route: HOME_ROUTE, label: 'Home', icon: HomeIcon },
     {
       route: EXPLORE_ROUTE,
       label: 'Explore',
-      icon: SearchOutlinedIcon,
+      icon: SearchIcon,
     },
     {
       route: FEED_ROUTE,
       label: 'Feed',
-      icon: PeopleOutlineIcon,
+      icon: PeopleIcon,
     },
     {
       route: PROFILE_ROUTE,
       label: 'Profile',
-      icon: AccountCircleOutlinedIcon,
+      icon: AccountCircleIcon,
     },
   ];
 
