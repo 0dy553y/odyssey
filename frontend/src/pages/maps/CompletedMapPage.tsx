@@ -42,9 +42,7 @@ const CompletedMapPage: React.FC = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   useEffect(() => {
-    batch(() => {
-      dispatch(loadChallengeMap(Number(challengeId)));
-    });
+    dispatch(loadChallengeMap(Number(challengeId)));
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -67,7 +65,7 @@ const CompletedMapPage: React.FC = () => {
           </div>
         </Toolbar>
       </AppBar>
-      <Box sx={{ height: '100%' }}>
+      <Box sx={{ height: '100%', width: '100%' }}>
         <div className={classes.container}>
           <Stack className={classes.name}>
             <Typography variant="h1" className={classes.header}>
