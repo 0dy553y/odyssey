@@ -25,7 +25,7 @@ import {
   setIsValidatingToken,
   setUser,
 } from './actions';
-import { HOME_ROUTE, LOGIN_ROUTE } from '../../routing/routes';
+import { HOME_ROUTE, ONBOARDING_ROUTE } from '../../routing/routes';
 
 export function login(
   loginData: LoginData,
@@ -61,7 +61,7 @@ export function logout(history: History): OperationResult {
           dispatch(resetNotifications());
         });
       })
-      .then(() => history.push(LOGIN_ROUTE));
+      .then(() => history.push(ONBOARDING_ROUTE));
   };
 }
 
