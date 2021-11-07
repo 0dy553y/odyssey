@@ -15,6 +15,7 @@ import {
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import { makeStyles } from '@mui/styles';
 import MapWrapper from 'components/map/mapTemplates/MapWrapper';
+import { useIsDesktop } from 'utils/windowSize';
 
 const useStyles = makeStyles(() => ({
   header: {
@@ -41,6 +42,7 @@ const CompletedMapPage: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
+  const isDesktop = useIsDesktop();
   useEffect(() => {
     dispatch(loadChallengeMap(Number(challengeId)));
   }, []);
@@ -51,8 +53,11 @@ const CompletedMapPage: React.FC = () => {
   )!;
 
   return (
-    <>
-      <AppBar position="absolute" sx={{ right: 'auto' }}>
+    <Box>
+      <AppBar
+        position="absolute"
+        sx={isDesktop ? { right: 'auto', width: '20vw' } : {}}
+      >
         <Toolbar>
           <div
             onClick={() => {
@@ -66,7 +71,19 @@ const CompletedMapPage: React.FC = () => {
         </Toolbar>
       </AppBar>
       {mapData ? (
-        <Box sx={{ height: '100%', width: '100%' }}>
+        <Box
+          sx={
+            isDesktop
+              ? { height: '100%', width: '100%' }
+              : {
+                  position: 'relative',
+                  margin: '0 -50vw 0 -50vw',
+                  left: '50%',
+                  right: '50%',
+                  width: '100vw',
+                }
+          }
+        >
           <div className={classes.container}>
             <Stack className={classes.name}>
               <Typography variant="h1" className={classes.header}>
@@ -81,7 +98,7 @@ const CompletedMapPage: React.FC = () => {
       ) : (
         <></>
       )}
-    </>
+    </Box>
   );
 };
 

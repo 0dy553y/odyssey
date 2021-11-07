@@ -8,11 +8,13 @@ import { RootState } from 'store';
 import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import { UserChallengeMapData } from 'types/userchallenge';
+import { useIsDesktop } from 'utils/windowSize';
 
 const OngoingMapsPage: React.FC = () => {
   const { challengeId } = useParams<{ challengeId: string }>();
   const history = useHistory();
   const dispatch = useDispatch();
+  const isDesktop = useIsDesktop();
   useEffect(() => {
     batch(() => {
       dispatch(loadAllOngoingChallengeMaps());
@@ -31,7 +33,10 @@ const OngoingMapsPage: React.FC = () => {
 
   return (
     <>
-      <AppBar position="absolute" sx={{ right: 'auto' }}>
+      <AppBar
+        position="absolute"
+        sx={isDesktop ? { right: 'auto', width: '20vw' } : {}}
+      >
         <Toolbar>
           <div
             onClick={() => {
@@ -44,7 +49,19 @@ const OngoingMapsPage: React.FC = () => {
           </div>
         </Toolbar>
       </AppBar>
-      <Box>
+      <Box
+        sx={
+          isDesktop
+            ? {}
+            : {
+                position: 'relative',
+                margin: '0 -50vw 0 -50vw',
+                left: '50%',
+                right: '50%',
+                width: '100vw',
+              }
+        }
+      >
         <MapCarousel
           maps={challengeMaps}
           initialIndex={challengeIdToSwiperIndexMap[challengeId]}
