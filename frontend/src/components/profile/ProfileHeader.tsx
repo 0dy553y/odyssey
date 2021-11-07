@@ -30,21 +30,26 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
             src={user.avatar}
             username={user.username}
             displayName={user.displayName}
+            character={user.character}
             shouldLinkToProfile={false}
           />
-          <Box
-            sx={{
-              position: 'absolute',
-              height: '100%',
-              width: '100%',
-              transform: 'translate(40%, -90%)',
-            }}
-          >
-            <CharacterDisplay
-              character={Character[user.character]}
-              scaleOverride={1.3}
-            />
-          </Box>
+          {user.avatar ? (
+            <Box
+              sx={{
+                position: 'absolute',
+                height: '100%',
+                width: '100%',
+                transform: 'translate(40%, -90%)',
+              }}
+            >
+              <CharacterDisplay
+                character={Character[user.character]}
+                scaleOverride={1.3}
+              />
+            </Box>
+          ) : (
+            <></>
+          )}
         </Box>
       </IconButton>
 
@@ -61,7 +66,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
         {displayUsername(user.username)}
       </Typography>
 
-      <Stack direction="row" spacing={4}>
+      <Stack direction="row" spacing={4} alignItems="center">
         {userProfileItems.map((item) => (
           <Box
             key={item.label}

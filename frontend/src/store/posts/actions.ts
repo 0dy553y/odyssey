@@ -8,5 +8,6 @@ export const {
   setUserPostList,
   updatePost,
   setChallengePostList,
+  prependPostToChallengePostList,
   resetPosts,
 } = postsSlice.actions;
