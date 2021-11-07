@@ -256,8 +256,6 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
     default:
       return <></>;
   }
-
-  return <Grid container></Grid>;
 };
 
 export default FriendControls;
