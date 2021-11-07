@@ -13,7 +13,12 @@ import {
 } from '../../types/challenges';
 import { OperationResult } from '../../types/store';
 import { RootState } from '../index';
-import { removeChallenge, saveChallenge, saveChallengeList } from './actions';
+import {
+  removeChallenge,
+  saveChallenge,
+  saveChallengeList,
+  savePopularChallengeList,
+} from './actions';
 
 export function loadAllChallenges(): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
@@ -72,5 +77,13 @@ export function deleteChallenge(challengeId: number): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     await api.challenges.deleteChallenge(challengeId);
     dispatch(removeChallenge(challengeId));
+  };
+}
+
+export function loadPopularChallenges(categoryId: number): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    const response = await api.challenges.getPopularChallenges(categoryId);
+    const challenges: ChallengeListData[] = response.payload.data;
+    dispatch(savePopularChallengeList(challenges));
   };
 }

@@ -35,6 +35,7 @@ import {
   Stack,
   Toolbar,
   Typography,
+  Theme,
 } from '@mui/material';
 import ChallengeContent from 'components/challenge/ChallengeContent';
 import { useInView } from 'react-intersection-observer';
@@ -48,8 +49,10 @@ import { getChallengePostList } from 'store/posts/selectors';
 import ConfirmationModal from 'components/common/ConfirmationModal';
 import LoadingPage from 'pages/loading/LoadingPage';
 import { MapDialog } from 'components/map';
+import { useIsDesktop } from 'utils/windowSize';
+import { MAP_ROUTE } from 'routing/routes';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles<Theme>((theme) => ({
   white: {
     color: 'white',
   },
@@ -94,6 +97,23 @@ const useStyles = makeStyles(() => ({
     textOverflow: 'ellipsis',
     flex: 1,
   },
+  addMarginTop: {
+    marginTop: '1em',
+  },
+  desktopMargins: {
+    borderRadius: '2em',
+    overflow: 'hidden',
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
+    marginTop: theme.spacing(3),
+  },
+  content: {
+    paddingLeft: '2em',
+    marginTop: '1em',
+  },
+  desktopAppBar: {
+    paddingTop: '1em',
+  },
 }));
 
 interface ChallengeCompletedDialogState {
@@ -108,6 +128,7 @@ const ChallengeDetailsPage: React.FC = () => {
   const [ref, inView] = useInView({
     threshold: 0.3,
   });
+  const isDesktop = useIsDesktop();
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const user = useSelector(getUser)!;
@@ -222,7 +243,7 @@ const ChallengeDetailsPage: React.FC = () => {
   }
 
   return (
-    <Box>
+    <Box className={isDesktop ? classes.desktopMargins : ''}>
       <Stack
         sx={{
           backgroundColor: getHexCode(challenge.color),
@@ -230,6 +251,7 @@ const ChallengeDetailsPage: React.FC = () => {
       >
         <AppBar
           position="sticky"
+          className={isDesktop ? classes.desktopAppBar : ''}
           sx={{
             backgroundColor: getHexCode(challenge.color),
             height: '4.1em',
@@ -287,6 +309,14 @@ const ChallengeDetailsPage: React.FC = () => {
               >
                 <MenuItem
                   onClick={() => {
+                    handleMenuClose();
+                    history.push(`${MAP_ROUTE}/${userChallenge?.challengeId}`);
+                  }}
+                >
+                  View Map
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
                     setIsForfeitConfirmationModalOpen(true);
                     handleMenuClose();
                   }}
@@ -300,11 +330,13 @@ const ChallengeDetailsPage: React.FC = () => {
 
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 10 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          initial={isDesktop ? { opacity: 1 } : { opacity: 0, y: 10 }}
+          animate={
+            inView || isDesktop ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }
+          }
           transition={{ duration: 0.5, ease: 'easeOut' }}
         >
-          <Stack sx={{ paddingLeft: '2em', marginTop: '1em' }}>
+          <Stack className={classes.content}>
             <Typography className={classes.white}>
               {!isEnrolled
                 ? '👻 UNENROLLED'
@@ -334,12 +366,12 @@ const ChallengeDetailsPage: React.FC = () => {
               </span>
             )}
 
-            <Typography className={`${classes.white}`}>
+            <Typography className={`${classes.white} ${classes.addMarginTop}`}>
               {challenge.description}
             </Typography>
             <Typography
               variant="h6"
-              className={`${classes.white} ${classes.bold}`}
+              className={`${classes.white} ${classes.bold} ${classes.addMarginTop}`}
             >
               Recommended schedule
             </Typography>

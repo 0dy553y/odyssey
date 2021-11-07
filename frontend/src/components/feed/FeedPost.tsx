@@ -16,7 +16,7 @@ import { PostListData, ReactionEmoji, ReactionListData } from 'types/posts';
 import { displayDateWithTimestamp, displayUsername } from 'utils/formatting';
 import { ReactionChip } from './ReactionChip';
 import { ReactionPicker } from './ReactionPicker';
-import { CHALLENGE_ROUTE } from 'routing/routes';
+import { CHALLENGE_ROUTE, PROFILE_ROUTE } from 'routing/routes';
 
 interface FeedPostProps {
   post: PostListData;
@@ -46,6 +46,12 @@ const useStyles = makeStyles(() => ({
     hyphens: 'auto',
   },
   handCursor: {
+    cursor: 'pointer',
+  },
+  listItemText: {
+    fontFamily: 'CircularStd',
+    fontWeight: 'bold',
+    lineHeight: '1em',
     cursor: 'pointer',
   },
 }));
@@ -126,9 +132,16 @@ export const FeedPost: React.FC<FeedPostProps> = ({
       </ListItemAvatar>
       <Grid container alignItems="center">
         <ListItemText
+          classes={{ primary: classes.listItemText }}
+          onClick={() => {
+            history.push(
+              `${PROFILE_ROUTE}${
+                creator.id === currentUserId ? '' : '/' + creator.username
+              }`
+            );
+          }}
           primary={creator.displayName ?? displayUsername(creator.username)}
         />
-
         <Grid
           item
           xs={12}
@@ -152,9 +165,6 @@ export const FeedPost: React.FC<FeedPostProps> = ({
               {post.challenge.name}
             </Typography>
           </Link>
-        </Grid>
-
-        <Grid item xs={12}>
           <Tooltip
             arrow
             title={displayDateWithTimestamp(post.createdAt)}
@@ -166,7 +176,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({
               variant="subtitle2"
               className={classes.subtitle}
             >
-              {dayjs(post.createdAt).fromNow()}
+              &nbsp; / {dayjs(post.createdAt).fromNow()}
             </Typography>
           </Tooltip>
         </Grid>

@@ -10,6 +10,10 @@ export function getChallengeList(state: RootState): ChallengeListData[] {
   return getLocalState(state).challengeList;
 }
 
+export function getPopularChallengeList(state: RootState): ChallengeListData[] {
+  return getLocalState(state).popularChallengeList;
+}
+
 export function getChallenge(
   state: RootState,
   challengeId: number

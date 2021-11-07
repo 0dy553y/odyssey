@@ -9,16 +9,23 @@ import {
   Toolbar,
   Stack,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import { styled, Theme } from '@mui/material/styles';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import CategoryListItem from '../../components/category/CategoryListItem';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { getCategory } from 'store/categories/selectors';
-import { loadAllChallenges } from 'store/challenges/operations';
+import {
+  loadAllChallenges,
+  loadPopularChallenges,
+} from 'store/challenges/operations';
 import { loadCategory } from 'store/categories/operations';
-import { getChallengeList } from 'store/challenges/selectors';
+import {
+  getChallengeList,
+  getPopularChallengeList,
+} from 'store/challenges/selectors';
 import { getHeadingFromCategory } from 'utils/naming';
 import { CHALLENGE_ROUTE } from 'routing/routes';
 import {
@@ -31,6 +38,9 @@ import {
 } from 'store/userchallenges/selectors';
 import { getChallengePercentageComplete } from 'utils/progress';
 import LoadingPage from 'pages/loading/LoadingPage';
+import { useIsDesktop } from 'utils/windowSize';
+import { ChallengeListData } from 'types/challenges';
+import challenge from 'pages/challenge';
 
 interface StyledTabProps {
   label: string;
@@ -77,10 +87,56 @@ const StyledTab = styled((props: StyledTabProps) => (
   },
 }));
 
+const useStyles = makeStyles<Theme>((theme) => ({
+  desktopCategoryCoverContainer: {
+    margin: theme.spacing(3),
+    borderRadius: '5vh',
+  },
+  mobileCategoryCoverContainer: {
+    borderRadius: '0 0 5vh 5vh',
+  },
+}));
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 const CategoryPage: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { categoryId } = useParams<{ categoryId: string }>();
+  const classes = useStyles();
+
+  const isDesktop = useIsDesktop();
 
   const [value, setValue] = React.useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -96,6 +152,7 @@ const CategoryPage: React.FC = () => {
     batch(() => {
       dispatch(loadCategory(Number(categoryId)));
       dispatch(loadAllChallenges());
+      dispatch(loadPopularChallenges(Number(categoryId)));
       dispatch(loadAllOngoingUserChallenges());
       dispatch(loadAllCompletedUserChallenges());
     });
@@ -109,6 +166,11 @@ const CategoryPage: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const ongoingChallenges = useSelector((state: RootState) =>
     getAllOngoingUserChallenges(state)
+  )!;
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const popularChallenges = useSelector((state: RootState) =>
+    getPopularChallengeList(state)
   )!;
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -142,9 +204,31 @@ const CategoryPage: React.FC = () => {
     }
   };
 
+  const displayChallenges = (challengeList: ChallengeListData[]) => {
+    return challengeList.map((challenge) => (
+      <li key={challenge.id}>
+        <CategoryListItem
+          name={challenge.name}
+          duration={challenge.duration}
+          percentageComplete={getChallengePercentageComplete(
+            challenge.id,
+            completedChallenges,
+            ongoingChallenges
+          )}
+          onClick={() =>
+            history.push(`${CHALLENGE_ROUTE}/${challenge.id}`, {
+              challenge: challenge,
+            })
+          }
+        />
+      </li>
+    ));
+  };
+
   return (
     <Box>
       <Stack
+        className={isDesktop? classes.desktopCategoryCoverContainer : classes.mobileCategoryCoverContainer}
         sx={{
           backgroundImage: `
             linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%),
@@ -152,7 +236,6 @@ const CategoryPage: React.FC = () => {
           `,
           backgroundSize: 'cover',
           height: '40vh',
-          borderRadius: '0 0 5vh 5vh',
           ...getImageHeaderPosition(category.title),
         }}
         justifyContent="space-between"
@@ -185,36 +268,19 @@ const CategoryPage: React.FC = () => {
       </Stack>
 
       <StyledTabs value={value} onChange={handleChange}>
-        <StyledTab label="All challenges" />
-        <StyledTab label="Curated" />
+        <StyledTab label="All challenges" {...a11yProps(0)} />
+        <StyledTab label="Popular" {...a11yProps(1)} />
       </StyledTabs>
-
-      <Box sx={{ p: 1 }} />
-
-      <Box sx={{ padding: '0 1.5em 0 1.5em' }}>
+      <TabPanel value={value} index={0}>
         <ul>
-          {challenges
-            .filter((challenge) => challenge.categoryId == category.id)
-            .map((challenge) => (
-              <li key={challenge.id}>
-                <CategoryListItem
-                  name={challenge.name}
-                  duration={challenge.duration}
-                  percentageComplete={getChallengePercentageComplete(
-                    challenge.id,
-                    completedChallenges,
-                    ongoingChallenges
-                  )}
-                  onClick={() =>
-                    history.push(`${CHALLENGE_ROUTE}/${challenge.id}`, {
-                      challenge: challenge,
-                    })
-                  }
-                />
-              </li>
-            ))}
+          {displayChallenges(challenges.filter((challenge) => challenge.categoryId == category.id))}
         </ul>
-      </Box>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <ul>
+          {displayChallenges(popularChallenges)}
+        </ul>
+      </TabPanel>
     </Box>
   );
 };

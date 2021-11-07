@@ -21,8 +21,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: '50px',
     maxWidth: '300px',
     textTransform: 'none',
-    marginTop: '12px',
+    marginTop: '20px',
     backgroundColor: theme.palette.primary.main,
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+      filter: 'brightness(1.1)',
+    },
   },
   negativeButton: {
     borderRadius: '20px',
@@ -30,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     maxWidth: '300px',
     textTransform: 'none',
     marginBottom: '12px',
-    backgroundColor: theme.palette.secondary.main,
+    border: '1px white solid',
   },
   icon: {
     marginRight: '8px',
@@ -87,7 +91,13 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
         <CheckIcon className={classes.icon} />
         <Typography variant="body1">Friends</Typography>
       </Button>
-      <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
+      <Dialog
+        open={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        PaperProps={{
+          style: { borderRadius: '1.5em', padding: '1em' },
+        }}
+      >
         <DialogTitle>
           {`Remove ${
             user.displayName ?? displayUsername(user.username)
@@ -103,13 +113,13 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
               });
             }}
           >
-            Yes
+            <Typography variant="body1">Yes</Typography>
           </Button>
           <Button
             className={classes.rejectButton}
             onClick={() => setIsDialogOpen(false)}
           >
-            No
+            <Typography variant="body1">No</Typography>
           </Button>
         </DialogActions>
       </Dialog>
@@ -194,10 +204,11 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
         <Typography variant="body1">Confirm Friend Request</Typography>
       </Button>
       <Button
-        variant="contained"
+        variant="outlined"
         fullWidth
         disableElevation
         className={classes.negativeButton}
+        sx={{ marginTop: '1em' }}
         onClick={() => {
           // Friend request ID must be defined when friend request is received.
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

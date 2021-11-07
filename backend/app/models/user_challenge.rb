@@ -2,7 +2,7 @@
 
 class UserChallenge < ApplicationRecord
   belongs_to :user
-  belongs_to :challenge
+  belongs_to :challenge, counter_cache: :user_challenges_count
   has_many :user_tasks, dependent: :destroy
   belongs_to :schedule
 
