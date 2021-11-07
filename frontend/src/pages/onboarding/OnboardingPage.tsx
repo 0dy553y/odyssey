@@ -125,7 +125,7 @@ const OnboardingPage: React.FC = () => {
             history.push(LOGIN_ROUTE);
           }}
         >
-          Login
+          <Typography variant="body1">Login</Typography>
         </Button>
         <Button
           fullWidth
@@ -136,7 +136,7 @@ const OnboardingPage: React.FC = () => {
             history.push(REGISTER_ROUTE);
           }}
         >
-          Register
+          <Typography variant="body1">Register</Typography>
         </Button>
       </Box>
     </Box>
