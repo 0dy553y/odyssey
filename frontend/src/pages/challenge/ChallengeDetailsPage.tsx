@@ -18,6 +18,7 @@ import { UserChallengeListData } from 'types/userchallenge';
 import { loadAllOngoingUserChallenges } from 'store/userchallenges/operations';
 import { motion } from 'framer-motion';
 import { getAllOngoingUserChallenges } from '../../store/userchallenges/selectors';
+import ChallengeLimitModal from 'components/challenge/ChallengeLimitModal';
 import ScheduleModal from 'components/challenge/ScheduleModal';
 import ShareDialog from 'components/challenge/ShareDialog';
 import { joinChallenge } from 'store/challenges/operations';
@@ -170,6 +171,8 @@ const ChallengeDetailsPage: React.FC = () => {
   const [isScheduleModalOpen, setIsScheduleModalOpen] =
     useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
+  const [isChallengeLimitModalOpen, setIsChallengeLimitModalOpen] =
+    useState<boolean>(false);
   const [challengeCompletedDialogState, setChallengeCompletedDialogState] =
     useReducer(
       (
@@ -208,7 +211,7 @@ const ChallengeDetailsPage: React.FC = () => {
     if (!hasOneTrue) {
       dispatch(
         addSnackbar({
-          message: `Schedule cannot be empty`,
+          message: `Your schedule cannot be empty!`,
           variant: 'error',
         })
       );
@@ -220,12 +223,7 @@ const ChallengeDetailsPage: React.FC = () => {
 
   const onClickJoinChallenge = () => {
     if (ongoingChallenges.length >= 3) {
-      dispatch(
-        addSnackbar({
-          message: `Can only join maximum 3 challenges at a time`,
-          variant: 'error',
-        })
-      );
+      setIsChallengeLimitModalOpen(true);
       return;
     }
     setIsScheduleModalOpen(true);
@@ -465,6 +463,12 @@ const ChallengeDetailsPage: React.FC = () => {
           isOpen={isShareModalOpen}
           onClose={() => setIsShareModalOpen(false)}
           challenge={challenge}
+        />
+      )}
+      {!isEnrolled && (
+        <ChallengeLimitModal
+          isOpen={isChallengeLimitModalOpen}
+          onClose={() => setIsChallengeLimitModalOpen(false)}
         />
       )}
       {challengeCompletedDialogState.completedChallengeId && (
