@@ -1,17 +1,29 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Theme } from '@mui/material';
 import { InView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
+import { makeStyles } from '@mui/styles';
 
 interface SectionProps {
   content: string;
 }
 
+const useStyles = makeStyles((theme: Theme) => ({
+  section: {
+    marginBottom: '7em',
+    [theme.breakpoints.between('md', 'xl')]: {
+      marginLeft: '50%',
+      transform: 'translateX(-50%)',
+    },
+  },
+}));
+
 const Section: React.FC<SectionProps> = (props) => {
   const { content } = props;
+  const classes = useStyles();
 
   return (
-    <Box>
+    <Box className={classes.section}>
       <InView threshold={1}>
         {({ inView, ref }) => (
           <motion.div

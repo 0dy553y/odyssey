@@ -18,9 +18,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   landingPage: {
     marginLeft: '1.5em',
     marginRight: '1.5em',
-    [theme.breakpoints.only('xs')]: {
-      overflowX: 'hidden',
-    },
   },
   descriptionSegment: {
     position: 'relative',
@@ -34,7 +31,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: 'center',
   },
   section: {
-    marginBottom: '7em',
+    marginBottom: '5em',
+    [theme.breakpoints.between('md', 'xl')]: {
+      marginLeft: '50%',
+      transform: 'translateX(-50%)',
+    },
   },
   sideDescription: {
     paddingTop: '5em',
@@ -54,12 +55,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingTop: '20%',
   },
   runnin: {
-    transform: 'translateX(-150%) translateY(-40%)',
     marginBottom: '-5em',
   },
   study: {
-    transform: 'translateX(250%) translateY(-40%)',
     marginBottom: '-5em',
+    marginLeft: '80%',
   },
   specialUnderline: {
     background: 'linear-gradient(to bottom, #88d8fd 0%, #88d8fd 100%)',
