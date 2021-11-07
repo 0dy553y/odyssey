@@ -153,7 +153,13 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
       >
         <Typography variant="body1">Friend Request Sent</Typography>
       </Button>
-      <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
+      <Dialog
+        open={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        PaperProps={{
+          style: { borderRadius: '1.5em', padding: '1em' },
+        }}
+      >
         <DialogTitle>
           {`Cancel friend request to ${
             user.displayName ?? displayUsername(user.username)
@@ -173,13 +179,13 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
                 });
             }}
           >
-            Yes
+            <Typography variant="body1">Yes</Typography>
           </Button>
           <Button
             className={classes.rejectButton}
             onClick={() => setIsDialogOpen(false)}
           >
-            No
+            <Typography variant="body1">No</Typography>
           </Button>
         </DialogActions>
       </Dialog>
