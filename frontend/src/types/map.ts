@@ -38,6 +38,9 @@ export enum Character {
   YELLOW_ASTRONAUT,
   FISHBOWL_ASTRONAUT,
   PUMPKIN_ASTRONAUT,
+  GOLDEN_RETRIEVER,
+  POMERANIAN,
+  IKEACHEF,
 }
 
 export enum ModelFileFormat {

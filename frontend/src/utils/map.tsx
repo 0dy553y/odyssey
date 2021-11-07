@@ -205,6 +205,13 @@ export function getLandModelFile(land: Land): ModelFile {
 
 export function getCharacterModelFile(character: Character): ModelFile {
   switch (character) {
+    case Character.GOLDEN_RETRIEVER:
+    case Character.POMERANIAN:
+    case Character.IKEACHEF:
+      return {
+        path: `characters/${Character[character].toLowerCase()}`,
+        format: ModelFileFormat.GLB,
+      };
     default:
       return {
         path: `characters/${Character[character].toLowerCase()}.vox`,
