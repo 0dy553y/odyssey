@@ -48,9 +48,27 @@ export enum ModelFileFormat {
   GLB,
 }
 
-export type FilePath = string;
-
+type FilePath = string;
 export interface ModelFile {
   path: FilePath;
   format: ModelFileFormat;
+}
+
+export enum BuildingBlock {
+  DISC,
+  STAIRS,
+}
+
+type MapComponent = (
+  key: number,
+  position: Vector3,
+  direction: Direction
+) => JSX.Element;
+
+export interface BlockSet {
+  completed: MapComponent;
+  next: MapComponent;
+  future: MapComponent;
+  widthIncrement: number;
+  heightIncrement: number;
 }
