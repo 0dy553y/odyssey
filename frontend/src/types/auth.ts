@@ -25,6 +25,6 @@ export interface UserData {
 
 export interface UserPutData {
   displayName?: string;
-  avatar?: DataUrl;
+  avatar?: DataUrl | null;
   character: Character;
 }
