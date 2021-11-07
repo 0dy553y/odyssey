@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   fillIcon: {
     fill: theme.palette.primary.main,
+    transform: 'translateY(-0.1em)',
   },
   handCursor: {
     cursor: 'pointer',
