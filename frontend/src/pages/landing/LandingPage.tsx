@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from 'components/landing/LandingNavbar';
-import { Box, Stack, Theme, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Masthead from 'components/landing/Masthead';
 import Footer from 'components/landing/Footer';
@@ -11,10 +11,9 @@ import runnin from 'assets/gifs/runnin.gif';
 import study from 'assets/gifs/study.gif';
 import explore from 'assets/images/explore.png';
 import message from 'assets/images/message.png';
-import { InView, useInView } from 'react-intersection-observer';
-import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   landingPage: {
     marginLeft: '1.5em',
     marginRight: '1.5em',
@@ -29,13 +28,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     overflow: 'hidden',
     verticalAlign: 'middle',
     textAlign: 'center',
-  },
-  section: {
-    marginBottom: '5em',
-    [theme.breakpoints.between('md', 'xl')]: {
-      marginLeft: '50%',
-      transform: 'translateX(-50%)',
-    },
   },
   sideDescription: {
     paddingTop: '5em',
@@ -90,24 +82,14 @@ const LandingPage: React.FC = () => {
       <img className={classes.study} src={study} />
       <Section content="But it doesn't have to be this way. Imagine — no more excuses, no more holding back." />
       <img className={classes.runnin} src={runnin} />
-      <Box className={classes.section}>
-        <InView threshold={1}>
-          {({ inView, ref }) => (
-            <motion.div
-              ref={ref}
-              initial={{ opacity: 0, y: 50 }}
-              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ duration: 1, ease: 'easeOut' }}
-            >
-              <Typography variant="h4">
-                Meet <span className={classes.specialUnderline}>Odyssey</span>:
-                the app that supports and guides you through every step of your
-                journey.
-              </Typography>
-            </motion.div>
-          )}
-        </InView>
-      </Box>
+      <Section
+        content={
+          <>
+            Meet <span className={classes.specialUnderline}>Odyssey</span>: the
+            app that supports and guides you through every step of your journey.
+          </>
+        }
+      />
       <div style={{ paddingBottom: '3em' }}></div>
       <Box className={classes.descriptionSegment}>
         <Stack

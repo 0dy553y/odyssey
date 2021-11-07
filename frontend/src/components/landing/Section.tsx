@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { makeStyles } from '@mui/styles';
 
 interface SectionProps {
-  content: string;
+  content: string | React.ReactNode;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
