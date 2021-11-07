@@ -7,6 +7,7 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
+  Grid,
   Theme,
   Typography,
 } from '@mui/material';
@@ -81,16 +82,18 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
 
   const friendsDisplay = (
     <>
-      <Button
-        variant="contained"
-        fullWidth
-        disableElevation
-        className={classes.button}
-        onClick={() => setIsDialogOpen(true)}
-      >
-        <CheckIcon className={classes.icon} />
-        <Typography variant="body1">Friends</Typography>
-      </Button>
+      <Grid item xs={12}>
+        <Button
+          variant="contained"
+          fullWidth
+          disableElevation
+          className={classes.button}
+          onClick={() => setIsDialogOpen(true)}
+        >
+          <CheckIcon className={classes.icon} />
+          <Typography variant="body1">Friends</Typography>
+        </Button>
+      </Grid>
       <Dialog
         open={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
@@ -127,32 +130,36 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
   );
 
   const notFriendsDisplay = (
-    <Button
-      variant="contained"
-      fullWidth
-      disableElevation
-      className={classes.button}
-      onClick={() => {
-        api.friendRequests.sendFriendRequest(user.id).then(() => {
-          getFriendStatus();
-        });
-      }}
-    >
-      <Typography variant="body1">Add Friend</Typography>
-    </Button>
-  );
-
-  const sentFriendRequestDisplay = (
-    <>
+    <Grid item xs={12}>
       <Button
         variant="contained"
         fullWidth
         disableElevation
         className={classes.button}
-        onClick={() => setIsDialogOpen(true)}
+        onClick={() => {
+          api.friendRequests.sendFriendRequest(user.id).then(() => {
+            getFriendStatus();
+          });
+        }}
       >
-        <Typography variant="body1">Friend Request Sent</Typography>
+        <Typography variant="body1">Add Friend</Typography>
       </Button>
+    </Grid>
+  );
+
+  const sentFriendRequestDisplay = (
+    <>
+      <Grid item xs={12}>
+        <Button
+          variant="contained"
+          fullWidth
+          disableElevation
+          className={classes.button}
+          onClick={() => setIsDialogOpen(true)}
+        >
+          <Typography variant="body1">Friend Request Sent</Typography>
+        </Button>
+      </Grid>
       <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
         <DialogTitle>
           {`Cancel friend request to ${
@@ -188,37 +195,46 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
 
   const receivedFriendRequestDisplay = (
     <>
-      <Button
-        variant="contained"
-        fullWidth
-        disableElevation
-        className={classes.button}
-        onClick={() => {
-          // Friend request ID must be defined when friend request is received.
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          api.friendRequests.acceptFriendRequest(friendRequestId!).then(() => {
-            getFriendStatus();
-          });
-        }}
-      >
-        <Typography variant="body1">Confirm Friend Request</Typography>
-      </Button>
-      <Button
-        variant="outlined"
-        fullWidth
-        disableElevation
-        className={classes.negativeButton}
-        sx={{ marginTop: '1em' }}
-        onClick={() => {
-          // Friend request ID must be defined when friend request is received.
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          api.friendRequests.rejectFriendRequest(friendRequestId!).then(() => {
-            getFriendStatus();
-          });
-        }}
-      >
-        <Typography variant="body1">Reject Friend Request</Typography>
-      </Button>
+      <Grid item xs={12}>
+        <Button
+          variant="contained"
+          fullWidth
+          disableElevation
+          className={classes.button}
+          onClick={() => {
+            api.friendRequests
+              // Friend request ID must be defined when friend request is received.
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              .acceptFriendRequest(friendRequestId!)
+              .then(() => {
+                getFriendStatus();
+              });
+          }}
+        >
+          <Typography variant="body1">Confirm Friend Request</Typography>
+        </Button>
+      </Grid>
+
+      <Grid item xs={12}>
+        <Button
+          variant="outlined"
+          fullWidth
+          disableElevation
+          className={classes.negativeButton}
+          sx={{ marginTop: '1em' }}
+          onClick={() => {
+            api.friendRequests
+              // Friend request ID must be defined when friend request is received.
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              .rejectFriendRequest(friendRequestId!)
+              .then(() => {
+                getFriendStatus();
+              });
+          }}
+        >
+          <Typography variant="body1">Reject Friend Request</Typography>
+        </Button>
+      </Grid>
     </>
   );
 
@@ -234,6 +250,8 @@ const FriendControls: React.FC<Props> = ({ user }: Props) => {
     default:
       return <></>;
   }
+
+  return <Grid container></Grid>;
 };
 
 export default FriendControls;

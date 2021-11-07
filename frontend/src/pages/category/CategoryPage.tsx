@@ -40,7 +40,6 @@ import { getChallengePercentageComplete } from 'utils/progress';
 import LoadingPage from 'pages/loading/LoadingPage';
 import { useIsDesktop } from 'utils/windowSize';
 import { ChallengeListData } from 'types/challenges';
-import challenge from 'pages/challenge';
 
 interface StyledTabProps {
   label: string;
@@ -228,7 +227,11 @@ const CategoryPage: React.FC = () => {
   return (
     <Box>
       <Stack
-        className={isDesktop? classes.desktopCategoryCoverContainer : classes.mobileCategoryCoverContainer}
+        className={
+          isDesktop
+            ? classes.desktopCategoryCoverContainer
+            : classes.mobileCategoryCoverContainer
+        }
         sx={{
           backgroundImage: `
             linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%),
@@ -273,13 +276,15 @@ const CategoryPage: React.FC = () => {
       </StyledTabs>
       <TabPanel value={value} index={0}>
         <ul>
-          {displayChallenges(challenges.filter((challenge) => challenge.categoryId == category.id))}
+          {displayChallenges(
+            challenges.filter(
+              (challenge) => challenge.categoryId == category.id
+            )
+          )}
         </ul>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ul>
-          {displayChallenges(popularChallenges)}
-        </ul>
+        <ul>{displayChallenges(popularChallenges)}</ul>
       </TabPanel>
     </Box>
   );
