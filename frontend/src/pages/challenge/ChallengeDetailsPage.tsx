@@ -9,12 +9,17 @@ import {
 import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { getChallenge } from 'store/challenges/selectors';
+import { ChallengeListData } from 'types/challenges';
 import { getTaskList } from 'store/tasks/selectors';
 import {
   getOngoingOrCompletedUserChallengeDataForChallenge,
   getChallengeMap,
 } from 'store/userchallenges/selectors';
 import { UserChallengeListData } from 'types/userchallenge';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+import AddIcon from '@mui/icons-material/AddRounded';
+import { CreatePostModal } from 'components/feed/CreatePostModal';
+import { createNewPost } from 'store/posts/operations';
 import { loadAllOngoingUserChallenges } from 'store/userchallenges/operations';
 import { motion } from 'framer-motion';
 import { getAllOngoingUserChallenges } from '../../store/userchallenges/selectors';
@@ -26,8 +31,10 @@ import ChallengeCompletedDialog from 'components/challengeCompletedDialog';
 import { getHexCode, getComplementaryColor } from 'utils/color';
 import {
   AppBar,
+  Badge,
   Box,
   Button,
+  Fab,
   IconButton,
   Link,
   Menu,
@@ -51,6 +58,7 @@ import LoadingPage from 'pages/loading/LoadingPage';
 import { MapDialog } from 'components/map';
 import { useIsDesktop } from 'utils/windowSize';
 import { MAP_ROUTE } from 'routing/routes';
+import api from 'api';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   white: {
@@ -114,11 +122,30 @@ const useStyles = makeStyles<Theme>((theme) => ({
   desktopAppBar: {
     paddingTop: '1em',
   },
+  baseFab: {
+    position: 'absolute',
+    backgroundColor: 'black',
+    color: 'white',
+  },
+  mobileFab: {
+    right: theme.spacing(2),
+    bottom: theme.spacing(8),
+  },
+  desktopFab: {
+    right: theme.spacing(3),
+    bottom: theme.spacing(3),
+  },
 }));
 
 interface ChallengeCompletedDialogState {
   isOpen: boolean;
   completedChallengeId?: number;
+}
+
+interface CreatePostState {
+  shouldShowFab: boolean;
+  shouldShowModal: boolean;
+  ongoingAndCompletedChallenges: ChallengeListData[];
 }
 
 const ChallengeDetailsPage: React.FC = () => {
@@ -170,6 +197,17 @@ const ChallengeDetailsPage: React.FC = () => {
   const [isScheduleModalOpen, setIsScheduleModalOpen] =
     useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
+  const [createPostState, setCreatePostState] = useReducer(
+    (state: CreatePostState, newState: Partial<CreatePostState>) => ({
+      ...state,
+      ...newState,
+    }),
+    {
+      shouldShowFab: false,
+      shouldShowModal: false,
+      ongoingAndCompletedChallenges: [],
+    }
+  );
   const [challengeCompletedDialogState, setChallengeCompletedDialogState] =
     useReducer(
       (
@@ -189,6 +227,12 @@ const ChallengeDetailsPage: React.FC = () => {
       dispatch(loadAllUserChallengesDataForChallenge(Number(challengeId)));
       dispatch(loadPostsForChallenge(Number(challengeId)));
       dispatch(loadAllOngoingUserChallenges());
+    });
+
+    api.challenges.getOngoingAndCompletedChallengeList().then((resp) => {
+      setCreatePostState({
+        ongoingAndCompletedChallenges: resp.payload.data,
+      });
     });
   }, []);
 
@@ -423,6 +467,9 @@ const ChallengeDetailsPage: React.FC = () => {
           isChallengeCompleted={isChallengeCompleted}
           onTaskCompleted={() => setIsMapDialogOpen(true)}
           onChallengeCompleted={onChallengeCompleted}
+          setShouldShowCreatePostFab={(shouldShow) =>
+            setCreatePostState({ shouldShowFab: shouldShow })
+          }
         />
       </Stack>
 
@@ -488,6 +535,44 @@ const ChallengeDetailsPage: React.FC = () => {
           >
             <Typography variant="body1">Join!</Typography>
           </Button>
+        </>
+      )}
+      {isEnrolled && createPostState.shouldShowFab && (
+        <>
+          <Fab
+            className={`${classes.baseFab} ${
+              isDesktop ? classes.desktopFab : classes.mobileFab
+            }`}
+            onClick={() => setCreatePostState({ shouldShowModal: true })}
+          >
+            <Badge
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              badgeContent={<AddIcon sx={{ fontSize: '1.2em' }} />}
+              overlap="circular"
+            >
+              <CreateOutlinedIcon />
+            </Badge>
+          </Fab>
+          <CreatePostModal
+            isOpen={createPostState.shouldShowModal}
+            onClose={() => setCreatePostState({ shouldShowModal: false })}
+            onSubmit={(data) => {
+              if (!data.challengeId || typeof data.challengeId === 'string') {
+                throw new Error('Challenge ID must be present');
+              }
+              dispatch(
+                createNewPost({
+                  challengeId: data.challengeId,
+                  body: data.body,
+                })
+              );
+              setCreatePostState({ shouldShowModal: false });
+            }}
+            challenges={createPostState.ongoingAndCompletedChallenges}
+          />
         </>
       )}
     </Box>
