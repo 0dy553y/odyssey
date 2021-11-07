@@ -224,12 +224,6 @@ const ChallengeDetailsPage: React.FC = () => {
   const onClickJoinChallenge = () => {
     if (ongoingChallenges.length >= 3) {
       setIsChallengeLimitModalOpen(true);
-      // dispatch(
-      //   addSnackbar({
-      //     message: `You can only join a maximum of 3 challenges at a time!`,
-      //     variant: 'error',
-      //   })
-      // );
       return;
     }
     setIsScheduleModalOpen(true);
