@@ -44,3 +44,10 @@ export enum ModelFileFormat {
   OBJ,
   GLB,
 }
+
+export type FilePath = string;
+
+export interface ModelFile {
+  path: FilePath;
+  format: ModelFileFormat;
+}

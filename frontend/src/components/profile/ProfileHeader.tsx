@@ -43,7 +43,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
               }}
             >
               <CharacterDisplay
-                character={Character[user.character]}
+                character={user.character}
                 scaleOverride={1.3}
               />
             </Box>
