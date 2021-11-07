@@ -16,7 +16,6 @@ import {
   getChallengeMap,
 } from 'store/userchallenges/selectors';
 import { UserChallengeListData } from 'types/userchallenge';
-import { loadAllOngoingUserChallenges } from 'store/userchallenges/operations';
 import { motion } from 'framer-motion';
 import { getAllOngoingUserChallenges } from '../../store/userchallenges/selectors';
 import ScheduleModal from 'components/challenge/ScheduleModal';
