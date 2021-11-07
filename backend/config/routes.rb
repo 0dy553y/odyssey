@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         api_resources :tasks
         collection do
           get 'ongoing_and_completed_challenges', to: 'ongoing_and_completed_challenges'
+          get 'show_popular_challenges', to: 'show_popular_challenges'
         end
         member do
           post 'join'
@@ -74,8 +75,12 @@ Rails.application.routes.draw do
       end
 
       namespace :map do
-        get 'all_ongoing_challenge_maps', to: 'all_ongoing_challenge_maps'
+        get 'all_ongoing_user_challenge_maps', to: 'all_ongoing_user_challenge_maps'
       end
+
+      # if I put it inside namespace it becomes map/map#show, feel free to move
+      # it back in the correct way haha
+      get 'map/:id', to: 'map#show'
     end
   end
 end

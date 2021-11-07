@@ -4,8 +4,10 @@ import {
   RemoveChallengeAction,
   SAVE_CHALLENGE,
   SAVE_CHALLENGE_LIST,
+  SAVE_POPULAR_CHALLENGE_LIST,
   SaveChallengeAction,
   SaveChallengeListAction,
+  SavePopularChallengeListAction,
 } from './types';
 
 export function saveChallengeList(
@@ -14,6 +16,15 @@ export function saveChallengeList(
   return {
     type: SAVE_CHALLENGE_LIST,
     challengeList,
+  };
+}
+
+export function savePopularChallengeList(
+  popularChallengeList: ChallengeListData[]
+): SavePopularChallengeListAction {
+  return {
+    type: SAVE_POPULAR_CHALLENGE_LIST,
+    popularChallengeList,
   };
 }
 

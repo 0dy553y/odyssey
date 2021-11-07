@@ -52,7 +52,9 @@ export function getAllCompletedUserChallenges(
   return getLocalState(state).completedUserChallengesList;
 }
 
-export function getChallengeMaps(state: RootState): UserChallengeMapData[] {
+export function getOngoingChallengeMaps(
+  state: RootState
+): UserChallengeMapData[] {
   return getLocalState(state).ongoingChallengeMapsList;
 }
 
@@ -60,7 +62,5 @@ export function getChallengeMap(
   state: RootState,
   challengeId: number
 ): UserChallengeMapData | undefined {
-  return getLocalState(state).ongoingChallengeMapsList.find(
-    (map: UserChallengeMapData) => map.challengeId === challengeId
-  );
+  return getLocalState(state).challengeMaps[challengeId];
 }

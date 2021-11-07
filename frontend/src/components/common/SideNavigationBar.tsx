@@ -7,10 +7,10 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import HomeIcon from '@mui/icons-material/HomeRounded';
+import SearchIcon from '@mui/icons-material/SearchRounded';
+import PeopleIcon from '@mui/icons-material/PeopleRounded';
+import AccountCircleIcon from '@mui/icons-material/AccountCircleRounded';
 import {
   EXPLORE_ROUTE,
   FEED_ROUTE,
@@ -29,21 +29,21 @@ const SideNavigationBar: React.FC = () => {
     label: string;
     icon: React.ElementType;
   }[] = [
-    { route: HOME_ROUTE, label: 'Home', icon: HomeOutlinedIcon },
+    { route: HOME_ROUTE, label: 'Home', icon: HomeIcon },
     {
       route: EXPLORE_ROUTE,
       label: 'Explore',
-      icon: SearchOutlinedIcon,
+      icon: SearchIcon,
     },
     {
       route: FEED_ROUTE,
       label: 'Feed',
-      icon: PeopleOutlineIcon,
+      icon: PeopleIcon,
     },
     {
       route: PROFILE_ROUTE,
       label: 'Profile',
-      icon: AccountCircleOutlinedIcon,
+      icon: AccountCircleIcon,
     },
   ];
 
@@ -57,6 +57,7 @@ const SideNavigationBar: React.FC = () => {
           paddingTop: '3em',
           height: '100%',
           boxSizing: 'border-box',
+          backgroundColor: '#f5f7f9',
         },
       }}
       variant="permanent"
@@ -71,15 +72,20 @@ const SideNavigationBar: React.FC = () => {
               button
               key={item.route}
               onClick={() => history.push(item.route)}
+              style={{
+                borderRadius: '1em',
+                marginLeft: '0.5em',
+                width: '95%',
+              }}
             >
               <ListItemIcon>
                 {React.createElement(item.icon, {
-                  color: isSelected ? 'primary' : undefined,
+                  color: isSelected ? 'primary' : 'secondary',
                 })}
               </ListItemIcon>
               <ListItemText
                 primary={item.label}
-                sx={{ color: isSelected ? 'primary.main' : undefined }}
+                sx={{ color: isSelected ? 'primary.main' : 'secondary' }}
               />
             </ListItem>
           );

@@ -59,6 +59,7 @@ const NotificationsListItem: React.FC<Props> = ({ friendRequest }: Props) => {
           src={sender.avatar}
           username={sender.username}
           displayName={sender.displayName}
+          character={sender.character}
         />
       </ListItemAvatar>
       <Grid container alignItems="center">

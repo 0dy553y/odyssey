@@ -104,6 +104,7 @@ const UserTaskCarousel: React.FC<Props> = ({
         <SwiperSlide key={userTask.id}>
           <UserTaskCard
             userTask={userTask}
+            isChallengeCompleted={userTask.isChallengeCompleted}
             onChallengeCompleted={onChallengeCompleted}
             onTaskCompleted={onTaskCompleted}
           />

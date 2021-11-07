@@ -5,10 +5,12 @@ import {
   REMOVE_CHALLENGE,
   SAVE_CHALLENGE,
   SAVE_CHALLENGE_LIST,
+  SAVE_POPULAR_CHALLENGE_LIST,
 } from './types';
 
 const initialState: ChallengesState = {
   challengeList: [],
+  popularChallengeList: [],
   challenges: {},
 };
 
@@ -17,6 +19,10 @@ const challengesReducer = produce(
     switch (action.type) {
       case SAVE_CHALLENGE_LIST: {
         draft.challengeList = action.challengeList;
+        break;
+      }
+      case SAVE_POPULAR_CHALLENGE_LIST: {
+        draft.popularChallengeList = action.popularChallengeList;
         break;
       }
       case SAVE_CHALLENGE: {
