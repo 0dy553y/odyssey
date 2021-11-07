@@ -11,7 +11,7 @@ interface SectionProps {
 const useStyles = makeStyles((theme: Theme) => ({
   section: {
     marginBottom: '7em',
-    [theme.breakpoints.between('md', 'xl')]: {
+    [theme.breakpoints.up('md')]: {
       marginLeft: '50%',
       transform: 'translateX(-50%)',
     },
