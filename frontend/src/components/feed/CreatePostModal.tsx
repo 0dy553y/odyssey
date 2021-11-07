@@ -21,6 +21,7 @@ interface CreatePostModalProps {
   onClose: () => void;
   onSubmit: (data: CreatePostFormState) => void;
   challenges: ChallengeListData[];
+  defaultChallengeId?: number;
 }
 
 interface CreatePostFormState {
@@ -48,6 +49,7 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
   isOpen,
   onSubmit,
   challenges,
+  defaultChallengeId,
   ...props
 }) => {
   const theme = useTheme();
@@ -59,7 +61,7 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
     handleSubmit,
   } = useForm<CreatePostFormState>({
     defaultValues: {
-      challengeId: '',
+      challengeId: defaultChallengeId ?? '',
       body: '',
     },
   });

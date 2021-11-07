@@ -58,6 +58,16 @@ export const postsSlice = createSlice({
       );
       state.challengePostLists[newPost.challenge.id] = challengePostList;
     },
+    prependPostToChallengePostList: (
+      state,
+      action: PayloadAction<{ challengeId: number; post: PostListData }>
+    ): void => {
+      const challengeId = action.payload.challengeId;
+      const post = action.payload.post;
+
+      const postList = state.challengePostLists[challengeId] ?? [];
+      state.challengePostLists[challengeId] = [post, ...postList];
+    },
     setChallengePostList: (
       state,
       action: PayloadAction<{ challengeId: number; posts: PostListData[] }>

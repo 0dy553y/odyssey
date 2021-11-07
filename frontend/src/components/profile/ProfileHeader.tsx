@@ -66,7 +66,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
         {displayUsername(user.username)}
       </Typography>
 
-      <Stack direction="row" spacing={4}>
+      <Stack direction="row" spacing={4} alignItems="center">
         {userProfileItems.map((item) => (
           <Box
             key={item.label}
