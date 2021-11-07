@@ -128,6 +128,7 @@ export const FeedPost: React.FC<FeedPostProps> = ({
           src={creator.avatar}
           username={creator.username}
           displayName={creator.displayName}
+          character={creator.character}
         />
       </ListItemAvatar>
       <Grid container alignItems="center">
