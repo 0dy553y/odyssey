@@ -22,6 +22,7 @@ import { useIsDesktop } from 'utils/windowSize';
 import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
 import { loadAllFriendRequests } from '../../store/notifications/operations';
 import { getFriendRequestList } from '../../store/notifications/selectors';
+import { addSnackbar } from '../../store/snackbars/actions';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -155,7 +156,15 @@ const HomePage: React.FC = () => {
               </IconButton>
               <IconButton
                 size="large"
-                onClick={() => setDate(startOfDay(new Date()))}
+                onClick={() => {
+                  setDate(startOfDay(new Date()));
+                  dispatch(
+                    addSnackbar({
+                      message: 'Set date to today!',
+                      variant: 'success',
+                    })
+                  );
+                }}
               >
                 <TodayIcon fontSize="inherit" />
               </IconButton>
