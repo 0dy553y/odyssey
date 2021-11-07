@@ -61,7 +61,7 @@ const OnboardingPage: React.FC = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
 
   return (
