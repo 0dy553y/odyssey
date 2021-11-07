@@ -1,10 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, {
-  useState,
-  useRef,
-  forwardRef,
-  useImperativeHandle,
-} from 'react';
+import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import { Vector3 } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
 import { useSpring, animated, config } from '@react-spring/three';
@@ -28,7 +23,7 @@ const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
   const { position, direction, username, character } = props;
 
   const characterRef = useRef();
-  const [flip, set] = useState(false);
+
   const { pos } = useSpring({
     from: { pos: position as number[] },
     reset: false,
@@ -37,13 +32,10 @@ const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
 
   // Idle hovering animation.
   const { localPos } = useSpring({
-    reset: true,
+    loop: true,
     from: { localPos: [0, 0.2, 0] },
-    reverse: flip,
-    localPos: [0, 1, 0],
-    delay: 200,
-    config: { ...config.slow, duration: 800 },
-    onRest: () => set(!flip),
+    to: [{ localPos: [0, 1, 0] }, { localPos: [0, 0.2, 0] }],
+    config: { ...config.slow, duration: 1200 },
   });
 
   useImperativeHandle(ref, () => ({

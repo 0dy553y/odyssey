@@ -69,6 +69,7 @@ interface ChallengeContentProps {
   isChallengeCompleted: boolean;
   onTaskCompleted: () => void;
   onChallengeCompleted: (completedChallengeId: number) => void;
+  setShouldShowCreatePostFab: (shouldShow: boolean) => void;
 }
 
 const privateTabs = [TabItem.YourStats];
@@ -83,6 +84,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
     isEnrolled,
     onTaskCompleted,
     onChallengeCompleted,
+    setShouldShowCreatePostFab,
   } = props;
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -165,6 +167,7 @@ const ChallengeContent: React.FC<ChallengeContentProps> = (props) => {
             variant="fullWidth"
             onChange={(_: React.SyntheticEvent, newValue: TabItem) => {
               setCurrentTabItem(newValue);
+              setShouldShowCreatePostFab(newValue === TabItem.Community);
             }}
           >
             {Object.values(TabItem).map((tabItem) => {

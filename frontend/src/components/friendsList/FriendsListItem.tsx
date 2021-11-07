@@ -22,21 +22,19 @@ export const FriendsListItem: React.FC<FriendsListItemProps> = ({ friend }) => {
   const history = useHistory();
 
   return (
-    <ListItem
-      alignItems="flex-start"
-      className={classes.listItem}
-      onClick={() => {
-        history.push(`${PROFILE_ROUTE}/${friend.username}`);
-      }}
-    >
+    <ListItem alignItems="flex-start" className={classes.listItem}>
       <ListItemAvatar>
         <UserAvatar
           src={friend.avatar}
           username={friend.username}
           displayName={friend.displayName}
+          character={friend.character}
         />
       </ListItemAvatar>
       <ListItemText
+        onClick={() => {
+          history.push(`${PROFILE_ROUTE}/${friend.username}`);
+        }}
         primary={friend.displayName ?? displayUsername(friend.username)}
         secondary={friend.displayName && displayUsername(friend.username)}
       />

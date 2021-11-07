@@ -78,6 +78,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   },
   desktopProfileHeaderContainer: {
     marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
     borderRadius: '2em',
   },
 }));
@@ -256,7 +257,7 @@ const ProfilePage: React.FC = () => {
             <ActivityMap activityMapData={userTaskActivityData} />
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6} sx={{ marginTop: '0.5em' }}>
             <UserStats
               challengesCompleted={completedChallenges.length}
               registrationDate={user?.registrationDate}

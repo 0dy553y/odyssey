@@ -10,14 +10,20 @@ import {
 import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
 import { getChallenge } from 'store/challenges/selectors';
+import { ChallengeListData } from 'types/challenges';
 import { getTaskList } from 'store/tasks/selectors';
 import {
   getOngoingOrCompletedUserChallengeDataForChallenge,
   getChallengeMap,
 } from 'store/userchallenges/selectors';
 import { UserChallengeListData } from 'types/userchallenge';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+import AddIcon from '@mui/icons-material/AddRounded';
+import { CreatePostModal } from 'components/feed/CreatePostModal';
+import { createNewPost } from 'store/posts/operations';
 import { motion } from 'framer-motion';
 import { getAllOngoingUserChallenges } from '../../store/userchallenges/selectors';
+import ChallengeLimitModal from 'components/challenge/ChallengeLimitModal';
 import ScheduleModal from 'components/challenge/ScheduleModal';
 import ShareDialog from 'components/challenge/ShareDialog';
 import { joinChallenge } from 'store/challenges/operations';
@@ -26,8 +32,10 @@ import ChallengeCompletedDialog from 'components/challengeCompletedDialog';
 import { getHexCode, getComplementaryColor } from 'utils/color';
 import {
   AppBar,
+  Badge,
   Box,
   Button,
+  Fab,
   IconButton,
   Link,
   Menu,
@@ -35,6 +43,7 @@ import {
   Stack,
   Toolbar,
   Typography,
+  Theme,
 } from '@mui/material';
 import ChallengeContent from 'components/challenge/ChallengeContent';
 import { useInView } from 'react-intersection-observer';
@@ -48,8 +57,11 @@ import { getChallengePostList } from 'store/posts/selectors';
 import ConfirmationModal from 'components/common/ConfirmationModal';
 import LoadingPage from 'pages/loading/LoadingPage';
 import { MapDialog } from 'components/map';
+import { useIsDesktop } from 'utils/windowSize';
+import { MAP_ROUTE } from 'routing/routes';
+import api from 'api';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles<Theme>((theme) => ({
   white: {
     color: 'white',
   },
@@ -94,11 +106,47 @@ const useStyles = makeStyles(() => ({
     textOverflow: 'ellipsis',
     flex: 1,
   },
+  addMarginTop: {
+    marginTop: '1em',
+  },
+  desktopMargins: {
+    borderRadius: '2em',
+    overflow: 'hidden',
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
+    marginTop: theme.spacing(3),
+  },
+  content: {
+    paddingLeft: '2em',
+    marginTop: '1em',
+  },
+  desktopAppBar: {
+    paddingTop: '1em',
+  },
+  baseFab: {
+    position: 'absolute',
+    backgroundColor: 'black',
+    color: 'white',
+  },
+  mobileFab: {
+    right: theme.spacing(2),
+    bottom: theme.spacing(8),
+  },
+  desktopFab: {
+    right: theme.spacing(3),
+    bottom: theme.spacing(3),
+  },
 }));
 
 interface ChallengeCompletedDialogState {
   isOpen: boolean;
   completedChallengeId?: number;
+}
+
+interface CreatePostState {
+  shouldShowFab: boolean;
+  shouldShowModal: boolean;
+  ongoingAndCompletedChallenges: ChallengeListData[];
 }
 
 const ChallengeDetailsPage: React.FC = () => {
@@ -108,6 +156,7 @@ const ChallengeDetailsPage: React.FC = () => {
   const [ref, inView] = useInView({
     threshold: 0.3,
   });
+  const isDesktop = useIsDesktop();
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const user = useSelector(getUser)!;
@@ -149,6 +198,19 @@ const ChallengeDetailsPage: React.FC = () => {
   const [isScheduleModalOpen, setIsScheduleModalOpen] =
     useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
+  const [isChallengeLimitModalOpen, setIsChallengeLimitModalOpen] =
+    useState<boolean>(false);
+  const [createPostState, setCreatePostState] = useReducer(
+    (state: CreatePostState, newState: Partial<CreatePostState>) => ({
+      ...state,
+      ...newState,
+    }),
+    {
+      shouldShowFab: false,
+      shouldShowModal: false,
+      ongoingAndCompletedChallenges: [],
+    }
+  );
   const [challengeCompletedDialogState, setChallengeCompletedDialogState] =
     useReducer(
       (
@@ -169,6 +231,12 @@ const ChallengeDetailsPage: React.FC = () => {
       dispatch(loadPostsForChallenge(Number(challengeId)));
       dispatch(loadChallengeMap(Number(challengeId)));
     });
+
+    api.challenges.getOngoingAndCompletedChallengeList().then((resp) => {
+      setCreatePostState({
+        ongoingAndCompletedChallenges: resp.payload.data,
+      });
+    });
   }, []);
 
   const isEnrolled = !!userChallenge;
@@ -187,7 +255,7 @@ const ChallengeDetailsPage: React.FC = () => {
     if (!hasOneTrue) {
       dispatch(
         addSnackbar({
-          message: `Schedule cannot be empty`,
+          message: `Your schedule cannot be empty!`,
           variant: 'error',
         })
       );
@@ -199,12 +267,7 @@ const ChallengeDetailsPage: React.FC = () => {
 
   const onClickJoinChallenge = () => {
     if (ongoingChallenges.length >= 3) {
-      dispatch(
-        addSnackbar({
-          message: `Can only join maximum 3 challenges at a time`,
-          variant: 'error',
-        })
-      );
+      setIsChallengeLimitModalOpen(true);
       return;
     }
     setIsScheduleModalOpen(true);
@@ -222,7 +285,7 @@ const ChallengeDetailsPage: React.FC = () => {
   }
 
   return (
-    <Box>
+    <Box className={isDesktop ? classes.desktopMargins : ''}>
       <Stack
         sx={{
           backgroundColor: getHexCode(challenge.color),
@@ -230,6 +293,7 @@ const ChallengeDetailsPage: React.FC = () => {
       >
         <AppBar
           position="sticky"
+          className={isDesktop ? classes.desktopAppBar : ''}
           sx={{
             backgroundColor: getHexCode(challenge.color),
             height: '4.1em',
@@ -287,6 +351,14 @@ const ChallengeDetailsPage: React.FC = () => {
               >
                 <MenuItem
                   onClick={() => {
+                    handleMenuClose();
+                    history.push(`${MAP_ROUTE}/${userChallenge?.challengeId}`);
+                  }}
+                >
+                  View Map
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
                     setIsForfeitConfirmationModalOpen(true);
                     handleMenuClose();
                   }}
@@ -300,11 +372,13 @@ const ChallengeDetailsPage: React.FC = () => {
 
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 10 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          initial={isDesktop ? { opacity: 1 } : { opacity: 0, y: 10 }}
+          animate={
+            inView || isDesktop ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }
+          }
           transition={{ duration: 0.5, ease: 'easeOut' }}
         >
-          <Stack sx={{ paddingLeft: '2em', marginTop: '1em' }}>
+          <Stack className={classes.content}>
             <Typography className={classes.white}>
               {!isEnrolled
                 ? '👻 UNENROLLED'
@@ -334,12 +408,12 @@ const ChallengeDetailsPage: React.FC = () => {
               </span>
             )}
 
-            <Typography className={`${classes.white}`}>
+            <Typography className={`${classes.white} ${classes.addMarginTop}`}>
               {challenge.description}
             </Typography>
             <Typography
               variant="h6"
-              className={`${classes.white} ${classes.bold}`}
+              className={`${classes.white} ${classes.bold} ${classes.addMarginTop}`}
             >
               Recommended schedule
             </Typography>
@@ -391,6 +465,9 @@ const ChallengeDetailsPage: React.FC = () => {
           isChallengeCompleted={isChallengeCompleted}
           onTaskCompleted={() => setIsMapDialogOpen(true)}
           onChallengeCompleted={onChallengeCompleted}
+          setShouldShowCreatePostFab={(shouldShow) =>
+            setCreatePostState({ shouldShowFab: shouldShow })
+          }
         />
       </Stack>
 
@@ -435,6 +512,12 @@ const ChallengeDetailsPage: React.FC = () => {
           challenge={challenge}
         />
       )}
+      {!isEnrolled && (
+        <ChallengeLimitModal
+          isOpen={isChallengeLimitModalOpen}
+          onClose={() => setIsChallengeLimitModalOpen(false)}
+        />
+      )}
       {challengeCompletedDialogState.completedChallengeId && (
         <ChallengeCompletedDialog
           isOpen={challengeCompletedDialogState.isOpen}
@@ -456,6 +539,45 @@ const ChallengeDetailsPage: React.FC = () => {
           >
             <Typography variant="body1">Join!</Typography>
           </Button>
+        </>
+      )}
+      {isEnrolled && createPostState.shouldShowFab && (
+        <>
+          <Fab
+            className={`${classes.baseFab} ${
+              isDesktop ? classes.desktopFab : classes.mobileFab
+            }`}
+            onClick={() => setCreatePostState({ shouldShowModal: true })}
+          >
+            <Badge
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              badgeContent={<AddIcon sx={{ fontSize: '1.2em' }} />}
+              overlap="circular"
+            >
+              <CreateOutlinedIcon />
+            </Badge>
+          </Fab>
+          <CreatePostModal
+            isOpen={createPostState.shouldShowModal}
+            onClose={() => setCreatePostState({ shouldShowModal: false })}
+            onSubmit={(data) => {
+              if (!data.challengeId || typeof data.challengeId === 'string') {
+                throw new Error('Challenge ID must be present');
+              }
+              dispatch(
+                createNewPost({
+                  challengeId: data.challengeId,
+                  body: data.body,
+                })
+              );
+              setCreatePostState({ shouldShowModal: false });
+            }}
+            challenges={createPostState.ongoingAndCompletedChallenges}
+            defaultChallengeId={Number(challengeId)}
+          />
         </>
       )}
     </Box>

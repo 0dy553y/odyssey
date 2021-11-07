@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         api_resources :tasks
         collection do
           get 'ongoing_and_completed_challenges', to: 'ongoing_and_completed_challenges'
+          get 'show_popular_challenges', to: 'show_popular_challenges'
         end
         member do
           post 'join'

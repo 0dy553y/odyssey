@@ -35,6 +35,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.create!(post_params)
 
+    show_success_message('Post successfully created!')
     render 'posts/show', status: :created
   end
 

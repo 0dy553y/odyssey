@@ -5,7 +5,9 @@ import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from 'store/index';
 import { PostPostData, ReactionEmoji } from 'types/posts';
 import { OperationResult } from 'types/store';
+import { withStatusMessages } from 'utils/ui';
 import {
+  prependPostToChallengePostList,
   prependPostToCommunityPostList,
   prependPostToFriendPostList,
   setChallengePostList,
@@ -73,13 +75,20 @@ export function removeReactionFromPost(
 
 export function createNewPost(postPostData: PostPostData): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    const response = await api.posts.createPost(postPostData);
+    const response = await withStatusMessages(
+      dispatch,
+      api.posts.createPost(postPostData)
+    );
+    const post = response.payload.data;
 
     batch(() => {
       // Assumption is that the newly created post will appear in both the
       // friends post list and in the community post list
-      dispatch(prependPostToFriendPostList(response.payload.data));
-      dispatch(prependPostToCommunityPostList(response.payload.data));
+      dispatch(prependPostToFriendPostList(post));
+      dispatch(prependPostToCommunityPostList(post));
+      dispatch(
+        prependPostToChallengePostList({ challengeId: post.challenge.id, post })
+      );
     });
   };
 }
