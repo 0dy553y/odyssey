@@ -16,7 +16,7 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import TodayIcon from '@mui/icons-material/TodayRounded';
 import { startOfDay } from 'date-fns';
 import { UserChallengeMapData } from 'types/userchallenge';
-import { getChallengeMaps } from 'store/userchallenges/selectors';
+import { getOngoingChallengeMaps } from 'store/userchallenges/selectors';
 import LoadingPage from 'pages/loading/LoadingPage';
 import { useIsDesktop } from 'utils/windowSize';
 import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
@@ -122,7 +122,7 @@ const HomePage: React.FC = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const challengeMaps = useSelector((state: RootState) =>
-    getChallengeMaps(state)
+    getOngoingChallengeMaps(state)
   )!;
 
   const friendRequests = useSelector(getFriendRequestList);

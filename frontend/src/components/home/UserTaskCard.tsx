@@ -19,7 +19,11 @@ import {
 import { useDispatch } from 'react-redux';
 import { getHexCode, getComplementaryColor } from 'utils/color';
 import { isAfter } from 'date-fns';
-import { CHALLENGE_ROUTE, MAP_ROUTE } from '../../routing/routes';
+import {
+  CHALLENGE_ROUTE,
+  COMPLETED_MAP_ROUTE,
+  MAP_ROUTE,
+} from '../../routing/routes';
 import Linkify from 'react-linkify';
 
 const useStyles = makeStyles(() => ({
@@ -97,12 +101,14 @@ const useStyles = makeStyles(() => ({
 
 interface Props {
   userTask: UserTaskListData;
+  isChallengeCompleted: boolean;
   onChallengeCompleted: (completedChallengeId: number) => void;
   onTaskCompleted: (openChallengeName: string) => void;
 }
 
 const UserTaskCard: React.FC<Props> = ({
   userTask,
+  isChallengeCompleted,
   onChallengeCompleted,
   onTaskCompleted,
 }: Props) => {
@@ -177,7 +183,11 @@ const UserTaskCard: React.FC<Props> = ({
           >
             <IconButton
               component={Link}
-              to={`${MAP_ROUTE}/${userTask.challengeId}`}
+              to={
+                isChallengeCompleted
+                  ? `${COMPLETED_MAP_ROUTE}/${userTask.challengeId}`
+                  : `${MAP_ROUTE}/${userTask.challengeId}`
+              }
             >
               <MapIcon filter="invert(1)" />
             </IconButton>

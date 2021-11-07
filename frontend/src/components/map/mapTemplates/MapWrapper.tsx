@@ -35,6 +35,8 @@ const MapWrapper: React.FC<MapWrapperProps> = ({
         <Canvas camera={{ zoom: 100 }} orthographic={true}>
           <color attach="background" args={['#010101']} />
           <directionalLight position={[0, 30, 0]} intensity={1} />
+          <directionalLight position={[0, -30, 0]} intensity={1} />
+
           <pointLight position={[30, 0, 0]} intensity={0.5} />
           <pointLight position={[-30, 0, 0]} intensity={0.5} />
           <pointLight position={[0, 0, 30]} intensity={0.2} />

@@ -47,9 +47,11 @@ const SpaceMapStructure = (
   } = props;
   const numStages = Math.floor(numSteps / width);
   let base: Vector3 = [
-    (width * widthIncrement) / 2,
-    5 - numSteps / 2,
-    (width * widthIncrement) / 2,
+    (Math.min(numSteps > width ? numSteps - width : 0, width) *
+      widthIncrement) /
+      2,
+    numSteps > 7 ? 5 - numSteps / 2 : 0,
+    (Math.min(numSteps, width) * widthIncrement) / 2,
   ];
   let currentDirection = Direction.RIGHT;
 
@@ -87,7 +89,10 @@ const SpaceMapStructure = (
       currentDirection,
       widthIncrement
     );
-    stepPositions.push({ pos: finalPosition, direction: currentDirection });
+    stepPositions.push({
+      pos: translate(finalPosition, { [Axis.Y]: 1 }),
+      direction: currentDirection,
+    });
     return (
       <group onClick={onClickPrize}>
         <Prize position={finalPosition} modelPath={prizePath} />

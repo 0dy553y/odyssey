@@ -5,5 +5,6 @@ export const {
   updateOngoingUserChallengesListData,
   updateCompletedUserChallengesListData,
   updateOngoingChallengeMapsData,
+  updateChallengeMapData,
   resetUserChallenges,
 } = userChallengesSlice.actions;

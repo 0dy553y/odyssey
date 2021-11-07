@@ -5,6 +5,7 @@ import { loadAllTasks } from 'store/tasks/operations';
 import {
   forfeitUserChallenge,
   loadAllUserChallengesDataForChallenge,
+  loadChallengeMap,
 } from 'store/userchallenges/operations';
 import { useHistory, useParams } from 'react-router-dom';
 import { RootState } from 'store';
@@ -20,7 +21,6 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import AddIcon from '@mui/icons-material/AddRounded';
 import { CreatePostModal } from 'components/feed/CreatePostModal';
 import { createNewPost } from 'store/posts/operations';
-import { loadAllOngoingUserChallenges } from 'store/userchallenges/operations';
 import { motion } from 'framer-motion';
 import { getAllOngoingUserChallenges } from '../../store/userchallenges/selectors';
 import ChallengeLimitModal from 'components/challenge/ChallengeLimitModal';
@@ -229,7 +229,7 @@ const ChallengeDetailsPage: React.FC = () => {
       dispatch(loadAllTasks(Number(challengeId)));
       dispatch(loadAllUserChallengesDataForChallenge(Number(challengeId)));
       dispatch(loadPostsForChallenge(Number(challengeId)));
-      dispatch(loadAllOngoingUserChallenges());
+      dispatch(loadChallengeMap(Number(challengeId)));
     });
 
     api.challenges.getOngoingAndCompletedChallengeList().then((resp) => {

@@ -82,7 +82,8 @@ function saveAuthHeaders(resp: AxiosResponse) {
         uid: resp.headers['uid'],
         'token-type': resp.headers['token-type'],
         expiry: resp.headers['expiry'],
-      })
+      }),
+      { expires: 7 }
     );
   }
   return resp;
