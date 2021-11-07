@@ -261,13 +261,13 @@ export function getCameraZoomForDesktop(numSteps: number): number {
 export function getCameraPosition(characterDirection: Direction): Vector3 {
   switch (characterDirection) {
     case Direction.RIGHT:
-      return [d, d, -d];
-    case Direction.LEFT:
-      return [-d, d, d];
-    case Direction.FORWARD:
-      return [-d, d, -d];
-    case Direction.BACKWARD:
       return [d, d, d];
+    case Direction.LEFT:
+      return [-d, d, -d];
+    case Direction.FORWARD:
+      return [d, d, -d];
+    case Direction.BACKWARD:
+      return [-d, d, d];
     default:
       return [d, d, -d];
   }
