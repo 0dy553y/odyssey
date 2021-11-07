@@ -21,7 +21,6 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import AddIcon from '@mui/icons-material/AddRounded';
 import { CreatePostModal } from 'components/feed/CreatePostModal';
 import { createNewPost } from 'store/posts/operations';
-import { loadAllOngoingUserChallenges } from 'store/userchallenges/operations';
 import { motion } from 'framer-motion';
 import { getAllOngoingUserChallenges } from '../../store/userchallenges/selectors';
 import ChallengeLimitModal from 'components/challenge/ChallengeLimitModal';
