@@ -8,9 +8,12 @@ import {
   Character,
   ModelFileFormat,
   ModelFile,
+  BlockSet,
+  BuildingBlock,
 } from '../types/map';
-import { Arch, Columns } from '../components/map';
+import { Arch, Columns, Disc, NextDisc, Stairs } from '../components/map';
 import { Vector3 } from '@react-three/fiber';
+import StairBox from 'components/map/composite/StairBox';
 
 // Returns a Vector3 that is base + translationVector.
 // The translation vector does not need to specify values for all three axes.
@@ -243,6 +246,7 @@ const cameraZoomBreakpointsDesktop = [
 
 // camera distance
 const d = 60;
+const elevation = 20;
 
 export function getCameraZoomForMobile(numSteps: number): number {
   const myBp = cameraZoomBreakpointsMobile.find((a) => {
@@ -261,14 +265,58 @@ export function getCameraZoomForDesktop(numSteps: number): number {
 export function getCameraPosition(characterDirection: Direction): Vector3 {
   switch (characterDirection) {
     case Direction.RIGHT:
-      return [d, d, d];
+      return [d, elevation, d];
     case Direction.LEFT:
-      return [-d, d, -d];
+      return [-d, elevation, -d];
     case Direction.FORWARD:
-      return [d, d, -d];
+      return [d, elevation, -d];
     case Direction.BACKWARD:
-      return [-d, d, d];
+      return [-d, elevation, d];
     default:
-      return [d, d, -d];
+      return [d, elevation, -d];
+  }
+}
+
+export function getBuildingBlockSet(blockType: BuildingBlock): BlockSet {
+  switch (blockType) {
+    case BuildingBlock.STAIRS:
+      return {
+        completed: (key: number, position: Vector3, direction: Direction) => (
+          <StairBox
+            key={key}
+            position={position}
+            direction={direction}
+            colorOverride={'#569874'}
+          />
+        ),
+        next: (key: number, position: Vector3, direction: Direction) => (
+          <StairBox
+            key={key}
+            position={position}
+            direction={direction}
+            colorOverride={'#ffffff'}
+          />
+        ),
+        future: (key: number, position: Vector3, direction: Direction) => (
+          <StairBox key={key} direction={direction} position={position} />
+        ),
+        widthIncrement: 2,
+        heightIncrement: 1,
+      };
+    case BuildingBlock.DISC:
+    default:
+      return {
+        completed: (key: number, position: Vector3) => (
+          <Disc key={key} position={position} colorOverride={'#569874'} />
+        ),
+        next: (key: number, position: Vector3) => (
+          <NextDisc key={key} position={position} colorOverride={'#ffffff'} />
+        ),
+        future: (key: number, position: Vector3) => (
+          <Disc key={key} position={position} />
+        ),
+        widthIncrement: 1.5,
+        heightIncrement: 1,
+      };
   }
 }

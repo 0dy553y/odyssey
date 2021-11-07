@@ -62,8 +62,6 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
   const [shouldMoveCharacterForward, setShouldMoveCharacterForward] =
     useState<boolean>(false);
   const width = 7;
-  const widthIncrement = 1.5;
-  const heightIncrement = 0.5;
   const characterRef = useRef();
   const mapRef = useRef();
   const { camera } = useThree();
@@ -136,7 +134,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
   return (
     <>
       {/*  x: red, y: green, z: blue */}
-      {/* <axesHelper args={[5]} /> */}
+      <axesHelper args={[5]} />
       {/* {isMapLoaded ? (
             <EffectComposer>
               <Bloom
@@ -154,8 +152,6 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
         numSteps={numSteps}
         currentStep={currentStep}
         width={width}
-        widthIncrement={widthIncrement}
-        heightIncrement={heightIncrement}
         prizePath={getPrizePath(prizeName)}
         onMapMounted={(stepPositions) => {
           setStepPositions(stepPositions);
