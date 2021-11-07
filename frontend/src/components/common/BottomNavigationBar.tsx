@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeRounded';
+import SearchOutlinedIcon from '@mui/icons-material/SearchRounded';
+import PeopleOutlineIcon from '@mui/icons-material/PeopleRounded';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleRounded';
 import {
   EXPLORE_ROUTE,
   FEED_ROUTE,
