@@ -65,18 +65,22 @@ const CompletedMapPage: React.FC = () => {
           </div>
         </Toolbar>
       </AppBar>
-      <Box sx={{ height: '100%', width: '100%' }}>
-        <div className={classes.container}>
-          <Stack className={classes.name}>
-            <Typography variant="h1" className={classes.header}>
-              {mapData.challengeName}
-            </Typography>
-          </Stack>
-          <div className={classes.map}>
-            <MapWrapper mapData={mapData} />
+      {mapData ? (
+        <Box sx={{ height: '100%', width: '100%' }}>
+          <div className={classes.container}>
+            <Stack className={classes.name}>
+              <Typography variant="h1" className={classes.header}>
+                {mapData.challengeName}
+              </Typography>
+            </Stack>
+            <div className={classes.map}>
+              <MapWrapper mapData={mapData} />
+            </div>
           </div>
-        </div>
-      </Box>
+        </Box>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
