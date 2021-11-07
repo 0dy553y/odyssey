@@ -572,6 +572,7 @@ const ChallengeDetailsPage: React.FC = () => {
               setCreatePostState({ shouldShowModal: false });
             }}
             challenges={createPostState.ongoingAndCompletedChallenges}
+            defaultChallengeId={Number(challengeId)}
           />
         </>
       )}
