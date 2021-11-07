@@ -55,10 +55,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingTop: '20%',
   },
   runnin: {
-    marginBottom: '-5em',
+    marginBottom: '1em',
   },
   study: {
-    marginBottom: '-5em',
+    marginBottom: '1em',
     marginLeft: '80%',
   },
   specialUnderline: {
