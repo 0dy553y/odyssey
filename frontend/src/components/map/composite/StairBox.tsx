@@ -7,10 +7,10 @@ import { Color, MapComponent } from '../basic/MapComponent';
 const StairBox: React.FC<Color> = ({ color }) => {
   return (
     <>
-      <Stairs color={color} position={[0, -0.5, -1]} />
-      <Box color={color} position={[0, -0.5, 0]} />
+      <Stairs colorOverride={color} position={[0, -0.5, -1]} />
+      <Box colorOverride={color} position={[0, -0.5, 0]} />
       <HalfArch
-        color={color}
+        colorOverride={color}
         position={[0, -0.5, 2]}
         direction={Direction.LEFT}
         width={2}
