@@ -123,10 +123,14 @@ const DateCarousel: React.FC<Props> = ({
       >
         {dates.map((date: Date) => (
           <SwiperSlide key={date.toISOString()}>
-            <DateItem
-              date={date}
-              shouldShowDot={contains(datesWithOverdueTasks, date)}
-            />
+            {({ isActive }) => (
+              <DateItem
+                date={date}
+                shouldShowDot={
+                  !isActive && contains(datesWithOverdueTasks, date)
+                }
+              />
+            )}
           </SwiperSlide>
         ))}
       </Swiper>
