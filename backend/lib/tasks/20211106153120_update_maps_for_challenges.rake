@@ -4,7 +4,7 @@ desc 'Update maps for challenges'
 task update_maps_for_challenges: :environment do
   # FOR REFERENCE:
   # LAND: grass = 0, sand = 1, stone = 2, beehive = 3, cake = 4, forest = 5
-  # BUILDING BLOCK: disc = 0, stairs = 1
+  # BUILDING BLOCK: disc = 0, stairs = 1, cloud = 2
   # BACKGROUND: stars = 0, blue sky = 1
 
   # Land is currently 0 to 3 (To update if we add more)
@@ -15,7 +15,7 @@ task update_maps_for_challenges: :environment do
   Challenge.find_by(name: 'Becoming More Productive').map.update!(land: 1, building_block: 0, background: 0)
   Challenge.find_by(name: 'CS3216').map.update!(land: 0, building_block: 0, background: 0)
   Challenge.find_by(name: 'Couch to 5k').map.update!(land: 1, building_block: 0, background: 0)
-  Challenge.find_by(name: 'Earth Week').map.update!(land: 5, building_block: 1, background: 1)
+  Challenge.find_by(name: 'Earth Week').map.update!(land: 5, building_block: 2, background: 1)
   Challenge.find_by(name: 'Gratitude Journaling').map.update!(land: 1, building_block: 0, background: 0)
   Challenge.find_by(name: 'Happiness').map.update!(land: 1, building_block: 0, background: 0)
   Challenge.find_by(name: 'Healthy Eating').map.update!(land: 4, building_block: 0, background: 0)

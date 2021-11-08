@@ -59,6 +59,7 @@ export interface ModelFile {
 export enum BuildingBlock {
   DISC,
   STAIRS,
+  CLOUD,
 }
 
 type MapComponent = (

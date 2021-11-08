@@ -12,7 +12,14 @@ import {
   BuildingBlock,
   MapBackground,
 } from '../types/map';
-import { Arch, Columns, Disc, NextDisc, Stairs } from '../components/map';
+import {
+  Arch,
+  Columns,
+  Disc,
+  Model,
+  NextDisc,
+  Stairs,
+} from '../components/map';
 import { Vector3 } from '@react-three/fiber';
 import StairBox from 'components/map/composite/StairBox';
 import { Stars } from '@react-three/drei';
@@ -335,6 +342,31 @@ export function getBuildingBlockSet(
         widthIncrement: 2,
         heightIncrement: 1,
       };
+    case BuildingBlock.CLOUD:
+      const cloudModelFile = {
+        path: '/blocks/cloud_block.vox',
+        format: ModelFileFormat.OBJ,
+      };
+      const CloudBlock = (
+        key: number,
+        position: Vector3,
+        direction: Direction
+      ) => (
+        <Model
+          key={key}
+          position={position}
+          direction={direction}
+          modelFile={cloudModelFile}
+        />
+      );
+      return {
+        completed: CloudBlock,
+        next: CloudBlock,
+        future: CloudBlock,
+        widthIncrement: 1.5,
+        heightIncrement: 1,
+      };
+
     case BuildingBlock.DISC:
     default:
       return {
