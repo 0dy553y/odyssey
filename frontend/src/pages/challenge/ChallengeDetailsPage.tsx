@@ -339,7 +339,6 @@ const ChallengeDetailsPage: React.FC = () => {
                 sx={{
                   color: 'white',
                   padding: '1em',
-                  visibility: canForfeitChallenge ? undefined : 'hidden',
                 }}
               >
                 <MoreVertIcon />
@@ -348,22 +347,40 @@ const ChallengeDetailsPage: React.FC = () => {
                 anchorEl={menuAnchorEl}
                 open={isMenuOpen}
                 onClose={handleMenuClose}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center',
+                }}
               >
+                {isEnrolled && (
+                  <MenuItem
+                    onClick={() => {
+                      handleMenuClose();
+                      history.push(
+                        `${MAP_ROUTE}/${userChallenge?.challengeId}`
+                      );
+                    }}
+                  >
+                    View Map
+                  </MenuItem>
+                )}
+                {canForfeitChallenge && (
+                  <MenuItem
+                    onClick={() => {
+                      setIsForfeitConfirmationModalOpen(true);
+                      handleMenuClose();
+                    }}
+                  >
+                    Forfeit Challenge
+                  </MenuItem>
+                )}
                 <MenuItem
                   onClick={() => {
                     handleMenuClose();
-                    history.push(`${MAP_ROUTE}/${userChallenge?.challengeId}`);
+                    setIsShareModalOpen(true);
                   }}
                 >
-                  View Map
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    setIsForfeitConfirmationModalOpen(true);
-                    handleMenuClose();
-                  }}
-                >
-                  Forfeit Challenge
+                  Share Challenge
                 </MenuItem>
               </Menu>
             </Box>
@@ -505,13 +522,11 @@ const ChallengeDetailsPage: React.FC = () => {
           numOngoingChallenges={ongoingChallenges.length}
         />
       )}
-      {isEnrolled && (
-        <ShareDialog
-          isOpen={isShareModalOpen}
-          onClose={() => setIsShareModalOpen(false)}
-          challenge={challenge}
-        />
-      )}
+      <ShareDialog
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        challenge={challenge}
+      />
       {!isEnrolled && (
         <ChallengeLimitModal
           isOpen={isChallengeLimitModalOpen}
