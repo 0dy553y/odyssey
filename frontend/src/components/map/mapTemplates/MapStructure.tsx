@@ -5,9 +5,9 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import { Vector3 } from '@react-three/fiber';
-import { Disc, NextDisc, Model } from '..';
+import { Model } from '..';
 
-import { Direction, Axis, BuildingBlock } from '../../../types/map';
+import { Direction, Axis } from '../../../types/map';
 import {
   translate,
   buildDiagonalRepeated,
@@ -152,7 +152,11 @@ const MapStructure = (props: MapStructureProps, ref: React.Ref<unknown>) => {
         );
         base = regularTranslate(base, currentDirection, widthIncrement + 0.5);
         stepPositions.push({
-          pos: translate(base, { [Axis.Y]: 1 }),
+          pos: translate(base, {
+            [Axis.X]: dv[0],
+            [Axis.Y]: 1,
+            [Axis.Z]: dv[1],
+          }),
           direction: currentDirection,
         });
         currentDirection = nextDirection;

@@ -210,6 +210,7 @@ export function getLandModelFile(land: Land): ModelFile {
     case Land.GRASS:
     case Land.CAKE:
     case Land.FOREST:
+    case Land.POOL:
       return {
         path: `land/${Land[land].toLowerCase()}`,
         format: ModelFileFormat.GLB,
@@ -354,7 +355,7 @@ export function getBuildingBlockSet(
       ) => (
         <Model
           key={key}
-          position={position}
+          position={translate(position, { [Axis.Y]: -0.5 })}
           direction={direction}
           modelFile={cloudModelFile}
         />

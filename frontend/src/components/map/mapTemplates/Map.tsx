@@ -46,7 +46,7 @@ const Map = (props: MapProps, ref: React.Ref<unknown>) => {
     friends,
     mapTheme,
   } = mapData;
-  let currentStep = currentTaskNum;
+  let currentStep = 7;
   const numSteps = numTasks;
   const friendsPositions: Record<number, UserChallengeFriendMapData[]> = {};
   friends.map((f: UserChallengeFriendMapData) => {
