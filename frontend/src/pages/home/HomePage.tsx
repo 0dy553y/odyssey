@@ -13,7 +13,6 @@ import { LOGIN_ROUTE, NOTIFICATIONS_ROUTE } from '../../routing/routes';
 import DateCarousel from '../../components/home/DateCarousel';
 import ChallengeCompletedDialog from 'components/challengeCompletedDialog';
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
-import TodayIcon from '@mui/icons-material/TodayRounded';
 import { startOfDay } from 'date-fns';
 import { UserChallengeMapData } from 'types/userchallenge';
 import { getOngoingChallengeMaps } from 'store/userchallenges/selectors';
@@ -22,7 +21,6 @@ import { useIsDesktop } from 'utils/windowSize';
 import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
 import { loadAllFriendRequests } from '../../store/notifications/operations';
 import { getFriendRequestList } from '../../store/notifications/selectors';
-import { addSnackbar } from '../../store/snackbars/actions';
 
 const useStyles = makeStyles(() => ({
   baseContainer: {
@@ -156,20 +154,6 @@ const HomePage: React.FC = () => {
                     fontSize="inherit"
                   />
                 </Badge>
-              </IconButton>
-              <IconButton
-                size="large"
-                onClick={() => {
-                  setDate(startOfDay(new Date()));
-                  dispatch(
-                    addSnackbar({
-                      message: 'Set date to today!',
-                      variant: 'success',
-                    })
-                  );
-                }}
-              >
-                <TodayIcon color="secondary" fontSize="inherit" />
               </IconButton>
             </div>
           </Grid>
