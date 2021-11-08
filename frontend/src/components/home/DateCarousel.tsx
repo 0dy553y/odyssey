@@ -16,6 +16,8 @@ import { makeStyles } from '@mui/styles';
 import './DateCarousel.scss';
 import ReturnToTodayButton from './ReturnToTodayButton';
 import { startOfDay } from 'date-fns';
+import { useDispatch } from 'react-redux';
+import { addSnackbar } from '../../store/snackbars/actions';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -37,6 +39,7 @@ interface Props {
 
 const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const dateRange = 50;
   const previousIndex = dateRange;
   const [selectedDate, setSelectedDate] = useState(date);
@@ -84,7 +87,15 @@ const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
   };
 
   const currentDate: Date = startOfDay(new Date());
-  const setDateToCurrentDate = () => setDate(currentDate);
+  const setDateToCurrentDate = () => {
+    setDate(currentDate);
+    dispatch(
+      addSnackbar({
+        message: 'Set date to today!',
+        variant: 'success',
+      })
+    );
+  };
 
   const handleActiveIndexChange = (swiper: SwiperClass) => {
     setSelectedDate(dates[swiper.activeIndex]);
