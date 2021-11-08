@@ -11,8 +11,22 @@ import SwiperCore, { Navigation, Mousewheel, Keyboard } from 'swiper';
 import SwiperClass from 'swiper/types/swiper-class';
 import { Box, Stack, Typography } from '@mui/material';
 import dayjs from 'dayjs';
+import { makeStyles } from '@mui/styles';
 
 import './DateCarousel.scss';
+import ReturnToTodayButton from './ReturnToTodayButton';
+import { startOfDay } from 'date-fns';
+
+const useStyles = makeStyles(() => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+  },
+  dateDisplay: {
+    flexGrow: 1,
+  },
+}));
 
 interface Props {
   date: Date;
@@ -20,6 +34,7 @@ interface Props {
 }
 
 const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
+  const classes = useStyles();
   const dateRange = 50;
   const previousIndex = dateRange;
   const [selectedDate, setSelectedDate] = useState(date);
@@ -122,10 +137,20 @@ const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
         ))}
       </Swiper>
 
-      <Stack alignItems="center">
-        <Typography variant="h6">{getDayString(selectedDate)}</Typography>
-        <Typography>{getDateFromNowString(selectedDate)}</Typography>
-      </Stack>
+      <div className={classes.container}>
+        <ReturnToTodayButton
+          direction="left"
+          onClick={() => setDate(startOfDay(new Date()))}
+        />
+        <Stack alignItems="center" className={classes.dateDisplay}>
+          <Typography variant="h6">{getDayString(selectedDate)}</Typography>
+          <Typography>{getDateFromNowString(selectedDate)}</Typography>
+        </Stack>
+        <ReturnToTodayButton
+          direction="right"
+          onClick={() => setDate(startOfDay(new Date()))}
+        />
+      </div>
     </Stack>
   );
 };
