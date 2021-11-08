@@ -19,7 +19,7 @@ const DateItem: React.FC<Props> = ({ date, shouldShowDot }: Props) => {
   return (
     <Stack alignItems="center">
       {shouldShowDot && (
-        <Box sx={{ height: 0, transform: 'translate(0, -1.5em)' }}>
+        <Box sx={{ height: 0, transform: 'translate(0, -1.1em)' }}>
           <Badge color="warning" variant="dot" />
         </Box>
       )}
