@@ -21,16 +21,22 @@ const useStyles = makeStyles(() => ({
 interface Props {
   direction: 'left' | 'right';
   onClick: () => void;
+  isVisible: boolean;
 }
 
 const ReturnToTodayButton: React.FC<Props> = ({
   direction,
   onClick,
+  isVisible,
 }: Props) => {
   const classes = useStyles();
 
   return (
-    <Button onClick={onClick} className={classes.button}>
+    <Button
+      onClick={onClick}
+      sx={{ visibility: isVisible ? 'visible' : 'hidden' }}
+      className={classes.button}
+    >
       {direction === 'left' && <KeyboardBackspaceIcon />}
       Return to today
       {direction === 'right' && (

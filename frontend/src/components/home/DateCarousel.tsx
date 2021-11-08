@@ -81,6 +81,9 @@ const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
     setDates(newDates);
   };
 
+  const currentDate: Date = startOfDay(new Date());
+  const setDateToCurrentDate = () => setDate(currentDate);
+
   const handleActiveIndexChange = (swiper: SwiperClass) => {
     setSelectedDate(dates[swiper.activeIndex]);
   };
@@ -140,7 +143,8 @@ const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
       <div className={classes.container}>
         <ReturnToTodayButton
           direction="left"
-          onClick={() => setDate(startOfDay(new Date()))}
+          onClick={setDateToCurrentDate}
+          isVisible={selectedDate > currentDate}
         />
         <Stack alignItems="center" className={classes.dateDisplay}>
           <Typography variant="h6">{getDayString(selectedDate)}</Typography>
@@ -148,7 +152,8 @@ const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
         </Stack>
         <ReturnToTodayButton
           direction="right"
-          onClick={() => setDate(startOfDay(new Date()))}
+          onClick={setDateToCurrentDate}
+          isVisible={selectedDate < currentDate}
         />
       </div>
     </Stack>
