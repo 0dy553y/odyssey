@@ -14,6 +14,7 @@ import {
   regularTranslate,
   getLandModelFile,
   getBuildingBlockSet,
+  getSecondaryLandModelFile,
 } from 'utils/map';
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionACW } from '../../../utils/direction';
@@ -141,7 +142,11 @@ const MapStructure = (props: MapStructureProps, ref: React.Ref<unknown>) => {
                 }
               )}
               direction={nextDirection}
-              modelFile={getLandModelFile(mapTheme.land)}
+              modelFile={
+                i % 2
+                  ? getSecondaryLandModelFile(mapTheme.land)
+                  : getLandModelFile(mapTheme.land)
+              }
             />
           </group>
         );

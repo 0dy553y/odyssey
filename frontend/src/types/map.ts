@@ -30,6 +30,8 @@ export enum Land {
   SAND,
   STONE,
   BEEHIVE,
+  CAKE,
+  FOREST,
 }
 
 export enum Character {

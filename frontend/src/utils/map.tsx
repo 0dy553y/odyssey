@@ -199,16 +199,34 @@ export function buildDiagonalRepeated({
 }
 
 export function getLandModelFile(land: Land): ModelFile {
-  if (land === Land.GRASS) {
-    return {
-      path: 'land/grass',
-      format: ModelFileFormat.GLB,
-    };
+  switch (land) {
+    case Land.GRASS:
+    case Land.CAKE:
+    case Land.FOREST:
+      return {
+        path: `land/${Land[land].toLowerCase()}`,
+        format: ModelFileFormat.GLB,
+      };
+    default:
+      return {
+        path: `land/${Land[land].toLowerCase()}.vox`,
+        format: ModelFileFormat.OBJ,
+      };
   }
-  return {
-    path: `land/${Land[land].toLowerCase()}.vox`,
-    format: ModelFileFormat.OBJ,
-  };
+}
+
+export function getSecondaryLandModelFile(land: Land): ModelFile {
+  switch (land) {
+    case Land.CAKE:
+    case Land.FOREST:
+      return {
+        path: `land/${Land[land].toLowerCase()}2`,
+        format: ModelFileFormat.GLB,
+      };
+    // Don't have yet
+    default:
+      return getLandModelFile(land);
+  }
 }
 
 export function getCharacterModelFile(character: Character): ModelFile {
