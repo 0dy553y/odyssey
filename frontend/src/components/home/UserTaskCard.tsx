@@ -56,6 +56,7 @@ const useStyles = makeStyles(() => ({
     // Padding for scrollbar
     paddingRight: '8px',
     overflowY: 'auto',
+    overflowX: 'hidden',
   },
   padding: {
     height: 15,
