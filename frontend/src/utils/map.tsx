@@ -10,10 +10,15 @@ import {
   ModelFile,
   BlockSet,
   BuildingBlock,
+  MapBackground,
 } from '../types/map';
 import { Arch, Columns, Disc, NextDisc, Stairs } from '../components/map';
 import { Vector3 } from '@react-three/fiber';
 import StairBox from 'components/map/composite/StairBox';
+import { Stars } from '@react-three/drei';
+import SkyDome from 'components/map/basic/SkyDome';
+import { ChallengeColor } from 'types/challenges';
+import { getHexCode } from './color';
 
 // Returns a Vector3 that is base + translationVector.
 // The translation vector does not need to specify values for all three axes.
@@ -277,7 +282,12 @@ export function getCameraPosition(characterDirection: Direction): Vector3 {
   }
 }
 
-export function getBuildingBlockSet(blockType: BuildingBlock): BlockSet {
+export function getBuildingBlockSet(
+  blockType: BuildingBlock,
+  color: ChallengeColor
+): BlockSet {
+  const blockColor = getHexCode(color);
+  console.log(blockColor);
   switch (blockType) {
     case BuildingBlock.STAIRS:
       return {
@@ -298,7 +308,12 @@ export function getBuildingBlockSet(blockType: BuildingBlock): BlockSet {
           />
         ),
         future: (key: number, position: Vector3, direction: Direction) => (
-          <StairBox key={key} direction={direction} position={position} />
+          <StairBox
+            key={key}
+            direction={direction}
+            position={position}
+            colorOverride={blockColor}
+          />
         ),
         widthIncrement: 2,
         heightIncrement: 1,
@@ -313,10 +328,33 @@ export function getBuildingBlockSet(blockType: BuildingBlock): BlockSet {
           <NextDisc key={key} position={position} colorOverride={'#ffffff'} />
         ),
         future: (key: number, position: Vector3) => (
-          <Disc key={key} position={position} />
+          <Disc key={key} position={position} colorOverride={blockColor} />
         ),
         widthIncrement: 1.5,
         heightIncrement: 1,
       };
+  }
+}
+
+export function getMapBackground(
+  mapBackground: MapBackground,
+  cameraZoom: number
+): JSX.Element {
+  switch (mapBackground) {
+    case MapBackground.STARS:
+      return <SkyDome />;
+    case MapBackground.SKY_BLUE:
+    default:
+      return (
+        <>
+          <color attach="background" args={['#010101']} />
+          <Stars
+            factor={cameraZoom > 40 ? 1 : 10}
+            radius={60 - cameraZoom}
+            saturation={1}
+            fade
+          />
+        </>
+      );
   }
 }

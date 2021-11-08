@@ -29,10 +29,7 @@ interface MapStructureProps {
   onClickPrize: () => void;
 }
 
-const SpaceMapStructure = (
-  props: MapStructureProps,
-  ref: React.Ref<unknown>
-) => {
+const MapStructure = (props: MapStructureProps, ref: React.Ref<unknown>) => {
   const {
     numSteps,
     currentStep,
@@ -43,7 +40,10 @@ const SpaceMapStructure = (
     onClickPrize,
   } = props;
   const numStages = Math.floor(numSteps / width);
-  const buildingBlockSet = getBuildingBlockSet(BuildingBlock.STAIRS);
+  const buildingBlockSet = getBuildingBlockSet(
+    mapTheme.buildingBlock,
+    mapTheme.mapColor
+  );
   const { widthIncrement, heightIncrement } = buildingBlockSet;
   let base: Vector3 = [
     (Math.min(numSteps > width ? numSteps - width : 0, width) *
@@ -185,4 +185,4 @@ const SpaceMapStructure = (
   );
 };
 
-export default forwardRef(SpaceMapStructure);
+export default forwardRef(MapStructure);

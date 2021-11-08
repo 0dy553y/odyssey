@@ -72,3 +72,8 @@ export interface BlockSet {
   widthIncrement: number;
   heightIncrement: number;
 }
+
+export enum MapBackground {
+  STARS,
+  SKY_BLUE,
+}

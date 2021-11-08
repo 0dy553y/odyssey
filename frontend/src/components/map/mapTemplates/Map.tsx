@@ -6,9 +6,9 @@ import React, {
   useImperativeHandle,
   useEffect,
 } from 'react';
-import SpaceMapStructure from './SpaceMapStructure';
+import MapStructure from './MapStructure';
 import { useThree } from '@react-three/fiber';
-import { MapControls, Stars } from '@react-three/drei';
+import { MapControls, Sky, Stars } from '@react-three/drei';
 import { Character } from '..';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Axis, Direction } from '../../../types/map';
@@ -18,6 +18,7 @@ import {
   getCameraPosition,
   getCameraZoomForDesktop,
   getCameraZoomForMobile,
+  getMapBackground,
   translate,
 } from 'utils/map';
 import {
@@ -25,6 +26,7 @@ import {
   UserChallengeMapData,
 } from 'types/userchallenge';
 import { getPrizePath } from 'utils/prizes';
+import SkyDome from '../basic/SkyDome';
 
 interface MapProps {
   mapData: UserChallengeMapData;
@@ -32,7 +34,7 @@ interface MapProps {
   isDesktop: boolean;
 }
 
-const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
+const Map = (props: MapProps, ref: React.Ref<unknown>) => {
   const { mapData, setIsPrizeModalOpen, isDesktop } = props;
   const {
     username,
@@ -147,7 +149,7 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
             <></>
           )} */}
 
-      <SpaceMapStructure
+      <MapStructure
         ref={mapRef}
         numSteps={numSteps}
         currentStep={currentStep}
@@ -204,14 +206,9 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
         dispatchEvent={undefined}
         minZoom={cameraZoom - 8}
       />
-      <Stars
-        factor={cameraZoom > 40 ? 1 : 10}
-        radius={60 - cameraZoom}
-        saturation={1}
-        fade
-      />
+      {getMapBackground(mapTheme.mapBackground, cameraZoom)}
     </>
   );
 };
 
-export default forwardRef(SpaceMap);
+export default forwardRef(Map);

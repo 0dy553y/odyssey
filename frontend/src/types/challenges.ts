@@ -1,5 +1,5 @@
 import { DayOfWeek } from './date';
-import { BuildingBlock, Land } from './map';
+import { BuildingBlock, Land, MapBackground } from './map';
 
 export interface ChallengeListData {
   id: number;
@@ -51,4 +51,6 @@ export type Schedule = Record<DayOfWeek, boolean>;
 export interface ChallengeMapTheme {
   land: Land;
   buildingBlock: BuildingBlock;
+  mapColor: ChallengeColor;
+  mapBackground: MapBackground;
 }
