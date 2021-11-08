@@ -8,16 +8,17 @@ import React, {
 } from 'react';
 import MapStructure from './MapStructure';
 import { useThree } from '@react-three/fiber';
-import { MapControls, Sky, Stars } from '@react-three/drei';
-import { Character } from '..';
+import { MapControls } from '@react-three/drei';
+import { Character, Model } from '..';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import { Axis, Direction } from '../../../types/map';
+import { Axis, Direction, ModelFileFormat } from '../../../types/map';
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionCW } from 'utils/direction';
 import {
   getCameraPosition,
   getCameraZoomForDesktop,
   getCameraZoomForMobile,
+  getEnvironmentObject,
   getMapBackground,
   translate,
 } from 'utils/map';
@@ -26,7 +27,6 @@ import {
   UserChallengeMapData,
 } from 'types/userchallenge';
 import { getPrizePath } from 'utils/prizes';
-import SkyDome from '../basic/SkyDome';
 
 interface MapProps {
   mapData: UserChallengeMapData;
@@ -199,6 +199,8 @@ const Map = (props: MapProps, ref: React.Ref<unknown>) => {
       ) : (
         <></>
       )}
+
+      {getEnvironmentObject(mapTheme.environmentObject)}
       <MapControls
         addEventListener={undefined}
         hasEventListener={undefined}

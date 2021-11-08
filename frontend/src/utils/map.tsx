@@ -11,6 +11,7 @@ import {
   BlockSet,
   BuildingBlock,
   MapBackground,
+  MapEnvironmentObject,
 } from '../types/map';
 import {
   Arch,
@@ -26,6 +27,10 @@ import { Stars } from '@react-three/drei';
 import SkyDome from 'components/map/basic/SkyDome';
 import { ChallengeColor } from 'types/challenges';
 import { getHexCode } from './color';
+import EnvironmentObject from 'components/map/composite/EnvironmentObject';
+
+const LAND_DIRECTORY = 'land';
+const CHARACTER_DIRECTORY = 'characters';
 
 // Returns a Vector3 that is base + translationVector.
 // The translation vector does not need to specify values for all three axes.
@@ -212,12 +217,12 @@ export function getLandModelFile(land: Land): ModelFile {
     case Land.FOREST:
     case Land.POOL:
       return {
-        path: `land/${Land[land].toLowerCase()}`,
+        path: `${LAND_DIRECTORY}/${Land[land].toLowerCase()}`,
         format: ModelFileFormat.GLB,
       };
     default:
       return {
-        path: `land/${Land[land].toLowerCase()}.vox`,
+        path: `${LAND_DIRECTORY}/${Land[land].toLowerCase()}.vox`,
         format: ModelFileFormat.OBJ,
       };
   }
@@ -229,7 +234,7 @@ export function getSecondaryLandModelFile(land: Land): ModelFile {
     case Land.FOREST:
     case Land.GRASS:
       return {
-        path: `land/${Land[land].toLowerCase()}2`,
+        path: `${LAND_DIRECTORY}/${Land[land].toLowerCase()}2`,
         format: ModelFileFormat.GLB,
       };
     // Don't have yet
@@ -244,14 +249,37 @@ export function getCharacterModelFile(character: Character): ModelFile {
     case Character.POMERANIAN:
     case Character.IKEACHEF:
       return {
-        path: `characters/${Character[character].toLowerCase()}`,
+        path: `${CHARACTER_DIRECTORY}/${Character[character].toLowerCase()}`,
         format: ModelFileFormat.GLB,
       };
     default:
       return {
-        path: `characters/${Character[character].toLowerCase()}.vox`,
+        path: `${CHARACTER_DIRECTORY}/${Character[
+          character
+        ].toLowerCase()}.vox`,
         format: ModelFileFormat.OBJ,
       };
+  }
+}
+
+export function getEnvironmentObject(
+  environmentObject: MapEnvironmentObject
+): JSX.Element {
+  switch (environmentObject) {
+    case MapEnvironmentObject.HOT_AIR_BALLOON:
+      return (
+        <EnvironmentObject
+          position={[0, -5, 0]}
+          modelFile={{
+            path: 'environment/hot_air_balloon',
+            format: ModelFileFormat.GLB,
+          }}
+          scale={3}
+        />
+      );
+
+    default:
+      return <></>;
   }
 }
 

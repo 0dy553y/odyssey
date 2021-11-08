@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 2021_11_08_163106) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "building_block", default: 0
     t.integer "background", default: 0
+    t.integer "environment_object"
     t.index ["challenge_id"], name: "index_maps_on_challenge_id"
   end
 

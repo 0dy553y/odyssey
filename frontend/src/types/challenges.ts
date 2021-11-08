@@ -1,5 +1,10 @@
 import { DayOfWeek } from './date';
-import { BuildingBlock, Land, MapBackground } from './map';
+import {
+  BuildingBlock,
+  Land,
+  MapBackground,
+  MapEnvironmentObject,
+} from './map';
 
 export interface ChallengeListData {
   id: number;
@@ -53,4 +58,5 @@ export interface ChallengeMapTheme {
   buildingBlock: BuildingBlock;
   mapColor: ChallengeColor;
   background: MapBackground;
+  environmentObject: MapEnvironmentObject;
 }

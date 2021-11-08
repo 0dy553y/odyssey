@@ -24,7 +24,6 @@ export interface DirectionPosition {
   direction: Direction;
 }
 
-// anyhow put for now.
 export enum Land {
   GRASS,
   SAND,
@@ -80,4 +79,8 @@ export interface BlockSet {
 export enum MapBackground {
   STARS,
   SKY_BLUE,
+}
+
+export enum MapEnvironmentObject {
+  HOT_AIR_BALLOON,
 }

@@ -12,7 +12,8 @@ task update_maps_for_challenges: :environment do
   # instead of randomly assign
   Challenge.find_by(name: 'A Drawing a Day').map.update!(land: 1, building_block: 0, background: 0)
   Challenge.find_by(name: 'Back to School').map.update!(land: 1, building_block: 0, background: 1)
-  Challenge.find_by(name: 'Becoming More Productive').map.update!(land: 1, building_block: 0, background: 0)
+  Challenge.find_by(name: 'Becoming More Productive').map.update!(land: 1, building_block: 0, background: 1,
+                                                                  environment_object: 0)
   Challenge.find_by(name: 'CS3216').map.update!(land: 0, building_block: 0, background: 0)
   Challenge.find_by(name: 'Couch to 5k').map.update!(land: 1, building_block: 0, background: 0)
   Challenge.find_by(name: 'Earth Week').map.update!(land: 5, building_block: 2, background: 1)
