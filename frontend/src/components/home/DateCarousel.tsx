@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  contains,
   getDateFromNowString,
   getDayString,
   getMonthString,
@@ -17,9 +18,14 @@ import './DateCarousel.scss';
 interface Props {
   date: Date;
   setDate: (date: Date) => void;
+  datesWithOverdueTasks: Date[];
 }
 
-const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
+const DateCarousel: React.FC<Props> = ({
+  date,
+  setDate,
+  datesWithOverdueTasks,
+}: Props) => {
   const dateRange = 50;
   const previousIndex = dateRange;
   const [selectedDate, setSelectedDate] = useState(date);
@@ -117,7 +123,10 @@ const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
       >
         {dates.map((date: Date) => (
           <SwiperSlide key={date.toISOString()}>
-            <DateItem date={date} />
+            <DateItem
+              date={date}
+              shouldShowDot={contains(datesWithOverdueTasks, date)}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
