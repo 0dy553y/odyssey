@@ -206,7 +206,7 @@ const Map = (props: MapProps, ref: React.Ref<unknown>) => {
         dispatchEvent={undefined}
         minZoom={cameraZoom - 8}
       />
-      {getMapBackground(mapTheme.mapBackground, cameraZoom)}
+      {getMapBackground(mapTheme.background, cameraZoom)}
     </>
   );
 };

@@ -52,5 +52,5 @@ export interface ChallengeMapTheme {
   land: Land;
   buildingBlock: BuildingBlock;
   mapColor: ChallengeColor;
-  mapBackground: MapBackground;
+  background: MapBackground;
 }

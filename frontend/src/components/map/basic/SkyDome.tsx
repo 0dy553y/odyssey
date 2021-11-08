@@ -3,7 +3,7 @@ import React from 'react';
 import { BackSide } from 'three';
 
 const SkyDome: React.FC = () => {
-  const skyTexture = useTexture('/textures/download.jpeg');
+  const skyTexture = useTexture('/textures/sky.jpeg');
   return (
     <mesh>
       <sphereGeometry args={[50, 25, 25]} />

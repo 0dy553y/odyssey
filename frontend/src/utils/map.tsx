@@ -287,7 +287,6 @@ export function getBuildingBlockSet(
   color: ChallengeColor
 ): BlockSet {
   const blockColor = getHexCode(color);
-  console.log(blockColor);
   switch (blockType) {
     case BuildingBlock.STAIRS:
       return {
@@ -341,9 +340,9 @@ export function getMapBackground(
   cameraZoom: number
 ): JSX.Element {
   switch (mapBackground) {
-    case MapBackground.STARS:
-      return <SkyDome />;
     case MapBackground.SKY_BLUE:
+      return <SkyDome />;
+    case MapBackground.STARS:
     default:
       return (
         <>
