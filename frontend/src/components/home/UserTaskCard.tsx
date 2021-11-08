@@ -57,6 +57,9 @@ const useStyles = makeStyles(() => ({
     paddingRight: '8px',
     overflowY: 'auto',
     overflowX: 'hidden',
+    // Only allow panning vertical. Specifically, disallow panning horizontal
+    // to minimize conflict with carousel
+    touchAction: 'pan-y',
   },
   padding: {
     height: 15,
