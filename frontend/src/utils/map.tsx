@@ -227,6 +227,7 @@ export function getSecondaryLandModelFile(land: Land): ModelFile {
   switch (land) {
     case Land.CAKE:
     case Land.FOREST:
+    case Land.GRASS:
       return {
         path: `land/${Land[land].toLowerCase()}2`,
         format: ModelFileFormat.GLB,
