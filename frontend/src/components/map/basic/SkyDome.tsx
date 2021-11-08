@@ -1,0 +1,15 @@
+import { useTexture } from '@react-three/drei';
+import React from 'react';
+import { BackSide } from 'three';
+
+const SkyDome: React.FC = () => {
+  const skyTexture = useTexture('/textures/download.jpeg');
+  return (
+    <mesh>
+      <sphereGeometry args={[50, 25, 25]} />
+      <meshPhongMaterial side={BackSide} map={skyTexture} />
+    </mesh>
+  );
+};
+
+export default SkyDome;
