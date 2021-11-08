@@ -11,6 +11,7 @@ const useStyles = makeStyles(() => ({
     background: 'white',
     color: 'black',
     padding: '10px',
+    minWidth: 'auto',
   },
   flippedIcon: {
     transform: 'rotate(180deg)',
