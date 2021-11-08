@@ -3,11 +3,12 @@ import React, { Suspense } from 'react';
 import { Canvas, Euler, Vector3 } from '@react-three/fiber';
 import { Model } from 'components/map';
 
-import { getCharacterPath } from 'utils/map';
+import { getCharacterModelFile } from 'utils/map';
 import { animated, config, useSpring } from '@react-spring/three';
+import { Character } from 'types/map';
 
 interface CharacterDisplayProps {
-  character: string;
+  character: Character;
   isActive?: boolean;
   scaleOverride?: number;
   position?: Vector3;
@@ -48,7 +49,7 @@ const CharacterDisplay: React.FC<CharacterDisplayProps> = ({
             <Model
               position={isAnimated ? (localPos as any as Vector3) : position}
               scale={scaleOverride ? scaleOverride : scale}
-              fileName={getCharacterPath(character)}
+              modelFile={getCharacterModelFile(character)}
             />
           </animated.group>
         </Canvas>

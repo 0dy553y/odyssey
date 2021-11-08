@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom';
 import { LOGIN_ROUTE, NOTIFICATIONS_ROUTE } from '../../routing/routes';
 import DateCarousel from '../../components/home/DateCarousel';
 import ChallengeCompletedDialog from 'components/challengeCompletedDialog';
-import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
+import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import TodayIcon from '@mui/icons-material/TodayRounded';
 import { startOfDay } from 'date-fns';
 import { UserChallengeMapData } from 'types/userchallenge';
@@ -150,14 +150,17 @@ const HomePage: React.FC = () => {
                 onClick={() => history.push(NOTIFICATIONS_ROUTE)}
               >
                 <Badge color="primary" badgeContent={friendRequests.length}>
-                  <NotificationsOutlinedIcon fontSize="inherit" />
+                  <NotificationsRoundedIcon
+                    color="secondary"
+                    fontSize="inherit"
+                  />
                 </Badge>
               </IconButton>
               <IconButton
                 size="large"
                 onClick={() => setDate(startOfDay(new Date()))}
               >
-                <TodayIcon fontSize="inherit" />
+                <TodayIcon color="secondary" fontSize="inherit" />
               </IconButton>
             </div>
           </Grid>
