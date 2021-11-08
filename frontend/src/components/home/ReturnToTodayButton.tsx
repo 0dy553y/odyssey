@@ -7,6 +7,11 @@ const useStyles = makeStyles(() => ({
   button: {
     borderRadius: '30px',
     height: '40px',
+    marginLeft: '20px',
+    marginRight: '20px',
+    background: 'white',
+    color: 'black',
+    padding: '10px',
   },
   flippedIcon: {
     transform: 'rotate(180deg)',
