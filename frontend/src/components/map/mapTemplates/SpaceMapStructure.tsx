@@ -12,12 +12,12 @@ import {
   translate,
   buildDiagonalRepeated,
   regularTranslate,
-} from '../../../utils/map';
+  getLandModelFile,
+} from 'utils/map';
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionACW } from '../../../utils/direction';
 import Prize from '../composite/Prize';
 import { ChallengeMapTheme } from 'types/challenges';
-import { getLandPath } from 'utils/map';
 interface MapStructureProps {
   numSteps: number;
   currentStep: number;
@@ -47,9 +47,11 @@ const SpaceMapStructure = (
   } = props;
   const numStages = Math.floor(numSteps / width);
   let base: Vector3 = [
-    (width * widthIncrement) / 2,
-    5 - numSteps / 2,
-    (width * widthIncrement) / 2,
+    (Math.min(numSteps > width ? numSteps - width : 0, width) *
+      widthIncrement) /
+      2,
+    numSteps > 7 ? 5 - numSteps / 2 : 0,
+    (Math.min(numSteps, width) * widthIncrement) / 2,
   ];
   let currentDirection = Direction.RIGHT;
 
@@ -87,7 +89,10 @@ const SpaceMapStructure = (
       currentDirection,
       widthIncrement
     );
-    stepPositions.push({ pos: finalPosition, direction: currentDirection });
+    stepPositions.push({
+      pos: translate(finalPosition, { [Axis.Y]: 1 }),
+      direction: currentDirection,
+    });
     return (
       <group onClick={onClickPrize}>
         <Prize position={finalPosition} modelPath={prizePath} />
@@ -133,7 +138,7 @@ const SpaceMapStructure = (
                 }
               )}
               direction={nextDirection}
-              fileName={getLandPath(mapTheme.land)}
+              modelFile={getLandModelFile(mapTheme.land)}
             />
           </group>
         );

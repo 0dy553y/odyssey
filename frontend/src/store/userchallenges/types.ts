@@ -12,4 +12,5 @@ export interface UserChallengesState {
   ongoingUserChallengesList: UserChallengeListData[];
   ongoingChallengeMapsList: UserChallengeMapData[];
   completedUserChallengesList: CompletedUserChallengeListData[];
+  challengeMaps: Record<ChallengeId, UserChallengeMapData>;
 }

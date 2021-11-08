@@ -6,6 +6,8 @@ import {
   TranslationVector,
   Land,
   Character,
+  ModelFileFormat,
+  ModelFile,
 } from '../types/map';
 import { Arch, Columns } from '../components/map';
 import { Vector3 } from '@react-three/fiber';
@@ -188,15 +190,34 @@ export function buildDiagonalRepeated({
   );
 }
 
-export function getLandPath(land: Land): string {
-  return `land/${Land[land].toLowerCase()}.vox`;
+export function getLandModelFile(land: Land): ModelFile {
+  if (land === Land.GRASS) {
+    return {
+      path: 'land/grass',
+      format: ModelFileFormat.GLB,
+    };
+  }
+  return {
+    path: `land/${Land[land].toLowerCase()}.vox`,
+    format: ModelFileFormat.OBJ,
+  };
 }
 
-export function getCharacterPath(character: Character | string): string {
-  if (typeof character === 'string') {
-    return `characters/${character.toLowerCase()}.vox`;
+export function getCharacterModelFile(character: Character): ModelFile {
+  switch (character) {
+    case Character.GOLDEN_RETRIEVER:
+    case Character.POMERANIAN:
+    case Character.IKEACHEF:
+      return {
+        path: `characters/${Character[character].toLowerCase()}`,
+        format: ModelFileFormat.GLB,
+      };
+    default:
+      return {
+        path: `characters/${Character[character].toLowerCase()}.vox`,
+        format: ModelFileFormat.OBJ,
+      };
   }
-  return `characters/${Character[character].toLowerCase()}.vox`;
 }
 
 const cameraZoomBreakpointsMobile = [

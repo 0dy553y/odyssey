@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
-import { getChallengeMaps } from 'store/userchallenges/selectors';
+import { getOngoingChallengeMaps } from 'store/userchallenges/selectors';
 import { useHistory, useParams } from 'react-router-dom';
 import MapCarousel from '../../components/map/MapCarousel';
 import { RootState } from 'store';
 import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import { UserChallengeMapData } from 'types/userchallenge';
+import { useIsDesktop } from 'utils/windowSize';
 
-const MapsPage: React.FC = () => {
+const OngoingMapsPage: React.FC = () => {
   const { challengeId } = useParams<{ challengeId: string }>();
   const history = useHistory();
   const dispatch = useDispatch();
+  const isDesktop = useIsDesktop();
   useEffect(() => {
     batch(() => {
       dispatch(loadAllOngoingChallengeMaps());
@@ -21,7 +23,7 @@ const MapsPage: React.FC = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const challengeMaps = useSelector((state: RootState) =>
-    getChallengeMaps(state)
+    getOngoingChallengeMaps(state)
   )!;
 
   const challengeIdToSwiperIndexMap: Record<string, number> = {};
@@ -31,7 +33,10 @@ const MapsPage: React.FC = () => {
 
   return (
     <>
-      <AppBar position="absolute" sx={{ right: 'auto' }}>
+      <AppBar
+        position="absolute"
+        sx={isDesktop ? { right: 'auto', width: '20vw' } : {}}
+      >
         <Toolbar>
           <div
             onClick={() => {
@@ -44,7 +49,19 @@ const MapsPage: React.FC = () => {
           </div>
         </Toolbar>
       </AppBar>
-      <Box>
+      <Box
+        sx={
+          isDesktop
+            ? {}
+            : {
+                position: 'relative',
+                margin: '0 -50vw 0 -50vw',
+                left: '50%',
+                right: '50%',
+                width: '100vw',
+              }
+        }
+      >
         <MapCarousel
           maps={challengeMaps}
           initialIndex={challengeIdToSwiperIndexMap[challengeId]}
@@ -54,4 +71,4 @@ const MapsPage: React.FC = () => {
   );
 };
 
-export default MapsPage;
+export default OngoingMapsPage;

@@ -49,7 +49,7 @@ const CharacterCarousel: React.FC<CharacterCarouselProps> = ({
             <SwiperSlide key={c}>
               <Box sx={{ height: '15em' }}>
                 <CharacterDisplay
-                  character={c}
+                  character={index as Character}
                   isActive={index === selectedCharacter}
                 />
               </Box>

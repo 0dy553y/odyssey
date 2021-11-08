@@ -12,6 +12,7 @@ const initialState: UserChallengesState = {
   ongoingUserChallengesList: [],
   ongoingChallengeMapsList: [],
   completedUserChallengesList: [],
+  challengeMaps: {},
 };
 
 export const userChallengesSlice = createSlice({
@@ -43,10 +44,19 @@ export const userChallengesSlice = createSlice({
     ) => {
       state.ongoingChallengeMapsList = action.payload.data;
     },
+    updateChallengeMapData: (
+      state,
+      action: PayloadAction<{ data: UserChallengeMapData }>
+    ) => {
+      state.challengeMaps[action.payload.data.challengeId] =
+        action.payload.data;
+    },
     resetUserChallenges: (state) => {
       state.allUserChallengesData = {};
       state.ongoingUserChallengesList = [];
       state.completedUserChallengesList = [];
+      state.ongoingChallengeMapsList = [];
+      state.challengeMaps = {};
     },
   },
 });

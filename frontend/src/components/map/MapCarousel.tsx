@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
     position: 'absolute',
     zIndex: 10,
     marginLeft: 96,
-    marginTop: 24,
+    marginTop: 22,
   },
   map: {
     position: 'absolute',

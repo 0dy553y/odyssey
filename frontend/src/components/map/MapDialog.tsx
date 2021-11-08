@@ -3,8 +3,11 @@ import React, { useEffect } from 'react';
 import { Dialog, Typography, Stack } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { UserChallengeMapData } from 'types/userchallenge';
-import { useDispatch } from 'react-redux';
-import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
+import { batch, useDispatch } from 'react-redux';
+import {
+  loadAllOngoingChallengeMaps,
+  loadChallengeMap,
+} from 'store/userchallenges/operations';
 import MapWrapper from './mapTemplates/MapWrapper';
 
 const useStyles = makeStyles(() => ({
@@ -37,23 +40,22 @@ const MapDialog: React.FC<MapDialogProps> = ({ isOpen, close, mapData }) => {
 
   const isLastStep = mapData.currentTaskNum >= mapData.numTasks;
 
+  const closeDialog = () => {
+    batch(() => {
+      dispatch(loadAllOngoingChallengeMaps());
+      dispatch(loadChallengeMap(mapData.challengeId));
+    });
+    close();
+  };
+
   useEffect(() => {
     if (isOpen && !isLastStep) {
-      setTimeout(() => {
-        close();
-      }, 2500);
+      setTimeout(closeDialog, 2500);
     }
   }, [isOpen]);
 
   return (
-    <Dialog
-      fullScreen
-      open={isOpen}
-      onClick={() => {
-        dispatch(loadAllOngoingChallengeMaps());
-        close();
-      }}
-    >
+    <Dialog fullScreen open={isOpen} onClick={closeDialog}>
       <>
         <Stack className={classes.name}>
           <Typography variant="h1" className={classes.header}>

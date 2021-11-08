@@ -208,7 +208,12 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
         dispatchEvent={undefined}
         minZoom={cameraZoom - 8}
       />
-      <Stars factor={10} radius={60 - cameraZoom} saturation={1} fade />
+      <Stars
+        factor={cameraZoom > 40 ? 1 : 10}
+        radius={60 - cameraZoom}
+        saturation={1}
+        fade
+      />
     </>
   );
 };

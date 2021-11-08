@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Stack, Container } from '@mui/material';
 import { Global } from '@emotion/react';
 import { Route, Switch, useLocation } from 'react-router-dom';
@@ -41,6 +41,8 @@ function App(): JSX.Element {
   const user = useSelector(getUser);
   const isValidatingToken = useSelector(getIsValidatingToken);
 
+  const contentContainerRef = useRef<null | HTMLDivElement>(null);
+
   const defaultPrivateRouteProps: RouteWithRedirectProps = {
     // Redirect if user is not authenticated
     shouldRedirect: !user,
@@ -74,7 +76,7 @@ function App(): JSX.Element {
           maxWidth={false}
         >
           <GoogleAnalytics />
-          <ScrollToTop />
+          <ScrollToTop container={contentContainerRef.current} />
           <Notifier />
           <Global
             styles={{
@@ -84,7 +86,7 @@ function App(): JSX.Element {
               },
             }}
           />
-          <div className="App-content-container">
+          <div className="App-content-container" ref={contentContainerRef}>
             <Container
               className="column-container"
               disableGutters
