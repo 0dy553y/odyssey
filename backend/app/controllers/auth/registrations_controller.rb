@@ -6,7 +6,10 @@ module Auth
 
     def update
       super do |resource|
-        next if params[:avatar].nil?
+        if params[:avatar].nil?
+          resource.avatar.purge
+          next
+        end
 
         type = get_file_type(params[:avatar])
         avatar_data_url = decoded_file(params[:avatar])
