@@ -24,6 +24,7 @@ class MapController < ApplicationController
       name: user_challenge.challenge.name,
       prize_name: user_challenge.challenge.prize_name,
       map_theme: user_challenge.challenge.map,
+      map_color: user_challenge.challenge.color,
       num_tasks: user_challenge.challenge.tasks.count,
       current_task_num: user_challenge.user_tasks.where.not(completed_at: nil).count + 1,
       friends: current_user.friends.select do |f|
