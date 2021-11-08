@@ -5,14 +5,14 @@ import {
   Badge,
   Button,
   Box,
-  Container,
-  Grid,
   IconButton,
+  Stack,
   TextField,
   Toolbar,
   Typography,
 } from '@mui/material';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -49,7 +49,7 @@ const EditProfilePage: React.FC = () => {
   const user = useSelector(getUser)!; //
 
   const [avatarBase64DataUrl, setAvatarBase64DataUrl] =
-    useState<DataUrl | null>(null);
+    useState<DataUrl | null>(user.avatar ?? null);
   const [selectedCharacter, setSelectedCharacter] = useState<Character>(
     user.character ?? Character.ASTRONAUT
   );
@@ -58,10 +58,8 @@ const EditProfilePage: React.FC = () => {
     const userPutData: UserPutData = {
       displayName: data.displayName,
       character: selectedCharacter,
+      avatar: avatarBase64DataUrl,
     };
-    if (avatarBase64DataUrl) {
-      userPutData.avatar = avatarBase64DataUrl;
-    }
     dispatch(updateUser(userPutData, history));
   });
 
@@ -89,68 +87,74 @@ const EditProfilePage: React.FC = () => {
         onSubmit={onSubmit}
         sx={{ mt: 1, padding: '0 1.5em 0 1.5em', width: '100%' }}
       >
-        <Grid container>
-          <Grid item xs={12}>
-            <Container className="avatar-container">
-              <label htmlFor="contained-button-file">
-                <input
-                  className="avatar-input"
-                  id="contained-button-file"
-                  accept="image/*"
-                  type="file"
-                  onChange={async (e) => {
-                    const files = e.target.files;
-                    if (!files || files.length === 0) {
-                      return;
-                    }
+        <Stack justifyContent="center" alignItems="center">
+          <label htmlFor="contained-button-file">
+            <input
+              className="avatar-input"
+              id="contained-button-file"
+              accept="image/*"
+              type="file"
+              onChange={async (e) => {
+                const files = e.target.files;
+                if (!files || files.length === 0) {
+                  return;
+                }
 
-                    const avatarFile = files[0];
-                    const avatarB64 = await compressThenConvertToBase64DataUrl(
-                      avatarFile
-                    );
-                    setAvatarBase64DataUrl(avatarB64);
-                  }}
-                />
-                <Badge
-                  overlap="circular"
-                  anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                  badgeContent={
-                    <Avatar className="avatar-camera-badge">
-                      <PhotoCamera />
-                    </Avatar>
-                  }
-                >
-                  <UserAvatar
-                    className="avatar"
-                    src={avatarBase64DataUrl || user.avatar}
-                    username={user.username}
-                    displayName={user.displayName}
-                    character={user.character}
-                    shouldLinkToProfile={false}
-                  />
-                </Badge>
-              </label>
-            </Container>
-          </Grid>
-
-          <Grid item xs={12}>
-            <Controller
-              name="displayName"
-              control={control}
-              defaultValue={user.displayName ?? ''}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  margin="normal"
-                  fullWidth
-                  name="displayName"
-                  label="Display Name"
-                  id="displayName"
-                />
-              )}
+                const avatarFile = files[0];
+                const avatarB64 = await compressThenConvertToBase64DataUrl(
+                  avatarFile
+                );
+                setAvatarBase64DataUrl(avatarB64);
+              }}
             />
-          </Grid>
-        </Grid>
+            <Badge
+              overlap="circular"
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+              badgeContent={
+                <Avatar className="avatar-camera-badge">
+                  <PhotoCamera />
+                </Avatar>
+              }
+            >
+              <UserAvatar
+                className="avatar"
+                src={avatarBase64DataUrl ?? ''}
+                username={user.username}
+                displayName={user.displayName}
+                character={user.character}
+                shouldLinkToProfile={false}
+              />
+            </Badge>
+          </label>
+
+          {avatarBase64DataUrl && (
+            <IconButton
+              color="warning"
+              onClick={() => {
+                setAvatarBase64DataUrl(null);
+              }}
+            >
+              <DeleteOutlineIcon />
+            </IconButton>
+          )}
+
+          <Controller
+            name="displayName"
+            control={control}
+            defaultValue={user.displayName ?? ''}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                margin="normal"
+                fullWidth
+                name="displayName"
+                label="Display Name"
+                id="displayName"
+              />
+            )}
+          />
+        </Stack>
+
         <CharacterCarousel
           selectedCharacter={selectedCharacter}
           setSelectedCharacter={setSelectedCharacter}

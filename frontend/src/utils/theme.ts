@@ -9,6 +9,9 @@ const theme = createTheme({
     secondary: {
       main: '#000',
     },
+    warning: {
+      main: '#B57B7B',
+    },
     background: {
       paper: '#fff',
     },
