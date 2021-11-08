@@ -4,10 +4,9 @@ import { displayUsername } from 'utils/formatting';
 import { UserData } from 'types/auth';
 import UserAvatar from 'components/common/userAvatar';
 import FriendControls from './FriendControls';
+import CharacterDisplay from 'components/common/CharacterDisplay';
 
 import './ProfileHeader.scss';
-import CharacterDisplay from 'components/common/CharacterDisplay';
-import { Character } from 'types/map';
 
 interface ProfileHeaderProps {
   user?: UserData;
