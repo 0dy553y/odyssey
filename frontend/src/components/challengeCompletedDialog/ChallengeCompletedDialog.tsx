@@ -73,7 +73,7 @@ const ChallengeCompletedDialog: React.FC<ChallengeCompletedDialogProps> = ({
 
   const prize =
     challenge !== undefined
-      ? getPrize(getPrizePath(challenge.prizeName), challenge.name)
+      ? getPrize(challenge.prizeName, challenge.name)
       : getPrize('', '');
 
   return (
