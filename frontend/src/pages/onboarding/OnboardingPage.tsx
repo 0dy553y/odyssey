@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import onboardingImage from '../../assets/images/onboarding.png';
 import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/CloseRounded';
+import { Liquidswipe } from 'react-liquidswipe';
 
 import './OnboardingPage.scss';
 
@@ -64,82 +65,124 @@ const OnboardingPage: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
 
+  const MAX = 5;
+
+  const components = [];
+
+  for (let i = 1; i <= MAX; i++) {
+    components.push(
+      <>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh',
+            width: '100vw',
+            background: 'pink',
+            // background: randomColor({ luminosity: 'light' }),
+          }}
+        >
+          <h1>{i}</h1>
+        </div>
+      </>
+    );
+  }
+
   return (
-    <Box
-      sx={{
-        paddingTop: 5,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        overflow: 'hidden',
+    <Liquidswipe
+      components={components}
+      style={{
+        height: '80vh',
+        width: '80vw',
+        margin: '10vh auto',
+        borderRadius: '20px',
       }}
-      className="onboarding-page"
-    >
-      <Modal open={open} onClose={handleClose}>
-        <Box className={classes.modalContent}>
-          <Box className={classes.stickyHeader}>
-            <Typography variant="h6" component="h2">
-              Hi there &#128075;
-              <CloseIcon
-                className={classes.closeButton}
-                onClick={handleClose}
-              />
-            </Typography>
-          </Box>
-          <Typography sx={{ mt: 2 }}>
-            Thank you so much for taking the time to try out our app! For the
-            best experience, please save Odyssey to your home screen if you are
-            viewing on mobile.
-            <br />
-            <br />
-            Odyssey is a community-based app for completing challenges, which
-            consist of a series of tasks to be completed regularly and typically
-            in increasing intensity. These challenges serve to either help users
-            to form habits/ healthy routines, or are hobby-based challenges that
-            introduce and motivate users to explore their interests and try new
-            things.
-            <br />
-            <br />
-            We are still in the midst of user testing and developing more
-            features. To enable you to try out our features easily, we have
-            provided a limited set of short test challenges that can be done
-            with minimum hassle. Please drop us feedback by clicking on the
-            Feedback tab to the left of the screen. Any feedback that you
-            provide would be very appreciated!
-            <br />
-            <br />
-            &#10084;&#65039; from the Odyssey Team
-          </Typography>
-        </Box>
-      </Modal>
-      <Typography className={classes.appName}>Odyssey</Typography>
-      <img src={onboardingImage}></img>
-      <Typography variant="h5">Challenge yourself.</Typography>
-      <Box sx={{ marginTop: 5 }}>
-        <Button
-          fullWidth
-          variant="contained"
-          className={classes.loginButton}
-          disableElevation
-          onClick={() => {
-            history.push(LOGIN_ROUTE);
-          }}
-        >
-          <Typography variant="body1">Login</Typography>
-        </Button>
-        <Button
-          fullWidth
-          variant="outlined"
-          className={classes.registerButton}
-          disableElevation
-          onClick={() => {
-            history.push(REGISTER_ROUTE);
-          }}
-        >
-          <Typography variant="body1">Register</Typography>
-        </Button>
-      </Box>
-    </Box>
+    />
+    // <Box
+    //   sx={{
+    //     paddingTop: 5,
+    //     display: 'flex',
+    //     flexDirection: 'column',
+    //     alignItems: 'center',
+    //     overflow: 'hidden',
+    //   }}
+    //   className="onboarding-page"
+    // >
+    //   <Modal open={open} onClose={handleClose}>
+    //     <Box className={classes.modalContent}>
+    //       <Box className={classes.stickyHeader}>
+    //         <Typography variant="h6" component="h2">
+    //           Hi there &#128075;
+    //           <CloseIcon
+    //             className={classes.closeButton}
+    //             onClick={handleClose}
+    //           />
+    //         </Typography>
+    //       </Box>
+    //       <Typography sx={{ mt: 2 }}>
+    //         Thank you so much for taking the time to try out our app! For the
+    //         best experience, please save Odyssey to your home screen if you are
+    //         viewing on mobile.
+    //         <br />
+    //         <br />
+    //         Odyssey is a community-based app for completing challenges, which
+    //         consist of a series of tasks to be completed regularly and typically
+    //         in increasing intensity. These challenges serve to either help users
+    //         to form habits/ healthy routines, or are hobby-based challenges that
+    //         introduce and motivate users to explore their interests and try new
+    //         things.
+    //         <br />
+    //         <br />
+    //         We are still in the midst of user testing and developing more
+    //         features. To enable you to try out our features easily, we have
+    //         provided a limited set of short test challenges that can be done
+    //         with minimum hassle. Please drop us feedback by clicking on the
+    //         Feedback tab to the left of the screen. Any feedback that you
+    //         provide would be very appreciated!
+    //         <br />
+    //         <br />
+    //         &#10084;&#65039; from the Odyssey Team
+    //       </Typography>
+    //     </Box>
+    //   </Modal>
+    //   <Typography className={classes.appName}>Odyssey</Typography>
+    //   {/* <img src={onboardingImage}></img> */}
+    //   <Liquidswipe
+    //     components={components}
+    //     style={{
+    //       height: '80vh',
+    //       width: '80vw',
+    //       margin: '10vh auto',
+    //       borderRadius: '20px',
+    //     }}
+    //   />
+    //   <Typography variant="h5">Challenge yourself.</Typography>
+    //   <Box sx={{ marginTop: 5 }}>
+    //     <Button
+    //       fullWidth
+    //       variant="contained"
+    //       className={classes.loginButton}
+    //       disableElevation
+    //       onClick={() => {
+    //         history.push(LOGIN_ROUTE);
+    //       }}
+    //     >
+    //       <Typography variant="body1">Login</Typography>
+    //     </Button>
+    //     <Button
+    //       fullWidth
+    //       variant="outlined"
+    //       className={classes.registerButton}
+    //       disableElevation
+    //       onClick={() => {
+    //         history.push(REGISTER_ROUTE);
+    //       }}
+    //     >
+    //       <Typography variant="body1">Register</Typography>
+    //     </Button>
+    //   </Box>
+    // </Box>
   );
 };
 export default OnboardingPage;
