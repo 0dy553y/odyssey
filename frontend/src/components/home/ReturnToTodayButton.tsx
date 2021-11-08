@@ -2,13 +2,12 @@ import React from 'react';
 import { Button } from '@mui/material';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { makeStyles } from '@mui/styles';
+import { useIsDesktop } from '../../utils/windowSize';
 
 const useStyles = makeStyles(() => ({
   button: {
     borderRadius: '30px',
     height: '40px',
-    marginLeft: '20px',
-    marginRight: '20px',
     background: 'white',
     color: 'black',
     padding: '10px',
@@ -30,6 +29,7 @@ const ReturnToTodayButton: React.FC<Props> = ({
   isVisible,
 }: Props) => {
   const classes = useStyles();
+  const displayFullText = useIsDesktop();
 
   return (
     <Button
@@ -38,7 +38,7 @@ const ReturnToTodayButton: React.FC<Props> = ({
       className={classes.button}
     >
       {direction === 'left' && <KeyboardBackspaceIcon />}
-      Return to today
+      {displayFullText ? 'Return to today' : ''}
       {direction === 'right' && (
         <KeyboardBackspaceIcon className={classes.flippedIcon} />
       )}

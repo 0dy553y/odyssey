@@ -22,6 +22,8 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
+    paddingLeft: '20px',
+    paddingRight: '20px',
   },
   dateDisplay: {
     flexGrow: 1,
