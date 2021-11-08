@@ -127,15 +127,16 @@ const EditProfilePage: React.FC = () => {
             </Badge>
           </label>
 
-          <IconButton
-            color="warning"
-            onClick={() => {
-              setAvatarBase64DataUrl(null);
-            }}
-            disabled={!avatarBase64DataUrl}
-          >
-            <DeleteOutlineIcon />
-          </IconButton>
+          {avatarBase64DataUrl && (
+            <IconButton
+              color="warning"
+              onClick={() => {
+                setAvatarBase64DataUrl(null);
+              }}
+            >
+              <DeleteOutlineIcon />
+            </IconButton>
+          )}
 
           <Controller
             name="displayName"
