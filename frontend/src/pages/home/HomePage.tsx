@@ -3,7 +3,10 @@ import { loadUserTasksForDays } from '../../store/usertasks/operations';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import UserTaskCarousel from '../../components/home/UserTaskCarousel';
 import MapDialog from '../../components/map/MapDialog';
-import { getUserTaskListForDay } from '../../store/usertasks/selectors';
+import {
+  getDatesWithOverdueTasks,
+  getUserTaskListForDay,
+} from '../../store/usertasks/selectors';
 import { RootState } from '../../store';
 import { Badge, Box, Grid, IconButton, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -125,6 +128,7 @@ const HomePage: React.FC = () => {
   )!;
 
   const friendRequests = useSelector(getFriendRequestList);
+  const datesWithOverdueTasks = useSelector(getDatesWithOverdueTasks);
 
   const user = useSelector(getUser);
   if (!user) {
@@ -158,7 +162,11 @@ const HomePage: React.FC = () => {
             </div>
           </Grid>
           <Grid item className={classes.headerCarouselItem}>
-            <DateCarousel date={date} setDate={setDate} />
+            <DateCarousel
+              date={date}
+              setDate={setDate}
+              datesWithOverdueTasks={datesWithOverdueTasks}
+            />
           </Grid>
           <Grid item className={classes.headerNonCarouselItem}>
             <Typography variant="h5">Your Tasks</Typography>

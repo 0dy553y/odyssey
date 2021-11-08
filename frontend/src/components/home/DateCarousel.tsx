@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  contains,
   getDateFromNowString,
   getDayString,
   getMonthString,
@@ -12,12 +13,12 @@ import SwiperClass from 'swiper/types/swiper-class';
 import { Box, Stack, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import { makeStyles } from '@mui/styles';
-
-import './DateCarousel.scss';
 import ReturnToTodayButton from './ReturnToTodayButton';
 import { startOfDay } from 'date-fns';
 import { useDispatch } from 'react-redux';
 import { addSnackbar } from '../../store/snackbars/actions';
+
+import './DateCarousel.scss';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -35,11 +36,17 @@ const useStyles = makeStyles(() => ({
 interface Props {
   date: Date;
   setDate: (date: Date) => void;
+  datesWithOverdueTasks: Date[];
 }
 
-const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
+const DateCarousel: React.FC<Props> = ({
+  date,
+  setDate,
+  datesWithOverdueTasks,
+}: Props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   const dateRange = 50;
   const previousIndex = dateRange;
   const [selectedDate, setSelectedDate] = useState(date);
@@ -148,7 +155,10 @@ const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
       >
         {dates.map((date: Date) => (
           <SwiperSlide key={date.toISOString()}>
-            <DateItem date={date} />
+            <DateItem
+              date={date}
+              shouldShowDot={contains(datesWithOverdueTasks, date)}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
