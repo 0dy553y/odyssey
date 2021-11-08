@@ -12,12 +12,12 @@ import {
   translate,
   buildDiagonalRepeated,
   regularTranslate,
-} from '../../../utils/map';
+  getLandModelFile,
+} from 'utils/map';
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionACW } from '../../../utils/direction';
 import Prize from '../composite/Prize';
 import { ChallengeMapTheme } from 'types/challenges';
-import { getLandPath } from 'utils/map';
 interface MapStructureProps {
   numSteps: number;
   currentStep: number;
@@ -138,7 +138,7 @@ const SpaceMapStructure = (
                 }
               )}
               direction={nextDirection}
-              fileName={getLandPath(mapTheme.land)}
+              modelFile={getLandModelFile(mapTheme.land)}
             />
           </group>
         );

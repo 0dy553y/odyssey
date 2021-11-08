@@ -10,7 +10,7 @@ import {
   Character as MapCharacter,
 } from '../../../types/map';
 import Model from '../basic/Model';
-import { getCharacterPath } from 'utils/map';
+import { getCharacterModelFile } from 'utils/map';
 
 interface CharacterProps {
   position: Vector3;
@@ -67,7 +67,7 @@ const Character = (props: CharacterProps, ref: React.Ref<unknown>) => {
       <Model
         position={localPos as any as Vector3}
         direction={Direction.LEFT}
-        fileName={getCharacterPath(character)}
+        modelFile={getCharacterModelFile(character)}
         scale={0.8}
       />
     </animated.group>
