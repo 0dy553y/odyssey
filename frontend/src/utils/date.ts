@@ -1,4 +1,4 @@
-import { startOfDay } from 'date-fns';
+import { isEqual, startOfDay } from 'date-fns';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
@@ -52,4 +52,14 @@ export function getDateFromNowString(date: Date): string {
     return currentFormat();
   }
   return dayjs(date).format(currentFormat);
+}
+
+// Date equality does not work as one would expect in Javascript
+export function contains(dates: Date[], dateToFind: Date): boolean {
+  for (const date of dates) {
+    if (isEqual(date, dateToFind)) {
+      return true;
+    }
+  }
+  return false;
 }

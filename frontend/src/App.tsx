@@ -20,7 +20,6 @@ import { validateToken } from './store/auth/operations';
 import BottomNavigationBar from './components/common/BottomNavigationBar';
 import { RouteEntry } from './types/routes';
 import Notifier from 'components/notifier';
-import FeedbackOverlay from './components/common/FeedbackOverlay';
 import { useCache } from 'components/common/cacheProvider';
 import GoogleAnalytics from './GoogleAnalytics';
 import LoadingPage from 'pages/loading/LoadingPage';
@@ -125,9 +124,6 @@ function App(): JSX.Element {
             mainRoutes
               .map((route: RouteEntry) => route.path)
               .includes(location.pathname) && <BottomNavigationBar />}
-          {privateRoutes
-            .map((route: RouteEntry) => route.path)
-            .includes(location.pathname) && <FeedbackOverlay />}
         </Container>
       </Div100vh>
     );
