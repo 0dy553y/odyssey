@@ -1,38 +1,75 @@
 import React, { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
-import { loadAllOngoingChallengeMaps } from 'store/userchallenges/operations';
-import { getOngoingChallengeMaps } from 'store/userchallenges/selectors';
+import {
+  loadAllOngoingChallengeMaps,
+  loadChallengeMap,
+} from 'store/userchallenges/operations';
+import {
+  getChallengeMap,
+  getOngoingChallengeMaps,
+} from 'store/userchallenges/selectors';
 import { useHistory, useParams } from 'react-router-dom';
-import MapCarousel from '../../components/map/MapCarousel';
+import { makeStyles } from '@mui/styles';
+
 import { RootState } from 'store';
-import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  IconButton,
+  Stack,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import { UserChallengeMapData } from 'types/userchallenge';
 import { useIsDesktop } from 'utils/windowSize';
+import MapWrapper from 'components/map/mapTemplates/MapWrapper';
+import MapSpeedDial from 'components/map/MapSpeedDial';
+
+const useStyles = makeStyles(() => ({
+  mapSlider: {
+    height: '100vh',
+  },
+  header: {
+    color: 'white',
+  },
+  name: {
+    position: 'absolute',
+    zIndex: 10,
+    marginLeft: 96,
+    marginTop: 22,
+  },
+  map: {
+    position: 'absolute',
+    height: '100vh',
+    width: '100%',
+  },
+  container: {
+    position: 'relative',
+  },
+}));
 
 const OngoingMapsPage: React.FC = () => {
   const { challengeId } = useParams<{ challengeId: string }>();
   const history = useHistory();
   const dispatch = useDispatch();
   const isDesktop = useIsDesktop();
+  const classes = useStyles();
   useEffect(() => {
     batch(() => {
-      dispatch(loadAllOngoingChallengeMaps());
+      dispatch(loadChallengeMap(Number(challengeId)));
     });
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const challengeMaps = useSelector((state: RootState) =>
-    getOngoingChallengeMaps(state)
+  const mapData = useSelector((state: RootState) =>
+    getChallengeMap(state, Number(challengeId))
   )!;
 
-  const challengeIdToSwiperIndexMap: Record<string, number> = {};
-  challengeMaps.map((data: UserChallengeMapData, index: number) => {
-    challengeIdToSwiperIndexMap[data.challengeId] = index;
-  });
+  if (!mapData) return <></>;
 
   return (
-    <>
+    <div key={mapData.challengeId}>
       <AppBar
         position="absolute"
         sx={isDesktop ? { right: 'auto', width: '20vw' } : {}}
@@ -62,12 +99,19 @@ const OngoingMapsPage: React.FC = () => {
               }
         }
       >
-        <MapCarousel
-          maps={challengeMaps}
-          initialIndex={challengeIdToSwiperIndexMap[challengeId]}
-        />
+        <div className={classes.container}>
+          <Stack className={classes.name}>
+            <Typography variant="h1" className={classes.header}>
+              {mapData.challengeName}
+            </Typography>
+          </Stack>
+          <div className={classes.map}>
+            <MapWrapper mapData={mapData} />
+          </div>
+        </div>
       </Box>
-    </>
+      <MapSpeedDial />
+    </div>
   );
 };
 
