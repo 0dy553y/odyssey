@@ -6,7 +6,7 @@ const SkyDome: React.FC = () => {
   const skyTexture = useTexture('/textures/sky.jpeg');
   return (
     <mesh>
-      <sphereGeometry args={[50, 25, 25]} />
+      <sphereGeometry args={[70, 25, 25]} />
       <meshPhongMaterial side={BackSide} map={skyTexture} />
     </mesh>
   );

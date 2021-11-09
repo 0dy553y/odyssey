@@ -13,14 +13,7 @@ import {
   MapBackground,
   MapEnvironmentObject,
 } from '../types/map';
-import {
-  Arch,
-  Columns,
-  Disc,
-  Model,
-  NextDisc,
-  Stairs,
-} from '../components/map';
+import { Arch, Columns, Disc, Model, NextDisc } from '../components/map';
 import { Vector3 } from '@react-three/fiber';
 import StairBox from 'components/map/composite/StairBox';
 import { Stars } from '@react-three/drei';
@@ -31,6 +24,8 @@ import EnvironmentObject from 'components/map/composite/EnvironmentObject';
 
 const LAND_DIRECTORY = 'land';
 const CHARACTER_DIRECTORY = 'characters';
+const BLOCK_DIRECTORY = 'blocks';
+const ENVIRONMENT_DIRECTORY = 'environment';
 
 // Returns a Vector3 that is base + translationVector.
 // The translation vector does not need to specify values for all three axes.
@@ -267,17 +262,21 @@ export function getEnvironmentObject(
 ): JSX.Element {
   switch (environmentObject) {
     case MapEnvironmentObject.HOT_AIR_BALLOON:
+    case MapEnvironmentObject.SPACESHIP:
       return (
         <EnvironmentObject
           position={[0, -5, 0]}
           modelFile={{
-            path: 'environment/hot_air_balloon',
+            path: `${ENVIRONMENT_DIRECTORY}/${MapEnvironmentObject[
+              environmentObject
+            ]
+              .toLowerCase()
+              .replace(' ', '_')}`,
             format: ModelFileFormat.GLB,
           }}
           scale={3}
         />
       );
-
     default:
       return <></>;
   }
@@ -374,7 +373,7 @@ export function getBuildingBlockSet(
       };
     case BuildingBlock.CLOUD:
       const cloudModelFile = {
-        path: '/blocks/cloud_block.vox',
+        path: `${BLOCK_DIRECTORY}/cloud_block.vox`,
         format: ModelFileFormat.OBJ,
       };
       const CloudBlock = (

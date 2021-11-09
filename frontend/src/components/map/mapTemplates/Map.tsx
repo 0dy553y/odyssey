@@ -9,9 +9,9 @@ import React, {
 import MapStructure from './MapStructure';
 import { useThree } from '@react-three/fiber';
 import { MapControls } from '@react-three/drei';
-import { Character, Model } from '..';
+import { Character } from '..';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import { Axis, Direction, ModelFileFormat } from '../../../types/map';
+import { Axis, Direction } from '../../../types/map';
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionCW } from 'utils/direction';
 import {

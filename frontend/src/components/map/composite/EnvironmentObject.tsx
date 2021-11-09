@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { Vector3 } from '@react-three/fiber';
-import { useSpring, animated, config } from '@react-spring/three';
+import { useSpring, animated } from '@react-spring/three';
 import { Direction, ModelFile } from '../../../types/map';
 
 import Model from '../basic/Model';
@@ -21,7 +21,7 @@ const EnvironmentObject: React.FC<EnvironmentObjectProps> = (
   const { localPos } = useSpring({
     loop: true,
     from: { localPos: [0, 0, 0] },
-    to: [{ localPos: [0, 3, 0] }, { localPos: [0, 0, 0] }],
+    to: [{ localPos: [0, 2, 0] }, { localPos: [0, 0, 0] }],
     config: { duration: 2500 },
   });
 
