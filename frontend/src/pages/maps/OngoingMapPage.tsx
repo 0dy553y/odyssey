@@ -24,6 +24,7 @@ import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
 import { UserChallengeMapData } from 'types/userchallenge';
 import { useIsDesktop } from 'utils/windowSize';
 import MapWrapper from 'components/map/mapTemplates/MapWrapper';
+import MapSpeedDial from 'components/map/MapSpeedDial';
 
 const useStyles = makeStyles(() => ({
   mapSlider: {
@@ -111,6 +112,7 @@ const OngoingMapsPage: React.FC = () => {
           <></>
         )}
       </Box>
+      <MapSpeedDial />
     </>
   );
 };
