@@ -209,6 +209,7 @@ export function getLandModelFile(land: Land): ModelFile {
   switch (land) {
     case Land.GRASS:
     case Land.SAND:
+    case Land.STONE:
     case Land.CAKE:
     case Land.FOREST:
     case Land.POOL:
