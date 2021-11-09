@@ -8,9 +8,6 @@ task update_maps_for_challenges: :environment do
   # BACKGROUND: stars = 0, purple blue = 1, orange = 2, green yellow = 3
   # ENVIRONMENT OBJECT: hot air balloon = 0, spaceship = 1
 
-  # Land is currently 0 to 3 (To update if we add more)
-  # finding by name in case we want the land to match the challenge in some way
-  # instead of randomly assign
   Challenge.find_by(name: 'A Drawing a Day').map.update!(land: 1, building_block: 0, background: 0)
   Challenge.find_by(name: 'Back to School').map.update!(land: 1, building_block: 0, background: 1)
   Challenge.find_by(name: 'Becoming More Productive').map.update!(land: 1, building_block: 0, background: 2,
