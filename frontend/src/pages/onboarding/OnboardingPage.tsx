@@ -4,9 +4,6 @@ import { makeStyles } from '@mui/styles';
 import { LOGIN_ROUTE, REGISTER_ROUTE } from 'routing/routes';
 import { useHistory } from 'react-router-dom';
 import { Liquidswipe } from 'react-liquidswipe';
-import onboarding1 from 'assets/gifs/onboarding1.png';
-import onboarding2 from 'assets/gifs/onboarding2.png';
-import onboarding3 from 'assets/gifs/onboarding3.png';
 import OnboardingSlide from 'pages/onboarding/OnboardingSlide';
 
 import './OnboardingPage.scss';
