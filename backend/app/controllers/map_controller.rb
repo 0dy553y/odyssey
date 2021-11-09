@@ -8,7 +8,12 @@ class MapController < ApplicationController
   end
 
   def show
-    @user_challenge_map = construct_user_challenge_map_data(current_user.user_challenges.find_by(challenge_id: params[:id]))
+    @user_challenge = current_user.user_challenges.find_by(challenge_id: params[:id])
+    if @user_challenge.nil?
+      render 'layouts/empty', status: :not_found
+    else
+      @user_challenge_map = construct_user_challenge_map_data(@user_challenge)
+    end
   end
 
   private
