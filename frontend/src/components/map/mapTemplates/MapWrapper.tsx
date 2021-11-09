@@ -2,7 +2,7 @@
 import React, { Suspense, useCallback, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { UserChallengeMapData } from 'types/userchallenge';
-import SpaceMap from './SpaceMap';
+import Map from './Map';
 import PrizeInfoModal from 'components/common/prizeInfoDialog/PrizeInfoDialog';
 import { getPrize } from 'utils/prizes';
 import { useIsDesktop } from 'utils/windowSize';
@@ -33,7 +33,6 @@ const MapWrapper: React.FC<MapWrapperProps> = ({
     <>
       <Suspense fallback={<div />}>
         <Canvas camera={{ zoom: 100 }} orthographic={true}>
-          <color attach="background" args={['#010101']} />
           <directionalLight position={[0, 30, 0]} intensity={1} />
           <directionalLight position={[0, -30, 0]} intensity={1} />
 
@@ -41,7 +40,7 @@ const MapWrapper: React.FC<MapWrapperProps> = ({
           <pointLight position={[-30, 0, 0]} intensity={0.5} />
           <pointLight position={[0, 0, 30]} intensity={0.2} />
           <pointLight position={[0, 0, -30]} intensity={0.2} />
-          <SpaceMap
+          <Map
             mapData={mapData}
             setIsPrizeModalOpen={setIsPrizeModalOpen}
             isDesktop={isDesktop}

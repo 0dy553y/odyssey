@@ -5,7 +5,7 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import { Vector3 } from '@react-three/fiber';
-import { Disc, NextDisc, Model } from '..';
+import { Model } from '..';
 
 import { Direction, Axis } from '../../../types/map';
 import {
@@ -13,6 +13,8 @@ import {
   buildDiagonalRepeated,
   regularTranslate,
   getLandModelFile,
+  getBuildingBlockSet,
+  getSecondaryLandModelFile,
 } from 'utils/map';
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionACW } from '../../../utils/direction';
@@ -22,30 +24,28 @@ interface MapStructureProps {
   numSteps: number;
   currentStep: number;
   width: number;
-  widthIncrement: number;
-  heightIncrement: number;
   prizePath: string;
   mapTheme: ChallengeMapTheme;
   onMapMounted: (pos: DirectionPosition[]) => void;
   onClickPrize: () => void;
 }
 
-const SpaceMapStructure = (
-  props: MapStructureProps,
-  ref: React.Ref<unknown>
-) => {
+const MapStructure = (props: MapStructureProps, ref: React.Ref<unknown>) => {
   const {
     numSteps,
     currentStep,
     width,
-    widthIncrement,
-    heightIncrement,
     prizePath,
     mapTheme,
     onMapMounted,
     onClickPrize,
   } = props;
   const numStages = Math.floor(numSteps / width);
+  const buildingBlockSet = getBuildingBlockSet(
+    mapTheme.buildingBlock,
+    mapTheme.mapColor
+  );
+  const { widthIncrement, heightIncrement } = buildingBlockSet;
   let base: Vector3 = [
     (Math.min(numSteps > width ? numSteps - width : 0, width) *
       widthIncrement) /
@@ -68,19 +68,18 @@ const SpaceMapStructure = (
     },
   }));
 
-  const buidDisc = (
+  const buildMapBlock = (
     key: number,
     position: Vector3,
-    index: number
+    index: number,
+    direction: Direction
   ): JSX.Element => {
     if (index === step + 1) {
-      return (
-        <NextDisc key={key} position={position} colorOverride={'#ffffff'} />
-      );
+      return buildingBlockSet.next(key, position, direction);
     } else if (index <= step) {
-      return <Disc key={key} position={position} colorOverride={'#569874'} />;
+      return buildingBlockSet.completed(key, position, direction);
     }
-    return <Disc key={key} position={position} />;
+    return buildingBlockSet.future(key, position, direction);
   };
 
   const buildPrize = (base: Vector3) => {
@@ -112,11 +111,16 @@ const SpaceMapStructure = (
           <group key={i}>
             {buildDiagonalRepeated({
               buildBlock: (key: number, position: Vector3) =>
-                buidDisc(key, position, i * width + key + 1),
+                buildMapBlock(
+                  key,
+                  position,
+                  i * width + key + 1,
+                  currentDirection
+                ),
               base: base,
               width: width - 1,
               widthIncrement: widthIncrement,
-              heightIncrement: heightIncrement * (i + 1),
+              heightIncrement: heightIncrement,
               repeatDirection: currentDirection,
               buildCallback: (position: Vector3) => {
                 stepPositions.push({
@@ -138,13 +142,21 @@ const SpaceMapStructure = (
                 }
               )}
               direction={nextDirection}
-              modelFile={getLandModelFile(mapTheme.land)}
+              modelFile={
+                i % 2
+                  ? getSecondaryLandModelFile(mapTheme.land)
+                  : getLandModelFile(mapTheme.land)
+              }
             />
           </group>
         );
         base = regularTranslate(base, currentDirection, widthIncrement + 0.5);
         stepPositions.push({
-          pos: translate(base, { [Axis.Y]: 1 }),
+          pos: translate(base, {
+            [Axis.X]: dv[0],
+            [Axis.Y]: 1,
+            [Axis.Z]: dv[1],
+          }),
           direction: currentDirection,
         });
         currentDirection = nextDirection;
@@ -158,7 +170,12 @@ const SpaceMapStructure = (
       })}
       {buildDiagonalRepeated({
         buildBlock: (key: number, position: Vector3) =>
-          buidDisc(key, position, numStages * width + key + 1),
+          buildMapBlock(
+            key,
+            position,
+            numStages * width + key + 1,
+            currentDirection
+          ),
         base: base,
         width: numSteps % width,
         widthIncrement: widthIncrement,
@@ -177,4 +194,4 @@ const SpaceMapStructure = (
   );
 };
 
-export default forwardRef(SpaceMapStructure);
+export default forwardRef(MapStructure);

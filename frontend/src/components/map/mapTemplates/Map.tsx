@@ -6,9 +6,9 @@ import React, {
   useImperativeHandle,
   useEffect,
 } from 'react';
-import SpaceMapStructure from './SpaceMapStructure';
+import MapStructure from './MapStructure';
 import { useThree } from '@react-three/fiber';
-import { MapControls, Stars } from '@react-three/drei';
+import { MapControls } from '@react-three/drei';
 import { Character } from '..';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Axis, Direction } from '../../../types/map';
@@ -18,6 +18,8 @@ import {
   getCameraPosition,
   getCameraZoomForDesktop,
   getCameraZoomForMobile,
+  getEnvironmentObject,
+  getMapBackground,
   translate,
 } from 'utils/map';
 import {
@@ -32,7 +34,7 @@ interface MapProps {
   isDesktop: boolean;
 }
 
-const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
+const Map = (props: MapProps, ref: React.Ref<unknown>) => {
   const { mapData, setIsPrizeModalOpen, isDesktop } = props;
   const {
     username,
@@ -62,8 +64,6 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
   const [shouldMoveCharacterForward, setShouldMoveCharacterForward] =
     useState<boolean>(false);
   const width = 7;
-  const widthIncrement = 1.5;
-  const heightIncrement = 0.5;
   const characterRef = useRef();
   const mapRef = useRef();
   const { camera } = useThree();
@@ -149,13 +149,11 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
             <></>
           )} */}
 
-      <SpaceMapStructure
+      <MapStructure
         ref={mapRef}
         numSteps={numSteps}
         currentStep={currentStep}
         width={width}
-        widthIncrement={widthIncrement}
-        heightIncrement={heightIncrement}
         prizePath={getPrizePath(prizeName)}
         onMapMounted={(stepPositions) => {
           setStepPositions(stepPositions);
@@ -201,6 +199,8 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
       ) : (
         <></>
       )}
+
+      {getEnvironmentObject(mapTheme.environmentObject)}
       <MapControls
         addEventListener={undefined}
         hasEventListener={undefined}
@@ -208,14 +208,9 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
         dispatchEvent={undefined}
         minZoom={cameraZoom - 8}
       />
-      <Stars
-        factor={cameraZoom > 40 ? 1 : 10}
-        radius={60 - cameraZoom}
-        saturation={1}
-        fade
-      />
+      {getMapBackground(mapTheme.background, cameraZoom)}
     </>
   );
 };
 
-export default forwardRef(SpaceMap);
+export default forwardRef(Map);

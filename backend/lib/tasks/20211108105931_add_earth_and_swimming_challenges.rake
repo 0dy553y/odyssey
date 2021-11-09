@@ -66,7 +66,7 @@ task add_earth_and_swimming_challenges: :environment do
 
     challenge_swimming_desc = 'This is a 3-month training programme created in collaboration with leading running coach and former world #1 duathlete, Annie Emmerson. Our aim is for you to swim 1km Comfortably in the time it takes you to run 5km or cycle 10km.'
     challenge_swimming = Challenge.create!(category_id: category_exercise.id,
-                                               name: 'Speedo: Make 1k Wet',
+                                               name: 'Swimming Your First 1k',
                                                description: challenge_swimming_desc,
                                                duration: 84,
                                                schedule: '2 times a week, for 3 months',

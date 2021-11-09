@@ -24,12 +24,14 @@ export interface DirectionPosition {
   direction: Direction;
 }
 
-// anyhow put for now.
 export enum Land {
   GRASS,
   SAND,
   STONE,
   BEEHIVE,
+  CAKE,
+  FOREST,
+  POOL,
 }
 
 export enum Character {
@@ -48,9 +50,40 @@ export enum ModelFileFormat {
   GLB,
 }
 
-export type FilePath = string;
-
+type FilePath = string;
 export interface ModelFile {
   path: FilePath;
   format: ModelFileFormat;
+}
+
+export enum BuildingBlock {
+  DISC,
+  STAIRS,
+  CLOUD,
+}
+
+type MapComponent = (
+  key: number,
+  position: Vector3,
+  direction: Direction
+) => JSX.Element;
+
+export interface BlockSet {
+  completed: MapComponent;
+  next: MapComponent;
+  future: MapComponent;
+  widthIncrement: number;
+  heightIncrement: number;
+}
+
+export enum MapBackground {
+  STARS,
+  PURPLE_BLUE,
+  ORANGE,
+  GREEN_YELLOW,
+}
+
+export enum MapEnvironmentObject {
+  HOT_AIR_BALLOON,
+  SPACESHIP,
 }
