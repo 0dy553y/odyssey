@@ -78,7 +78,9 @@ export interface BlockSet {
 
 export enum MapBackground {
   STARS,
-  SKY_BLUE,
+  PURPLE_BLUE,
+  ORANGE,
+  GREEN_YELLOW,
 }
 
 export enum MapEnvironmentObject {

@@ -26,6 +26,7 @@ const LAND_DIRECTORY = 'land';
 const CHARACTER_DIRECTORY = 'characters';
 const BLOCK_DIRECTORY = 'blocks';
 const ENVIRONMENT_DIRECTORY = 'environment';
+const TEXTURE_DIRECTORY = 'textures';
 
 // Returns a Vector3 that is base + translationVector.
 // The translation vector does not need to specify values for all three axes.
@@ -424,8 +425,13 @@ export function getMapBackground(
   cameraZoom: number
 ): JSX.Element {
   switch (mapBackground) {
-    case MapBackground.SKY_BLUE:
-      return <SkyDome />;
+    case MapBackground.PURPLE_BLUE:
+    case MapBackground.ORANGE:
+    case MapBackground.GREEN_YELLOW:
+      const texturePath = `/${TEXTURE_DIRECTORY}/${MapBackground[mapBackground]
+        .toLowerCase()
+        .replace('_', '')}`;
+      return <SkyDome texturePath={texturePath} />;
     case MapBackground.STARS:
     default:
       return (
