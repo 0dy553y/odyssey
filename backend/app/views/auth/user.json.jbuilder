@@ -8,4 +8,5 @@ json.data do
   json.character @resource.character
   json.registrationDate @resource.created_at
   json.avatar encoded_file_data_url(@resource.avatar) if @resource.avatar.attached?
+  json.avatar rails_blob_url(@resource.avatar) if @resource.avatar.attached?
 end
