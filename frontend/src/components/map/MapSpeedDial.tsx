@@ -33,9 +33,12 @@ const MapSpeedDial: React.FC = () => {
     getAllOngoingUserChallenges(state)
   )!;
 
+  // Don't show speed dial if don't have multiple ongoing challenges.
+  if (ongoingChallenges.length <= 1) return <></>;
+
   return (
     <SpeedDial
-      ariaLabel="test"
+      ariaLabel="mapSpeedDial"
       sx={{ position: 'absolute', bottom: '2em', right: '2em' }}
       icon={<MapIcon />}
       onClose={() => setIsOpen(false)}
