@@ -7,7 +7,7 @@ import React, {
   useEffect,
 } from 'react';
 import MapStructure from './MapStructure';
-import { useThree } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { MapControls } from '@react-three/drei';
 import { Character } from '..';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
@@ -27,6 +27,8 @@ import {
   UserChallengeMapData,
 } from 'types/userchallenge';
 import { getPrizePath } from 'utils/prizes';
+import { Camera } from '@mui/icons-material';
+import { Vector3 } from 'three';
 
 interface MapProps {
   mapData: UserChallengeMapData;
@@ -133,6 +135,18 @@ const Map = (props: MapProps, ref: React.Ref<unknown>) => {
     camera.updateProjectionMatrix();
   }, [isMapLoaded]);
 
+  const minPan: Vector3 = new Vector3(-10, -10, -10);
+  const maxPan: Vector3 = new Vector3(10, 10, 10);
+  const v: Vector3 = new Vector3();
+  const handleMapControlsChange = (event: THREE.Event | undefined) => {
+    if (event && event.target) {
+      const controls = event.target;
+      v.copy(controls.target);
+      controls.target.clamp(minPan, maxPan);
+      v.sub(controls.target);
+      camera.position.sub(v);
+    }
+  };
   return (
     <>
       {/*  x: red, y: green, z: blue */}
@@ -202,7 +216,7 @@ const Map = (props: MapProps, ref: React.Ref<unknown>) => {
 
       {getEnvironmentObject(mapTheme.environmentObject)}
       <MapControls
-        addEventListener={undefined}
+        onChange={handleMapControlsChange}
         hasEventListener={undefined}
         removeEventListener={undefined}
         dispatchEvent={undefined}
