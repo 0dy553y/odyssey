@@ -66,8 +66,10 @@ const OngoingMapsPage: React.FC = () => {
     getChallengeMap(state, Number(challengeId))
   )!;
 
+  if (!mapData) return <></>;
+
   return (
-    <>
+    <div key={mapData.challengeId}>
       <AppBar
         position="absolute"
         sx={isDesktop ? { right: 'auto', width: '20vw' } : {}}
@@ -97,23 +99,19 @@ const OngoingMapsPage: React.FC = () => {
               }
         }
       >
-        {mapData ? (
-          <div className={classes.container}>
-            <Stack className={classes.name}>
-              <Typography variant="h1" className={classes.header}>
-                {mapData.challengeName}
-              </Typography>
-            </Stack>
-            <div className={classes.map}>
-              <MapWrapper mapData={mapData} />
-            </div>
+        <div className={classes.container}>
+          <Stack className={classes.name}>
+            <Typography variant="h1" className={classes.header}>
+              {mapData.challengeName}
+            </Typography>
+          </Stack>
+          <div className={classes.map}>
+            <MapWrapper mapData={mapData} />
           </div>
-        ) : (
-          <></>
-        )}
+        </div>
       </Box>
       <MapSpeedDial />
-    </>
+    </div>
   );
 };
 

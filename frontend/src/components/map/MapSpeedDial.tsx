@@ -9,6 +9,8 @@ import { UserChallengeListData } from 'types/userchallenge';
 import { loadAllOngoingUserChallenges } from 'store/userchallenges/operations';
 import MapIcon from '@mui/icons-material/Map';
 import MapDialIcon from './MapDialIcon';
+import { useHistory } from 'react-router-dom';
+import { MAP_ROUTE } from 'routing/routes';
 
 const useStyles = makeStyles(() => ({
   staticTooltipLabel: {
@@ -20,6 +22,7 @@ const useStyles = makeStyles(() => ({
 const MapSpeedDial: React.FC = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const history = useHistory();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   useEffect(() => {
     dispatch(loadAllOngoingUserChallenges());
@@ -45,7 +48,10 @@ const MapSpeedDial: React.FC = () => {
           icon={<MapDialIcon prizeName={challenge.prizeName} />}
           tooltipTitle={challenge.challengeName}
           tooltipOpen
-          onClick={() => setIsOpen(false)}
+          onClick={() => {
+            history.replace(`${MAP_ROUTE}/${challenge.challengeId}`);
+            setIsOpen(false);
+          }}
           classes={{ staticTooltipLabel: classes.staticTooltipLabel }}
         />
       ))}
