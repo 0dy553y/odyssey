@@ -253,8 +253,9 @@ export function getEnvironmentObject(
   environmentObject: MapEnvironmentObject
 ): JSX.Element {
   switch (environmentObject) {
-    case MapEnvironmentObject.HOT_AIR_BALLOON:
+    case MapEnvironmentObject.HOT_AIR_BALLOON_RED:
     case MapEnvironmentObject.SPACESHIP:
+    case MapEnvironmentObject.HOT_AIR_BALLOON_BLUE:
       return (
         <EnvironmentObject
           position={[0, -5, 0]}

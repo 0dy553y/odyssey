@@ -84,6 +84,7 @@ export enum MapBackground {
 }
 
 export enum MapEnvironmentObject {
-  HOT_AIR_BALLOON,
+  HOT_AIR_BALLOON_RED,
   SPACESHIP,
+  HOT_AIR_BALLOON_BLUE,
 }

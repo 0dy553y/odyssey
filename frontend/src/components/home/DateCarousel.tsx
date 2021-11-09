@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  contains,
   getDateFromNowString,
   getDayString,
   getMonthString,
@@ -11,15 +12,41 @@ import SwiperCore, { Navigation, Mousewheel, Keyboard } from 'swiper';
 import SwiperClass from 'swiper/types/swiper-class';
 import { Box, Stack, Typography } from '@mui/material';
 import dayjs from 'dayjs';
+import { makeStyles } from '@mui/styles';
+import ReturnToTodayButton from './ReturnToTodayButton';
+import { startOfDay } from 'date-fns';
+import { useDispatch } from 'react-redux';
+import { addSnackbar } from '../../store/snackbars/actions';
 
 import './DateCarousel.scss';
+
+const useStyles = makeStyles(() => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+  },
+  dateDisplay: {
+    flexGrow: 1,
+  },
+}));
 
 interface Props {
   date: Date;
   setDate: (date: Date) => void;
+  datesWithOverdueTasks: Date[];
 }
 
-const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
+const DateCarousel: React.FC<Props> = ({
+  date,
+  setDate,
+  datesWithOverdueTasks,
+}: Props) => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
   const dateRange = 50;
   const previousIndex = dateRange;
   const [selectedDate, setSelectedDate] = useState(date);
@@ -64,6 +91,17 @@ const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
       newDates.push(newDate);
     }
     setDates(newDates);
+  };
+
+  const currentDate: Date = startOfDay(new Date());
+  const setDateToCurrentDate = () => {
+    setDate(currentDate);
+    dispatch(
+      addSnackbar({
+        message: 'Set date to today!',
+        variant: 'success',
+      })
+    );
   };
 
   const handleActiveIndexChange = (swiper: SwiperClass) => {
@@ -117,15 +155,30 @@ const DateCarousel: React.FC<Props> = ({ date, setDate }: Props) => {
       >
         {dates.map((date: Date) => (
           <SwiperSlide key={date.toISOString()}>
-            <DateItem date={date} />
+            <DateItem
+              date={date}
+              shouldShowDot={contains(datesWithOverdueTasks, date)}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
 
-      <Stack alignItems="center">
-        <Typography variant="h6">{getDayString(selectedDate)}</Typography>
-        <Typography>{getDateFromNowString(selectedDate)}</Typography>
-      </Stack>
+      <div className={classes.container}>
+        <ReturnToTodayButton
+          direction="left"
+          onClick={setDateToCurrentDate}
+          isVisible={selectedDate > currentDate}
+        />
+        <Stack alignItems="center" className={classes.dateDisplay}>
+          <Typography variant="h6">{getDayString(selectedDate)}</Typography>
+          <Typography>{getDateFromNowString(selectedDate)}</Typography>
+        </Stack>
+        <ReturnToTodayButton
+          direction="right"
+          onClick={setDateToCurrentDate}
+          isVisible={selectedDate < currentDate}
+        />
+      </div>
     </Stack>
   );
 };

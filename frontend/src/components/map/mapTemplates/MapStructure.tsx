@@ -151,6 +151,7 @@ const MapStructure = (props: MapStructureProps, ref: React.Ref<unknown>) => {
           </group>
         );
         base = regularTranslate(base, currentDirection, widthIncrement + 0.5);
+        currentDirection = nextDirection;
         stepPositions.push({
           pos: translate(base, {
             [Axis.X]: dv[0],
@@ -159,7 +160,6 @@ const MapStructure = (props: MapStructureProps, ref: React.Ref<unknown>) => {
           }),
           direction: currentDirection,
         });
-        currentDirection = nextDirection;
         base = translate(base, {
           [Axis.X]: dv[0] + nextDv[0] * (widthIncrement + 1.5),
           [Axis.Y]: stageIncrement,

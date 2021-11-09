@@ -3,7 +3,10 @@ import { loadUserTasksForDays } from '../../store/usertasks/operations';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import UserTaskCarousel from '../../components/home/UserTaskCarousel';
 import MapDialog from '../../components/map/MapDialog';
-import { getUserTaskListForDay } from '../../store/usertasks/selectors';
+import {
+  getDatesWithOverdueTasks,
+  getUserTaskListForDay,
+} from '../../store/usertasks/selectors';
 import { RootState } from '../../store';
 import { Badge, Box, Grid, IconButton, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -13,7 +16,6 @@ import { LOGIN_ROUTE, NOTIFICATIONS_ROUTE } from '../../routing/routes';
 import DateCarousel from '../../components/home/DateCarousel';
 import ChallengeCompletedDialog from 'components/challengeCompletedDialog';
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
-import TodayIcon from '@mui/icons-material/TodayRounded';
 import { startOfDay } from 'date-fns';
 import { UserChallengeMapData } from 'types/userchallenge';
 import { getOngoingChallengeMaps } from 'store/userchallenges/selectors';
@@ -126,6 +128,7 @@ const HomePage: React.FC = () => {
   )!;
 
   const friendRequests = useSelector(getFriendRequestList);
+  const datesWithOverdueTasks = useSelector(getDatesWithOverdueTasks);
 
   const user = useSelector(getUser);
   if (!user) {
@@ -156,16 +159,14 @@ const HomePage: React.FC = () => {
                   />
                 </Badge>
               </IconButton>
-              <IconButton
-                size="large"
-                onClick={() => setDate(startOfDay(new Date()))}
-              >
-                <TodayIcon color="secondary" fontSize="inherit" />
-              </IconButton>
             </div>
           </Grid>
           <Grid item className={classes.headerCarouselItem}>
-            <DateCarousel date={date} setDate={setDate} />
+            <DateCarousel
+              date={date}
+              setDate={setDate}
+              datesWithOverdueTasks={datesWithOverdueTasks}
+            />
           </Grid>
           <Grid item className={classes.headerNonCarouselItem}>
             <Typography variant="h5">Your Tasks</Typography>
