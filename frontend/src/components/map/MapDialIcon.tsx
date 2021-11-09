@@ -8,7 +8,6 @@ interface MapDialIconProps {
 
 const MapDialIcon: React.FC<MapDialIconProps> = ({ prizeName }) => {
   const prizePath = getPrizePath(prizeName).slice(7);
-  console.log(prizePath);
   /* eslint-disable */
   const iconImage = require(`../../assets/images/icons/${prizePath}.png`);
   return (

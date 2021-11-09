@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IconButton, SpeedDial, SpeedDialAction } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'store';
 import { getAllOngoingUserChallenges } from 'store/userchallenges/selectors';
@@ -8,8 +10,16 @@ import { loadAllOngoingUserChallenges } from 'store/userchallenges/operations';
 import MapIcon from '@mui/icons-material/Map';
 import MapDialIcon from './MapDialIcon';
 
+const useStyles = makeStyles(() => ({
+  staticTooltipLabel: {
+    whiteSpace: 'nowrap',
+    maxWidth: 'none',
+  },
+}));
+
 const MapSpeedDial: React.FC = () => {
   const dispatch = useDispatch();
+  const classes = useStyles();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   useEffect(() => {
     dispatch(loadAllOngoingUserChallenges());
@@ -36,6 +46,7 @@ const MapSpeedDial: React.FC = () => {
           tooltipTitle={challenge.challengeName}
           tooltipOpen
           onClick={() => setIsOpen(false)}
+          classes={{ staticTooltipLabel: classes.staticTooltipLabel }}
         />
       ))}
     </SpeedDial>
