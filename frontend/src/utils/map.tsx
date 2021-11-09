@@ -208,6 +208,7 @@ export function buildDiagonalRepeated({
 export function getLandModelFile(land: Land): ModelFile {
   switch (land) {
     case Land.GRASS:
+    case Land.SAND:
     case Land.CAKE:
     case Land.FOREST:
     case Land.POOL:
@@ -225,9 +226,10 @@ export function getLandModelFile(land: Land): ModelFile {
 
 export function getSecondaryLandModelFile(land: Land): ModelFile {
   switch (land) {
+    case Land.GRASS:
+    case Land.SAND:
     case Land.CAKE:
     case Land.FOREST:
-    case Land.GRASS:
       return {
         path: `${LAND_DIRECTORY}/${Land[land].toLowerCase()}2`,
         format: ModelFileFormat.GLB,
