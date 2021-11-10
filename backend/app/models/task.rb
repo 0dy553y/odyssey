@@ -8,6 +8,6 @@ class Task < ApplicationRecord
   default_scope -> { order(index: :asc) }
   validates :name,
             presence: { message: "can't be blank." },
-            length: { minimum: 1, maximum: 40,
-                      message: 'must be between 1 and 40 characters.' }
+            length: { minimum: 1, maximum: 55,
+                      message: 'must be between 1 and 55 characters.' }
 end
