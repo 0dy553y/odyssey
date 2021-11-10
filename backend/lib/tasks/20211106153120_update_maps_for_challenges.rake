@@ -39,10 +39,4 @@ task update_maps_for_challenges: :environment do
   Challenge.find_by(name: 'A Film Script a Day').map.update!(land: 5, building_block: 0, background: 0, environment_object: 1)
   Challenge.find_by(name: '30 Films in 30 Days').map.update!(land: 0, building_block: 0, background: 1, environment_object: 1)
   Challenge.find_by(name: 'Spring Cleaning').map.update!(land: 0, building_block: 0, background: 3)
-
-
-
-  
-
-
 end
