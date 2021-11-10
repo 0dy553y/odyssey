@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable all
 
 # task_list is a list of the form { name: string, description: string }[].
 # If the name parameter is omitted, then the name of the task will simply be "Day x"
@@ -124,3 +125,4 @@ task update_walking_and_journaling_challenges: :environment do
   ]
   create_tasks(tasks, challenge_journaling.id)
 end
+# rubocop:enable all
