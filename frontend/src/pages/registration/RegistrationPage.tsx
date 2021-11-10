@@ -1,4 +1,5 @@
 import React from 'react';
+import { makeStyles } from '@mui/styles';
 import { Button, TextField, Link, Grid, Box, Typography } from '@mui/material';
 import { LOGIN_ROUTE } from 'routing/routes';
 import { useHistory } from 'react-router-dom';
@@ -14,8 +15,37 @@ interface RegistrationFormState {
   passwordConfirmation: string;
 }
 
+const useStyles = makeStyles(() => ({
+  handCursor: {
+    cursor: 'pointer',
+  },
+  inputField: {
+    root: {
+      [`& fieldset`]: {
+        borderRadius: 15,
+      },
+    },
+    '& .MuiFilledInput-root': {
+      background: 'rgb(159, 136, 227, 0.15)',
+    },
+    maxWidth: '30em',
+    marginBottom: '0.5em',
+  },
+  submitButton: {
+    mt: 3,
+    mb: 2,
+    padding: '0.7em 2em 0.7em 2em',
+    borderRadius: '1em',
+    margin: '2em 0 1em 0',
+  },
+  title: {
+    fontFamily: 'frock',
+  },
+}));
+
 const RegistrationPage: React.FC = () => {
   const history = useHistory();
+  const classes = useStyles();
   const dispatch = useDispatch();
   const {
     control,
@@ -46,10 +76,11 @@ const RegistrationPage: React.FC = () => {
         flexDirection: 'column',
         alignItems: 'center',
         padding: '5em 1.5em 0 1.5em',
+        textAlign: 'center',
       }}
     >
-      <Typography component="h1" variant="h5">
-        Sign up
+      <Typography component="h1" variant="h4" className={classes.title}>
+        Register
       </Typography>
       <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
         <Grid container spacing={2}>
@@ -76,6 +107,8 @@ const RegistrationPage: React.FC = () => {
                   autoComplete="username"
                   error={!!errors.username}
                   helperText={errors.username?.message}
+                  variant="filled"
+                  className={classes.inputField}
                 />
               )}
             />
@@ -95,6 +128,8 @@ const RegistrationPage: React.FC = () => {
                   name="displayName"
                   error={!!errors.displayName}
                   helperText={errors.displayName?.message}
+                  variant="filled"
+                  className={classes.inputField}
                 />
               )}
             />
@@ -122,6 +157,8 @@ const RegistrationPage: React.FC = () => {
                   id="password"
                   error={!!errors.password}
                   helperText={errors.password?.message}
+                  variant="filled"
+                  className={classes.inputField}
                 />
               )}
             />
@@ -148,6 +185,8 @@ const RegistrationPage: React.FC = () => {
                   id="passwordConfirmation"
                   error={!!errors.passwordConfirmation}
                   helperText={errors.passwordConfirmation?.message}
+                  variant="filled"
+                  className={classes.inputField}
                 />
               )}
             />
@@ -155,11 +194,10 @@ const RegistrationPage: React.FC = () => {
         </Grid>
         <Button
           type="submit"
-          fullWidth
           variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+          className={classes.submitButton}
         >
-          Sign Up
+          Register
         </Button>
         <Grid item>
           <Link
@@ -167,6 +205,7 @@ const RegistrationPage: React.FC = () => {
             onClick={() => {
               history.push(LOGIN_ROUTE);
             }}
+            className={classes.handCursor}
           >
             Already have an account? Sign in
           </Link>

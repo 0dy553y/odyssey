@@ -1,4 +1,5 @@
 import React from 'react';
+import { makeStyles } from '@mui/styles';
 import { Button, Box, TextField, Link, Grid, Typography } from '@mui/material';
 import { REGISTER_ROUTE } from 'routing/routes';
 import { useHistory } from 'react-router-dom';
@@ -12,8 +13,35 @@ interface LoginFormState {
   password: string;
 }
 
+const useStyles = makeStyles(() => ({
+  handCursor: {
+    cursor: 'pointer',
+  },
+  inputField: {
+    root: {
+      [`& fieldset`]: {
+        borderRadius: 15,
+      },
+    },
+    '& .MuiFilledInput-root': {
+      background: 'rgb(159, 136, 227, 0.2)',
+    },
+  },
+  submitButton: {
+    mt: 3,
+    mb: 2,
+    padding: '0.7em 2em 0.7em 2em',
+    borderRadius: '1em',
+    margin: '2em 0 1em 0',
+  },
+  title: {
+    fontFamily: 'frock',
+  },
+}));
+
 const LoginPage: React.FC = () => {
   const history = useHistory();
+  const classes = useStyles();
   const dispatch = useDispatch();
   const {
     control,
@@ -33,9 +61,10 @@ const LoginPage: React.FC = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        textAlign: 'center',
       }}
     >
-      <Typography component="h1" variant="h5">
+      <Typography className={classes.title} component="h1" variant="h4">
         Login
       </Typography>
       <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
@@ -56,6 +85,8 @@ const LoginPage: React.FC = () => {
               autoComplete="username"
               error={!!errors.username}
               helperText={errors.username?.message}
+              variant="filled"
+              className={classes.inputField}
             />
           )}
         />
@@ -77,14 +108,16 @@ const LoginPage: React.FC = () => {
               autoComplete="current-password"
               error={!!errors.password}
               helperText={errors.password?.message}
+              variant="filled"
+              className={classes.inputField}
             />
           )}
         />
+        <br />
         <Button
           type="submit"
-          fullWidth
           variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+          className={classes.submitButton}
         >
           Log In
         </Button>
@@ -94,6 +127,7 @@ const LoginPage: React.FC = () => {
             onClick={() => {
               history.push(REGISTER_ROUTE);
             }}
+            className={classes.handCursor}
           >
             No account yet? Register
           </Link>
