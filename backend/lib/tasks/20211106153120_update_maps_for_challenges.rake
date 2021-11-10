@@ -7,6 +7,8 @@ task update_maps_for_challenges: :environment do
   # BUILDING BLOCK: disc = 0, stairs = 1, cloud = 2
   # BACKGROUND: stars = 0, purple blue = 1, orange = 2, green yellow = 3
   # ENVIRONMENT OBJECT: hot air balloon red = 0, spaceship = 1, hot air balloon blue = 2
+  Challenge.find_by(name: '30 films in 30 days').update(name: '30 Films in 30 Days')
+  Challenge.find_by(name: 'Speedo: Make 1k Wet').update(name: 'Swimming Your First 1k')
 
   Challenge.find_by(name: 'A Drawing a Day').map.update!(land: 3, building_block: 0, background: 0)
   Challenge.find_by(name: 'Back to School').map.update!(land: 3, building_block: 0, background: 3)
