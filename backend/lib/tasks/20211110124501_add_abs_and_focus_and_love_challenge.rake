@@ -106,9 +106,5 @@ task add_abs_and_focus_and_love_challenge: :environment do
     ]
 
     create_tasks(tasks, challenge_love.id)
-
-
-
+  end
 end
-end
-    
