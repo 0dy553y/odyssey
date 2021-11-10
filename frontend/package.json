@@ -47,6 +47,7 @@
     "redux-thunk": "^2.3.0",
     "swiper": "^6.8.4",
     "three": "^0.133.1",
+    "transition-style": "^0.1.1",
     "typescript": "^4.0.3",
     "web-vitals": "^0.2.4",
     "workbox-background-sync": "^5.1.3",
