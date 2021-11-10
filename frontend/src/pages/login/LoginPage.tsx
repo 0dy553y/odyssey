@@ -50,16 +50,18 @@ const useStyles = makeStyles(() => ({
     fontFamily: 'frock',
   },
   background: {
-    // backgroundColor: '#cec3ec',
     height: '100vh',
   },
   card: {
     backgroundColor: 'white',
-    // padding: '3em',
     borderRadius: '3em',
     maxWidth: '90vw',
     width: '30em',
     boxShadow: '12px 12px 25px 0px #ac89a5',
+    '&:hover': {
+      boxShadow: '12px 12px 25px 0px #a37399',
+    },
+    transition: '0.5s ease',
   },
   landscape: {
     width: '100%',
