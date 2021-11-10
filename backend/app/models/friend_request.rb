@@ -5,6 +5,8 @@ class FriendRequest < ApplicationRecord
   belongs_to :receiver, class_name: 'User'
   validate :no_friend_request_in_opposite_direction, :no_existing_friendship
 
+  default_scope -> { order(created_at: :desc) }
+
   def no_friend_request_in_opposite_direction
     return if FriendRequest.find_by(sender_id: receiver.id, receiver_id: sender.id).blank?
 

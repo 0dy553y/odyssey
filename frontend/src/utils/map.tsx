@@ -6,9 +6,27 @@ import {
   TranslationVector,
   Land,
   Character,
+  ModelFileFormat,
+  ModelFile,
+  BlockSet,
+  BuildingBlock,
+  MapBackground,
+  MapEnvironmentObject,
 } from '../types/map';
-import { Arch, Columns } from '../components/map';
+import { Arch, Columns, Disc, Model, NextDisc } from '../components/map';
 import { Vector3 } from '@react-three/fiber';
+import StairBox from 'components/map/composite/StairBox';
+import { Stars } from '@react-three/drei';
+import SkyDome from 'components/map/basic/SkyDome';
+import { ChallengeColor } from 'types/challenges';
+import { getHexCode } from './color';
+import EnvironmentObject from 'components/map/composite/EnvironmentObject';
+
+const LAND_DIRECTORY = 'land';
+const CHARACTER_DIRECTORY = 'characters';
+const BLOCK_DIRECTORY = 'blocks';
+const ENVIRONMENT_DIRECTORY = 'environment';
+const TEXTURE_DIRECTORY = 'textures';
 
 // Returns a Vector3 that is base + translationVector.
 // The translation vector does not need to specify values for all three axes.
@@ -188,15 +206,73 @@ export function buildDiagonalRepeated({
   );
 }
 
-export function getLandPath(land: Land): string {
-  return `land/${Land[land].toLowerCase()}.vox`;
+export function getLandModelFile(land: Land): ModelFile {
+  return {
+    path: `${LAND_DIRECTORY}/${Land[land].toLowerCase()}`,
+    format: ModelFileFormat.GLB,
+  };
 }
 
-export function getCharacterPath(character: Character | string): string {
-  if (typeof character === 'string') {
-    return `characters/${character.toLowerCase()}.vox`;
+export function getSecondaryLandModelFile(land: Land): ModelFile {
+  switch (land) {
+    case Land.GRASS:
+    case Land.SAND:
+    case Land.CAKE:
+    case Land.FOREST:
+    case Land.BEEHIVE:
+      return {
+        path: `${LAND_DIRECTORY}/${Land[land].toLowerCase()}2`,
+        format: ModelFileFormat.GLB,
+      };
+    // Don't have yet
+    default:
+      return getLandModelFile(land);
   }
-  return `characters/${Character[character].toLowerCase()}.vox`;
+}
+
+export function getCharacterModelFile(character: Character): ModelFile {
+  switch (character) {
+    case Character.GOLDEN_RETRIEVER:
+    case Character.POMERANIAN:
+    case Character.IKEACHEF:
+      return {
+        path: `${CHARACTER_DIRECTORY}/${Character[character].toLowerCase()}`,
+        format: ModelFileFormat.GLB,
+      };
+    default:
+      return {
+        path: `${CHARACTER_DIRECTORY}/${Character[
+          character
+        ].toLowerCase()}.vox`,
+        format: ModelFileFormat.OBJ,
+      };
+  }
+}
+
+export function getEnvironmentObject(
+  environmentObject: MapEnvironmentObject
+): JSX.Element {
+  switch (environmentObject) {
+    case MapEnvironmentObject.HOT_AIR_BALLOON_RED:
+    case MapEnvironmentObject.SPACESHIP:
+    case MapEnvironmentObject.HOT_AIR_BALLOON_BLUE:
+      return (
+        <EnvironmentObject
+          position={[0, -5, 0]}
+          modelFile={{
+            path: `${ENVIRONMENT_DIRECTORY}/${MapEnvironmentObject[
+              environmentObject
+            ]
+              .toLowerCase()
+              .replace(' ', '_')}`,
+            format: ModelFileFormat.GLB,
+          }}
+          scale={3}
+        />
+      );
+    default:
+      return <></>;
+  }
 }
 
 const cameraZoomBreakpointsMobile = [
@@ -222,6 +298,7 @@ const cameraZoomBreakpointsDesktop = [
 
 // camera distance
 const d = 60;
+const elevation = 20;
 
 export function getCameraZoomForMobile(numSteps: number): number {
   const myBp = cameraZoomBreakpointsMobile.find((a) => {
@@ -240,14 +317,120 @@ export function getCameraZoomForDesktop(numSteps: number): number {
 export function getCameraPosition(characterDirection: Direction): Vector3 {
   switch (characterDirection) {
     case Direction.RIGHT:
-      return [d, d, -d];
+      return [d, elevation, d];
     case Direction.LEFT:
-      return [-d, d, d];
+      return [-d, elevation, -d];
     case Direction.FORWARD:
-      return [-d, d, -d];
+      return [d, elevation, -d];
     case Direction.BACKWARD:
-      return [d, d, d];
+      return [-d, elevation, d];
     default:
-      return [d, d, -d];
+      return [d, elevation, -d];
+  }
+}
+
+export function getBuildingBlockSet(
+  blockType: BuildingBlock,
+  color: ChallengeColor
+): BlockSet {
+  const blockColor = getHexCode(color);
+  switch (blockType) {
+    case BuildingBlock.STAIRS:
+      return {
+        completed: (key: number, position: Vector3, direction: Direction) => (
+          <StairBox
+            key={key}
+            position={position}
+            direction={direction}
+            colorOverride={'#569874'}
+          />
+        ),
+        next: (key: number, position: Vector3, direction: Direction) => (
+          <StairBox
+            key={key}
+            position={position}
+            direction={direction}
+            colorOverride={'#ffffff'}
+          />
+        ),
+        future: (key: number, position: Vector3, direction: Direction) => (
+          <StairBox
+            key={key}
+            direction={direction}
+            position={position}
+            colorOverride={blockColor}
+          />
+        ),
+        widthIncrement: 2,
+        heightIncrement: 1,
+      };
+    case BuildingBlock.CLOUD:
+      const cloudModelFile = {
+        path: `${BLOCK_DIRECTORY}/cloud_block.vox`,
+        format: ModelFileFormat.OBJ,
+      };
+      const CloudBlock = (
+        key: number,
+        position: Vector3,
+        direction: Direction
+      ) => (
+        <Model
+          key={key}
+          position={translate(position, { [Axis.Y]: -0.5 })}
+          direction={direction}
+          modelFile={cloudModelFile}
+        />
+      );
+      return {
+        completed: CloudBlock,
+        next: CloudBlock,
+        future: CloudBlock,
+        widthIncrement: 1.5,
+        heightIncrement: 1,
+      };
+
+    case BuildingBlock.DISC:
+    default:
+      return {
+        completed: (key: number, position: Vector3) => (
+          <Disc key={key} position={position} colorOverride={'#569874'} />
+        ),
+        next: (key: number, position: Vector3) => (
+          <NextDisc key={key} position={position} colorOverride={'#ffffff'} />
+        ),
+        future: (key: number, position: Vector3) => (
+          <Disc key={key} position={position} colorOverride={blockColor} />
+        ),
+        widthIncrement: 1.5,
+        heightIncrement: 1,
+      };
+  }
+}
+
+export function getMapBackground(
+  mapBackground: MapBackground,
+  cameraZoom: number
+): JSX.Element {
+  switch (mapBackground) {
+    case MapBackground.PURPLE_BLUE:
+    case MapBackground.ORANGE:
+    case MapBackground.GREEN_YELLOW:
+      const texturePath = `/${TEXTURE_DIRECTORY}/${MapBackground[mapBackground]
+        .toLowerCase()
+        .replace('_', '')}`;
+      return <SkyDome texturePath={texturePath} />;
+    case MapBackground.STARS:
+    default:
+      return (
+        <>
+          <color attach="background" args={['#010101']} />
+          <Stars
+            factor={cameraZoom > 40 ? 1 : 10}
+            radius={60 - cameraZoom}
+            saturation={1}
+            fade
+          />
+        </>
+      );
   }
 }

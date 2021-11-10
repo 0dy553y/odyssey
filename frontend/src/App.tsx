@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Stack, Container } from '@mui/material';
 import { Global } from '@emotion/react';
 import { Route, Switch, useLocation } from 'react-router-dom';
@@ -20,7 +20,6 @@ import { validateToken } from './store/auth/operations';
 import BottomNavigationBar from './components/common/BottomNavigationBar';
 import { RouteEntry } from './types/routes';
 import Notifier from 'components/notifier';
-import FeedbackOverlay from './components/common/FeedbackOverlay';
 import { useCache } from 'components/common/cacheProvider';
 import GoogleAnalytics from './GoogleAnalytics';
 import LoadingPage from 'pages/loading/LoadingPage';
@@ -40,6 +39,8 @@ function App(): JSX.Element {
 
   const user = useSelector(getUser);
   const isValidatingToken = useSelector(getIsValidatingToken);
+
+  const contentContainerRef = useRef<null | HTMLDivElement>(null);
 
   const defaultPrivateRouteProps: RouteWithRedirectProps = {
     // Redirect if user is not authenticated
@@ -74,7 +75,7 @@ function App(): JSX.Element {
           maxWidth={false}
         >
           <GoogleAnalytics />
-          <ScrollToTop />
+          <ScrollToTop container={contentContainerRef.current} />
           <Notifier />
           <Global
             styles={{
@@ -84,7 +85,7 @@ function App(): JSX.Element {
               },
             }}
           />
-          <div className="App-content-container">
+          <div className="App-content-container" ref={contentContainerRef}>
             <Container
               className="column-container"
               disableGutters
@@ -123,9 +124,6 @@ function App(): JSX.Element {
             mainRoutes
               .map((route: RouteEntry) => route.path)
               .includes(location.pathname) && <BottomNavigationBar />}
-          {privateRoutes
-            .map((route: RouteEntry) => route.path)
-            .includes(location.pathname) && <FeedbackOverlay />}
         </Container>
       </Div100vh>
     );

@@ -8,7 +8,12 @@ class MapController < ApplicationController
   end
 
   def show
-    @user_challenge_map = construct_user_challenge_map_data(current_user.user_challenges.find_by(challenge_id: params[:id]))
+    @user_challenge = current_user.user_challenges.find_by(challenge_id: params[:id])
+    if @user_challenge.nil?
+      render 'layouts/empty', status: :not_found
+    else
+      @user_challenge_map = construct_user_challenge_map_data(@user_challenge)
+    end
   end
 
   private
@@ -19,6 +24,7 @@ class MapController < ApplicationController
       name: user_challenge.challenge.name,
       prize_name: user_challenge.challenge.prize_name,
       map_theme: user_challenge.challenge.map,
+      map_color: user_challenge.challenge.color,
       num_tasks: user_challenge.challenge.tasks.count,
       current_task_num: user_challenge.user_tasks.where.not(completed_at: nil).count + 1,
       friends: current_user.friends.select do |f|

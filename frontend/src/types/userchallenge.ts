@@ -5,6 +5,8 @@ import { UserTaskListData } from './usertasks';
 export interface UserChallengeListData {
   challengeId: number;
   percentCompleted: number;
+  challengeName: string;
+  prizeName: string;
 }
 
 export interface UserChallengeData extends UserChallengeListData {

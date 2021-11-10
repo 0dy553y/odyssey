@@ -6,7 +6,7 @@ export const Stairs: React.FC<Color> = ({ color }) => {
   const increment = 1 / numSteps;
 
   return (
-    <>
+    <group rotation={[0, Math.PI, 0]}>
       {[...Array(numSteps)].map((_, i) => (
         <mesh
           key={i}
@@ -20,7 +20,7 @@ export const Stairs: React.FC<Color> = ({ color }) => {
           <meshStandardMaterial color={color} />
         </mesh>
       ))}
-    </>
+    </group>
   );
 };
 

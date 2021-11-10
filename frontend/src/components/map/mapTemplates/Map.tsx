@@ -6,9 +6,9 @@ import React, {
   useImperativeHandle,
   useEffect,
 } from 'react';
-import SpaceMapStructure from './SpaceMapStructure';
-import { useThree } from '@react-three/fiber';
-import { MapControls, Stars } from '@react-three/drei';
+import MapStructure from './MapStructure';
+import { useFrame, useThree } from '@react-three/fiber';
+import { MapControls } from '@react-three/drei';
 import { Character } from '..';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Axis, Direction } from '../../../types/map';
@@ -18,6 +18,8 @@ import {
   getCameraPosition,
   getCameraZoomForDesktop,
   getCameraZoomForMobile,
+  getEnvironmentObject,
+  getMapBackground,
   translate,
 } from 'utils/map';
 import {
@@ -25,6 +27,8 @@ import {
   UserChallengeMapData,
 } from 'types/userchallenge';
 import { getPrizePath } from 'utils/prizes';
+import { Camera } from '@mui/icons-material';
+import { Vector3 } from 'three';
 
 interface MapProps {
   mapData: UserChallengeMapData;
@@ -32,7 +36,7 @@ interface MapProps {
   isDesktop: boolean;
 }
 
-const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
+const Map = (props: MapProps, ref: React.Ref<unknown>) => {
   const { mapData, setIsPrizeModalOpen, isDesktop } = props;
   const {
     username,
@@ -62,8 +66,6 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
   const [shouldMoveCharacterForward, setShouldMoveCharacterForward] =
     useState<boolean>(false);
   const width = 7;
-  const widthIncrement = 1.5;
-  const heightIncrement = 0.5;
   const characterRef = useRef();
   const mapRef = useRef();
   const { camera } = useThree();
@@ -133,6 +135,18 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
     camera.updateProjectionMatrix();
   }, [isMapLoaded]);
 
+  const minPan: Vector3 = new Vector3(-10, -10, -10);
+  const maxPan: Vector3 = new Vector3(10, 10, 10);
+  const v: Vector3 = new Vector3();
+  const handleMapControlsChange = (event: THREE.Event | undefined) => {
+    if (event && event.target) {
+      const controls = event.target;
+      v.copy(controls.target);
+      controls.target.clamp(minPan, maxPan);
+      v.sub(controls.target);
+      camera.position.sub(v);
+    }
+  };
   return (
     <>
       {/*  x: red, y: green, z: blue */}
@@ -149,13 +163,11 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
             <></>
           )} */}
 
-      <SpaceMapStructure
+      <MapStructure
         ref={mapRef}
         numSteps={numSteps}
         currentStep={currentStep}
         width={width}
-        widthIncrement={widthIncrement}
-        heightIncrement={heightIncrement}
         prizePath={getPrizePath(prizeName)}
         onMapMounted={(stepPositions) => {
           setStepPositions(stepPositions);
@@ -201,21 +213,18 @@ const SpaceMap = (props: MapProps, ref: React.Ref<unknown>) => {
       ) : (
         <></>
       )}
+
+      {getEnvironmentObject(mapTheme.environmentObject)}
       <MapControls
-        addEventListener={undefined}
+        onChange={handleMapControlsChange}
         hasEventListener={undefined}
         removeEventListener={undefined}
         dispatchEvent={undefined}
         minZoom={cameraZoom - 8}
       />
-      <Stars
-        factor={cameraZoom > 40 ? 1 : 10}
-        radius={60 - cameraZoom}
-        saturation={1}
-        fade
-      />
+      {getMapBackground(mapTheme.background, cameraZoom)}
     </>
   );
 };
 
-export default forwardRef(SpaceMap);
+export default forwardRef(Map);
