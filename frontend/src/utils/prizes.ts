@@ -77,6 +77,41 @@ export const prizes: Prize[] = [
     prizePath: 'lego',
     prizeDescription: 'Building blocks of imagination',
   },
+  {
+    prizeName: 'Swimming Float',
+    prizePath: 'swimming_ring',
+    prizeDescription: 'For extra safety',
+  },
+  {
+    prizeName: 'Tiny Earth',
+    prizePath: 'earth',
+    prizeDescription: 'Ours to protect',
+  },
+  {
+    prizeName: 'Space Laptop',
+    prizePath: 'laptop',
+    prizeDescription: 'With extra space',
+  },
+  {
+    prizeName: 'Mona Lisa',
+    prizePath: 'mona_lisa',
+    prizeDescription: 'Not the real Mona Lisa',
+  },
+  {
+    prizeName: 'Palette',
+    prizePath: 'palette',
+    prizeDescription: 'Bring color to your life',
+  },
+  {
+    prizeName: 'Pencil',
+    prizePath: 'pencil',
+    prizeDescription: 'Filled with lead',
+  },
+  {
+    prizeName: 'Seedling',
+    prizePath: 'seedling',
+    prizeDescription: 'Growing strong',
+  },
 ];
 
 export function getPrizePath(prizeName: string | null): string {
