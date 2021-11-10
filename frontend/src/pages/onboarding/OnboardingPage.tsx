@@ -1,15 +1,14 @@
 import React from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Theme, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { LOGIN_ROUTE, REGISTER_ROUTE } from 'routing/routes';
 import { useHistory } from 'react-router-dom';
-import onboardingImage from '../../assets/images/onboarding.png';
-import Modal from '@mui/material/Modal';
-import CloseIcon from '@mui/icons-material/CloseRounded';
+import { Liquidswipe } from 'react-liquidswipe';
+import OnboardingSlide from 'pages/onboarding/OnboardingSlide';
 
 import './OnboardingPage.scss';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   loginButton: {
     padding: '1.3em 3em 1.3em 3em',
     borderRadius: '1.5em',
@@ -25,7 +24,13 @@ const useStyles = makeStyles(() => ({
   },
   appName: {
     fontWeight: 'bold',
-    fontSize: '25px',
+    fontSize: '27px',
+    zIndex: 1,
+    position: 'fixed',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    top: '5%',
+    // color: 'white',
   },
   closeButton: {
     position: 'absolute',
@@ -55,67 +60,74 @@ const useStyles = makeStyles(() => ({
     borderRadius: '2em',
     padding: '2em',
   },
+  onboardingImage: {
+    filter: 'invert(1)',
+    height: '45vh',
+    marginTop: '15vh',
+    marginBottom: '1em',
+  },
+  description: {
+    display: 'inline-block',
+    color: 'white',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '70vw',
+    },
+  },
 }));
 
 const OnboardingPage: React.FC = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const [open, setOpen] = React.useState(false);
-  const handleClose = () => setOpen(false);
+  const components = [];
+
+  components.push(
+    <OnboardingSlide
+      imgUrl={require('assets/gifs/onboarding1.png')}
+      description="Explore challenges that help you to achieve more."
+      color="#082509"
+    />
+  );
+
+  components.push(
+    <OnboardingSlide
+      imgUrl={require('assets/gifs/onboarding2.png')}
+      description="Enjoy the journey and conquer the unknown."
+      color="#834720"
+    />
+  );
+
+  components.push(
+    <OnboardingSlide
+      imgUrl={require('assets/gifs/onboarding3.png')}
+      description="Find a supportive community waiting for you."
+      color="#67225c"
+    />
+  );
 
   return (
-    <Box
-      sx={{
-        paddingTop: 5,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        overflow: 'hidden',
-      }}
-      className="onboarding-page"
-    >
-      <Modal open={open} onClose={handleClose}>
-        <Box className={classes.modalContent}>
-          <Box className={classes.stickyHeader}>
-            <Typography variant="h6" component="h2">
-              Hi there &#128075;
-              <CloseIcon
-                className={classes.closeButton}
-                onClick={handleClose}
-              />
-            </Typography>
-          </Box>
-          <Typography sx={{ mt: 2 }}>
-            Thank you so much for taking the time to try out our app! For the
-            best experience, please save Odyssey to your home screen if you are
-            viewing on mobile.
-            <br />
-            <br />
-            Odyssey is a community-based app for completing challenges, which
-            consist of a series of tasks to be completed regularly and typically
-            in increasing intensity. These challenges serve to either help users
-            to form habits/ healthy routines, or are hobby-based challenges that
-            introduce and motivate users to explore their interests and try new
-            things.
-            <br />
-            <br />
-            We are still in the midst of user testing and developing more
-            features. To enable you to try out our features easily, we have
-            provided a limited set of short test challenges that can be done
-            with minimum hassle. Please drop us feedback by clicking on the
-            Feedback tab to the left of the screen. Any feedback that you
-            provide would be very appreciated!
-            <br />
-            <br />
-            &#10084;&#65039; from the Odyssey Team
-          </Typography>
-        </Box>
-      </Modal>
-      <Typography className={classes.appName}>Odyssey</Typography>
-      <img src={onboardingImage}></img>
-      <Typography variant="h5">Challenge yourself.</Typography>
-      <Box sx={{ marginTop: 5 }}>
+    <Box>
+      <Typography className={classes.appName} variant="h4">
+        Odyssey
+      </Typography>
+      <Liquidswipe
+        components={components}
+        style={{
+          height: '100vh',
+          width: '100vw',
+          color: 'black',
+          filter: 'invert(1)',
+        }}
+      />
+      <Box
+        sx={{
+          zIndex: 1,
+          position: 'fixed',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          bottom: 10,
+        }}
+      >
         <Button
           fullWidth
           variant="contained"
