@@ -7,10 +7,9 @@ import React, {
   useEffect,
 } from 'react';
 import MapStructure from './MapStructure';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useThree } from '@react-three/fiber';
 import { MapControls } from '@react-three/drei';
 import { Character } from '..';
-import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Axis, Direction } from '../../../types/map';
 import { DirectionPosition } from '../../../types/map';
 import { getDirectionVector, nextDirectionCW } from 'utils/direction';
@@ -27,7 +26,6 @@ import {
   UserChallengeMapData,
 } from 'types/userchallenge';
 import { getPrizePath } from 'utils/prizes';
-import { Camera } from '@mui/icons-material';
 import { Vector3 } from 'three';
 
 interface MapProps {

@@ -17,7 +17,7 @@ import { getChallenge } from 'store/challenges/selectors';
 import { loadChallenge } from 'store/challenges/operations';
 import { RootState } from 'store';
 import PrizeModelDisplay from 'components/common/prizeInfoDialog/PrizeModelDisplay';
-import { getPrize, getPrizePath } from 'utils/prizes';
+import { getPrize } from 'utils/prizes';
 
 interface ChallengeCompletedDialogProps {
   challengeId: number;
