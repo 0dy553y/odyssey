@@ -417,7 +417,7 @@ const ChallengeDetailsPage: React.FC = () => {
                   href={challenge.referenceLink}
                   target="_blank"
                   rel="noreferrer"
-                  className={classes.white}
+                  style={{ color: getComplementaryColor(challenge.color) }}
                   underline="always"
                 >
                   Learn more about this challenge
