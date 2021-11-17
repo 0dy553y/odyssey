@@ -37,6 +37,12 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
     }
   }, []);
 
+  const diameterCutoff = 100;
+  /* eslint-disable */
+  const iconImage = require(`../../../assets/images/avatars/${Character[
+    character
+  ].toLowerCase()}.png`);
+
   return (
     <Avatar
       style={{
@@ -59,13 +65,20 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
       }}
       ref={avatarRef}
     >
-      <CharacterDisplay
-        character={character}
-        zoom={diameter > 100 ? 40 : 12}
-        rotation={[Math.PI / 8, (2 * Math.PI) / 3, 0]}
-        isAnimated={diameter > 100}
-        position={[0, -3, 0]}
-      />
+      {diameter < diameterCutoff ? (
+        <img
+          src={iconImage.default}
+          style={{ width: '100%', marginBottom: '-10%' }}
+        />
+      ) : (
+        <CharacterDisplay
+          character={character}
+          zoom={(diameter - diameterCutoff) / 4 + 30}
+          rotation={[Math.PI / 8, (2 * Math.PI) / 3, 0]}
+          isAnimated={true}
+          position={[0, -3, 0]}
+        />
+      )}
     </Avatar>
   );
 };
