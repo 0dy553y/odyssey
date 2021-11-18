@@ -15,6 +15,7 @@ interface FeedPostListProps {
 const useStyles = makeStyles(() => ({
   textContainer: {
     height: '100%',
+    minHeight: '100px',
     display: 'flex',
     flexGrow: 1,
     alignItems: 'center',
