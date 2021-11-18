@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface OnboardingSlideProps {
   description: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   imgUrl: any;
   color: string;
 }

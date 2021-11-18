@@ -1,13 +1,7 @@
 import React, { useEffect } from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
-import {
-  loadAllOngoingChallengeMaps,
-  loadChallengeMap,
-} from 'store/userchallenges/operations';
-import {
-  getChallengeMap,
-  getOngoingChallengeMaps,
-} from 'store/userchallenges/selectors';
+import { loadChallengeMap } from 'store/userchallenges/operations';
+import { getChallengeMap } from 'store/userchallenges/selectors';
 import { useHistory, useParams } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
 
@@ -21,7 +15,6 @@ import {
   Typography,
 } from '@mui/material';
 import { ReactComponent as BackArrow } from 'assets/icons/arrow-left.svg';
-import { UserChallengeMapData } from 'types/userchallenge';
 import { useIsDesktop } from 'utils/windowSize';
 import MapWrapper from 'components/map/mapTemplates/MapWrapper';
 import MapSpeedDial from 'components/map/MapSpeedDial';
