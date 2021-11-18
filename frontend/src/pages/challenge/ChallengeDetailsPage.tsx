@@ -65,6 +65,10 @@ const useStyles = makeStyles<Theme>((theme) => ({
   white: {
     color: 'white',
   },
+  whiteUnderline: {
+    textDecoration: 'underline',
+    textDecorationColor: 'white',
+  },
   bold: {
     fontWeight: 'bold',
   },
@@ -415,7 +419,7 @@ const ChallengeDetailsPage: React.FC = () => {
                   href={challenge.referenceLink}
                   target="_blank"
                   rel="noreferrer"
-                  className={classes.white}
+                  className={`${classes.white} ${classes.whiteUnderline}`}
                   underline="always"
                 >
                   Learn more about this challenge
