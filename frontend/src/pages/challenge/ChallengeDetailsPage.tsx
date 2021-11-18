@@ -125,16 +125,14 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
   baseFab: {
     position: 'absolute',
+    right: theme.spacing(4),
+    bottom: theme.spacing(4),
     backgroundColor: 'black',
     color: 'white',
-  },
-  mobileFab: {
-    right: theme.spacing(2),
-    bottom: theme.spacing(8),
-  },
-  desktopFab: {
-    right: theme.spacing(3),
-    bottom: theme.spacing(3),
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+    },
+    zIndex: 5,
   },
 }));
 
@@ -559,9 +557,7 @@ const ChallengeDetailsPage: React.FC = () => {
       {isEnrolled && createPostState.shouldShowFab && (
         <>
           <Fab
-            className={`${classes.baseFab} ${
-              isDesktop ? classes.desktopFab : classes.mobileFab
-            }`}
+            className={`${classes.baseFab}`}
             onClick={() => setCreatePostState({ shouldShowModal: true })}
           >
             <Badge
