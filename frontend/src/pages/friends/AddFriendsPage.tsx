@@ -16,6 +16,8 @@ import { AddFriendListData } from '../../types/friends';
 import SearchIcon from '@mui/icons-material/SearchRounded';
 import AddFriendsList from '../../components/friendsList/AddFriendsList';
 import { makeStyles } from '@mui/styles';
+import { getUser } from 'store/auth/selectors';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles(() => ({
   textField: {
@@ -29,8 +31,13 @@ const useStyles = makeStyles(() => ({
 const AddFriendsPage: React.FC = () => {
   const classes = useStyles();
   const history = useHistory();
+
   const [users, setUsers] = useState<AddFriendListData[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const selfUser = useSelector(getUser)!;
+
   useEffect(() => {
     if (!searchQuery) {
       setUsers([]);
@@ -40,7 +47,7 @@ const AddFriendsPage: React.FC = () => {
       .searchUsersByUsername(searchQuery)
       .then((response: ApiResponse<AddFriendListData[]>) => {
         const users = response.payload.data;
-        setUsers(users);
+        setUsers(users.filter((user) => user.id !== selfUser.id));
       });
   }, [searchQuery]);
 
