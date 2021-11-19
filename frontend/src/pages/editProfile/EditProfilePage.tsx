@@ -92,7 +92,9 @@ const EditProfilePage: React.FC = () => {
             style={{ marginLeft: '-1.5em' }}
             edge="start"
             onClick={() => {
-              isFormEdited || isAvatarEdited
+              isFormEdited ||
+              isAvatarEdited ||
+              user.character !== selectedCharacter
                 ? setIsDiscardChangesConfirmationModalOpen(true)
                 : history.goBack();
             }}
