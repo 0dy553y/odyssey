@@ -21,6 +21,7 @@ class UserChallengesController < ApplicationController
     user_challenge = UserChallenge.find(params.require(:id))
     user_challenge.update!(forfeited_at: Time.zone.now)
 
+    show_success_message('Successfully forfeited! See you again another day :-)')
     render 'layouts/empty', status: :ok
   end
 end
