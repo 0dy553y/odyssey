@@ -53,10 +53,10 @@ class ChallengesController < ApplicationController
 
   def ongoing_and_completed_challenges
     @challenges = current_user
-                    .challenges
-                    .joins(:user_challenges)
-                    .where(user_challenges: { forfeited_at: nil })
-                    .uniq
+                  .challenges
+                  .joins(:user_challenges)
+                  .where(user_challenges: { forfeited_at: nil })
+                  .uniq
 
     render 'challenges/index', status: :ok
   end
