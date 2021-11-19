@@ -61,7 +61,6 @@ const EditProfilePage: React.FC = () => {
   const { control, handleSubmit, formState } = useForm<EditProfileFormState>({
     defaultValues: { displayName: user.displayName ?? '' },
   });
-  const isFormEdited = formState.isDirty;
   const [isAvatarEdited, setIsAvatarEdited] = useState(false);
 
   const [avatarBase64DataUrl, setAvatarBase64DataUrl] =
@@ -69,6 +68,9 @@ const EditProfilePage: React.FC = () => {
   const [selectedCharacter, setSelectedCharacter] = useState<Character>(
     user.character ?? Character.ASTRONAUT
   );
+
+  const isFormEdited =
+    formState.isDirty || isAvatarEdited || user.character !== selectedCharacter;
 
   const [
     isDiscardChangesConfirmationModalOpen,
@@ -92,9 +94,7 @@ const EditProfilePage: React.FC = () => {
             style={{ marginLeft: '-1.5em' }}
             edge="start"
             onClick={() => {
-              isFormEdited ||
-              isAvatarEdited ||
-              user.character !== selectedCharacter
+              isFormEdited
                 ? setIsDiscardChangesConfirmationModalOpen(true)
                 : history.goBack();
             }}
