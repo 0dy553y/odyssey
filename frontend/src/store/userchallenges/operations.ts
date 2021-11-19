@@ -8,6 +8,7 @@ import {
 import api from '../../api';
 import { OperationResult } from '../../types/store';
 import { RootState } from '../index';
+import { withStatusMessages } from 'utils/ui';
 import {
   updateAllUserChallengesData,
   updateCompletedUserChallengesListData,
@@ -89,7 +90,11 @@ export function forfeitUserChallenge(
   challengeId: number
 ): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
-    await api.userChallenges.forfeitUserChallenge(userChallengeId);
-    dispatch(loadAllUserChallengesDataForChallenge(challengeId));
+    await withStatusMessages(
+      dispatch,
+      api.userChallenges.forfeitUserChallenge(userChallengeId)
+    ).then(() => {
+      dispatch(loadAllUserChallengesDataForChallenge(challengeId));
+    });
   };
 }
