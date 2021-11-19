@@ -27,10 +27,21 @@ import CharacterCarousel from 'components/editProfile/CharacterCarousel';
 import './EditProfilePage.scss';
 import { makeStyles } from '@mui/styles';
 import { Character } from 'types/map';
+import ConfirmationModal from 'components/common/ConfirmationModal';
 
 const useStyles = makeStyles(() => ({
   header: {
-    fontSize: '1.8em',
+    fontFamily: 'Frock',
+    marginBottom: '1em',
+  },
+  submitButton: {
+    mt: 3,
+    mb: 2,
+    padding: '0.7em 2em 0.7em 2em',
+    borderRadius: '1em',
+  },
+  nameInput: {
+    maxWidth: '20em',
   },
 }));
 
@@ -42,17 +53,27 @@ const EditProfilePage: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
-  const { control, handleSubmit } = useForm<EditProfileFormState>();
 
   // user should never be undefined (assuming auth routing works)
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const user = useSelector(getUser)!; //
+
+  const { control, handleSubmit, formState } = useForm<EditProfileFormState>({
+    defaultValues: { displayName: user.displayName ?? '' },
+  });
+  const isFormEdited = formState.isDirty;
+  const [isAvatarEdited, setIsAvatarEdited] = useState(false);
 
   const [avatarBase64DataUrl, setAvatarBase64DataUrl] =
     useState<DataUrl | null>(user.avatar ?? null);
   const [selectedCharacter, setSelectedCharacter] = useState<Character>(
     user.character ?? Character.ASTRONAUT
   );
+
+  const [
+    isDiscardChangesConfirmationModalOpen,
+    setIsDiscardChangesConfirmationModalOpen,
+  ] = useState<boolean>(false);
 
   const onSubmit = handleSubmit(async (data: EditProfileFormState) => {
     const userPutData: UserPutData = {
@@ -70,22 +91,41 @@ const EditProfilePage: React.FC = () => {
           <IconButton
             style={{ marginLeft: '-1.5em' }}
             edge="start"
-            onClick={() => history.goBack()}
+            onClick={() => {
+              isFormEdited || isAvatarEdited
+                ? setIsDiscardChangesConfirmationModalOpen(true)
+                : history.goBack();
+            }}
           >
             <BackArrow filter="invert(1)" height="1.5em" width="1.5em" />
           </IconButton>
         </Toolbar>
+        <Typography component="h1" variant="h1" className={classes.header}>
+          Edit Profile
+        </Typography>
       </AppBar>
 
-      <Typography variant="h5" className={classes.header}>
-        Edit Profile
-      </Typography>
+      <ConfirmationModal
+        title="Discard changes"
+        message="Are you sure? You have unsaved changes."
+        isOpen={isDiscardChangesConfirmationModalOpen}
+        onConfirm={() => {
+          history.goBack();
+        }}
+        onCancel={() => setIsDiscardChangesConfirmationModalOpen(false)}
+      />
 
       <Box
         component="form"
         noValidate
         onSubmit={onSubmit}
-        sx={{ mt: 1, padding: '0 1.5em 0 1.5em', width: '100%' }}
+        sx={{
+          mt: 1,
+          padding: '0 1.5em 0 1.5em',
+          width: '100%',
+          alignItems: 'center',
+          textAlign: 'center',
+        }}
       >
         <Stack justifyContent="center" alignItems="center">
           <label htmlFor="contained-button-file">
@@ -105,6 +145,7 @@ const EditProfilePage: React.FC = () => {
                   avatarFile
                 );
                 setAvatarBase64DataUrl(avatarB64);
+                setIsAvatarEdited(true);
               }}
             />
             <Badge
@@ -132,6 +173,7 @@ const EditProfilePage: React.FC = () => {
               color="warning"
               onClick={() => {
                 setAvatarBase64DataUrl(null);
+                setIsAvatarEdited(false);
               }}
             >
               <DeleteOutlineIcon />
@@ -150,6 +192,7 @@ const EditProfilePage: React.FC = () => {
                 name="displayName"
                 label="Display Name"
                 id="displayName"
+                className={classes.nameInput}
               />
             )}
           />
@@ -159,10 +202,9 @@ const EditProfilePage: React.FC = () => {
           selectedCharacter={selectedCharacter}
           setSelectedCharacter={setSelectedCharacter}
         />
-
         <Button
           type="submit"
-          fullWidth
+          className={classes.submitButton}
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
