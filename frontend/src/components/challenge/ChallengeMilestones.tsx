@@ -18,7 +18,10 @@ import {
 import { makeStyles } from '@mui/styles';
 import { TaskListData } from '../../types/tasks';
 import { UserTaskListData } from '../../types/usertasks';
-import { markUserTaskAsDoneFromChallenge } from '../../store/usertasks/operations';
+import {
+  markUserTaskAsDoneFromChallenge,
+  markUserTaskAsNotDoneFromChallenge,
+} from '../../store/usertasks/operations';
 import { isBefore, isToday } from 'date-fns';
 import Linkify from 'react-linkify';
 
@@ -112,13 +115,26 @@ const ChallengeMilestones: React.FC<ChallengeMilestonesProps> = (props) => {
   };
 
   const renderCorrectIcon = (taskId: number) => {
+    const userTask = userTasks?.find((userTask) => userTask.taskId == taskId);
+
     if (!isEnrolled) return <Circle className={classes.timelineCircle} />;
 
     if (isCompleted[taskId]) {
-      return <CheckRounded className={classes.checkRounded} />;
+      return (
+        <CheckRounded
+          className={classes.checkRounded}
+          onClick={() => {
+            if (!userTask) {
+              throw new Error('No matching user task found for task');
+            }
+            dispatch(markUserTaskAsNotDoneFromChallenge(userTask.id));
+          }}
+          style={{
+            cursor: 'pointer',
+          }}
+        />
+      );
     }
-
-    const userTask = userTasks.find((userTask) => userTask.taskId == taskId);
 
     // Next task that is not in the future.
     if (isNextTask(taskId) && !isBefore(new Date(), scheduledFor[taskId])) {

@@ -6,6 +6,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import {
   loadAllOngoingChallengeMaps,
   loadAllUserChallengesDataForChallenge,
+  loadChallengeMap,
 } from 'store/userchallenges/operations';
 import { OperationResult } from 'types/store';
 import { UserTaskData, UserTaskListData } from 'types/usertasks';
@@ -101,13 +102,28 @@ export function markUserTaskAsDoneFromChallenge(
   );
 }
 
-export function markUserTaskAsNotDone(userTaskId: number): OperationResult {
+export function markUserTaskAsNotDoneFromHome(
+  userTaskId: number
+): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const response = await api.userTasks.markUserTaskAsNotDone(userTaskId);
     const userTask: UserTaskData = response.payload.data;
     batch(() => {
       dispatch(saveUserTaskForDay(userTask.scheduledFor, userTask));
       dispatch(loadAllOngoingChallengeMaps());
+    });
+  };
+}
+
+export function markUserTaskAsNotDoneFromChallenge(
+  userTaskId: number
+): OperationResult {
+  return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
+    const response = await api.userTasks.markUserTaskAsNotDone(userTaskId);
+    const userTask: UserTaskData = response.payload.data;
+    batch(() => {
+      dispatch(loadAllUserChallengesDataForChallenge(userTask.challengeId));
+      dispatch(loadChallengeMap(userTask.challengeId));
     });
   };
 }
