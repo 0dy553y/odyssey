@@ -29,10 +29,10 @@ Start your odyssey today with [Odyssey](https://odyssey-app.com)!
 
 | Member      | Role |
 | ----------- | ----------- |
-| Cai Jia Lin (A0205575A) | Full stack, UI, documentation |
-| Ian Yong Yew Chuang (A0135451M) | Full stack, deployment, documentation |
-| Sebastian Toh Shi Jian (A0196545R) | Full stack, deployment, documentation |
-| Wu Weiming (A0210627N) | Frontend, UI, documentation |
+| Cai Jia Lin (A0205575A) | UI/ UX, full stack, marketing |
+| Ian Yong Yew Chuang (A0135451M) | UX, full stack, deployment |
+| Sebastian Toh Shi Jian (A0196545R) | UX, full stack, deployment |
+| Wu Weiming (A0210627N) | UI/ UX, full stack, marketing |
 
 ## Getting Started
 
