@@ -39,7 +39,7 @@ $ yarn lint --fix
 To specify a new version before each deployment, run the following command in the branch that will be deployed:
 
 ```bash
-yarn version
+$ yarn version
 ```
 
 A prompt will appear asking for the new version number. Refer to https://semver.org for versioning conventions.
