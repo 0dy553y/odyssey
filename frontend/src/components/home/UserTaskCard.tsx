@@ -14,7 +14,7 @@ import MapIcon from '@mui/icons-material/Map';
 import { makeStyles } from '@mui/styles';
 import {
   markUserTaskAsDoneFromHome,
-  markUserTaskAsNotDone,
+  markUserTaskAsNotDoneFromHome,
 } from '../../store/usertasks/operations';
 import { useDispatch } from 'react-redux';
 import { getHexCode, getComplementaryColor } from 'utils/color';
@@ -135,7 +135,7 @@ const UserTaskCard: React.FC<Props> = ({
         )
       );
     } else {
-      dispatch(markUserTaskAsNotDone(userTask.id));
+      dispatch(markUserTaskAsNotDoneFromHome(userTask.id));
     }
   };
 
