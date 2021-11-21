@@ -70,6 +70,9 @@ const DateCarousel: React.FC<Props> = ({
   const shiftDatesLeft = (by: number) => {
     if (by <= 0) {
       return;
+    } else if (by > dateRange) {
+      shiftDatesLeft(by - dateRange);
+      by = dateRange;
     }
     const newDates = dates.slice(0, -by);
     for (let i = 0; i < by; i++) {
@@ -83,6 +86,9 @@ const DateCarousel: React.FC<Props> = ({
   const shiftDatesRight = (by: number) => {
     if (by <= 0) {
       return;
+    } else if (by > dateRange) {
+      shiftDatesRight(by - dateRange);
+      by = dateRange;
     }
     const newDates = dates.slice(by);
     for (let i = 0; i < by; i++) {
