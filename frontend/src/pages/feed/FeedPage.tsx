@@ -4,9 +4,11 @@ import {
   Badge,
   Box,
   Fab,
+  Grid,
   Theme,
   ToggleButton,
   ToggleButtonGroup,
+  Typography,
 } from '@mui/material';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import AddIcon from '@mui/icons-material/AddRounded';
@@ -25,6 +27,8 @@ import { ChallengeListData } from 'types/challenges';
 import api from 'api';
 import { MemoizedFeedPostList } from 'components/feed/FeedPostList';
 import { useIsDesktop } from 'utils/windowSize';
+import astronaut from 'assets/gifs/obebebe.gif';
+import { LOADING_DELAY } from 'utils/constants';
 
 const useStyles = makeStyles((theme: Theme) => ({
   toggleButtonContainer: {
@@ -67,11 +71,23 @@ const useStyles = makeStyles((theme: Theme) => ({
     right: theme.spacing(3),
     bottom: theme.spacing(3),
   },
+  text: {
+    color: 'gray',
+    marginLeft: 50,
+    marginRight: 50,
+    marginBottom: 100,
+  },
+  astronaut: {
+    maxHeight: '5em',
+    marginBottom: '1em',
+  },
 }));
 
 interface FeedPageState {
   selectedToggle: 'friends' | 'community';
   isCreatePostModalOpen: boolean;
+  isFetchingPosts: boolean;
+  shouldShowLoading: boolean;
   ongoingAndCompletedChallenges: ChallengeListData[];
 }
 
@@ -93,6 +109,8 @@ const FeedPage: React.FC = () => {
     {
       selectedToggle: 'friends',
       isCreatePostModalOpen: false,
+      isFetchingPosts: true,
+      shouldShowLoading: false,
       ongoingAndCompletedChallenges: [],
     }
   );
@@ -105,10 +123,31 @@ const FeedPage: React.FC = () => {
         ongoingAndCompletedChallenges: resp.payload.data,
       });
     });
-    dispatch(loadAllPosts());
+    dispatch(loadAllPosts(() => setState({ isFetchingPosts: false })));
+    setTimeout(() => {
+      setState({ shouldShowLoading: true });
+    }, LOADING_DELAY);
   }, []);
 
   const renderContent = () => {
+    if (state.isFetchingPosts) {
+      return state.shouldShowLoading ? (
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          sx={{ height: '100%' }}
+        >
+          <img src={astronaut} className={classes.astronaut} />
+          <Typography className={classes.text} align="center">
+            Loading posts...
+          </Typography>
+        </Grid>
+      ) : (
+        <></>
+      );
+    }
     return (
       <MemoizedFeedPostList
         posts={
