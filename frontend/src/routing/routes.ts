@@ -9,7 +9,7 @@ import CategoryPage from '../pages/category';
 import ChallengeDetailsPage from '../pages/challenge';
 import ExplorePage from '../pages/explore';
 import FeedPage from '../pages/feed';
-import AddFriendsPage from '../pages/friends/AddFriendsPage';
+import SearchUsersPage from '../pages/friends/SearchUsersPage';
 import HomePage from '../pages/home';
 import LoginPage from '../pages/login';
 import { CompletedMapPage, OngoingMapPage } from '../pages/maps';
@@ -27,7 +27,7 @@ export const PROFILE_ROUTE = '/profile';
 export const CATEGORY_ROUTE = '/category';
 export const EDIT_PROFILE_ROUTE = '/edit-profile';
 export const FRIENDS_ROUTE = '/friends';
-export const ADD_FRIENDS_ROUTE = '/add-friends';
+export const SEARCH_USERS_ROUTE = '/search-users';
 export const NOTIFICATIONS_ROUTE = '/notifications';
 export const MEMENTOS_ROUTE = '/mementos';
 export const POSTS_ROUTE = '/posts';
@@ -68,7 +68,7 @@ export const privateRoutes: RouteEntry[] = [
     path: CHALLENGE_ROUTE + '/:challengeId',
     component: ChallengeDetailsPage,
   },
-  { path: ADD_FRIENDS_ROUTE, component: AddFriendsPage, exact: true },
+  { path: SEARCH_USERS_ROUTE, component: SearchUsersPage, exact: true },
   { path: FRIENDS_ROUTE, component: FriendsPage, exact: true },
   { path: FRIENDS_ROUTE + '/:username', component: FriendsPage, exact: true },
   { path: NOTIFICATIONS_ROUTE, component: NotificationsPage, exact: true },

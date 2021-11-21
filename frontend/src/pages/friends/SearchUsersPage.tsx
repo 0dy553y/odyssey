@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const AddFriendsPage: React.FC = () => {
+const SearchUsersPage: React.FC = () => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -66,7 +66,7 @@ const AddFriendsPage: React.FC = () => {
       </AppBar>
 
       <Typography component="h1" variant="h4" style={{ fontFamily: 'Frock' }}>
-        Add friends
+        Search users
       </Typography>
       <TextField
         fullWidth
@@ -88,4 +88,4 @@ const AddFriendsPage: React.FC = () => {
   );
 };
 
-export default AddFriendsPage;
+export default SearchUsersPage;
