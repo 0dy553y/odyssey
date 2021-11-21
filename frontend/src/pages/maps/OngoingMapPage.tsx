@@ -52,7 +52,7 @@ const OngoingMapsPage: React.FC = () => {
     batch(() => {
       dispatch(loadChallengeMap(Number(challengeId)));
     });
-  }, []);
+  }, [challengeId]);
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const mapData = useSelector((state: RootState) =>
