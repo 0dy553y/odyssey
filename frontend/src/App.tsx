@@ -89,11 +89,7 @@ function App(): JSX.Element {
             <Container
               className="column-container"
               disableGutters
-              maxWidth={
-                isDesktop || location.pathname.includes(ONBOARDING_ROUTE)
-                  ? false
-                  : 'sm'
-              }
+              maxWidth={'md'}
             >
               <Switch>
                 {isValidatingToken ? (
