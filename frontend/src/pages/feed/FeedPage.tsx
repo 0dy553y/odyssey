@@ -28,6 +28,7 @@ import api from 'api';
 import { MemoizedFeedPostList } from 'components/feed/FeedPostList';
 import { useIsDesktop } from 'utils/windowSize';
 import astronaut from 'assets/gifs/obebebe.gif';
+import { LOADING_DELAY } from 'utils/constants';
 
 const useStyles = makeStyles((theme: Theme) => ({
   toggleButtonContainer: {
@@ -125,7 +126,7 @@ const FeedPage: React.FC = () => {
     dispatch(loadAllPosts(() => setState({ isFetchingPosts: false })));
     setTimeout(() => {
       setState({ shouldShowLoading: true });
-    }, 200);
+    }, LOADING_DELAY);
   }, []);
 
   const renderContent = () => {
