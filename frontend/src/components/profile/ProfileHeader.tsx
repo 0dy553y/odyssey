@@ -1,10 +1,9 @@
 import React from 'react';
-import { Box, IconButton, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { displayUsername } from 'utils/formatting';
 import { UserData } from 'types/auth';
 import UserAvatar from 'components/common/userAvatar';
 import FriendControls from './FriendControls';
-import CharacterDisplay from 'components/common/CharacterDisplay';
 
 import './ProfileHeader.scss';
 
@@ -22,35 +21,22 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = (props) => {
 
   return (
     <Box className="profile-header">
-      <IconButton>
-        <Box sx={{ position: 'relative' }}>
-          <UserAvatar
-            className="avatar"
-            src={user.avatar}
-            username={user.username}
-            displayName={user.displayName}
-            character={user.character}
-            shouldLinkToProfile={false}
-          />
-          {user.avatar ? (
-            <Box
-              sx={{
-                position: 'absolute',
-                height: '100%',
-                width: '100%',
-                transform: 'translate(40%, -90%)',
-              }}
-            >
-              <CharacterDisplay
-                character={user.character}
-                scaleOverride={1.3}
-              />
-            </Box>
-          ) : (
-            <></>
-          )}
-        </Box>
-      </IconButton>
+      <Box
+        sx={{
+          position: 'relative',
+          justifyContent: 'center',
+          display: 'flex',
+        }}
+      >
+        <UserAvatar
+          className="avatar"
+          src={user.avatar}
+          username={user.username}
+          displayName={user.displayName}
+          character={user.character}
+          shouldLinkToProfile={false}
+        />
+      </Box>
 
       <Typography component="h1" variant="h5">
         {user.displayName}
