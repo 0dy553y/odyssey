@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { displayUsername } from 'utils/formatting';
 import { UserData } from 'types/auth';
 import UserAvatar from 'components/common/userAvatar';
