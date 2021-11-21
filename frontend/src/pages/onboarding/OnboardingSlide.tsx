@@ -8,7 +8,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   onboardingImage: {
     filter: 'invert(1)',
     height: '45vh',
-    marginTop: '15vh',
+    [theme.breakpoints.down('sm')]: {
+      maxHeight: '40vh',
+    },
     marginBottom: '1em',
   },
   description: {
@@ -16,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: 'white',
     [theme.breakpoints.down('sm')]: {
       maxWidth: '70vw',
+      fontSize: '1em',
     },
   },
 }));
@@ -43,11 +46,17 @@ const OnboardingSlide: React.FC<OnboardingSlideProps> = (props) => {
           background: color,
         }}
       >
-        <img src={imgUrl.default} className={classes.onboardingImage} />
-        <br />
-        <Typography variant="h5" className={classes.description}>
-          {description}
-        </Typography>
+        <div
+          style={{
+            transform: 'translateY(25%)',
+          }}
+        >
+          <img src={imgUrl.default} className={classes.onboardingImage} />
+          <br />
+          <Typography variant="h5" className={classes.description}>
+            {description}
+          </Typography>
+        </div>
       </div>
     </>
   );
