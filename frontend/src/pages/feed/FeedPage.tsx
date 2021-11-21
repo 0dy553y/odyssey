@@ -86,6 +86,7 @@ interface FeedPageState {
   selectedToggle: 'friends' | 'community';
   isCreatePostModalOpen: boolean;
   isFetchingPosts: boolean;
+  shouldShowLoading: boolean;
   ongoingAndCompletedChallenges: ChallengeListData[];
 }
 
@@ -108,6 +109,7 @@ const FeedPage: React.FC = () => {
       selectedToggle: 'friends',
       isCreatePostModalOpen: false,
       isFetchingPosts: true,
+      shouldShowLoading: false,
       ongoingAndCompletedChallenges: [],
     }
   );
@@ -121,11 +123,14 @@ const FeedPage: React.FC = () => {
       });
     });
     dispatch(loadAllPosts(() => setState({ isFetchingPosts: false })));
+    setTimeout(() => {
+      setState({ shouldShowLoading: true });
+    }, 200);
   }, []);
 
   const renderContent = () => {
     if (state.isFetchingPosts) {
-      return (
+      return state.shouldShowLoading ? (
         <Grid
           container
           direction="column"
@@ -138,6 +143,8 @@ const FeedPage: React.FC = () => {
             Loading posts...
           </Typography>
         </Grid>
+      ) : (
+        <></>
       );
     }
     return (
