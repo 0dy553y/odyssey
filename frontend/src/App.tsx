@@ -89,7 +89,7 @@ function App(): JSX.Element {
             <Container
               className="column-container"
               disableGutters
-              maxWidth={'md'}
+              maxWidth={isDesktop ? false : 'md'}
             >
               <Switch>
                 {isValidatingToken ? (
