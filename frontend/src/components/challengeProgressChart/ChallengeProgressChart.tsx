@@ -34,13 +34,18 @@ const getDataPoints = (
   data: ChallengeProgressData[],
   totalNumberOfTasks: number
 ): ProgressChartDataPoint[] => {
-  return data.map((datum) => {
-    return {
-      ...datum,
-      percentage: ((datum.taskIndex + 1) / totalNumberOfTasks) * 100,
-      timestamp: datum.taskCompletionDate.getTime(),
-    };
-  });
+  return data
+    .slice()
+    .sort(
+      (a, b) => a.taskCompletionDate.getTime() - b.taskCompletionDate.getTime()
+    )
+    .map((datum, idx) => {
+      return {
+        ...datum,
+        percentage: ((idx + 1) / totalNumberOfTasks) * 100,
+        timestamp: datum.taskCompletionDate.getTime(),
+      };
+    });
 };
 
 const ChallengeProgressChart: React.FC<ChallengeProgressChartProps> = ({
