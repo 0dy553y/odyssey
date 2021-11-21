@@ -17,10 +17,13 @@ import {
   updatePost,
 } from './actions';
 
-export function loadAllPosts(): OperationResult {
+export function loadAllPosts(onPostsLoaded?: () => void): OperationResult {
   return async (dispatch: ThunkDispatch<RootState, undefined, AnyAction>) => {
     const friendPostsResp = await api.posts.getFriendPostsList();
     const communityPostsResp = await api.posts.getCommunityPostsList();
+
+    // Call callback if it is defined.
+    onPostsLoaded && onPostsLoaded();
 
     batch(() => {
       dispatch(setFriendPostList(friendPostsResp.payload.data));
