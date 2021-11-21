@@ -129,7 +129,7 @@ task add_drawing_challenges: :environment do
     challenge_portrait_drawing = Challenge.create!(category_id: category_creativity.id,
                                                name: 'Portrait Drawing',
                                                description: challenge_portrait_drawing_desc,
-                                               duration: 30,
+                                               duration: 31,
                                                schedule: 'Every day for 1 month',
                                                creator_id: user_odyssey.id,
                                                color: 2,
