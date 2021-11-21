@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Box,
   ListItem,
   ListItemText,
   ListItemAvatar,
@@ -132,17 +133,20 @@ export const FeedPost: React.FC<FeedPostProps> = ({
         />
       </ListItemAvatar>
       <Grid container alignItems="center">
-        <ListItemText
-          classes={{ primary: classes.listItemText }}
-          onClick={() => {
-            history.push(
-              `${PROFILE_ROUTE}${
-                creator.id === currentUserId ? '' : '/' + creator.username
-              }`
-            );
-          }}
-          primary={creator.displayName ?? displayUsername(creator.username)}
-        />
+        <Box component="span">
+          <ListItemText
+            classes={{ primary: classes.listItemText }}
+            onClick={() => {
+              history.push(
+                `${PROFILE_ROUTE}${
+                  creator.id === currentUserId ? '' : '/' + creator.username
+                }`
+              );
+            }}
+            primary={creator.displayName ?? displayUsername(creator.username)}
+          />
+        </Box>
+
         <Grid
           item
           xs={12}
