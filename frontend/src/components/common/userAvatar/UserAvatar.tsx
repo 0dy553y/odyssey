@@ -38,7 +38,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
   }, []);
 
   const diameterCutoff = 100;
-  /* eslint-disable */
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const iconImage = require(`../../../assets/images/avatars/${Character[
     character
   ].toLowerCase()}.png`);
