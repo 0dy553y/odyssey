@@ -10,7 +10,7 @@ import {
 } from 'store/userchallenges/operations';
 import { OperationResult } from 'types/store';
 import { UserTaskData, UserTaskListData } from 'types/usertasks';
-import { getISOStringAtStartOfDay } from 'utils/date';
+import { getISOStringAtStartOfDay, getNeighbouringDates } from 'utils/date';
 import { withStatusMessages } from 'utils/ui';
 import { RootState } from '../index';
 import {
@@ -31,6 +31,11 @@ export function loadUserTasksForDays(
     const userTasks: UserTaskListData[] = response.payload.data;
 
     const userTasksMap: { [isoDate: string]: UserTaskListData[] } = {};
+    getNeighbouringDates(date, range).forEach((date) => {
+      const dateISO = getISOStringAtStartOfDay(date);
+      userTasksMap[dateISO] = [];
+    });
+
     userTasks.forEach((userTask) => {
       const date = getISOStringAtStartOfDay(userTask.scheduledFor);
       const userTasks = userTasksMap[date] ?? [];
