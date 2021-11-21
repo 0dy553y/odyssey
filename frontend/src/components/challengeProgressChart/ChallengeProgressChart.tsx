@@ -56,7 +56,6 @@ const ChallengeProgressChart: React.FC<ChallengeProgressChartProps> = ({
   challengeEnrolledDate,
 }) => {
   const isChallengeCompleted = data.length === totalNumberOfTasks;
-  console.log(data);
 
   const defaultStyles = {
     color: '#8884d8',
