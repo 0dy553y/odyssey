@@ -13,7 +13,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import FriendsList from 'components/friendsList';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { makeStyles } from '@mui/styles';
-import { ADD_FRIENDS_ROUTE } from '../../routing/routes';
+import { SEARCH_USERS_ROUTE } from '../../routing/routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../store/auth/selectors';
 import { RootState } from '../../store';
@@ -79,7 +79,7 @@ const FriendsPage: React.FC = () => {
       {isOwnFriendsPage && (
         <Fab
           className={classes.fab}
-          onClick={() => history.push(ADD_FRIENDS_ROUTE)}
+          onClick={() => history.push(SEARCH_USERS_ROUTE)}
         >
           <PersonAddAlt1Icon />
         </Fab>
