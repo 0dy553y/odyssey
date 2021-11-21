@@ -66,7 +66,7 @@ const SearchUsersPage: React.FC = () => {
       </AppBar>
 
       <Typography component="h1" variant="h4" style={{ fontFamily: 'Frock' }}>
-        Search Users
+        Search users
       </Typography>
       <TextField
         fullWidth
