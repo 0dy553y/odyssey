@@ -38,10 +38,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
   }, []);
 
   const diameterCutoff = 100;
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const iconImage = require(`../../../assets/images/avatars/${Character[
-    character
-  ].toLowerCase()}.png`);
+  const iconImageUrl = `/avatars/${Character[character].toLowerCase()}.png`;
 
   return (
     <Avatar
@@ -67,7 +64,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
     >
       {diameter < diameterCutoff ? (
         <img
-          src={iconImage.default}
+          src={iconImageUrl}
           style={{ width: '100%', marginBottom: '-10%' }}
         />
       ) : (
