@@ -39,7 +39,7 @@ task update_walking_and_journaling_challenges: :environment do
   challenge_walking = Challenge.create(category_id: category_exercise.id,
                                        name: 'Walking More',
                                        description: challenge_walking_desc,
-                                       duration: 21,
+                                       duration: 28,
                                        schedule: 'Daily',
                                        creator_id: user_odyssey.id,
                                        color: 4)
