@@ -49,6 +49,6 @@ ENTRYPOINT ["entrypoint-frontend.sh"]
 EXPOSE 80
 EXPOSE 443
 
-# Run NGINX in the foreground so that Docker can track it properly
-CMD ["nginx", "-g", "daemon off;"]
-
+# Add a script containing the main command to be executed
+COPY deployment/scripts/cmd-frontend.sh /usr/bin/
+CMD ["cmd-frontend.sh"]
