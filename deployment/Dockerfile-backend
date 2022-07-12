@@ -17,9 +17,8 @@ RUN gem install bundler
 RUN bundle install
 
 # Add a script to be executed every time the container starts
-COPY deployment/entrypoint-scripts/backend.sh /usr/bin/
-RUN chmod +x /usr/bin/backend.sh
-ENTRYPOINT ["backend.sh"]
+COPY deployment/scripts/entrypoint-backend.sh /usr/bin/
+ENTRYPOINT ["entrypoint-backend.sh"]
 
 # Expose port
 EXPOSE 8001
