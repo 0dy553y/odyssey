@@ -42,14 +42,13 @@ COPY deployment/nginx/sites-enabled/* /etc/nginx/sites-enabled/
 COPY deployment/env.template.js $APP_ROOT/env.template.js
 
 # Add a script to be executed every time the container starts
-COPY deployment/entrypoint-scripts/frontend.sh /usr/bin/
-RUN chmod +x /usr/bin/frontend.sh
-ENTRYPOINT ["frontend.sh"]
+COPY deployment/scripts/entrypoint-frontend.sh /usr/bin/
+ENTRYPOINT ["entrypoint-frontend.sh"]
 
 # Expose ports
 EXPOSE 80
 EXPOSE 443
 
-# Run NGINX in the foreground so that Docker can track it properly
-CMD ["nginx", "-g", "daemon off;"]
-
+# Add a script containing the main command to be executed
+COPY deployment/scripts/cmd-frontend.sh /usr/bin/
+CMD ["cmd-frontend.sh"]
